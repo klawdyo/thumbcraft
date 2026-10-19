@@ -26,9 +26,10 @@ motor é um adaptador no binário; o roteamento é por conteúdo e extensão.
 
 ## Exceções às specs compartilhadas
 
-1. **`versioner` ainda não cobre Rust.** Ele só atualiza `package.json`, `pubspec.yaml`, `pyproject.toml` e `go.mod`; a
-   versão deste projeto está em `Cargo.toml` (`[workspace.package]`). O suporte está sendo feito no repositório do
-   versioner; até ficar pronto, não usar o `versioner` aqui e não editar versão à mão sem pedido do dono.
+1. **Versão em `Cargo.toml`.** O `versioner` (0.6.0 ou mais novo) atualiza `[workspace.package] version`, mas
+   não toca o `Cargo.lock`: depois de um release, rode `cargo update --workspace` e commite à parte (o build usa
+   `--locked`). O `versioner` só roda sob pedido explícito do dono; a base do cálculo vem do histórico git
+   (`release: X.Y.Z`), não do manifesto, então o primeiro release precisa ser combinado com o dono.
 2. **Regras de API, auth e erros HTTP** não se aplicam (CLI). Códigos de saída: ver `docs/ARCHITECTURE.md`.
 3. **Documentação em `docs/`** é em português; o `README.md` é em inglês por pedido do dono.
 
