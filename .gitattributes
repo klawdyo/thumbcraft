@@ -1,4 +1,4 @@
 * text=auto eol=lf
-# Patches e binários nunca são convertidos.
-patches/**/*.patch -text
+# Patches e binários nunca são convertidos; patches também ficam fora da checagem de espaço (linhas de contexto vazias).
+patches/**/*.patch -text -whitespace
 *.png binary
