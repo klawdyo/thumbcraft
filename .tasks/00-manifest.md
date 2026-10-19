@@ -11,6 +11,6 @@ Formato em `docs/rules/task-template.md` (fluxo em `docs/rules/workflow-and-agen
 | 05 | 05-platform-builds.md | Build e testes em Windows e Linux, tabela por plataforma | todo | — |
 | 06 | 06-ci-release-npm.md | CI de testes e release no npm | todo | 04, 05 |
 | 07 | 07-english-identifiers.md | Identificadores e nomes de testes em inglês no código existente | done | — |
-| 08 | 08-pdf-engine.md | Motor de PDF (hayro via craft-pdf) no binário unificado, com medição de proteções e tamanho | doing | — |
+| 08 | 08-pdf-engine.md | Motor de PDF (hayro via craft-pdf) no binário unificado, com medição de proteções e tamanho | done | — |
 
 Status: `todo`, `doing`, `done`, `blocked`.
