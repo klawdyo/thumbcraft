@@ -1,75 +1,119 @@
 # thumbcraft
 
-Um binário simples que recebe um arquivo de documento, planilha ou apresentação e devolve uma imagem (thumbnail). Reúne em um único executável os motores de três projetos da organização storytold, escritos em Rust e sem dependência de LibreOffice, GPU ou serviços externos:
+A single command-line binary that takes a Word document, a spreadsheet or a presentation and writes a thumbnail image (PNG, JPEG or WebP). It bundles the rendering engines of three Rust projects from the [storytold](https://github.com/storytold) organization, with no dependency on LibreOffice, a GPU or any external service:
 
-| Motor | Projeto | Entrada |
+| Engine | Project | Input |
 |---|---|---|
-| WordCraft | https://github.com/storytold/wordcraft | Word e afins |
-| GridCraft | https://github.com/storytold/gridcraft | planilhas (Excel) |
-| DeckCraft | https://github.com/storytold/deckcraft | apresentações (PowerPoint) |
+| WordCraft | https://github.com/storytold/wordcraft | Word and similar documents |
+| GridCraft | https://github.com/storytold/gridcraft | Spreadsheets (Excel) |
+| DeckCraft | https://github.com/storytold/deckcraft | Presentations (PowerPoint) |
 
-O thumbcraft será usado em outro projeto, em um fluxo de upload de arquivos, junto com outros tipos de arquivo já cobertos. O motor é escolhido pelo conteúdo (e pela extensão) do arquivo.
+The engine is chosen from the file content (and, when the content is ambiguous, the extension), so a file with the wrong extension still goes to the right engine. thumbcraft is meant to be called from a file-upload pipeline, one process per file.
 
-## Objetivo e opções de imagem
+> Most project documentation under `docs/` is written in Portuguese. This README and the code identifiers are in English.
 
-O binário aceita opções de cortar (`--trim` e `--crop`), redimensionar (`-W` e `-H`) e ajustar o conteúdo à caixa de saída (`--fit contain` ou `--fit cover`, com `--gravity` e `--background`). Por isso a renderização interna é feita em alta resolução (os *craft renderizam nativamente, e o thumbcraft reduz o resultado), e só depois a imagem é cortada e reduzida.
+## Supported formats
 
-## Por que este projeto existe: uma ponte
-
-Os *craft continuam evoluindo. O thumbcraft existe como ponte enquanto isso: por exemplo, o GridCraft ainda não gera PNG, então o thumbcraft aplica um patch (`patches/gridcraft/`) que adiciona `file.exportPng`. Se o GridCraft ganhar PNG nativo, o patch sai. O repositório guarda por isso o que foi feito, o que foi testado, com quais arquivos de exemplo e os resultados comparativos (tempo, tamanho, taxa de sucesso e qualidade visual) do código original dos *craft contra o LibreOffice e contra as alternativas, para permitir reavaliar a atualização das versões.
-
-## Formatos
-
-| Motor | Lê | Não lê |
+| Engine | Reads | Does not read |
 |---|---|---|
-| WordCraft | .docx, .doc (Word 97-2003), .odt, .rtf, .html, .md, .tex, .txt (e docm, dotx, dotm, dot, WordML) | PDF |
-| GridCraft (com patch de PNG) | .xlsx, .xlsm, .xls (só dados, fórmulas e formatos), .ods e .xlsb (só dados), .csv, .tsv | PDF |
-| DeckCraft | .pptx, .potx, .ppsx | **.ppt, .odp**, PDF |
+| WordCraft | `.docx`, `.doc` (Word 97-2003), `.odt`, `.rtf`, `.html`, `.md`, `.tex`, `.txt` (plus docm, dotx, dotm, dot, WordML) | PDF |
+| GridCraft (with the PNG patch) | `.xlsx`, `.xlsm`, `.xls` (data, formulas and formats only), `.ods` and `.xlsb` (data only), `.csv`, `.tsv` | PDF |
+| DeckCraft | `.pptx`, `.potx`, `.ppsx` | **`.ppt`, `.odp`**, PDF |
 
-PDF não é suportado pelos três motores por enquanto (a avaliação de alternativas está em `docs/PDF.md`, quando existir). Limitações por motor: `docs/PITFALLS.md`.
+PDF input is not supported yet (exit code 3). Alternatives were evaluated in `docs/PDF.md` (Linux) and `docs/PDF-WINDOWS.md` (Windows). Known limitations per engine are in `docs/PITFALLS.md`.
 
-## Uso
-
-Rascunho do contrato da CLI, **a confirmar com `thumbcraft --help`** (o construtor ainda ajusta a implementação):
+## Usage
 
 ```
-thumbcraft ENTRADA SAÍDA [-W px] [-H px] [--fit cover|contain]
-           [--gravity top|center|...] [--background branco|transparent|#RRGGBB]
-           [--trim] [--trim-pad px] [--crop x,y,l,a]   (frações de 0 a 1)
-           [--page N] [--render-scale auto|px/pt] [--native-scale S]
-thumbcraft --formats | --version | --help
+thumbcraft INPUT OUTPUT [options]
+thumbcraft --formats | --version | --help | --detect FILE
 ```
 
-Códigos de saída: 0 ok, 2 uso, 3 formato não suportado, 4 arquivo inválido, 5 erro interno.
-
-Exemplo (a confirmar): `thumbcraft relatorio.docx miniatura.png -W 120 -H 120 --fit cover --gravity top`.
-
-## Como compilar
-
-Ver `docs/BUILD.md`. Em resumo, `scripts/build.sh` busca os três projetos upstream em SHAs fixos (`scripts/fetch-upstream.sh`, em `third_party/`), aplica o patch do GridCraft e compila em release com perfil de tamanho. Exige Rust 1.95 ou mais novo (edition 2024) e acesso ao GitHub. Um build limpo leva dezenas de minutos em 2 vCPUs. Versões em uso: `UPSTREAM.md`. Tamanhos: `docs/SIZES.md`.
-
-## Estrutura de pastas
-
-| Caminho | Conteúdo |
+| Option | Meaning |
 |---|---|
-| `crates/` | código do thumbcraft |
-| `scripts/` | build, busca dos upstream, execução dos corpora, comparação nativa e resumo |
-| `patches/gridcraft/` | patch de exportação PNG do GridCraft (ver `docs/PR-GRIDCRAFT.md`) |
-| `third_party/` | upstream baixados em SHAs fixos (gerado, não versionado) |
-| `corpus/docx/`, `corpus/xlsx/`, `corpus/pptx/` | arquivos de entrada de teste (30, 57 e 46 arquivos) com `MANIFEST.tsv`, mais 48 variantes mutadas de pptx e 16 planilhas da regressão do PDF |
-| `baselines/word/`, `baselines/excel/`, `baselines/powerpoint/` | resultados de 2026-10-19: *craft contra LibreOffice contra protótipos, imagens reduzidas, amostras e fontes dos protótipos |
-| `baselines/gridcraft-pdf-regression/` | teste de regressão do PDF do GridCraft (325 de 325 casos) |
-| `reports/` | relatórios finais dos subagentes da sessão de origem, com índice |
-| `docs/` | `HISTORY.md` (narrativa), `DECISIONS.md`, `TESTS.md`, `RESULTS.md`, `CRAFT-FAMILY.md`, `PR-GRIDCRAFT.md`, `UPDATING.md`, `ENVIRONMENT.md`, `PITFALLS.md`, `STATUS.md`, e os de construção (`BUILD.md`, `SIZES.md`, `ARCHITECTURE.md`, `PDF.md`) |
+| `-W, --width <px>` / `-H, --height <px>` | Final size; one alone keeps the aspect ratio |
+| `--fit <cover\|contain>` | With both sizes: fill and crop (default) or fit inside the box |
+| `--gravity <pos>` | `top`, `bottom`, `left`, `right`, `center`, `top-left`, `top-right`, `bottom-left`, `bottom-right` (default: top for cover, center for contain) |
+| `--background <color>` | Background for contain and for transparency: `white` (default), `transparent` or `#RRGGBB` |
+| `--trim`, `--trim-pad <px>` | Remove blank or transparent margins, keeping a margin in native pixels (default 8) |
+| `--crop x,y,w,h` | Crop rectangle as fractions (0 to 1) of the rendered page, applied before resizing |
+| `--render-scale <auto\|px/pt>` | Native render scale (`auto` renders at about twice the target) |
+| `--filter <lanczos\|area>` | Downscale filter (default `lanczos`) |
+| `--page <N>` | Page, slide or print page, starting at 1 (default 1) |
+| `--format <png\|jpeg\|webp>`, `--quality <1-100>` | Output format (default: from the output extension; WebP is lossless) and JPEG quality (default 85) |
+| `--native-scale <S>` | Test mode: write the engine's native render at S px/pt, with no post-processing |
 
-## Como retomar
+Example:
 
-Para avaliar a viabilidade de atualizar os *craft, siga `docs/UPDATING.md` (playbook passo a passo: buscar os novos SHAs, ver o que mudou, reaplicar patches, rodar os corpora, comparar com `baselines/` e registrar o resultado). Leia antes `docs/HISTORY.md` e `docs/PITFALLS.md`.
+```sh
+thumbcraft report.docx thumb.png -W 120 -H 120 --fit cover --gravity top
+```
 
-## Aviso sobre os dados guardados
+Rendering is done at high resolution first (the engines render natively and thumbcraft scales the result down), and only then cropped and resized.
 
-O corpus e os baselines são de 2026-10-19 (Linux x86_64, 2 vCPUs compartilhadas, LibreOffice 24.2.7.2, Rust 1.97.0), sobre os commits `117aea31` (WordCraft), `66ce6be4` (GridCraft) e `010941ec` (DeckCraft). Os tempos têm ruído. O repositório não guarda binários, PNGs completos, PDFs golden nem clones dos *craft: apenas hashes, receitas e amostras reduzidas. Tamanhos em MB decimais (1 MB = 1.000.000 bytes) com MiB entre parênteses.
+### Exit codes
 
-## Licença
+| Code | Meaning |
+|---|---|
+| 0 | Success |
+| 2 | Invalid usage (bad option or value out of range) |
+| 3 | Unsupported format (`.ppt`, `.odp`, PDF, unknown extension) |
+| 4 | Invalid file, or failure to open or render it (includes a missing page and a damaged first slide) |
+| 5 | Internal error (includes failing to write the output) |
 
-Apache License 2.0 (arquivo `LICENSE`). Os projetos *craft em `third_party/` têm as próprias licenças (MIT ou Apache-2.0).
+Error messages are printed to stderr in Portuguese. The release profile uses `panic = "abort"`, so an internal engine failure kills the process (no message, status 134 on Linux): always run one process per file, with a timeout, and treat any status outside 0 to 5 as a failure.
+
+## Why this project exists: a bridge
+
+The craft engines keep evolving, and thumbcraft is a bridge in the meantime. For example, GridCraft cannot write PNG yet, so thumbcraft applies a patch (`patches/gridcraft/`) that adds `file.exportPng`; if GridCraft gains native PNG output, the patch goes away. The repository therefore keeps what was done, what was tested, with which sample files, and the comparative results (time, size, success rate and visual quality) of the original engines against LibreOffice and against alternatives, so that upgrading the pinned versions can be re-evaluated (`docs/UPDATING.md`).
+
+## Building
+
+See `docs/BUILD.md`. In short:
+
+```sh
+scripts/build.sh          # fetches the three upstream projects at pinned SHAs, applies the patch, builds in release
+```
+
+Requirements: Rust 1.95 or newer (edition 2024), git, and access to GitHub and crates.io. The release profile optimizes for binary size (`opt-level = "z"`, fat LTO, `panic = "abort"`, stripped symbols). The release binary is about 27 MB on Linux (26,992,128 bytes) and 24 MB on Windows (23,995,392 bytes). A clean build takes several minutes. Pinned versions are in `UPSTREAM.md`; size details in `docs/SIZES.md`.
+
+Build output goes to `outputs/` (see `.cargo/config.toml`), which git ignores.
+
+### Tests
+
+```sh
+cargo test --locked                # core crate: fast, uses a fake engine, no third-party code needed to run
+cargo test --workspace --locked    # also the encoders and the end-to-end CLI tests over the corpus (builds the engines)
+bash scripts/check-encoding.sh     # UTF-8 without BOM, LF line endings, no mojibake
+```
+
+The workspace needs `third_party/` to resolve, so run `scripts/fetch-upstream.sh` once first (it needs `core.autocrlf=false` on Windows).
+
+## Repository layout
+
+| Path | Contents |
+|---|---|
+| `crates/core/` | Engine-independent core: the `Render` port, routing, scale choice, crop/trim/fit math, resampling, the post-processing pipeline |
+| `crates/thumbcraft/` | The binary: CLI, engine adapters, encoders |
+| `scripts/` | Build, upstream fetch, corpus runs, native comparison, encoding check |
+| `patches/gridcraft/` | PNG export patch for GridCraft (see `docs/PR-GRIDCRAFT.md`) |
+| `third_party/` | Upstream projects at pinned SHAs (generated, not versioned) |
+| `corpus/` | Test inputs (docx, xlsx, pptx, pdf) with a `MANIFEST.tsv` each |
+| `baselines/`, `reports/` | Results and reports of the 2026-10-19 evaluation |
+| `docs/` | Architecture, build, decisions, results, pitfalls, the PDF evaluations, the npm distribution plan; `docs/rules/` holds the working rules |
+| `.tasks/` | Task backlog (`00-manifest.md`) |
+
+## Status and roadmap
+
+- Working: the three engines behind one CLI, with trim, crop, resize, fit and PNG, JPEG and WebP output; unit, pipeline and end-to-end tests pass on Windows.
+- PDF input: not supported; evaluated, with a recommendation in `docs/PDF.md` and `docs/PDF-WINDOWS.md`.
+- Planned: npm packages (a TypeScript wrapper plus prebuilt binaries per platform) and a release pipeline. The design is in `docs/DISTRIBUTION_NPM.md`; none of it is implemented yet.
+- Supported platforms: Windows x64 and Linux x64 (glibc), both built and tested. macOS, ARM and musl are out of scope.
+
+## Notes on the stored data
+
+The corpus and baselines date from 2026-10-19 (Linux x86_64, 2 shared vCPUs, LibreOffice 24.2.7.2, Rust 1.97.0), over the commits `117aea31` (WordCraft), `66ce6be4` (GridCraft) and `010941ec` (DeckCraft). Timings are noisy. The repository does not store binaries, full-size PNGs, golden PDFs or clones of the craft projects, only hashes, recipes and reduced samples. Sizes are in decimal MB (1 MB = 1,000,000 bytes).
+
+## License
+
+Apache License 2.0 (see `LICENSE`). The craft projects fetched into `third_party/` have their own licenses (MIT or Apache-2.0).
