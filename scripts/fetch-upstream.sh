@@ -58,7 +58,8 @@ hash_arvore() {
   local dir="$1" idx
   idx="$(mktemp)"
   rm -f "$idx"
-  (cd "$dir" && GIT_INDEX_FILE="$idx" git add -A -f . && GIT_INDEX_FILE="$idx" git write-tree)
+  # Bit de execução vem do commit: no Windows o git grava 100644 para tudo (core.fileMode=false) e o hash divergia.
+  (cd "$dir" && GIT_INDEX_FILE="$idx" git add -A -f .     && git ls-tree -r HEAD | awk '$1 == "100755"' | cut -f2 | while IFS= read -r f; do GIT_INDEX_FILE="$idx" git update-index --chmod=+x -- "$f"; done     && GIT_INDEX_FILE="$idx" git write-tree)
   rm -f "$idx"
 }
 
