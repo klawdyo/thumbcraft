@@ -8,7 +8,7 @@ thumbcraft is a thin TypeScript wrapper around a fast native binary written in R
 
 ## Features
 
-- **DOCX, XLSX and PPTX to image**: Word (`.docx`, `.doc`, `.odt`, `.rtf`, `.html`, `.md`, `.txt` and more), spreadsheets (`.xlsx`, `.xls`, `.ods`, `.csv`, `.tsv`) and presentations (`.pptx`, `.ppsx`, `.potx`) with one API.
+- **DOCX, XLSX, PPTX and PDF to image**: Word (`.docx`, `.doc`, `.odt`, `.rtf`, `.html`, `.md`, `.txt` and more), spreadsheets (`.xlsx`, `.xls`, `.ods`, `.csv`, `.tsv`), presentations (`.pptx`, `.ppsx`, `.potx`) and PDF with one API.
 - **Document preview generator** for upload flows (Express, Fastify, NestJS, Multer): `Buffer` in, image out.
 - **No LibreOffice or headless Chrome**: a self-contained native binary, so it runs in a slim Docker image or a serverless-style environment without installing an office suite.
 - **Resize, crop and fit built in**: width and height, `cover` or `contain`, gravity, background color, automatic margin trimming (`trim`) and a fractional crop rectangle. No `sharp` needed (it combines well with it if you already use it).
@@ -122,7 +122,7 @@ All errors extend `ThumbcraftError`, which carries `exitCode` (when the binary p
 | Error class | When |
 |---|---|
 | `UsageError` | An option is invalid or out of range. |
-| `UnsupportedFormatError` | The format is not supported (for example `.ppt`, `.odp`, PDF, unknown extension). |
+| `UnsupportedFormatError` | The format is not supported (for example `.ppt`, `.odp`, unknown extension). |
 | `InvalidFileError` | The file is corrupt, empty, password-protected, or the requested page does not exist. |
 | `InternalError` | Internal failure, including failing to write the output. |
 | `ProcessCrashError` | The process died unexpectedly (an abnormal exit status or a signal). |
@@ -174,7 +174,6 @@ Because a native engine failure aborts its process by design, the wrapper starts
 
 ## Known limitations
 
-- PDF input is not supported yet.
 - Legacy `.ppt` and `.odp` presentations are not supported.
 - Spreadsheets render the first print page (A4, no zoom), so wide sheets show only their top-left corner; use `trim` to focus on the content.
 - Fonts missing on the machine are replaced by similar ones, so line breaks can differ slightly from Word.
