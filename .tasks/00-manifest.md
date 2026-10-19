@@ -12,5 +12,6 @@ Formato em `docs/rules/task-template.md` (fluxo em `docs/rules/workflow-and-agen
 | 06 | 06-ci-release-npm.md | CI de testes e release no npm | todo | 04, 05 |
 | 07 | 07-english-identifiers.md | Identificadores e nomes de testes em inglês no código existente | done | — |
 | 08 | 08-pdf-engine.md | Motor de PDF (hayro via craft-pdf) no binário unificado, com medição de proteções e tamanho | done | — |
+| 09 | 09-single-package-versions.md | Eliminar as duplicações de skrifa, read-fonts, font-types e miniz_oxide no binário | todo | 08 |
 
 Status: `todo`, `doing`, `done`, `blocked`.
