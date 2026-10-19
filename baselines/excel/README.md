@@ -1,61 +1,61 @@
-# Baseline Excel (GridCraft, protótipos e LibreOffice)
+# Excel baseline (GridCraft, prototypes and LibreOffice)
 
-O que é: resultados do teste de thumbnail (primeira página A4 da primeira aba visível, em PNG) nos 57 arquivos de `../../corpus/xlsx/`. O GridCraft original não gera PNG pela CLI, então este baseline guarda a linha de base do LibreOffice e as três implementações construídas na sessão para comparação futura: o protótipo `gp-min` (PDF do GridCraft rasterizado com `craft-pdf` raster), o `gc-min` (GridCraft com o patch de exportação PNG, backend `vello_cpu` 0.2.0) e a comparação final entre os três.
+What it is: results of the thumbnail test (first A4 page of the first visible sheet, as PNG) over the 57 files in `../../corpus/xlsx/`. The original GridCraft CLI cannot write PNG, so this baseline keeps the LibreOffice reference line and the three implementations built during the session, for future comparison: the `gp-min` prototype (GridCraft's PDF rasterized with `craft-pdf` raster), `gc-min` (GridCraft with the PNG export patch, `vello_cpu` 0.2.0 backend) and the final three-way comparison.
 
-De quando: 2026-10-19.
+Date: 2026-10-19.
 
-## Binários e versões
+## Binaries and versions
 
-| Item | Versão |
+| Item | Version |
 |---|---|
-| GridCraft | commit `66ce6be4743f4227047f76f56815520f824e6d81` (2026-10-18), versão 0.8.0 |
-| Patch do PR (refatoração, `file.exportPng`, crate `gridcraft-raster`) | 32 arquivos, +1043 e -33 (guardado em `../../patches/gridcraft/`, ver `../../docs/PR-GRIDCRAFT.md`) |
-| `gp-min` | 169 linhas (A4 sem zoom), `prototipos/gp-min/main.rs`; `craft-pdf` com feature `raster` na revisão `ae2f796b673f29cf3161f36eb6a8933f0a3fe028` do craft-libs, mais os patches do hayro repetidos no `Cargo.toml` raiz |
-| `gc-min` | `prototipos/gc-min/main.rs`, só depende do motor patchado, `png` 0.18 para o crop |
-| Perfil de build | `opt-level=z`, LTO fat, `codegen-units=1`, `panic=abort`, `strip=symbols` |
-| Tamanho do `gp-min` | A3: 11.409.736 bytes (11,41 MB, 10,88 MiB); A4 sem zoom: 11.407.912 bytes (11,41 MB, 10,88 MiB) |
-| Tamanho do `gc-min` | sem crop 8.388.368 bytes (8,39 MB, 8,00 MiB); com crop 8.407.856 bytes (8,41 MB, 8,02 MiB) |
+| GridCraft | commit `66ce6be4743f4227047f76f56815520f824e6d81` (2026-10-18), version 0.8.0 |
+| PR patch (refactor, `file.exportPng`, `gridcraft-raster` crate) | 32 files, +1043 and -33 (kept in `../../patches/gridcraft/`, see `../../docs/PR-GRIDCRAFT.md`) |
+| `gp-min` | 169 lines (A4, no zoom), `prototipos/gp-min/main.rs`; `craft-pdf` with the `raster` feature at craft-libs revision `ae2f796b673f29cf3161f36eb6a8933f0a3fe028`, plus the hayro patches repeated in the root `Cargo.toml` |
+| `gc-min` | `prototipos/gc-min/main.rs`, depends only on the patched engine, `png` 0.18 for the crop |
+| Build profile | `opt-level=z`, fat LTO, `codegen-units=1`, `panic=abort`, `strip=symbols` |
+| `gp-min` size | A3: 11,409,736 bytes (11.41 MB, 10.88 MiB); A4 no zoom: 11,407,912 bytes (11.41 MB, 10.88 MiB) |
+| `gc-min` size | without crop 8,388,368 bytes (8.39 MB, 8.00 MiB); with crop 8,407,856 bytes (8.41 MB, 8.02 MiB) |
 | Rust | 1.97.0 |
-| LibreOffice | 24.2.7.2, `soffice --headless --convert-to png`, processo novo por arquivo, `timeout 60`, `nice` |
+| LibreOffice | 24.2.7.2, `soffice --headless --convert-to png`, a fresh process per file, `timeout 60`, `nice` |
 
-## Conteúdo
+## Contents
 
-| Caminho | O que é |
+| Path | What it is |
 |---|---|
-| `resultados/libreoffice.tsv` | linha de base do LibreOffice (arquivo, exit, ms, bytes do PNG). Todos exit 0, 54 com PNG |
-| `resultados/gp-min-a3-recortado-ao-conteudo.tsv` | 1a versão do Caminho C: A3, intervalo A1:Z60 ajustado a uma página, recortado ao conteúdo, escala 2. Tem 58 linhas porque processou também o `MANIFEST.tsv` (virou PNG de texto), que não conta |
-| `resultados/gp-min-a4-recortado-ao-conteudo.tsv` | A4 em vez de A3, ainda com ajuste e recorte |
-| `resultados/gp-min-a4-sem-zoom-escala2.tsv` | versão final do `gp-min`: A4 inteira, sem zoom, escala 2 (1190x1683 px) |
-| `resultados/gp-min-a4-sem-zoom-escala1.tsv` | idem, escala 1 (595x842 px) |
-| `resultados/gc-min-escala2.tsv` | `gc-min` (patch do GridCraft), escala 2 (1191x1684 px), 55 arquivos (ignora .tsv e o manifesto) |
-| `resultados/gc-min-escala1.tsv` | idem, escala 1 |
-| `resultados/gc-min-escala2-crop.tsv` | idem, escala 2 com `--crop` (recorte ao conteúdo mais 8 px de folga) |
-| `resultados/comparacao-final-tres-colunas.tsv` | saída do `compare.sh` com as três colunas (ver aviso abaixo) |
-| `imagens/` | contact sheets das três implementações (`contact-sheet-*.png`), comparação A3 contra A4, comparação A4 sem zoom contra LibreOffice, e 9 imagens lado a lado (`lado-a-lado-NN.png`, 7 casos por imagem, em ordem alfabética, colunas: LibreOffice, `gp-min` A4 sem zoom, `gc-min` patch). Todas reduzidas a no máximo 1600 px de largura |
-| `amostras/` | 5 casos em PNG reduzido a 600 px de largura, um por motor (15 arquivos) |
-| `prototipos/` | fontes do `gp-min` e do `gc-min` (`Cargo.toml.txt` é o `Cargo.toml` renomeado; os caminhos absolutos da sessão foram trocados por `S`) |
-| `ferramentas/` | `compare.sh` (lado a lado em 3 colunas, ImageMagick), `run-lo.sh` (linha de base do LibreOffice), `run-corpus-gp-min.sh` e `run-corpus-gc-min.sh` |
-| `tamanhos/` | quebra do tamanho do binário: `variantes-de-build.log` (original, fase 1 e PR), `cargo-bloat-por-crate.txt` e o script `build-variants.sh` |
+| `resultados/libreoffice.tsv` | LibreOffice reference line (file, exit, ms, PNG bytes). All exit 0, 54 with a PNG |
+| `resultados/gp-min-a3-recortado-ao-conteudo.tsv` | First version of path C: A3, range A1:Z60 fitted to one page, cropped to the content, scale 2. It has 58 lines because it also processed `MANIFEST.tsv` (turned into a text PNG), which does not count |
+| `resultados/gp-min-a4-recortado-ao-conteudo.tsv` | A4 instead of A3, still fitted and cropped |
+| `resultados/gp-min-a4-sem-zoom-escala2.tsv` | final `gp-min` version: whole A4, no zoom, scale 2 (1190x1683 px) |
+| `resultados/gp-min-a4-sem-zoom-escala1.tsv` | same, scale 1 (595x842 px) |
+| `resultados/gc-min-escala2.tsv` | `gc-min` (patched GridCraft), scale 2 (1191x1684 px), 55 files (ignores the .tsv files and the manifest) |
+| `resultados/gc-min-escala1.tsv` | same, scale 1 |
+| `resultados/gc-min-escala2-crop.tsv` | same, scale 2 with `--crop` (cropped to the content plus an 8 px margin) |
+| `resultados/comparacao-final-tres-colunas.tsv` | output of `compare.sh` with the three columns (see the warning below) |
+| `imagens/` | contact sheets of the three implementations (`contact-sheet-*.png`), A3 versus A4 comparison, A4 no zoom versus LibreOffice comparison, and 9 side-by-side images (`lado-a-lado-NN.png`, 7 cases per image, in alphabetical order, columns: LibreOffice, `gp-min` A4 no zoom, patched `gc-min`). All downscaled to at most 1600 px wide |
+| `amostras/` | 5 cases as PNG downscaled to 600 px wide, one per engine (15 files) |
+| `prototipos/` | sources of `gp-min` and `gc-min` (`Cargo.toml.txt` is the renamed `Cargo.toml`; the session's absolute paths were replaced by `S`) |
+| `ferramentas/` | `compare.sh` (3-column side by side, ImageMagick), `run-lo.sh` (LibreOffice reference line), `run-corpus-gp-min.sh` and `run-corpus-gc-min.sh` |
+| `tamanhos/` | binary size breakdown: `variantes-de-build.log` (original, phase 1 and PR), `cargo-bloat-por-crate.txt` and the `build-variants.sh` script |
 
-## Avisos sobre os dados
+## Warnings about the data
 
-- Em `comparacao-final-tres-colunas.tsv`, as colunas `ms_pdf-raster` e `exit_pdf-raster` estão trocadas (o script leu o `results.tsv` do `gp-min`, que tem a ordem arquivo, ms, código). Leia o valor da coluna `exit_pdf-raster` como milissegundos e o de `ms_pdf-raster` como código de saída.
-- Nos `resultados/gp-min-*.tsv` a ordem das colunas é arquivo, ms, código, bytes, mensagem. Nos `gc-min-*.tsv` é arquivo, exit, ms, bytes.
-- Nos arquivos do `gp-min` o código de saída das falhas é 2, e no `gc-min` é 1 (os dois com mensagem de erro limpa).
-- A linha de base do LibreOffice mostra uma página A4 em escala original, 795x1124 px. Os protótipos usam outra escala em px por pt, então as dimensões diferem mesmo com a mesma paginação.
-- Os PNGs completos (cerca de 10 MB) não foram guardados, só amostras. Para regenerar, use `ferramentas/` com os binários.
+- In `comparacao-final-tres-colunas.tsv`, the columns `ms_pdf-raster` and `exit_pdf-raster` are swapped (the script read the `gp-min` `results.tsv`, whose order is file, ms, code). Read the `exit_pdf-raster` value as milliseconds and the `ms_pdf-raster` value as the exit code.
+- In `resultados/gp-min-*.tsv` the column order is file, ms, code, bytes, message. In `gc-min-*.tsv` it is file, exit, ms, bytes.
+- In the `gp-min` files the exit code for failures is 2, and in `gc-min` it is 1 (both with a clean error message).
+- The LibreOffice reference line shows an A4 page at its original scale, 795x1124 px. The prototypes use another scale in px per pt, so the dimensions differ even with the same pagination.
+- The full-size PNGs (about 10 MB) were not kept, only samples. To regenerate them, use `ferramentas/` with the binaries.
 
-## Resumo dos números
+## Summary of the numbers
 
-Tabelas completas em `../../docs/RESULTS.md`.
+Full tables are in `../../docs/RESULTS.md`.
 
-| | LibreOffice | `gp-min` A4 sem zoom (esc. 2) | `gc-min` patch (esc. 2) |
+| | LibreOffice | `gp-min` A4 no zoom (scale 2) | `gc-min` patch (scale 2) |
 |---|---|---|---|
-| PNG gerado | 54 de 57 | 54 de 57 | 52 de 55 (os 2 .tsv não são processados) |
-| Tempo médio | 1653 ms | 129 ms sobre os 57 (136 ms nos 54 sucessos) | 134 ms sobre os 55 (141 ms nos 52 sucessos) |
-| Tempo máximo | 2101 ms | 478 ms (planilha de 10 mil linhas) | 393 ms (idem) |
-| PNG médio | 34 KB | 48 KB | 48 KB |
+| PNG produced | 54 of 57 | 54 of 57 | 52 of 55 (the 2 .tsv files are not processed) |
+| Mean time | 1653 ms | 129 ms over the 57 (136 ms over the 54 successes) | 134 ms over the 55 (141 ms over the 52 successes) |
+| Maximum time | 2101 ms | 478 ms (10,000-row sheet) | 393 ms (same) |
+| Mean PNG | 34 KB | 48 KB | 48 KB |
 
-## Como repetir
+## How to repeat
 
-Ver `../../docs/TESTS.md` (seção "Thumbnails Excel") e `../../docs/UPDATING.md`.
+See `../../docs/TESTS.md` (section "Thumbnails Excel") and `../../docs/UPDATING.md`.

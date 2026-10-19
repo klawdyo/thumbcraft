@@ -1,56 +1,56 @@
-# Baseline PowerPoint (DeckCraft contra LibreOffice)
+# PowerPoint baseline (DeckCraft versus LibreOffice)
 
-O que é: resultados do teste de thumbnail (slide 1 em PNG) em 46 arquivos de entrada (`../../corpus/pptx/`), com o motor do DeckCraft (binário mínimo `dc-min`) e com o LibreOffice. Referência para comparar versões futuras do DeckCraft e o binário unificado.
+What it is: results of the thumbnail test (slide 1 as PNG) over 46 input files (`../../corpus/pptx/`), with the DeckCraft engine (minimal binary `dc-min`) and with LibreOffice. A reference for comparing future DeckCraft versions and the unified binary.
 
-De quando: 2026-10-19.
+Date: 2026-10-19.
 
-## Binários e versões
+## Binaries and versions
 
-| Item | Versão |
+| Item | Version |
 |---|---|
-| DeckCraft | commit `010941ec60f81f1eece31ec1ea83825c9a396217` (2026-10-18), versão 0.8.0 (alpha) |
-| `dc-min` | `prototipo-dc-min/main.rs`, depende só de `deckcraft-pptx`, `deckcraft-format`, `deckcraft-render` e `deckcraft-fonts` |
-| Perfil de build | `opt-level=z`, LTO fat, `codegen-units=1`, `panic=abort`, `strip=symbols` |
-| Tamanho do `dc-min` | 6.673.360 bytes = 6,67 MB = 6,36 MiB |
-| Outros tamanhos | CLI padrão do repositório 35.296.984 bytes (35,30 MB, 33,66 MiB); CLI com perfil de tamanho 14.504.104 bytes (14,50 MB, 13,83 MiB) |
+| DeckCraft | commit `010941ec60f81f1eece31ec1ea83825c9a396217` (2026-10-18), version 0.8.0 (alpha) |
+| `dc-min` | `prototipo-dc-min/main.rs`, depends only on `deckcraft-pptx`, `deckcraft-format`, `deckcraft-render` and `deckcraft-fonts` |
+| Build profile | `opt-level=z`, fat LTO, `codegen-units=1`, `panic=abort`, `strip=symbols` |
+| `dc-min` size | 6,673,360 bytes = 6.67 MB = 6.36 MiB |
+| Other sizes | repository default CLI 35,296,984 bytes (35.30 MB, 33.66 MiB); CLI with the size profile 14,504,104 bytes (14.50 MB, 13.83 MiB) |
 | Rust | 1.97.0 |
 | LibreOffice | 24.2.7.2, `soffice --headless --convert-to png` |
-| Fontes | do sistema (Carlito e Caladea como equivalentes métricos de Calibri e Cambria); o `craft-fonts` externo não foi usado |
+| Fonts | from the system (Carlito and Caladea as metric equivalents of Calibri and Cambria); the external `craft-fonts` was not used |
 
-## Como foi gerado
+## How it was generated
 
-- Rust: `dc-min ENTRADA SAIDA.png 1` (escala 1, slide 0), um processo por arquivo, timeout de 30 s. O PNG tem 960x540 px. O script é `ferramentas/run.sh`, que roda os dois motores no mesmo laço (perfil dedicado do LibreOffice e `pkill` do processo ao fim de cada arquivo).
-- LibreOffice: PNG de 1280x720 px, um processo novo por arquivo, timeout de 30 s.
-- Cache de disco quente, 2 vCPUs compartilhadas com outro agente que compilava (tempos de build inflados).
+- Rust: `dc-min INPUT OUTPUT.png 1` (scale 1, slide 0), one process per file, 30 s timeout. The PNG is 960x540 px. The script is `ferramentas/run.sh`, which runs both engines in the same loop (a dedicated LibreOffice profile and a `pkill` of the process at the end of each file).
+- LibreOffice: a 1280x720 px PNG, a fresh process per file, 30 s timeout.
+- Warm disk cache, 2 vCPUs shared with another agent that was compiling (inflated build times).
 
-## Conteúdo
+## Contents
 
-| Caminho | O que é |
+| Path | What it is |
 |---|---|
-| `resultados-deckcraft-vs-libreoffice.tsv` | uma linha por arquivo, com exit, ms, bytes do PNG e classe (ok, degradado, falhou) para os dois motores, e notas |
-| `resultados-brutos.tsv` | duas linhas por arquivo (uma por motor), com o stderr truncado; caminhos absolutos da sessão ainda aparecem na coluna stderr |
-| `imagens/contact-sheet-deckcraft-46-arquivos.png` | contact sheet dos 46 casos (reduzida a 1600 px) |
-| `imagens/comparacao-deckcraft-vs-libreoffice-12-casos.png` | 12 casos lado a lado (reduzida a 1600 px) |
-| `amostras/` | 7 casos reduzidos a 800 px de largura, um por motor |
-| `prototipo-dc-min/` | fonte do binário mínimo |
-| `ferramentas/` | `run.sh` e os scripts de build (`build-default.sh`, `build-opt.sh`) |
-| `logs-de-build/` | logs dos três builds (CLI padrão, CLI otimizada e mínimo) |
+| `resultados-deckcraft-vs-libreoffice.tsv` | one line per file, with exit, ms, PNG bytes and class (ok, degraded, failed) for both engines, and notes |
+| `resultados-brutos.tsv` | two lines per file (one per engine), with the truncated stderr; the session's absolute paths still appear in the stderr column |
+| `imagens/contact-sheet-deckcraft-46-arquivos.png` | contact sheet of the 46 cases (downscaled to 1600 px) |
+| `imagens/comparacao-deckcraft-vs-libreoffice-12-casos.png` | 12 cases side by side (downscaled to 1600 px) |
+| `amostras/` | 7 cases downscaled to 800 px wide, one per engine |
+| `prototipo-dc-min/` | source of the minimal binary |
+| `ferramentas/` | `run.sh` and the build scripts (`build-default.sh`, `build-opt.sh`) |
+| `logs-de-build/` | logs of the three builds (default CLI, optimized CLI and minimal) |
 
-A pasta `../../corpus/pptx/mutacao-48/` tem o teste de robustez com 48 variantes mutadas, com seus resultados.
+The folder `../../corpus/pptx/mutacao-48/` holds the robustness test with 48 mutated variants, with its results.
 
-## Resumo dos números
+## Summary of the numbers
 
-Tabelas completas em `../../docs/RESULTS.md`.
+Full tables are in `../../docs/RESULTS.md`.
 
 | | DeckCraft (`dc-min`) | LibreOffice |
 |---|---|---|
-| PNG gerado | 38 de 46 | 45 de 46 |
-| ok, degradado, falhou | 34, 4, 8 | 40, 3, 3 |
-| Tempo médio sobre os 46 | 83 ms (98 ms só nos 38 sucessos) | 1792 ms |
-| Tempo máximo | 970 ms (arquivo com árabe, CJK e emoji) | 2977 ms |
+| PNG produced | 38 of 46 | 45 of 46 |
+| ok, degraded, failed | 34, 4, 8 | 40, 3, 3 |
+| Mean time over the 46 | 83 ms (98 ms over the 38 successes only) | 1792 ms |
+| Maximum time | 970 ms (file with Arabic, CJK and emoji) | 2977 ms |
 
-Das 8 falhas do DeckCraft, 5 são formatos que ele não lê (.ppt e .odp) e 3 são entradas inválidas rejeitadas com exit 1. O LibreOffice dá exit 0 com PNG em branco ou de texto minúsculo no arquivo de 0 bytes e no texto puro (falso sucesso).
+Of DeckCraft's 8 failures, 5 are formats it does not read (.ppt and .odp) and 3 are invalid inputs rejected with exit 1. LibreOffice returns exit 0 with a blank PNG or one with tiny text for the 0-byte file and the plain text (a false success).
 
-## Como repetir
+## How to repeat
 
-Ver `../../docs/TESTS.md` (seção "Thumbnails PowerPoint") e `../../docs/UPDATING.md`.
+See `../../docs/TESTS.md` (section "Thumbnails PowerPoint") and `../../docs/UPDATING.md`.
