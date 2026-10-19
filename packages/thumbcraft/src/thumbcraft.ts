@@ -1,8 +1,9 @@
 import { extname } from 'node:path';
 
-import { EnvBinaryResolver, type IBinaryResolver } from './binary-resolver.ts';
+import type { IBinaryResolver } from './binary-resolver.ts';
 import { errorFromRun } from './exit-codes.ts';
 import { type IFileSystem, NodeFileSystem } from './file-system.ts';
+import { createDefaultBinaryResolver } from './platform-binary-resolver.ts';
 import { type IProcessRunner, NodeProcessRunner } from './process-runner.ts';
 import { buildArgs, type RenderOptions } from './render-options.ts';
 
@@ -47,7 +48,7 @@ export class ThumbcraftJob {
     this.source = source;
     this.runner = config.runner ?? new NodeProcessRunner();
     this.fileSystem = config.fileSystem ?? new NodeFileSystem();
-    this.binaryResolver = config.binaryResolver ?? new EnvBinaryResolver();
+    this.binaryResolver = config.binaryResolver ?? createDefaultBinaryResolver();
     this.timeoutMs = config.timeoutMs ?? DEFAULT_TIMEOUT_MS;
   }
 
