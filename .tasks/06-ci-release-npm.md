@@ -32,7 +32,7 @@ mão a primeira versão dos três pacotes e configurar o Trusted Publisher de ca
 - Ordem de publicação: pacotes de plataforma primeiro, pacote principal por último.
 - Requisitos: runner hospedado pelo GitHub, Node 22.14 ou mais novo, npm 11.5.1 ou mais novo, `repository.url`
   igual ao do repositório em todos os `package.json`.
-- O workflow não cria tag nem faz commit por conta própria.
+- O workflow não faz commit por conta própria. Depois de publicar no npm, cria a tag `vX.Y.Z` e um Release no GitHub (decisão do dono, 2026-10-19) com os binários, para baixar sem passar pelo npm: `thumbcraft-X.Y.Z-linux-x64.tar.gz`, `thumbcraft-X.Y.Z-win32-x64.zip` e `SHA256SUMS`. Só esse job tem `contents: write`.
 - Cache do cargo com atenção ao tamanho (build limpo leva minutos).
 
 ## Critérios de aceitação
@@ -45,4 +45,4 @@ mão a primeira versão dos três pacotes e configurar o Trusted Publisher de ca
 
 ## Não escopo
 
-- Fazer o release de verdade (pedido explícito do dono). Aumentar a versão automaticamente a cada commit. Criar tags. macOS, ARM e Alpine (musl).
+- Fazer o release de verdade (pedido explícito do dono). Aumentar a versão automaticamente a cada commit. macOS, ARM e Alpine (musl).

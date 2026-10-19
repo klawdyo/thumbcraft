@@ -291,7 +291,7 @@ por último). Pontos que valem registrar:
   pacotes montados em `outputs/packages/` (o rascunho dizia `target/`).
 - **Versão:** lida da seção `[workspace.package]` do `Cargo.toml`; a consulta ao npm usa `npm view thumbcraft@VERSÃO`.
 - **Concorrência:** um por ref; pull requests cancelam o anterior, a `main` não.
-- O workflow não cria tag nem faz commit. Verificado localmente: `npm run build:packages` e `npm publish --dry-run` dos
+- O workflow não faz commit. Depois de publicar no npm, o job `github-release` cria a tag `vX.Y.Z` e um Release no GitHub com os binários (`thumbcraft-X.Y.Z-linux-x64.tar.gz`, `thumbcraft-X.Y.Z-win32-x64.zip` e `SHA256SUMS`), para baixar sem passar pelo npm; só ele tem `contents: write`. Verificado localmente: `npm run build:packages` e `npm publish --dry-run` dos
   três pacotes (com binários de mentira); o fluxo no GitHub só se comprova no primeiro push depois da configuração do npm.
 
 > Se o arquivo mudar de nome, o nome configurado em cada pacote no npm precisa ser o mesmo.
