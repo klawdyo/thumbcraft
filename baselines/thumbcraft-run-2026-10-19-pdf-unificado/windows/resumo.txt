@@ -1,0 +1,7 @@
+docx-contain-480: 30 arquivos, 25 ok, ms médio 163, ms máx 256
+docx-cover-120: 30 arquivos, 25 ok, ms médio 121, ms máx 173
+pdf-cover-120: 45 arquivos, 39 ok, ms médio 93, ms máx 301
+pptx-contain-480: 46 arquivos, 37 ok, ms médio 149, ms máx 300
+pptx-cover-120: 46 arquivos, 37 ok, ms médio 119, ms máx 314
+xlsx-contain-480: 57 arquivos, 54 ok, ms médio 144, ms máx 274
+xlsx-cover-120: 57 arquivos, 54 ok, ms médio 103, ms máx 213
