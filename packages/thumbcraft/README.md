@@ -33,7 +33,7 @@ Generate a thumbnail from a file:
 ```ts
 import { Thumbcraft } from 'thumbcraft';
 
-await Thumbcraft.fromFile('./report.docx').toImageFile('./report.png', {
+await Thumbcraft.fromFile('./report.docx').toFile('./report.png', {
   width: 320,
   height: 240,
   fit: 'cover',
@@ -47,7 +47,7 @@ import { Thumbcraft } from 'thumbcraft';
 
 const png: Buffer = await Thumbcraft
   .fromBuffer(upload.buffer, upload.originalname) // the name's extension helps pick the engine
-  .toImageBytes({ width: 300, height: 300, fit: 'contain', trim: true });
+  .toBuffer({ width: 300, height: 300, fit: 'contain', trim: true });
 ```
 
 Render a specific slide as WebP:
@@ -55,7 +55,7 @@ Render a specific slide as WebP:
 ```ts
 const webp = await Thumbcraft
   .fromFile('./deck.pptx')
-  .toImageBytes({ page: 3, width: 800, format: 'webp' });
+  .toBuffer({ page: 3, width: 800, format: 'webp' });
 ```
 
 ## API
@@ -68,11 +68,11 @@ Creates a job from a document on disk. Returns a `ThumbcraftJob`.
 
 Creates a job from bytes in memory. `filename` is the original file name: its extension helps thumbcraft pick the right engine (Word, spreadsheet or presentation). Returns a `ThumbcraftJob`.
 
-### `job.toImageBytes(options?)`
+### `job.toBuffer(options?)`
 
 Renders the document and resolves with the image as a `Buffer`.
 
-### `job.toImageFile(outputPath, options?)`
+### `job.toFile(outputPath, options?)`
 
 Renders the document and writes the image to `outputPath`. The extension chooses the format (`.png`, `.jpg`, `.webp`) unless you pass `options.format`.
 
@@ -125,7 +125,7 @@ All errors extend `ThumbcraftError`, which carries `exitCode` (when the binary p
 import { Thumbcraft, UnsupportedFormatError, InvalidFileError } from 'thumbcraft';
 
 try {
-  await Thumbcraft.fromFile('./slides.ppt').toImageFile('./slides.png');
+  await Thumbcraft.fromFile('./slides.ppt').toFile('./slides.png');
 } catch (error) {
   if (error instanceof UnsupportedFormatError) {
     // legacy .ppt is not supported: skip the preview or ask for a .pptx
