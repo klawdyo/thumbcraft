@@ -21,10 +21,7 @@ thumbcraft (pacote principal instalado pelo usuário)
   └── bin/thumbcraft (script wrapper que resolve o caminho do executável)
         │
         ├── @thumbcraft/win32-x64-msvc   ──> bin/thumbcraft.exe
-        ├── @thumbcraft/linux-x64-gnu     ──> bin/thumbcraft
-        ├── @thumbcraft/linux-x64-musl    ──> bin/thumbcraft
-        ├── @thumbcraft/darwin-arm64      ──> bin/thumbcraft
-        └── @thumbcraft/darwin-x64        ──> bin/thumbcraft
+        └── @thumbcraft/linux-x64-gnu     ──> bin/thumbcraft
 ```
 
 ---
@@ -41,26 +38,23 @@ Com o suporte nativo do **npm 10+**, qualquer aplicação que utilize o `thumbcr
   "supportedArchitectures": {
     "os": ["win32", "linux"],
     "cpu": ["x64"],
-    "libc": ["glibc", "musl"]
+    "libc": ["glibc"]
   }
 }
 ```
 
-**Benefício prático:** Ao rodar `npm install` no Windows, o gerenciador de pacotes baixa tanto o binário do Windows quanto os binários do Linux (`glibc` para Ubuntu/Debian e `musl` para Alpine). O `package-lock.json` registra ambos de forma determinística, permitindo testar o código no Windows e montar a pasta em um container Docker sem falhas de resolução ou necessidade de reconstruir o lockfile no WSL.
+**Benefício prático:** Ao rodar `npm install` no Windows, o gerenciador de pacotes baixa tanto o binário do Windows quanto o do Linux (`glibc`, para Ubuntu/Debian). O `package-lock.json` registra ambos de forma determinística, permitindo testar o código no Windows e montar a pasta em um container Docker sem falhas de resolução ou necessidade de reconstruir o lockfile no WSL.
 
 ---
 
 ## 3. Matriz de Plataformas e Pacotes Satélites
 
-Cada pacote satélite declara estritamente seu ambiente-alvo para que o instalador do npm descarte os binários irrelevantes para aquele sistema:
+Só Windows x64 e Linux x64 (glibc) são suportados; macOS, ARM e Alpine (musl) estão fora do escopo por decisão do dono (2026-10-19). Cada pacote satélite declara estritamente seu ambiente-alvo para que o instalador do npm descarte os binários irrelevantes para aquele sistema:
 
 | Nome do Pacote Satélite | Sistema | Arquitetura | Libc | Cenário de Uso |
 | :--- | :--- | :--- | :--- | :--- |
 | `@thumbcraft/win32-x64-msvc` | `win32` | `x64` | N/A | Windows 10/11 / Windows Server |
 | `@thumbcraft/linux-x64-gnu` | `linux` | `x64` | `glibc` | Ubuntu 22/24, Debian, CentOS, Fedora |
-| `@thumbcraft/linux-x64-musl` | `linux` | `x64` | `musl` | Alpine Linux (containers enxutos) |
-| `@thumbcraft/darwin-arm64` | `darwin` | `arm64` | N/A | macOS Apple Silicon (M1/M2/M3/M4) |
-| `@thumbcraft/darwin-x64` | `darwin` | `x64` | N/A | macOS Intel |
 
 ### Estrutura do `package.json` do pacote satélite (exemplo Linux GNU):
 ```json
@@ -86,20 +80,21 @@ Cada pacote satélite declara estritamente seu ambiente-alvo para que o instalad
 
 A API da biblioteca foi desenhada para se integrar com fricção zero em backends modernos, frameworks (NestJS, Express, Fastify) e bibliotecas de processamento de imagem como o **`sharp`**, suportando tanto arquivos no sistema de arquivos quanto buffers em memória.
 
-### 4.1 Validação Prévia Rápida (`Thumbcraft.isValid`)
-Executa a lógica de *sniffing* dos primeiros bytes (assinatura mágica de ZIP OOXML, CFB para `.doc`/`.xls`, ODF ou RTF) em nanossegundos, espelhando a lógica de roteamento do `route.rs`. Isso permite que a aplicação decida se deve acionar o Thumbcraft antes mesmo de invocar o processo.
+### 4.1 Validação prévia (`Thumbcraft.isValid`)
+Decide se o arquivo é suportado **sem duplicar o roteamento em TypeScript**: a função chama `thumbcraft --detect`, que usa exatamente a mesma lógica do binário (`route.rs` e `open.rs`), então o resultado nunca diverge dele. Por isso é assíncrona e custa a criação de um processo (dezenas de milissegundos), não nanossegundos; não há leitura de ZIP nem tabela de assinaturas no código TypeScript.
 
 ```typescript
 import { Thumbcraft } from 'thumbcraft';
 
-// Validação por Buffer (inspeção dos cabeçalhos binários + nome opcional)
-if (Thumbcraft.isValid(fileBuffer, originalFilename)) {
-  // Arquivo suportado (Word, Excel, PowerPoint, ODF, RTF, etc.)
-}
+// Retorna o motor que trataria o arquivo ('word', 'grid' ou 'deck') ou null se não for suportado.
+const engine = await Thumbcraft.detectFile('/caminho/do/documento.docx');
 
-// Validação por caminho de arquivo
-if (Thumbcraft.isValidFile('/caminho/do/documento.docx')) {
+// Atalhos booleanos
+if (await Thumbcraft.isValidFile('/caminho/do/documento.docx')) {
   // ...
+}
+if (await Thumbcraft.isValid(fileBuffer, originalFilename)) {
+  // Buffer: usa a entrada por stdin (tarefa 01) com a dica de nome para o roteamento
 }
 ```
 
@@ -139,19 +134,19 @@ export interface RenderOptions {
   /** Número da página ou slide a renderizar (a partir de 1; padrão: 1) */
   page?: number;
 
-  /** Fator de escala/resolução (px por pt; padrão: 1.0) */
-  scale?: number;
+  /** Escala nativa de renderização em px por pt, ou 'auto' (padrão: 'auto', cerca de 2x o tamanho pedido) */
+  scale?: number | 'auto';
 
   /** Recorta margens vazias automaticamente detectando a cor de fundo (padrão: false) */
   trim?: boolean;
 
-  /** Tolerância para o recorte de margens (0.0 a 1.0; padrão: 0.0) */
-  trimTolerance?: number;
+  /** Margem mantida em volta do conteúdo pelo trim, em pixels da renderização nativa (padrão: 8) */
+  trimPad?: number;
 
   /** Como a imagem deve se ajustar à caixa de largura/altura */
   fit?: 'contain' | 'cover';
 
-  /** Ponto de âncora para cortes ou ajustes (padrão: 'center') */
+  /** Ponto de âncora para cortes ou ajustes (padrão: 'top' com fit 'cover' e 'center' com fit 'contain') */
   gravity?: 'top' | 'bottom' | 'left' | 'right' | 'center' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
   /** Largura máxima da imagem final em pixels */
@@ -160,7 +155,7 @@ export interface RenderOptions {
   /** Altura máxima da imagem final em pixels */
   height?: number;
 
-  /** Cor de fundo no formato hexadecimal "#RRGGBB" para transparências */
+  /** Fundo do contain e sob transparência: 'white' (padrão), 'transparent' ou "#RRGGBB" */
   background?: string;
 
   /** Formato de saída da imagem (padrão: inferido pela extensão ou 'png') */
@@ -183,11 +178,11 @@ Todas as propriedades de `RenderOptions` mapeiam diretamente para as flags de li
 | `height: 320` | `-H, --height 320` | Altura máxima final em pixels |
 | `fit: 'contain'` | `--fit contain` | Encaixa inteiramente (`contain`) ou preenche cortando (`cover`) |
 | `trim: true` | `--trim` | Recorta automaticamente margens em branco/vazias |
-| `trimTolerance: 0.1` | `--trim-pad 8` | Margem mantida pelo trim em pixels nativos |
-| `gravity: 'center'` | `--gravity center` | Âncora de corte/enquadramento (`center`, `top`, etc.) |
-| `background: '#FFF'` | `--background white` | Cor de fundo para transparências e preenchimento |
+| `trimPad: 8` | `--trim-pad 8` | Margem mantida pelo trim em pixels nativos |
+| `gravity: 'top'` | `--gravity top` | Âncora de corte/enquadramento (`top` no cover e `center` no contain, quando omitida) |
+| `background: '#FFFFFF'` | `--background #FFFFFF` | Fundo (`white`, `transparent` ou `#RRGGBB`) |
 | `page: 1` | `--page 1` | Número da página/slide a renderizar (a partir de 1) |
-| `scale: 2.0` | `--render-scale 2.0` | Fator de resolução do rasterizador nativo (ou `auto`) |
+| `scale: 2.0` | `--render-scale 2.0` | Escala do rasterizador nativo em px por pt (ou `'auto'`, o padrão) |
 | `format: 'webp'` | `--format webp` | Formato da saída (`png`, `jpeg` ou `webp`) |
 | `quality: 85` | `--quality 85` | Qualidade do JPEG (1 a 100) |
 
@@ -222,7 +217,7 @@ export interface UploadedFileMetadata {
 }
 
 export interface ProcessingStrategy {
-  canProcess(file: UploadedFileMetadata): boolean;
+  canProcess(file: UploadedFileMetadata): Promise<boolean>;
   process(file: UploadedFileMetadata, targetWidth?: number, targetHeight?: number): Promise<Buffer>;
 }
 
@@ -233,7 +228,7 @@ export interface ProcessingStrategy {
  */
 @Injectable()
 export class OfficeDocumentProcessingStrategy implements ProcessingStrategy {
-  canProcess(file: UploadedFileMetadata): boolean {
+  async canProcess(file: UploadedFileMetadata): Promise<boolean> {
     return Thumbcraft.isValid(file.buffer, file.originalname);
   }
 
@@ -272,7 +267,7 @@ Para evitar manutenção manual de versões em múltiplos pacotes, o workflow do
 5. Publicar automaticamente os subpacotes satélites no npm.
 6. Atualizar a referência de dependências no pacote principal `thumbcraft` e publicá-lo.
 
-### Exemplo de Workflow: `.github/workflows/release-npm.yml`
+### Exemplo de Workflow: `.github/workflows/release-npm.yml` (rascunho, só Windows x64 e Linux x64)
 
 ```yaml
 name: Release NPM
@@ -302,14 +297,6 @@ jobs:
             target: x86_64-unknown-linux-gnu
             pkg_name: '@thumbcraft/linux-x64-gnu'
             binary_name: thumbcraft
-          - os: ubuntu-24.04
-            target: x86_64-unknown-linux-musl
-            pkg_name: '@thumbcraft/linux-x64-musl'
-            binary_name: thumbcraft
-          - os: macos-latest
-            target: aarch64-apple-darwin
-            pkg_name: '@thumbcraft/darwin-arm64'
-            binary_name: thumbcraft
 
     steps:
       - name: Checkout repositório
@@ -319,10 +306,6 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           targets: ${{ matrix.target }}
-
-      - name: Instalar dependências musl (quando aplicável)
-        if: matrix.target == 'x86_64-unknown-linux-musl'
-        run: sudo apt-get update && sudo apt-get install -y musl-tools
 
       - name: Baixar motores upstream e aplicar patches
         shell: bash
