@@ -1,0 +1,58 @@
+arquivo	caso	categoria	suportado_gridcraft	nota_thumbnail_esperada
+01-texto-acentos.xlsx	texto com acentos	válido	sim	4 linhas de texto em A com acentos corretos (ç, ã, õ, ü, ñ)
+02-valores-simples.xlsx	tabela simples região x meses	válido	sim	Tabela 6x4 com cabeçalho Região/Jan/Fev/Mar e números
+03-formulas-com-cache.xlsx	SUM, IF, VLOOKUP com valor em cache	válido	sim	Coluna Total preenchida; A8 Alto; A9 5450
+04-formulas-sem-cache.xlsx	mesmas fórmulas sem valor em cache	válido	sim	Se recalcula: mesmos valores do 03. Sem recalculo: células vazias ou 0 (divergência esperada entre motores)
+05-formatos-numericos.xlsx	moeda R$, porcentagem, data, científica, contábil	válido	sim	R$ 1.234.567,89 (ou 1,234,567.89 conforme locale), 45,67%, 15/03/2024, 1,23E+08, contábil negativo
+06-multiplas-abas.xlsx	3 abas, conteúdo diferente	válido	sim	Somente aba Principal (tabela de vendas + texto ABA 1 CORRETA). Textos WRONG/OUTRA ABA indicam aba errada
+07-celulas-mescladas.xlsx	mesclagens horizontal, vertical e bloco	válido	sim	Título amarelo mesclado A1:D1, bloco vertical A3:A8, bloco C3:E6 com borda
+08-bordas-cores-fundo-fonte.xlsx	bordas variadas, fundos e fontes coloridas	válido	sim	Grade de 5 linhas coloridas (vermelho, verde, azul, amarelo, roxo) com bordas de estilos diferentes
+09-fontes-negrito-italico.xlsx	Calibri, Arial, Times; negrito e itálico	válido	sim	12 linhas, 3 famílias x 4 estilos
+10-larguras-alturas.xlsx	larguras e alturas customizadas	válido	sim	Coluna A larga, B estreita, linha 1 alta, linha 3 baixa, linha 5 muito alta
+11-linhas-colunas-ocultas.xlsx	linha 3 e coluna B ocultas	válido	sim	Tabela sem a coluna Jan e sem a linha Nordeste
+12-paineis-congelados.xlsx	painel congelado 1 linha 1 coluna, 80x15	válido	sim	Células R1C1 a partir do topo; congelamento não deve alterar o conteúdo
+13-condicional-escala-cor.xlsx	escala de 3 cores	válido	sim	B1:C15 com gradiente vermelho, amarelo, verde
+14-condicional-barras-dados.xlsx	barras de dados	válido	sim	Coluna B larga com barras verdes proporcionais
+15-condicional-icones.xlsx	conjunto de ícones semáforo	válido	sim	Coluna B com ícones verde/amarelo/vermelho
+16-grafico-barras.xlsx	gráfico de colunas, 3 abas	válido	sim	Tabela de vendas e gráfico de colunas em F2; só aba Principal
+17-grafico-linhas.xlsx	gráfico de linhas	válido	sim	Tabela e gráfico de linhas com 3 séries
+18-grafico-pizza.xlsx	gráfico de pizza	válido	sim	Tabela e pizza com 5 fatias
+19-grafico-rosca.xlsx	gráfico de rosca	válido	sim	Tabela e rosca com 5 fatias
+20-grafico-area.xlsx	gráfico de área	válido	sim	Tabela e gráfico de área com 3 séries
+21-imagens-png-jpeg.xlsx	imagem PNG e JPEG embutidas	válido	sim	Texto A1, PNG degradê vermelho-azul em B3, JPEG plasma maior em B12
+22-sparklines.xlsx	sparklines de linha e coluna	válido	sim	8 linhas de números com sparklines na coluna G
+23-planilha-larga-130-colunas.xlsx	130 colunas x 30 linhas	válido	sim	Janela inicial (A1:Z60 ou primeira página); truncamento esperado, colunas além de ~Z fora
+24-planilha-comprida-10000-linhas.xlsx	10000 linhas x 3 colunas	válido	sim	Somente o topo (linhas 1 a ~60); não deve renderizar as 10 mil linhas
+25-texto-longo-quebra-transbordo.xlsx	quebra automática, manual e transbordo	válido	sim	A1 em várias linhas, A3 transborda para a direita, A5 em 3 linhas
+26-texto-rotacionado.xlsx	rotação 0, 45, 90, -45, -90, 270	válido	sim	Seis células com texto em ângulos diferentes
+27-alinhamentos.xlsx	grade 3x3 de alinhamento vertical x horizontal	válido	sim	Nove células com rótulo coerente com a posição do texto
+28-numeros-enormes-e-erros.xlsx	1.79E+308, inteiro enorme, erros	válido	sim	#DIV/0!, #VALUE!, #N/A, #REF! visíveis; número em coluna estreita vira ####
+29-area-de-impressao.xlsx	área de impressão C5:F12	válido	sim	LibreOffice mostra só C5:F12; GridCraft pode mostrar A1 em diante (divergência esperada)
+30-tabela-com-estilo.xlsx	tabela Table Style Medium 9	válido	sim	Cabeçalho azul, linhas alternadas
+31-texto-nao-latino-emoji.xlsx	árabe, CJK, hindi, grego, russo, emoji	válido	sim	8 linhas; fontes ausentes podem gerar quadrados (tofu)
+32-condicional-celula-vermelho.xlsx	formatação condicional por valor	válido	sim	Valores negativos com fundo rosa e fonte vinho
+33-grafico-combinado.xlsx	coluna + linha em eixo secundário	válido	sim	Tabela e gráfico combinado abaixo, em A9
+34-painel-composto.xlsx	título mesclado, barras de dados, gráfico, painel congelado, 3 abas	válido	sim	Título azul, tabela, barras de dados, gráfico de barras em F3
+35-comentarios-hiperlinks.xlsx	comentário visível e hiperlink	válido	sim	A1 com indicador/nota, A3 link azul sublinhado
+36-planilha-rtl.xlsx	planilha da direita para a esquerda	válido	sim	Colunas espelhadas (A à direita) em LibreOffice
+37-zoom-200-sem-gridlines.xlsx	zoom 200% e sem linhas de grade	válido	sim	Sem grade; zoom normalmente ignorado em impressão
+38-xlsx-vazio-valido.xlsx	xlsx válido sem nenhuma célula	válido	sim	Imagem em branco (ou página vazia)
+39-conteudo-distante.xlsx	A1 e Z500	válido	sim	A1 e Z500 distantes: a janela pode mostrar só A1
+40-primeira-aba-oculta.xlsx	primeira aba oculta, segunda ativa	válido	sim	Dúvida: qual é a "primeira aba"; conteúdo oculto ABA OCULTA 1 vs ABA VISIVEL 2
+41-openpyxl-formula-sem-cache.xlsx	openpyxl com fórmula sem cache	válido	sim	A4 igual a 3 se recalcula; texto em negrito Arial em A1
+42-openpyxl-dados-sem-gridlines.xlsx	29 linhas sem gridlines	válido	sim	Três colunas de números e texto sem grade
+43-legado-formatado-grafico.xls	.xls (BIFF8) com formatação e gráfico	formato alternativo	parcial	GridCraft lê só valores, fórmulas, formatos e mesclagens (sem estilos nem gráfico); LibreOffice mostra tudo
+44-formato-ods.ods	.ods com formatação e gráfico	formato alternativo	parcial	GridCraft importa só dados (valores salvos)
+45-csv-utf8-acentos.csv	CSV UTF-8 ponto e vírgula	formato alternativo	sim	Tabela com João, São Paulo, etc. (separador ; pode virar coluna única em alguns motores)
+46-csv-latin1-acentos.csv	CSV Latin-1 (ISO-8859-1)	formato alternativo	parcial	Mesmo conteúdo; acentos podem aparecer errados sem detecção de codificação
+47-tsv-utf8-acentos.tsv	TSV UTF-8	formato alternativo	sim	Três colunas, 3 linhas
+48-tsv-latin1-acentos.tsv	TSV Latin-1	formato alternativo	parcial	Mesmo conteúdo; risco de mojibake
+49-vazio-0bytes.xlsx	arquivo de 0 bytes	inválido	não	Falha controlada esperada (sem PNG ou erro claro)
+50-xlsx-truncado.xlsx	xlsx cortado pela metade	inválido	não	Falha controlada esperada
+51-xlsx-bytes-corrompidos.xlsx	xlsx com bytes sobrescritos	inválido	não	Falha ou recuperação parcial
+52-texto-puro-extensao-xlsx.xlsx	texto puro com extensão .xlsx	inválido	não	Falha controlada esperada; LibreOffice pode abrir como texto
+53-csv-com-extensao-xlsx.xlsx	CSV com extensão .xlsx	inválido	não	Falha, ou abre como CSV se houver detecção por conteúdo
+54-xlsx-com-extensao-csv.csv	xlsx real com extensão .csv	inválido	não	Lixo binário como texto, ou abre como xlsx se detectar pelo conteúdo
+55-xlsx-com-extensao-xls.xls	xlsx real com extensão .xls	inválido	não	Abre se houver detecção por conteúdo (tabela de vendas)
+56-xls-com-extensao-xlsx.xlsx	xls real com extensão .xlsx	inválido	não	Abre se houver detecção por conteúdo (painel composto)
+57-xlsx-com-extensao-ods.ods	xlsx real com extensão .ods	inválido	não	Abre se houver detecção por conteúdo (tabela de vendas)
