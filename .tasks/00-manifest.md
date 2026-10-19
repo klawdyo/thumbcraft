@@ -5,7 +5,7 @@ Formato em `docs/rules/task-template.md` (fluxo em `docs/rules/workflow-and-agen
 | Seq | File | Objetivo (curto) | Status | Depends on |
 |-----|------|------------------|--------|------------|
 | 01 | 01-cli-stdin-stdout.md | `thumbcraft - -`: entrada por stdin e saída por stdout na CLI | todo | — |
-| 02 | 02-ts-wrapper-core.md | Pacote `packages/thumbcraft`: API, opções, execução do binário, erros | todo | 01 (só `fromBuffer`) |
+| 02 | 02-ts-wrapper-core.md | Pacote `packages/thumbcraft`: API, opções, execução do binário, erros | done | 01 (só `fromBuffer`) |
 | 03 | 03-ts-detect-is-valid.md | `detect` e `isValid` por `thumbcraft --detect`, sem ZIP em TypeScript | todo | 02, 01 (buffer) |
 | 04 | 04-npm-platform-packages.md | Pacotes `@thumbcraft/*` (Windows x64, Linux x64) e resolução do binário | todo | 02 |
 | 05 | 05-platform-builds.md | Build e testes em Windows e Linux, tabela por plataforma | todo | — |

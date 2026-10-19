@@ -33,11 +33,11 @@ existe ainda. `fromBuffer` sem arquivo temporário depende da tarefa 01; até l�
 
 ## Critérios de aceitação
 
-- [ ] `npm test` em `packages/thumbcraft` passa, com testes escritos antes, sem processo real nos unitários
-- [ ] Teste de integração (roda com `THUMBCRAFT_BIN`) gera PNG de `corpus/docx/01_docx_simples_acentos.docx` com 120 x 120
-- [ ] Cada código de saída 2, 3, 4 e 5 vira o erro tipado correspondente; 134 e timeout viram os erros de processo
-- [ ] `npm run build` gera `.d.ts` e o pacote não declara dependências de runtime
-- [ ] **UTF-8 sem BOM, LF e sem mojibake** em todos os arquivos criados/modificados (`bash scripts/check-encoding.sh`)
+- [x] `npm test` em `packages/thumbcraft` passa, com testes escritos antes, sem processo real nos unitários
+- [x] Teste de integração (roda com `THUMBCRAFT_BIN`) gera PNG de `corpus/docx/01_docx_simples_acentos.docx` com 120 x 120
+- [x] Cada código de saída 2, 3, 4 e 5 vira o erro tipado correspondente; 134 e timeout viram os erros de processo
+- [x] `npm run build` gera `.d.ts` e o pacote não declara dependências de runtime
+- [x] **UTF-8 sem BOM, LF e sem mojibake** em todos os arquivos criados/modificados (`bash scripts/check-encoding.sh`)
 
 ## Não escopo
 
