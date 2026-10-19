@@ -1,0 +1,31 @@
+# Workspace do thumbcraft: um binário único que gera miniaturas de documentos Word, planilhas
+# e apresentações usando os motores WordCraft, GridCraft e DeckCraft (em third_party/, criado
+# por scripts/fetch-upstream.sh).
+[workspace]
+resolver = "3"
+members = ["crates/core", "crates/thumbcraft"]
+# `cargo test` na raiz roda só o núcleo (rápido, sem compilar os motores).
+# Para tudo: `cargo test --workspace`.
+default-members = ["crates/core"]
+# third_party/ guarda workspaces de terceiros: sem isto o cargo os tomaria por membros deste.
+exclude = ["third_party"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "Apache-2.0"
+rust-version = "1.95"
+publish = false
+
+# Mesmo remendo que o WordCraft e o DeckCraft usam na raiz deles: o craft-pdf exige este krilla.
+# A revisão do craft-libs é a mesma c3487320 dos dois (ver UPSTREAM.md).
+[patch.crates-io]
+krilla = { git = "https://github.com/storytold/craft-libs", rev = "c3487320b2d1de657b860b3c8abb44e1f2b32bd8", version = "=0.8.2" }
+
+# Perfil voltado a tamanho de binário (valores medidos em docs/SIZES.md).
+[profile.release]
+opt-level = "z"
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = "symbols"

@@ -1,0 +1,30 @@
+[package]
+name = "thumbcraft"
+description = "Gera miniaturas (PNG) de documentos Word, planilhas e apresentações com os motores WordCraft, GridCraft e DeckCraft"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+build = "build.rs"
+
+[dependencies]
+thumbcraft-core = { path = "../core" }
+
+# WordCraft: abrir o documento, paginar e rasterizar (mesmos crates do wc-min, mais o render).
+wordcraft-engine = { path = "../../third_party/wordcraft/crates/engine" }
+wordcraft-render = { path = "../../third_party/wordcraft/crates/render" }
+
+# GridCraft (com o patch do exportador de PNG): tudo por comandos do engine.
+gridcraft-engine = { path = "../../third_party/gridcraft/crates/engine" }
+
+# DeckCraft: os mesmos quatro crates do dc-min.
+deckcraft-pptx = { path = "../../third_party/deckcraft/crates/pptx" }
+deckcraft-format = { path = "../../third_party/deckcraft/crates/format" }
+deckcraft-render = { path = "../../third_party/deckcraft/crates/render" }
+deckcraft-fonts = { path = "../../third_party/deckcraft/crates/fonts" }
+
+serde_json = "1"
+# Mesmas versões que os motores já usam (uma cópia só no binário).
+png = "0.18"
+zip = { version = "3", default-features = false, features = ["deflate"] }
