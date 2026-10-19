@@ -27,6 +27,8 @@ Renderização:
       --filter <lanczos|area>      filtro de redução (padrão lanczos)
       --page <N>          página, slide ou página de impressão, a partir de 1 (padrão 1)
 Saída:
+      --format <png|jpeg|webp>  (padrão: pela extensão da saída; WebP sem perdas)
+      --quality <1-100>   qualidade do JPEG (padrão 85)
       --native-scale <S>  teste: grava a renderização nativa a S px/pt, sem pós-processamento
 
 Códigos de saída: 0 ok; 2 uso incorreto; 3 formato não suportado; 4 arquivo inválido ou falha ao
@@ -52,6 +54,8 @@ pub struct Job {
     pub output: String,
     pub opts: Opts,
     pub format: Format,
+    /// Qualidade do JPEG (1 a 100).
+    pub quality: u8,
     /// Modo de teste: escala nativa, sem pós-processamento.
     pub native: Option<f64>,
 }
@@ -66,6 +70,8 @@ pub fn parse(args: &[String]) -> Res<Cmd> {
     let mut pos: Vec<String> = Vec::new();
     let mut native = None;
     let mut detect = false;
+    let mut format: Option<Format> = None;
+    let mut quality: u8 = 85;
     let mut it = args.iter().peekable();
     while let Some(a) = it.next() {
         if !a.starts_with('-') || a == "-" {
@@ -97,6 +103,8 @@ pub fn parse(args: &[String]) -> Res<Cmd> {
             "--crop" => o.crop = Some(Crop::parse(&value("--crop")?)?),
             "--render-scale" => o.scale = RenderScale::parse(&value("--render-scale")?)?,
             "--filter" => o.filter = Filter::parse(&value("--filter")?)?,
+            "--format" => format = Some(Format::parse(&value("--format")?)?),
+            "--quality" => quality = num("--quality", &value("--quality")?)?,
             "--page" => o.page = num("--page", &value("--page")?)?,
             "--native-scale" => {
                 let s: f64 = num("--native-scale", &value("--native-scale")?)?;
@@ -121,8 +129,14 @@ pub fn parse(args: &[String]) -> Res<Cmd> {
     let output = pos.pop().unwrap_or_default();
     let input = pos.pop().unwrap_or_default();
     let ext = thumbcraft_core::route::ext_of(&output);
-    let format = Format::from_ext(&ext)?;
-    Ok(Cmd::Run(Job { input, output, opts: o, format, native }))
+    let format = match format {
+        Some(f) => f,
+        None => Format::from_ext(&ext)?,
+    };
+    if !(1..=100).contains(&quality) {
+        return Err(Error::Usage("--quality deve ficar entre 1 e 100".into()));
+    }
+    Ok(Cmd::Run(Job { input, output, opts: o, format, quality, native }))
 }
 
 #[cfg(test)]
@@ -143,7 +157,7 @@ mod tests {
 
     #[test]
     fn erros_de_uso() {
-        for s in ["a.docx", "a.docx b.png c.png", "a.docx b.png -W", "a.docx b.png -W x", "a.docx b.png --nada", "a.docx b.png --fit zoom", "a.docx b.png --page 0", "a.docx b.png --native-scale 0", "a.docx b.jpg"] {
+        for s in ["a.docx", "a.docx b.png c.png", "a.docx b.png --quality 0", "a.docx b.bmp", "a.docx b.png -W", "a.docx b.png -W x", "a.docx b.png --nada", "a.docx b.png --fit zoom", "a.docx b.png --page 0", "a.docx b.png --native-scale 0"] {
             assert_eq!(p(s).unwrap_err().code(), 2, "{s}");
         }
     }

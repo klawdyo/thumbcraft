@@ -36,7 +36,7 @@ fn run(job: &Job) -> Res<()> {
         return write(&job.output, &png);
     }
     let done = post::process(doc.as_mut(), &job.opts)?;
-    let bytes = encode::encode(&done.img, job.format)?;
+    let bytes = encode::encode(&done.img, job.format, job.quality)?;
     write(&job.output, &bytes)
 }
 
