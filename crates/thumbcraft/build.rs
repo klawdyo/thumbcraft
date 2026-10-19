@@ -56,6 +56,11 @@ fn main() {
     let top = std::fs::read_to_string(root.join("Cargo.toml")).unwrap_or_default();
     let rev = top.split("rev = \"").nth(1).and_then(|s| s.split('"').next()).unwrap_or("desconhecida");
     println!("cargo:rustc-env=TC_CRAFT_LIBS_REV={rev}");
+    // Revisão do craft-pdf usado para ler PDF: a da dependência craft-pdf-raster do próprio crate.
+    println!("cargo:rerun-if-changed=Cargo.toml");
+    let own = std::fs::read_to_string("Cargo.toml").unwrap_or_default();
+    let pdf_rev = own.lines().find(|l| l.starts_with("craft-pdf-raster")).and_then(|l| l.split("rev = \"").nth(1)).and_then(|s| s.split('"').next()).unwrap_or("desconhecida");
+    println!("cargo:rustc-env=TC_PDF_REV={pdf_rev}");
     // Versão do rustc.
     let rustc = std::env::var("RUSTC").unwrap_or_else(|_| "rustc".into());
     let rv = Command::new(rustc).arg("-V").output().ok().and_then(|o| String::from_utf8(o.stdout).ok()).map(|s| s.trim().to_string()).unwrap_or_else(|| "desconhecido".into());

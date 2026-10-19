@@ -9,6 +9,7 @@ mod encode;
 mod grid;
 mod info;
 mod open;
+mod pdf;
 mod word;
 
 use std::path::Path;

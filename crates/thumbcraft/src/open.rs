@@ -6,7 +6,7 @@ use std::path::Path;
 use thumbcraft_core::route::{self, Engine, Sniff, ZipKind};
 use thumbcraft_core::{Error, Render, Res};
 
-use crate::{deck::Deck, grid::Grid, word::Word};
+use crate::{deck::Deck, grid::Grid, pdf::Pdf, word::Word};
 
 /// Lê uma entrada do ZIP como texto, até `max` bytes.
 fn zip_text(z: &mut zip::ZipArchive<std::fs::File>, name: &str, max: u64) -> Option<String> {
@@ -22,7 +22,7 @@ pub fn sniff(path: &Path) -> Res<Sniff> {
     if !f.metadata().map(|m| m.is_file()).unwrap_or(false) {
         return Err(Error::Invalid(format!("'{}' não é um arquivo", path.display())));
     }
-    let mut head = [0u8; 16];
+    let mut head = [0u8; route::PDF_HEADER_WINDOW];
     let n = f.read(&mut head).map_err(|e| Error::Invalid(format!("falha ao ler '{}': {e}", path.display())))?;
     let head = &head[..n];
     if !head.starts_with(b"PK") {
@@ -48,7 +48,6 @@ pub fn open(engine: Engine, path: &Path) -> Res<Box<dyn Render>> {
         Engine::Word => Box::new(Word::open(path)?),
         Engine::Grid => Box::new(Grid::open(path)?),
         Engine::Deck => Box::new(Deck::open(path)?),
-        // Ponto de extensão: um novo impl de Render para PDF entra aqui.
-        Engine::Pdf => return Err(route::pdf_pending()),
+        Engine::Pdf => Box::new(Pdf::open(path)?),
     })
 }

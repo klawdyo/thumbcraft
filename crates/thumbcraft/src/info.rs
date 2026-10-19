@@ -11,7 +11,8 @@ pub fn version() -> String {
          wordcraft {} commit {} ({})\n\
          gridcraft {} commit {} ({}), {}\n\
          deckcraft {} commit {} ({})\n\
-         craft-libs revisão {} (krilla e craft-pdf)\n\
+         craft-libs revisão {} (krilla e craft-pdf, só escrita)\n\
+         craft-pdf revisão {} (leitura e raster de PDF com hayro)\n\
          compilado com {}\n",
         env!("CARGO_PKG_VERSION"),
         env!("TC_WORD_VER"),
@@ -25,6 +26,7 @@ pub fn version() -> String {
         env!("TC_DECK_SHA"),
         env!("TC_DECK_DATE"),
         env!("TC_CRAFT_LIBS_REV"),
+        env!("TC_PDF_REV"),
         env!("TC_RUSTC"),
     )
 }
@@ -35,7 +37,8 @@ pub fn formats() -> String {
         "word (WordCraft): {}\n\
          grid (GridCraft): {} (xls e ods parciais)\n\
          deck (DeckCraft): {}\n\
-         não suportados: ppt e odp (erro 3), pdf (reservado, erro 3)\n",
+         pdf (craft-pdf, Hayro): pdf\n\
+         não suportados: ppt e odp (erro 3)\n",
         WORD_EXTS.join(" "),
         GRID_EXTS.join(" "),
         DECK_EXTS.join(" "),
