@@ -38,7 +38,8 @@ motor é um adaptador no binário; o roteamento é por conteúdo e extensão.
 ## Zonas protegidas
 
 - `third_party/`: gerado, nunca editado (mudança vai por `patches/` e `scripts/fetch-upstream.sh`).
-- `patches/gridcraft/`: só pelo roteiro de `docs/UPDATING.md`.
+- `patches/`: só pelo roteiro de `docs/UPDATING.md`. Toda mudança nos projetos importados é um patch pequeno aqui, sem reescrever o núcleo deles, e fica registrada em `docs/UPSTREAM-CHANGES.md`.
+- **Uma versão por pacote:** o objetivo do projeto é um binário pequeno, padronizado e eficiente; não aceite duas versões do mesmo crate no binário (`cargo tree -p thumbcraft -d`).
 - `corpus/` e `baselines/`: dados históricos de 2026-10-19, nunca sobrescritos; resultados novos vão em pasta datada.
 - Benchmarks, binários, `node_modules` e `target/` não entram no git (`docs/STATUS.md`); ficam em `benchmarks/` e
   `outputs/`, ignoradas.

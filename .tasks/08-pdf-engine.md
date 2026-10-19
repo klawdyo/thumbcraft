@@ -31,6 +31,26 @@ Poppler no Windows) e de `docs/PDF.md` (Linux): hayro pelo `craft-pdf` dentro do
 - `corpus/pdf/` (45 PDFs com `MANIFEST.tsv`) e `benchmarks/pdf/` (executor com medição de memória; fora do git)
 - `docs/rules/testing.md`, `principles.md`, `naming-and-language.md`
 
+## Regra do dono: uma versão por pacote (2026-10-19)
+
+O thumbcraft junta projetos para ficar **pequeno, padronizado e eficiente**; versões diferentes do mesmo pacote no
+binário não cabem em nenhuma das três. Então esta tarefa **não aceita** duas revisões do `craft-pdf` nem duas
+versões do `vello_cpu` (e de `vello_common`, `glifo`) no binário. Como resolver, com o mínimo de mudança nos projetos
+importados (o núcleo deles não é reescrito):
+
+1. Baixar o `craft-libs` na revisão `ae2f796b673f29cf3161f36eb6a8933f0a3fe028` para `third_party/craft-libs`
+   (`scripts/fetch-upstream.sh`), como já se faz com WordCraft, GridCraft e DeckCraft.
+2. Usar essa única cópia para tudo: `craft-pdf` (com `write` e `raster`) e os crates `krilla` e `hayro*` vendorizados,
+   por caminho. O `[patch]` do `craft-pdf` na raiz faz o WordCraft e o DeckCraft, que pedem a revisão `c3487320` por
+   git, usarem a mesma cópia.
+3. Portar o `hayro` vendorizado para o `vello_cpu` 0.2.0 (o que os motores já usam), num patch pequeno em
+   `patches/craft-libs/`, só nos dois arquivos que usam o `vello_cpu` (`lib.rs` e `renderer.rs`).
+4. **Registrar toda mudança** em `docs/UPSTREAM-CHANGES.md` (o que mudou, por quê, como reaplicar, como saber se
+   ainda é necessário), para os próximos agentes saberem o que fazer quando o dono pedir para atualizar os pacotes.
+5. Duplicações que já existiam antes desta tarefa (por exemplo `skrifa` em três versões) são listadas no mesmo
+   documento, com a causa e o que seria preciso para resolver; resolver só as que o PDF introduziu é o mínimo desta
+   tarefa, e o restante vira tarefa própria se o dono pedir.
+
 ## Regras de negócio
 
 - Um arquivo é PDF quando começa com `%PDF` ou tem extensão `.pdf` sem outra assinatura. Texto puro com extensão
@@ -64,6 +84,8 @@ Poppler no Windows) e de `docs/PDF.md` (Linux): hayro pelo `craft-pdf` dentro do
 - [ ] Testes unitários do adaptador, com PDFs mínimos em código, sem disco: tamanho da página, número de páginas, página inexistente, PDF sem páginas e dados inválidos
 - [ ] Testes e2e sobre `corpus/pdf/`: os 32 PDFs válidos geram PNG com as dimensões pedidas; zero páginas, senha de abertura, truncados e vazio dão código 4 sem arquivo de saída; `--page`, `--detect` e `--formats` funcionam
 - [ ] `cargo test --workspace --locked` passa
+- [ ] `cargo tree -p thumbcraft -d` não lista `craft-pdf`, `vello_cpu`, `vello_common` nem `glifo` duplicados; as duplicações restantes estão registradas em `docs/UPSTREAM-CHANGES.md`
+- [ ] `docs/UPSTREAM-CHANGES.md` registra cada patch dos projetos importados (WordCraft, GridCraft, DeckCraft e craft-libs), e `docs/UPDATING.md` e `CLAUDE.md` apontam para ele
 - [ ] Medição no Windows com os PDFs hostis (`benchmarks/pdf/hostile`): pico de memória e tempo registrados abaixo, com a meta decidida
 - [ ] Tamanho do binário de release (perfil de tamanho) registrado, com o custo contra os 23.995.392 bytes atuais
 - [ ] `docs/ARCHITECTURE.md`, `README.md`, `docs/PDF.md`, `docs/PDF-WINDOWS.md` e `docs/CRAFT-FAMILY.md` atualizados
@@ -72,4 +94,5 @@ Poppler no Windows) e de `docs/PDF.md` (Linux): hayro pelo `craft-pdf` dentro do
 ## Não escopo
 
 - PDF com senha fornecida pelo usuário. Edição, texto ou metadados de PDF. Mais de uma página por chamada.
-- Alinhar o Hayro ao `vello_cpu` 0.2 (trabalho do upstream) e subir a revisão do `craft-libs` do WordCraft e do DeckCraft.
+- Subir a revisão do `craft-libs` além da `ae2f796` e reescrever o núcleo do Hayro (só o porte mínimo para o `vello_cpu` 0.2.0).
+- Substituir o `krilla` por um substituto vazio (estudado em separado; ver o relatório desta tarefa).
