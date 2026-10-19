@@ -1509,7 +1509,7 @@ dependencies = [
 
 [[package]]
 name = "thumbcraft"
-version = "0.1.0"
+version = "0.14.1"
 dependencies = [
  "craft-pdf",
  "deckcraft-fonts",
@@ -1528,7 +1528,7 @@ dependencies = [
 
 [[package]]
 name = "thumbcraft-core"
-version = "0.1.0"
+version = "0.14.1"
 
 [[package]]
 name = "tiff"
