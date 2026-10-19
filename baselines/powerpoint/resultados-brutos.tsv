@@ -1,0 +1,93 @@
+file	format	tool	exit	ms	png_bytes	stderr
+01_titulo_acentos.pptx	pptx	rust	0	60	77356	
+01_titulo_acentos.pptx	pptx	libreoffice	0	1700	66721	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/01_titulo_acentos.pptx as a Impress document -> /tmp/claude-0/-h
+02_bullets_niveis.pptx	pptx	rust	0	101	53564	
+02_bullets_niveis.pptx	pptx	libreoffice	0	1689	51088	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/02_bullets_niveis.pptx as a Impress document -> /tmp/claude-0/-h
+03_imagens_png_jpeg.pptx	pptx	rust	0	90	198290	
+03_imagens_png_jpeg.pptx	pptx	libreoffice	0	1891	311282	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/03_imagens_png_jpeg.pptx as a Impress document -> /tmp/claude-0/
+04_formas_basicas.pptx	pptx	rust	0	150	84226	
+04_formas_basicas.pptx	pptx	libreoffice	0	2080	74920	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/04_formas_basicas.pptx as a Impress document -> /tmp/claude-0/-h
+05_formas_gradiente.pptx	pptx	rust	0	124	112482	
+05_formas_gradiente.pptx	pptx	libreoffice	0	1716	82680	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/05_formas_gradiente.pptx as a Impress document -> /tmp/claude-0/
+06_sombra_transparencia.pptx	pptx	rust	0	127	51222	
+06_sombra_transparencia.pptx	pptx	libreoffice	0	1613	60023	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/06_sombra_transparencia.pptx as a Impress document -> /tmp/claud
+07_tabela_com_bordas.pptx	pptx	rust	0	40	50912	
+07_tabela_com_bordas.pptx	pptx	libreoffice	0	1479	26177	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/07_tabela_com_bordas.pptx as a Impress document -> /tmp/claude-0
+08_tabela_sem_bordas.pptx	pptx	rust	0	37	49837	
+08_tabela_sem_bordas.pptx	pptx	libreoffice	0	1627	23692	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/08_tabela_sem_bordas.pptx as a Impress document -> /tmp/claude-0
+09_grafico_barras.pptx	pptx	rust	0	50	25742	
+09_grafico_barras.pptx	pptx	libreoffice	0	1652	24365	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/09_grafico_barras.pptx as a Impress document -> /tmp/claude-0/-h
+10_grafico_linhas.pptx	pptx	rust	0	43	36005	
+10_grafico_linhas.pptx	pptx	libreoffice	0	1543	34465	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/10_grafico_linhas.pptx as a Impress document -> /tmp/claude-0/-h
+11_grafico_pizza.pptx	pptx	rust	0	46	29393	
+11_grafico_pizza.pptx	pptx	libreoffice	0	1628	27231	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/11_grafico_pizza.pptx as a Impress document -> /tmp/claude-0/-ho
+12_smartart_com_drawing.pptx	pptx	rust	0	35	30483	
+12_smartart_com_drawing.pptx	pptx	libreoffice	0	1555	27053	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/12_smartart_com_drawing.pptx as a Impress document -> /tmp/claud
+12b_smartart_sem_drawing.pptx	pptx	rust	0	40	22446	
+12b_smartart_sem_drawing.pptx	pptx	libreoffice	0	1706	16533	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/12b_smartart_sem_drawing.pptx as a Impress document -> /tmp/clau
+13_texto_formatado.pptx	pptx	rust	0	54	64497	
+13_texto_formatado.pptx	pptx	libreoffice	0	1846	61623	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/13_texto_formatado.pptx as a Impress document -> /tmp/claude-0/-
+14_fontes.pptx	pptx	rust	0	67	130853	
+14_fontes.pptx	pptx	libreoffice	0	1625	106945	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/14_fontes.pptx as a Impress document -> /tmp/claude-0/-home-clau
+15_fundo_solido.pptx	pptx	rust	0	31	17366	
+15_fundo_solido.pptx	pptx	libreoffice	0	1550	12109	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/15_fundo_solido.pptx as a Impress document -> /tmp/claude-0/-hom
+16_fundo_gradiente.pptx	pptx	rust	0	51	20155	
+16_fundo_gradiente.pptx	pptx	libreoffice	0	1511	15859	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/16_fundo_gradiente.pptx as a Impress document -> /tmp/claude-0/-
+17_fundo_imagem.pptx	pptx	rust	0	77	20175	
+17_fundo_imagem.pptx	pptx	libreoffice	0	1494	16772	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/17_fundo_imagem.pptx as a Impress document -> /tmp/claude-0/-hom
+18_mestre_layout_logo.pptx	pptx	rust	0	50	46804	
+18_mestre_layout_logo.pptx	pptx	libreoffice	0	1773	39519	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/18_mestre_layout_logo.pptx as a Impress document -> /tmp/claude-
+19_notas_orador.pptx	pptx	rust	0	45	35152	
+19_notas_orador.pptx	pptx	libreoffice	0	1566	30090	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/19_notas_orador.pptx as a Impress document -> /tmp/claude-0/-hom
+20_transicoes_animacoes.pptx	pptx	rust	0	36	33991	
+20_transicoes_animacoes.pptx	pptx	libreoffice	0	1594	27231	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/20_transicoes_animacoes.pptx as a Impress document -> /tmp/claud
+21_apresentacao_60_slides.pptx	pptx	rust	0	60	37601	
+21_apresentacao_60_slides.pptx	pptx	libreoffice	0	1922	33202	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/21_apresentacao_60_slides.pptx as a Impress document -> /tmp/cla
+22_texto_overflow.pptx	pptx	rust	0	118	176221	
+22_texto_overflow.pptx	pptx	libreoffice	0	2107	140265	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/22_texto_overflow.pptx as a Impress document -> /tmp/claude-0/-h
+23_texto_vertical_rotacionado.pptx	pptx	rust	0	101	63250	
+23_texto_vertical_rotacionado.pptx	pptx	libreoffice	0	1842	71529	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/23_texto_vertical_rotacionado.pptx as a Impress document -> /tmp
+25_proporcao_4x3.pptx	pptx	rust	0	39	25418	
+25_proporcao_4x3.pptx	pptx	libreoffice	0	2119	22667	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/25_proporcao_4x3.pptx as a Impress document -> /tmp/claude-0/-ho
+26_proporcao_16x9.pptx	pptx	rust	0	36	27763	
+26_proporcao_16x9.pptx	pptx	libreoffice	0	2049	23765	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/26_proporcao_16x9.pptx as a Impress document -> /tmp/claude-0/-h
+27_video_placeholder.pptx	pptx	rust	0	124	35455	
+27_video_placeholder.pptx	pptx	libreoffice	0	1838	30999	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/27_video_placeholder.pptx as a Impress document -> /tmp/claude-0
+28_hiperlinks.pptx	pptx	rust	0	55	22688	
+28_hiperlinks.pptx	pptx	libreoffice	0	2033	18879	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/28_hiperlinks.pptx as a Impress document -> /tmp/claude-0/-home-
+29_primeiro_slide_oculto.pptx	pptx	rust	0	41	21053	
+29_primeiro_slide_oculto.pptx	pptx	libreoffice	0	1860	15390	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/29_primeiro_slide_oculto.pptx as a Impress document -> /tmp/clau
+30_rtl_cjk_emoji.pptx	pptx	rust	0	970	39976	
+30_rtl_cjk_emoji.pptx	pptx	libreoffice	0	2134	39504	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/30_rtl_cjk_emoji.pptx as a Impress document -> /tmp/claude-0/-ho
+31_imagem_tela_cheia_recorte.pptx	pptx	rust	0	210	118282	
+31_imagem_tela_cheia_recorte.pptx	pptx	libreoffice	0	1904	176855	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/31_imagem_tela_cheia_recorte.pptx as a Impress document -> /tmp/
+32_graficos_multiplos.pptx	pptx	rust	0	74	36756	
+32_graficos_multiplos.pptx	pptx	libreoffice	0	1679	45613	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/32_graficos_multiplos.pptx as a Impress document -> /tmp/claude-
+33_slideshow.ppsx	ppsx	rust	0	82	198290	
+33_slideshow.ppsx	ppsx	libreoffice	0	1443	311282	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/33_slideshow.ppsx as a Impress document -> /tmp/claude-0/-home-c
+34_modelo.potx	potx	rust	0	82	198290	
+34_modelo.potx	potx	libreoffice	0	1480	311282	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/34_modelo.potx as a Impress document -> /tmp/claude-0/-home-clau
+35_legado_formas.ppt	ppt	rust	1	16	0	in/35_legado_formas.ppt: not a presentation deckcraft can read 
+35_legado_formas.ppt	ppt	libreoffice	0	1426	10995	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/35_legado_formas.ppt as a Impress document -> /tmp/claude-0/-hom
+36_legado_imagem.ppt	ppt	rust	1	11	0	in/36_legado_imagem.ppt: not a presentation deckcraft can read 
+36_legado_imagem.ppt	ppt	libreoffice	0	1444	310179	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/36_legado_imagem.ppt as a Impress document -> /tmp/claude-0/-hom
+37_formas_gradiente.odp	odp	rust	1	16	0	in/37_formas_gradiente.odp: not a presentation deckcraft can read 
+37_formas_gradiente.odp	odp	libreoffice	0	2263	82680	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/37_formas_gradiente.odp as a Impress document -> /tmp/claude-0/-
+38_grafico_barras.odp	odp	rust	1	12	0	in/38_grafico_barras.odp: not a presentation deckcraft can read 
+38_grafico_barras.odp	odp	libreoffice	0	1837	24365	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/38_grafico_barras.odp as a Impress document -> /tmp/claude-0/-ho
+39_legado_grafico.ppt	ppt	rust	1	13	0	in/39_legado_grafico.ppt: not a presentation deckcraft can read 
+39_legado_grafico.ppt	ppt	libreoffice	0	1507	24324	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/39_legado_grafico.ppt as a Impress document -> /tmp/claude-0/-ho
+40_vazio_0bytes.pptx	pptx	rust	1	11	0	in/40_vazio_0bytes.pptx: not a presentation deckcraft can read 
+40_vazio_0bytes.pptx	pptx	libreoffice	0	1663	3879	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/40_vazio_0bytes.pptx as a Impress document -> /tmp/claude-0/-hom
+41_truncado.pptx	pptx	rust	1	10	0	in/41_truncado.pptx: not a presentation deckcraft can read 
+41_truncado.pptx	pptx	libreoffice	0	1623	0	Error: source file could not be loaded 
+42_corrompido_bytes.pptx	pptx	rust	0	93	25742	
+42_corrompido_bytes.pptx	pptx	libreoffice	0	1703	24365	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/42_corrompido_bytes.pptx as a Impress document -> /tmp/claude-0/
+43_texto_puro.pptx	pptx	rust	1	12	0	in/43_texto_puro.pptx: not a presentation deckcraft can read 
+43_texto_puro.pptx	pptx	libreoffice	0	1596	10616	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/43_texto_puro.pptx as a Writer document -> /tmp/claude-0/-home-c
+44_slide1_xml_quebrado.pptx	pptx	rust	0	41	31547	
+44_slide1_xml_quebrado.pptx	pptx	libreoffice	0	2977	12873	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/44_slide1_xml_quebrado.pptx as a Impress document -> /tmp/claude
+45_pptx_extensao_ppt.ppt	ppt	rust	0	123	77356	
+45_pptx_extensao_ppt.ppt	ppt	libreoffice	0	2864	66721	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/45_pptx_extensao_ppt.ppt as a Impress document -> /tmp/claude-0/
+46_pptx_extensao_docx.docx	docx	rust	0	119	77356	
+46_pptx_extensao_docx.docx	docx	libreoffice	0	2292	66721	convert /tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/in/46_pptx_extensao_docx.docx as a Impress document -> /tmp/claude-

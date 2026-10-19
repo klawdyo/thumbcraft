@@ -1,0 +1,12 @@
+[package]
+name = "dc-min"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+deckcraft-pptx = { path = "/tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/repo/deckcraft/crates/pptx" }
+deckcraft-format = { path = "/tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/repo/deckcraft/crates/format" }
+deckcraft-render = { path = "/tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/repo/deckcraft/crates/render" }
+deckcraft-fonts = { path = "/tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/repo/deckcraft/crates/fonts" }
+
+[workspace]

@@ -1,0 +1,47 @@
+file	format	rust_exit	rust_ms	rust_png_bytes	rust_class	lo_exit	lo_ms	lo_png_bytes	lo_class	notes
+01_titulo_acentos.pptx	pptx	0	60	77356	ok	0	1700	66721	ok	
+02_bullets_niveis.pptx	pptx	0	101	53564	ok	0	1689	51088	ok	
+03_imagens_png_jpeg.pptx	pptx	0	90	198290	ok	0	1891	311282	ok	
+04_formas_basicas.pptx	pptx	0	150	84226	ok	0	2080	74920	ok	
+05_formas_gradiente.pptx	pptx	0	124	112482	ok	0	1716	82680	ok	LO: gradiente radial com brilho central ligeiramente diferente
+06_sombra_transparencia.pptx	pptx	0	127	51222	ok	0	1613	60023	ok	
+07_tabela_com_bordas.pptx	pptx	0	40	50912	ok	0	1479	26177	ok	cabecalho em negrito so no Rust
+08_tabela_sem_bordas.pptx	pptx	0	37	49837	ok	0	1627	23692	ok	
+09_grafico_barras.pptx	pptx	0	50	25742	ok	0	1652	24365	ok	Rust: titulo sem negrito, eixos mais leves
+10_grafico_linhas.pptx	pptx	0	43	36005	ok	0	1543	34465	ok	Rust: sem marcadores visiveis na legenda
+11_grafico_pizza.pptx	pptx	0	46	29393	ok	0	1628	27231	ok	
+12_smartart_com_drawing.pptx	pptx	0	35	30483	ok	0	1555	27053	ok	SmartArt montado a mao com fallback de desenho (drawing1.xml)
+12b_smartart_sem_drawing.pptx	pptx	0	40	22446	degradado	0	1706	16533	degradado	SmartArt so com data model (sem drawing): ambos deixam o diagrama em branco
+13_texto_formatado.pptx	pptx	0	54	64497	ok	0	1846	61623	ok	
+14_fontes.pptx	pptx	0	67	130853	ok	0	1625	106945	ok	Comic Sans ausente: fallback nos dois
+15_fundo_solido.pptx	pptx	0	31	17366	ok	0	1550	12109	ok	
+16_fundo_gradiente.pptx	pptx	0	51	20155	ok	0	1511	15859	ok	
+17_fundo_imagem.pptx	pptx	0	77	20175	ok	0	1494	16772	ok	
+18_mestre_layout_logo.pptx	pptx	0	50	46804	ok	0	1773	39519	ok	
+19_notas_orador.pptx	pptx	0	45	35152	ok	0	1566	30090	ok	
+20_transicoes_animacoes.pptx	pptx	0	36	33991	ok	0	1594	27231	ok	
+21_apresentacao_60_slides.pptx	pptx	0	60	37601	ok	0	1922	33202	ok	
+22_texto_overflow.pptx	pptx	0	118	176221	ok	0	2107	140265	ok	texto vaza e e cortado no limite do slide nos dois
+23_texto_vertical_rotacionado.pptx	pptx	0	101	63250	ok	0	1842	71529	ok	
+25_proporcao_4x3.pptx	pptx	0	39	25418	ok	0	2119	22667	ok	
+26_proporcao_16x9.pptx	pptx	0	36	27763	ok	0	2049	23765	ok	
+27_video_placeholder.pptx	pptx	0	124	35455	ok	0	1838	30999	ok	mostra o poster
+28_hiperlinks.pptx	pptx	0	55	22688	ok	0	2033	18879	ok	
+29_primeiro_slide_oculto.pptx	pptx	0	41	21053	ok	0	1860	15390	ok	ambos renderizam o primeiro slide mesmo oculto
+30_rtl_cjk_emoji.pptx	pptx	0	970	39976	degradado	0	2134	39504	ok	Rust: emoji monocromatico, arabe em outro tamanho/fonte; 970 ms (varredura de fontes do sistema)
+31_imagem_tela_cheia_recorte.pptx	pptx	0	210	118282	ok	0	1904	176855	ok	
+32_graficos_multiplos.pptx	pptx	0	74	36756	degradado	0	1679	45613	ok	Rust: rosca so com 1 serie, area com transparencia/ordem diferente
+33_slideshow.ppsx	ppsx	0	82	198290	ok	0	1443	311282	ok	
+34_modelo.potx	potx	0	82	198290	ok	0	1480	311282	ok	
+35_legado_formas.ppt	ppt	1	16	0	falhou	0	1426	10995	degradado	Rust: formato nao suportado. LO: perdeu varias formas (o .ppt foi gerado pelo proprio LO, nao por PowerPoint)
+36_legado_imagem.ppt	ppt	1	11	0	falhou	0	1444	310179	ok	Rust: formato nao suportado
+37_formas_gradiente.odp	odp	1	16	0	falhou	0	2263	82680	ok	Rust: formato nao suportado
+38_grafico_barras.odp	odp	1	12	0	falhou	0	1837	24365	ok	Rust: formato nao suportado
+39_legado_grafico.ppt	ppt	1	13	0	falhou	0	1507	24324	ok	Rust: formato nao suportado
+40_vazio_0bytes.pptx	pptx	1	11	0	falhou	0	1663	3879	falhou	Rust: erro claro (exit 1). LO: exit 0 e PNG em branco (falso sucesso)
+41_truncado.pptx	pptx	1	10	0	falhou	0	1623	0	falhou	Rust: erro claro (exit 1). LO: exit 0 sem PNG ("source file could not be loaded")
+42_corrompido_bytes.pptx	pptx	0	93	25742	ok	0	1703	24365	ok	corrupcao caiu em parte nao essencial do zip; ambos abriram
+43_texto_puro.pptx	pptx	1	12	0	falhou	0	1596	10616	falhou	Rust: erro claro (exit 1). LO: exit 0 e PNG de pagina de texto minusculo (falso sucesso)
+44_slide1_xml_quebrado.pptx	pptx	0	41	31547	degradado	0	2977	12873	degradado	Rust: descartou o slide 1 e renderizou o slide 2 (slide errado, aviso so no stderr). LO: slide 1 sem o corpo
+45_pptx_extensao_ppt.ppt	ppt	0	123	77356	ok	0	2864	66721	ok	Rust identifica pelo conteudo, nao pela extensao
+46_pptx_extensao_docx.docx	docx	0	119	77356	ok	0	2292	66721	ok	idem
