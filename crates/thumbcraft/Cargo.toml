@@ -24,9 +24,9 @@ deckcraft-render = { path = "../../third_party/deckcraft/crates/render" }
 deckcraft-fonts = { path = "../../third_party/deckcraft/crates/fonts" }
 deckcraft-model = { path = "../../third_party/deckcraft/crates/model" }
 
-# PDF: leitura e rasterização pelo craft-pdf (Hayro). Renomeado porque o WordCraft e o DeckCraft usam outra
-# revisão do mesmo crate, só com a feature write.
-craft-pdf-raster = { package = "craft-pdf", git = "https://github.com/storytold/craft-libs", rev = "ae2f796b673f29cf3161f36eb6a8933f0a3fe028", default-features = false, features = ["raster"] }
+# PDF: leitura e rasterização pelo craft-pdf (Hayro), a mesma cópia que o WordCraft e o DeckCraft usam só para
+# escrever (o remendo no Cargo.toml raiz aponta tudo para third_party/craft-libs).
+craft-pdf = { path = "../../third_party/craft-libs/crates/pdf", default-features = false, features = ["raster"] }
 
 serde_json = "1"
 # Mesmas versões que os motores já usam (uma cópia só no binário).

@@ -51,16 +51,12 @@ fn main() {
     // Marca de patch do GridCraft (hash dos patches aplicados por fetch-upstream.sh).
     let patch = std::fs::read_to_string(root.join("third_party/gridcraft/.git/thumbcraft-patched")).map(|s| s.trim().to_string()).unwrap_or_else(|_| "nenhum".into());
     println!("cargo:rustc-env=TC_GRID_PATCH={patch}");
-    // Revisão do craft-libs: a do [patch.crates-io] do Cargo.toml raiz.
-    println!("cargo:rerun-if-changed=../../Cargo.toml");
-    let top = std::fs::read_to_string(root.join("Cargo.toml")).unwrap_or_default();
-    let rev = top.split("rev = \"").nth(1).and_then(|s| s.split('"').next()).unwrap_or("desconhecida");
+    // Revisão do craft-libs (craft-pdf, krilla e hayro): a cópia em third_party/craft-libs.
+    let libs = root.join("third_party/craft-libs");
+    println!("cargo:rerun-if-changed={}", libs.join(".git/HEAD").display());
+    println!("cargo:rerun-if-env-changed=THUMBCRAFT_LIBS_SHA");
+    let rev = git(&libs, &["rev-parse", "HEAD"]).or_else(|| std::env::var("THUMBCRAFT_LIBS_SHA").ok()).unwrap_or_else(|| "desconhecida".into());
     println!("cargo:rustc-env=TC_CRAFT_LIBS_REV={rev}");
-    // Revisão do craft-pdf usado para ler PDF: a da dependência craft-pdf-raster do próprio crate.
-    println!("cargo:rerun-if-changed=Cargo.toml");
-    let own = std::fs::read_to_string("Cargo.toml").unwrap_or_default();
-    let pdf_rev = own.lines().find(|l| l.starts_with("craft-pdf-raster")).and_then(|l| l.split("rev = \"").nth(1)).and_then(|s| s.split('"').next()).unwrap_or("desconhecida");
-    println!("cargo:rustc-env=TC_PDF_REV={pdf_rev}");
     // Versão do rustc.
     let rustc = std::env::var("RUSTC").unwrap_or_else(|_| "rustc".into());
     let rv = Command::new(rustc).arg("-V").output().ok().and_then(|o| String::from_utf8(o.stdout).ok()).map(|s| s.trim().to_string()).unwrap_or_else(|| "desconhecido".into());

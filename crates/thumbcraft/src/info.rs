@@ -11,8 +11,7 @@ pub fn version() -> String {
          wordcraft {} commit {} ({})\n\
          gridcraft {} commit {} ({}), {}\n\
          deckcraft {} commit {} ({})\n\
-         craft-libs revisão {} (krilla e craft-pdf, só escrita)\n\
-         craft-pdf revisão {} (leitura e raster de PDF com hayro)\n\
+         craft-libs revisão {} (craft-pdf, krilla e hayro)\n\
          compilado com {}\n",
         env!("CARGO_PKG_VERSION"),
         env!("TC_WORD_VER"),
@@ -26,7 +25,6 @@ pub fn version() -> String {
         env!("TC_DECK_SHA"),
         env!("TC_DECK_DATE"),
         env!("TC_CRAFT_LIBS_REV"),
-        env!("TC_PDF_REV"),
         env!("TC_RUSTC"),
     )
 }

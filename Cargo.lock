@@ -259,15 +259,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7f8f80099a98041a3d1622845c271458a2d73e688351bf3cb999266764b81d48"
 
 [[package]]
-name = "core_maths"
-version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "77745e017f5edba1a9c1d854f6f3a52dac8a12dd5af5d2f54aecf61e43d80d30"
-dependencies = [
- "libm",
-]
-
-[[package]]
 name = "cpubits"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -285,20 +276,11 @@ dependencies = [
 [[package]]
 name = "craft-pdf"
 version = "0.1.0"
-source = "git+https://github.com/storytold/craft-libs?rev=ae2f796b673f29cf3161f36eb6a8933f0a3fe028#ae2f796b673f29cf3161f36eb6a8933f0a3fe028"
 dependencies = [
  "bytemuck",
  "hayro",
  "hayro-interpret",
  "hayro-syntax",
- "thiserror",
-]
-
-[[package]]
-name = "craft-pdf"
-version = "0.1.0"
-source = "git+https://github.com/storytold/craft-libs?rev=c3487320b2d1de657b860b3c8abb44e1f2b32bd8#c3487320b2d1de657b860b3c8abb44e1f2b32bd8"
-dependencies = [
  "krilla",
  "thiserror",
 ]
@@ -466,8 +448,8 @@ dependencies = [
  "kurbo",
  "log",
  "skrifa 0.47.0",
- "vello_common 0.2.0",
- "vello_cpu 0.2.0",
+ "vello_common",
+ "vello_cpu",
 ]
 
 [[package]]
@@ -681,23 +663,6 @@ dependencies = [
 
 [[package]]
 name = "glifo"
-version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d99fc21d493812643aae86d53b7bbd02f376434a90317e8a790bc209fdd6605e"
-dependencies = [
- "bytemuck",
- "foldhash",
- "hashbrown",
- "log",
- "peniko",
- "png",
- "skrifa 0.42.1",
- "smallvec",
- "vello_common 0.0.9",
-]
-
-[[package]]
-name = "glifo"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "282a26c1e23de04bdab3e34a21b6f877a479b96737792516b9b8b8f69b6661be"
@@ -710,7 +675,7 @@ dependencies = [
  "png",
  "skrifa 0.44.0",
  "smallvec",
- "vello_common 0.2.0",
+ "vello_common",
 ]
 
 [[package]]
@@ -811,7 +776,7 @@ version = "0.8.0"
 dependencies = [
  "gridcraft-pdf",
  "skrifa 0.47.0",
- "vello_cpu 0.2.0",
+ "vello_cpu",
 ]
 
 [[package]]
@@ -874,7 +839,6 @@ dependencies = [
 [[package]]
 name = "hayro"
 version = "0.7.1"
-source = "git+https://github.com/storytold/craft-libs?rev=ae2f796b673f29cf3161f36eb6a8933f0a3fe028#ae2f796b673f29cf3161f36eb6a8933f0a3fe028"
 dependencies = [
  "bytemuck",
  "hayro-interpret",
@@ -882,7 +846,7 @@ dependencies = [
  "kurbo",
  "log",
  "pic-scale",
- "vello_cpu 0.0.8",
+ "vello_cpu",
 ]
 
 [[package]]
@@ -904,7 +868,6 @@ dependencies = [
 [[package]]
 name = "hayro-interpret"
 version = "0.7.0"
-source = "git+https://github.com/storytold/craft-libs?rev=ae2f796b673f29cf3161f36eb6a8933f0a3fe028#ae2f796b673f29cf3161f36eb6a8933f0a3fe028"
 dependencies = [
  "bitflags",
  "hayro-cmap",
@@ -922,7 +885,6 @@ dependencies = [
 [[package]]
 name = "hayro-jbig2"
 version = "0.3.0"
-source = "git+https://github.com/storytold/craft-libs?rev=ae2f796b673f29cf3161f36eb6a8933f0a3fe028#ae2f796b673f29cf3161f36eb6a8933f0a3fe028"
 dependencies = [
  "fearless_simd",
  "hayro-ccitt",
@@ -946,7 +908,6 @@ checksum = "885c5ef0654933139a9b9546fc2c69e18d37f38aa2520f079092b1be18f1fcaa"
 [[package]]
 name = "hayro-syntax"
 version = "0.7.2"
-source = "git+https://github.com/storytold/craft-libs?rev=ae2f796b673f29cf3161f36eb6a8933f0a3fe028#ae2f796b673f29cf3161f36eb6a8933f0a3fe028"
 dependencies = [
  "flate2",
  "hayro-ccitt",
@@ -1075,7 +1036,6 @@ dependencies = [
 [[package]]
 name = "krilla"
 version = "0.8.2"
-source = "git+https://github.com/storytold/craft-libs?rev=c3487320b2d1de657b860b3c8abb44e1f2b32bd8#c3487320b2d1de657b860b3c8abb44e1f2b32bd8"
 dependencies = [
  "base64",
  "bumpalo",
@@ -1088,7 +1048,6 @@ dependencies = [
  "pdf-writer",
  "png",
  "rustc-hash",
- "rustybuzz",
  "siphasher",
  "skrifa 0.42.1",
  "smallvec",
@@ -1117,12 +1076,6 @@ name = "libc"
 version = "0.2.190"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ce5d3ddc6d3fa000eb1536d85e147bfe31aacaba692ed6a876f95cb7c855be78"
-
-[[package]]
-name = "libm"
-version = "0.2.16"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b6d2cec3eae94f9f509c767b45932f1ada8350c4bdb85af2fcab4a3c14807981"
 
 [[package]]
 name = "linebender_resource_handle"
@@ -1457,24 +1410,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cf54715a573b99ac80df0bc206da022bcd442c974952c7b9720069370852e21f"
 
 [[package]]
-name = "rustybuzz"
-version = "0.20.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fd3c7c96f8a08ee34eff8857b11b49b07d71d1c3f4e88f8a88d4c9e9f90b1702"
-dependencies = [
- "bitflags",
- "bytemuck",
- "core_maths",
- "log",
- "smallvec",
- "ttf-parser",
- "unicode-bidi-mirroring",
- "unicode-ccc",
- "unicode-properties",
- "unicode-script",
-]
-
-[[package]]
 name = "ryu"
 version = "1.0.23"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1721,7 +1656,7 @@ dependencies = [
 name = "thumbcraft"
 version = "0.1.0"
 dependencies = [
- "craft-pdf 0.1.0 (git+https://github.com/storytold/craft-libs?rev=ae2f796b673f29cf3161f36eb6a8933f0a3fe028)",
+ "craft-pdf",
  "deckcraft-fonts",
  "deckcraft-format",
  "deckcraft-model",
@@ -1772,15 +1707,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fd3ca314f692efd6c868f8408f53fe444634a845f96c028b97d35f6a1f79f0ee"
 
 [[package]]
-name = "ttf-parser"
-version = "0.25.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d2df906b07856748fa3f6e0ad0cbaa047052d4a7dd609e231c4f72cee8c36f31"
-dependencies = [
- "core_maths",
-]
-
-[[package]]
 name = "typenum"
 version = "1.20.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1791,18 +1717,6 @@ name = "unicode-bidi"
 version = "0.3.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5c1cb5db39152898a79168971543b1cb5020dff7fe43c8dc468b0885f5e29df5"
-
-[[package]]
-name = "unicode-bidi-mirroring"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5dfa6e8c60bb66d49db113e0125ee8711b7647b5579dc7f5f19c42357ed039fe"
-
-[[package]]
-name = "unicode-ccc"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ce61d488bcdc9bc8b5d1772c404828b17fc481c0a582b5581e95fb233aef503e"
 
 [[package]]
 name = "unicode-ident"
@@ -1855,40 +1769,6 @@ dependencies = [
 
 [[package]]
 name = "vello_common"
-version = "0.0.8"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3361bff7f7d82c0c496b92048db83846691f0e844cc28dee92b1c824291b55ee"
-dependencies = [
- "bytemuck",
- "fearless_simd",
- "guillotiere",
- "hashbrown",
- "log",
- "peniko",
- "png",
- "smallvec",
- "thiserror",
-]
-
-[[package]]
-name = "vello_common"
-version = "0.0.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "19d672facaa2d697285a786cd9d44d614cd2ce54cdc022504bf339f8fff3b750"
-dependencies = [
- "bytemuck",
- "fearless_simd",
- "guillotiere",
- "hashbrown",
- "log",
- "peniko",
- "png",
- "smallvec",
- "thiserror",
-]
-
-[[package]]
-name = "vello_common"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bbb2141a2bca6e6d598e471fd4d1d7eed8e020aad6a28187edda07f091a325dd"
@@ -1905,32 +1785,19 @@ dependencies = [
 
 [[package]]
 name = "vello_cpu"
-version = "0.0.8"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6d8ded630e8316bb94a55881256506d1f3b9947b5f66db8a7d32ca7ba02decd0"
-dependencies = [
- "bytemuck",
- "glifo 0.1.1",
- "hashbrown",
- "png",
- "vello_common 0.0.8",
-]
-
-[[package]]
-name = "vello_cpu"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ace506ca414548966fcf3c283be94eb1cad8254de488791ee698bf438b0890a9"
 dependencies = [
  "bytemuck",
  "crossbeam-channel",
- "glifo 0.3.0",
+ "glifo",
  "hashbrown",
  "ordered-channel",
  "png",
  "rayon",
  "thread_local",
- "vello_common 0.2.0",
+ "vello_common",
 ]
 
 [[package]]
@@ -2207,7 +2074,7 @@ dependencies = [
 name = "wordcraft-pdf"
 version = "0.8.0"
 dependencies = [
- "craft-pdf 0.1.0 (git+https://github.com/storytold/craft-libs?rev=c3487320b2d1de657b860b3c8abb44e1f2b32bd8)",
+ "craft-pdf",
  "image",
  "js-sys",
  "kurbo",
@@ -2234,7 +2101,7 @@ version = "0.8.0"
 dependencies = [
  "image",
  "log",
- "vello_cpu 0.2.0",
+ "vello_cpu",
  "wordcraft-doc",
  "wordcraft-fonts",
  "wordcraft-geom",

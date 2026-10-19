@@ -17,16 +17,19 @@ license = "Apache-2.0"
 rust-version = "1.95"
 publish = false
 
-# Mesmo remendo que o WordCraft e o DeckCraft usam na raiz deles: o craft-pdf exige este krilla.
-# A revisão do craft-libs é a mesma c3487320 dos dois (ver UPSTREAM.md).
+# Uma cópia só do craft-libs (third_party/craft-libs, revisão e patch em UPSTREAM.md e docs/UPSTREAM-CHANGES.md).
+# O WordCraft e o DeckCraft pedem o craft-pdf e o krilla da revisão c3487320 por git; o remendo troca tudo pela
+# cópia local, então o binário leva uma versão só de cada pacote. O cargo ignora [patch] de dependências, por
+# isso o hayro (usado pelo craft-pdf com raster) também é remendado aqui.
+[patch."https://github.com/storytold/craft-libs"]
+craft-pdf = { path = "third_party/craft-libs/crates/pdf" }
+
 [patch.crates-io]
-krilla = { git = "https://github.com/storytold/craft-libs", rev = "c3487320b2d1de657b860b3c8abb44e1f2b32bd8", version = "=0.8.2" }
-# Leitor e rasterizador de PDF do craft-pdf (feature raster, revisão ae2f796b): o craft-pdf exige o hayro
-# remendado do craft-libs, e o cargo ignora [patch] de dependências, então a raiz repete o remendo.
-hayro = { git = "https://github.com/storytold/craft-libs", rev = "ae2f796b673f29cf3161f36eb6a8933f0a3fe028", version = "=0.7.1" }
-hayro-interpret = { git = "https://github.com/storytold/craft-libs", rev = "ae2f796b673f29cf3161f36eb6a8933f0a3fe028", version = "=0.7.0" }
-hayro-syntax = { git = "https://github.com/storytold/craft-libs", rev = "ae2f796b673f29cf3161f36eb6a8933f0a3fe028", version = "=0.7.2" }
-hayro-jbig2 = { git = "https://github.com/storytold/craft-libs", rev = "ae2f796b673f29cf3161f36eb6a8933f0a3fe028", version = "=0.3.0" }
+krilla = { path = "third_party/craft-libs/vendor/krilla" }
+hayro = { path = "third_party/craft-libs/vendor/hayro" }
+hayro-interpret = { path = "third_party/craft-libs/vendor/hayro-interpret" }
+hayro-syntax = { path = "third_party/craft-libs/vendor/hayro-syntax" }
+hayro-jbig2 = { path = "third_party/craft-libs/vendor/hayro-jbig2" }
 
 # Perfil voltado a tamanho de binário (valores medidos em docs/SIZES.md).
 [profile.release]

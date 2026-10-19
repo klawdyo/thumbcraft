@@ -6,9 +6,9 @@
 use std::path::Path;
 use std::sync::Arc;
 
-use craft_pdf_raster::raster::{self, Options, RenderCache};
-use craft_pdf_raster::syntax::Pdf as Document;
-use craft_pdf_raster::{OpenError, OpenOptions, interpret::InterpreterSettings};
+use craft_pdf::raster::{self, Options, RenderCache};
+use craft_pdf::syntax::Pdf as Document;
+use craft_pdf::{OpenError, OpenOptions, interpret::InterpreterSettings};
 use thumbcraft_core::{Error, Raster, Render, Res};
 
 /// Destino dos avisos do leitor (conteúdo omitido, imagem que não decodificou). Os testes usam um coletor.
@@ -33,7 +33,7 @@ impl Pdf {
 
     /// Abre um PDF que já está em memória, mandando os avisos para `sink`.
     pub fn from_bytes_with_sink(bytes: &[u8], sink: WarningSink) -> Res<Pdf> {
-        let doc = craft_pdf_raster::open_slice_with_options(bytes, None, &OpenOptions::default()).map_err(open_error)?;
+        let doc = craft_pdf::open_slice_with_options(bytes, None, &OpenOptions::default()).map_err(open_error)?;
         Pdf::from_document(doc, sink)
     }
 
@@ -41,9 +41,9 @@ impl Pdf {
     pub fn open(path: &Path) -> Res<Pdf> {
         let options = OpenOptions::default();
         let size = std::fs::metadata(path).map_err(|e| Error::Invalid(format!("não foi possível abrir '{}': {e}", path.display())))?.len();
-        craft_pdf_raster::check_input_size_with(usize::try_from(size).unwrap_or(usize::MAX), &options).map_err(open_error)?;
+        craft_pdf::check_input_size_with(usize::try_from(size).unwrap_or(usize::MAX), &options).map_err(open_error)?;
         let bytes = std::fs::read(path).map_err(|e| Error::Invalid(format!("falha ao ler '{}': {e}", path.display())))?;
-        let doc = craft_pdf_raster::open_with_options(Arc::new(bytes), None, &options).map_err(open_error)?;
+        let doc = craft_pdf::open_with_options(Arc::new(bytes), None, &options).map_err(open_error)?;
         Pdf::from_document(doc, stderr_sink())
     }
 
