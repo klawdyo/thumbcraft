@@ -26,12 +26,14 @@ pub struct Pdf {
 }
 
 impl Pdf {
-    /// Abre um PDF que já está em memória, com os avisos indo para a stderr.
+    /// Abre um PDF que já está em memória, com os avisos indo para a stderr (só os testes usam; a CLI abre por arquivo).
+    #[cfg(test)]
     pub fn from_bytes(bytes: &[u8]) -> Res<Pdf> {
         Pdf::from_bytes_with_sink(bytes, stderr_sink())
     }
 
-    /// Abre um PDF que já está em memória, mandando os avisos para `sink`.
+    /// Abre um PDF que já está em memória, mandando os avisos para `sink` (só os testes usam).
+    #[cfg(test)]
     pub fn from_bytes_with_sink(bytes: &[u8], sink: WarningSink) -> Res<Pdf> {
         let doc = craft_pdf::open_slice_with_options(bytes, None, &OpenOptions::default()).map_err(open_error)?;
         Pdf::from_document(doc, sink)
