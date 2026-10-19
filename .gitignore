@@ -30,3 +30,5 @@ rustc-ice-*.txt
 node_modules/
 target/
 third_party/
+benchmarks/
+corpus/pdf/big/
