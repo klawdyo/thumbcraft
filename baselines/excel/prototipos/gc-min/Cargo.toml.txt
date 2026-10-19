@@ -1,0 +1,21 @@
+# Feasibility tool, deliberately OUTSIDE the GridCraft repository copy (not part of the PR).
+[package]
+name = "gc-min"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+gridcraft-engine = { path = "S/grid-png/a-refactor/gridcraft/crates/engine" }
+serde_json = "1"
+# Already in the lock (vello_cpu uses it): only used to decode the PNG for --crop.
+png = "0.18"
+
+[workspace]
+
+[profile.release]
+opt-level = "z"
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = "symbols"

@@ -1,0 +1,136 @@
+Warning: unused arguments left: ["--offline"].
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling cfg-if v1.0.5
+   Compiling thiserror v2.0.21
+   Compiling typenum v1.20.1
+   Compiling syn v3.0.6
+   Compiling hybrid-array v0.4.15
+   Compiling serde_core v1.0.229
+   Compiling simd-adler32 v0.3.10
+   Compiling crc32fast v1.5.2
+   Compiling thiserror-impl v2.0.21
+   Compiling bytemuck_derive v1.12.1
+   Compiling autocfg v1.5.1
+   Compiling adler2 v2.0.1
+   Compiling memchr v2.8.3
+   Compiling serde v1.0.229
+   Compiling bytemuck v1.25.2
+   Compiling num-traits v0.2.19
+   Compiling serde_derive v1.0.229
+   Compiling crypto-common v0.2.2
+   Compiling miniz_oxide v0.9.1
+   Compiling zlib-rs v0.6.8
+   Compiling log v0.4.34
+   Compiling gridcraft-core v0.8.0 (S/grid-png/a-refactor/gridcraft/crates/core)
+   Compiling flate2 v1.1.10
+   Compiling block-buffer v0.12.1
+   Compiling cpufeatures v0.3.1
+   Compiling digest v0.11.3
+   Compiling arrayvec v0.7.8
+   Compiling foldhash v0.2.0
+   Compiling polycool v0.4.0
+   Compiling hashbrown v0.17.1
+   Compiling aho-corasick v1.1.5
+   Compiling miniz_oxide v0.8.9
+   Compiling fdeflate v0.3.7
+   Compiling smallvec v1.16.2
+   Compiling regex-syntax v0.8.11
+   Compiling bitflags v2.13.2
+   Compiling png v0.18.1
+   Compiling regex-automata v0.4.18
+   Compiling kurbo v0.13.1
+   Compiling sha2 v0.11.0
+   Compiling euclid v0.22.14
+   Compiling gridcraft-formula v0.8.0 (S/grid-png/a-refactor/gridcraft/crates/formula)
+   Compiling color v0.3.3
+   Compiling linebender_resource_handle v0.1.1
+   Compiling gridcraft-model v0.8.0 (S/grid-png/a-refactor/gridcraft/crates/model)
+   Compiling peniko v0.6.1
+   Compiling guillotiere v0.7.0
+   Compiling regex v1.13.1
+   Compiling font-types v0.12.6
+   Compiling inout v0.2.2
+   Compiling bumpalo v3.20.3
+   Compiling once_cell v1.21.4
+   Compiling fearless_simd v0.4.1
+   Compiling zmij v1.0.23
+   Compiling equivalent v1.0.2
+   Compiling indexmap v2.14.2
+   Compiling vello_common v0.2.0
+   Compiling read-fonts v0.44.0
+   Compiling zopfli v0.8.3
+   Compiling cipher v0.5.2
+   Compiling gridcraft-functions v0.8.0 (S/grid-png/a-refactor/gridcraft/crates/functions)
+   Compiling gridcraft-numfmt v0.8.0 (S/grid-png/a-refactor/gridcraft/crates/numfmt)
+   Compiling pxfm v0.1.30
+   Compiling serde_json v1.0.151
+   Compiling cpubits v0.1.1
+   Compiling zune-core v0.5.3
+   Compiling zune-jpeg v0.5.15
+   Compiling moxcms v0.8.1
+   Compiling aes v0.9.3
+   Compiling gridcraft-calc v0.8.0 (S/grid-png/a-refactor/gridcraft/crates/calc)
+   Compiling skrifa v0.47.0
+   Compiling zip v3.0.0
+   Compiling vello_cpu v0.2.0
+   Compiling sha1 v0.11.0
+   Compiling quick-xml v0.41.0
+   Compiling gridcraft-pdf v0.8.0 (S/grid-png/a-refactor/gridcraft/crates/pdf)
+   Compiling byteorder-lite v0.1.0
+   Compiling itoa v1.0.18
+   Compiling image v0.25.10
+   Compiling gridcraft-raster v0.8.0 (S/grid-png/a-refactor/gridcraft/crates/raster)
+   Compiling gridcraft-xlsx v0.8.0 (S/grid-png/a-refactor/gridcraft/crates/xlsx)
+   Compiling gridcraft-chart v0.8.0 (S/grid-png/a-refactor/gridcraft/crates/chart)
+   Compiling gridcraft-engine v0.8.0 (S/grid-png/a-refactor/gridcraft/crates/engine)
+   Compiling gc-min v0.1.0 (S/grid-png/a-refactor/feasibility/gc-min)
+    Finished `release` profile [optimized] target(s) in 3m 37s
+    Analyzing ../target-sym/release/gc-min
+
+ File  .text     Size Crate
+14.3%  28.9%   1.7MiB gridcraft_engine
+ 8.8%  17.8%   1.0MiB vello_cpu
+ 4.3%   8.7% 514.2KiB gridcraft_xlsx
+ 4.2%   8.4% 500.8KiB std
+ 3.1%   6.3% 373.4KiB gridcraft_functions
+ 1.9%   3.9% 231.5KiB regex_automata
+ 1.3%   2.5% 150.6KiB vello_common
+ 1.2%   2.5% 145.9KiB skrifa
+ 1.2%   2.4% 140.2KiB gridcraft_calc
+ 1.1%   2.2% 132.1KiB image
+ 1.0%   1.9% 114.8KiB aho_corasick
+ 0.8%   1.6%  92.9KiB regex_syntax
+ 0.8%   1.5%  90.0KiB gridcraft_model
+ 0.7%   1.3%  80.0KiB gridcraft_chart
+ 0.5%   1.0%  56.6KiB gridcraft_raster
+ 0.4%   0.7%  43.4KiB gridcraft_formula
+ 0.4%   0.7%  42.1KiB png
+ 0.3%   0.6%  35.2KiB serde_json
+ 0.3%   0.6%  34.8KiB zune_jpeg
+ 0.3%   0.6%  33.7KiB zlib_rs
+ 0.3%   0.5%  30.7KiB read_fonts
+ 0.3%   0.5%  30.6KiB sha2
+ 0.3%   0.5%  30.5KiB gridcraft_numfmt
+ 0.2%   0.5%  26.8KiB zopfli
+ 0.2%   0.4%  23.3KiB kurbo
+ 0.2%   0.3%  18.1KiB quick_xml
+ 0.1%   0.3%  17.0KiB gridcraft_core
+ 0.1%   0.2%  14.2KiB gc_min
+ 0.1%   0.2%  14.0KiB memchr
+ 0.1%   0.2%  13.8KiB autocfg
+ 0.1%   0.2%  13.1KiB regex
+ 0.1%   0.2%  11.3KiB proc_macro2
+ 0.1%   0.2%  11.0KiB hashbrown
+ 0.1%   0.2%  10.1KiB fdeflate
+ 0.1%   0.2%  10.0KiB miniz_oxide
+ 0.1%   0.2%   9.7KiB gridcraft_pdf
+ 0.1%   0.1%   8.6KiB zip
+ 0.1%   0.1%   7.0KiB [Unknown]
+ 0.1%   0.1%   6.9KiB color
+ 0.1%   0.1%   6.1KiB flate2
+ 0.3%   0.6%  34.1KiB And 26 more crates. Use -n N to show more.
+49.4% 100.0%   5.8MiB .text section size, the file size is 11.7MiB
+
+Note: numbers above are a result of guesswork. They are not 100% correct and never will be.

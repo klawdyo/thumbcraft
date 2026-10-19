@@ -1,0 +1,29 @@
+[package]
+name = "gp-min"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+# Standalone: not part of the GridCraft workspace.
+[workspace]
+
+[dependencies]
+gridcraft-engine = { path = "S/xlsx-test/repo/gridcraft/crates/engine" }
+craft-pdf = { git = "https://github.com/storytold/craft-libs", rev = "ae2f796b673f29cf3161f36eb6a8933f0a3fe028", default-features = false, features = ["raster"] }
+serde_json = "1"
+png = "0.18"
+
+# craft-pdf's raster feature needs the patched Hayro trees vendored in craft-libs; a [patch]
+# section of a dependency is ignored by its dependents, so the root must repeat it.
+[patch.crates-io]
+hayro = { git = "https://github.com/storytold/craft-libs", rev = "ae2f796b673f29cf3161f36eb6a8933f0a3fe028" }
+hayro-interpret = { git = "https://github.com/storytold/craft-libs", rev = "ae2f796b673f29cf3161f36eb6a8933f0a3fe028" }
+hayro-syntax = { git = "https://github.com/storytold/craft-libs", rev = "ae2f796b673f29cf3161f36eb6a8933f0a3fe028" }
+hayro-jbig2 = { git = "https://github.com/storytold/craft-libs", rev = "ae2f796b673f29cf3161f36eb6a8933f0a3fe028" }
+
+[profile.release]
+opt-level = "z"
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = "symbols"
