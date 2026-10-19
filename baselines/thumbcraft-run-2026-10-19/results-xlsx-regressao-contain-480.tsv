@@ -1,0 +1,17 @@
+arquivo	motor	saida	ms	bytes	dimensoes
+01_values.xlsx	grid	0	307	86965	480x480
+02_styles.xlsx	grid	0	303	36661	480x480
+03_borders.xlsx	grid	0	204	19831	480x480
+04_merge.xlsx	grid	0	218	25942	480x480
+05_condfmt.xlsx	grid	0	172	38590	480x480
+06_charts.xlsx	grid	0	200	47166	480x480
+07_images.xlsx	grid	0	194	7691	480x480
+08_wrap.xlsx	grid	0	206	74521	480x480
+09_pages.xlsx	grid	0	206	47736	480x480
+10_mixed.xlsx	grid	0	238	23781	480x480
+11_empty.xlsx	grid	0	131	1768	480x480
+12_wide.xlsx	grid	0	167	5273	480x480
+13_sparklines.xlsx	grid	0	208	12261	480x480
+14_scale_area.xlsx	grid	0	271	99839	480x480
+15_fit_landscape.xlsx	grid	0	213	43003	480x480
+16_text_misc.xlsx	grid	0	238	15667	480x480

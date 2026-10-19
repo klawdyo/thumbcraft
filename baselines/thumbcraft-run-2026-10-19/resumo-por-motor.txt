@@ -1,0 +1,22 @@
+== docx cover-120
+motor  total    ok    taxa  ms_medio    ms_max    png_medio  codigos
+word      30    25   83.3%       115       308         4781   4x5 0x25
+== docx contain-480
+motor  total    ok    taxa  ms_medio    ms_max    png_medio  codigos
+word      30    25   83.3%       142       260        41011   4x5 0x25
+== pptx cover-120
+motor  total    ok    taxa  ms_medio    ms_max    png_medio  codigos
+-          5     0    0.0%         7         9            0   3x5
+deck      41    37   90.2%        88       651         5179   0x37 4x4
+== pptx contain-480
+motor  total    ok    taxa  ms_medio    ms_max    png_medio  codigos
+-          5     0    0.0%         7         7            0   3x5
+deck      41    37   90.2%       139       473        23489   0x37 4x4
+== xlsx cover-120
+motor  total    ok    taxa  ms_medio    ms_max    png_medio  codigos
+grid      57    54   94.7%        82       240         2426   0x54 4x3
+== xlsx contain-480
+motor  total    ok    taxa  ms_medio    ms_max    png_medio  codigos
+grid      57    54   94.7%       145       405        14883   0x54 4x3
+motor  total    ok    taxa  ms_medio    ms_max    png_medio  codigos
+grid      57    54   94.7%       406      3612        18946   0x54 4x3

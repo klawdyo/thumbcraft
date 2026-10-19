@@ -1520,6 +1520,7 @@ dependencies = [
  "deckcraft-pptx",
  "deckcraft-render",
  "gridcraft-engine",
+ "image",
  "png",
  "serde_json",
  "thumbcraft-core",

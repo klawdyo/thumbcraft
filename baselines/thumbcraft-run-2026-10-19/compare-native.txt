@@ -1,0 +1,138 @@
+motor    arquivo                                      resultado  detalhe
+word     01_docx_simples_acentos.docx                 PASS       
+word     02_docx_titulos_listas.docx                  PASS       
+word     03_docx_tabelas.docx                         PASS       
+word     04_docx_imagens_png_jpeg.docx                PASS       
+word     05_docx_multipagina.docx                     PASS       
+word     06_docx_fontes.docx                          PASS       
+word     07_docx_estilos_cores.docx                   PASS       
+word     08_docx_cabecalho_rodape.docx                PASS       
+word     09_doc_97_imagem_tabela.doc                  PASS       
+word     10_doc_97_titulos_listas.doc                 PASS       
+word     11_odt_rico.odt                              PASS       
+word     12_rtf_rico.rtf                              PASS       
+word     13_html_rico.html                            PASS       
+word     14_md_rico.md                                PASS       
+word     15_tex_rico.tex                              PASS       
+word     16_txt_simples.txt                           PASS       
+word     17_txt_longo_multipagina.txt                 PASS       
+word     18_odt_multipagina.odt                       PASS       
+word     19_md_multipagina.md                         PASS       
+word     20_doc_97_multipagina.doc                    PASS       
+word     21_vazio.docx                                PASS-ERRO  mini=1 thumbcraft=4
+word     22_vazio.txt                                 PASS       
+word     23_corrompido_docx_truncado.docx             PASS-ERRO  mini=1 thumbcraft=4
+word     24_corrompido_doc_truncado.doc               PASS-ERRO  mini=1 thumbcraft=4
+word     25_extensao_errada_txt_como.docx             PASS-ERRO  mini=1 thumbcraft=4
+word     26_extensao_errada_docx_como.txt             PASS       
+word     27_extensao_errada_docx_como.doc             PASS       
+word     28_extensao_errada_md_como.pdf               PASS       
+word     29_html_como.doc                             PASS       
+word     30_lixo_binario.docx                         PASS-ERRO  mini=1 thumbcraft=4
+deck     01_titulo_acentos.pptx                       PASS       
+deck     02_bullets_niveis.pptx                       PASS       
+deck     03_imagens_png_jpeg.pptx                     PASS       
+deck     04_formas_basicas.pptx                       PASS       
+deck     05_formas_gradiente.pptx                     PASS       
+deck     06_sombra_transparencia.pptx                 PASS       
+deck     07_tabela_com_bordas.pptx                    PASS       
+deck     08_tabela_sem_bordas.pptx                    PASS       
+deck     09_grafico_barras.pptx                       PASS       
+deck     10_grafico_linhas.pptx                       PASS       
+deck     11_grafico_pizza.pptx                        PASS       
+deck     12_smartart_com_drawing.pptx                 PASS       
+deck     12b_smartart_sem_drawing.pptx                PASS       
+deck     13_texto_formatado.pptx                      PASS       
+deck     14_fontes.pptx                               PASS       
+deck     15_fundo_solido.pptx                         PASS       
+deck     16_fundo_gradiente.pptx                      PASS       
+deck     17_fundo_imagem.pptx                         PASS       
+deck     18_mestre_layout_logo.pptx                   PASS       
+deck     19_notas_orador.pptx                         PASS       
+deck     20_transicoes_animacoes.pptx                 PASS       
+deck     21_apresentacao_60_slides.pptx               PASS       
+deck     22_texto_overflow.pptx                       PASS       
+deck     23_texto_vertical_rotacionado.pptx           PASS       
+deck     25_proporcao_4x3.pptx                        PASS       
+deck     26_proporcao_16x9.pptx                       PASS       
+deck     27_video_placeholder.pptx                    PASS       
+deck     28_hiperlinks.pptx                           PASS       
+deck     29_primeiro_slide_oculto.pptx                PASS       
+deck     30_rtl_cjk_emoji.pptx                        PASS       
+deck     31_imagem_tela_cheia_recorte.pptx            PASS       
+deck     32_graficos_multiplos.pptx                   PASS       
+deck     33_slideshow.ppsx                            PASS       
+deck     34_modelo.potx                               PASS       
+deck     35_legado_formas.ppt                         PASS-ERRO  mini=1 thumbcraft=3
+deck     36_legado_imagem.ppt                         PASS-ERRO  mini=1 thumbcraft=3
+deck     37_formas_gradiente.odp                      PASS-ERRO  mini=1 thumbcraft=3
+deck     38_grafico_barras.odp                        PASS-ERRO  mini=1 thumbcraft=3
+deck     39_legado_grafico.ppt                        PASS-ERRO  mini=1 thumbcraft=3
+deck     40_vazio_0bytes.pptx                         PASS-ERRO  mini=1 thumbcraft=4
+deck     41_truncado.pptx                             PASS-ERRO  mini=1 thumbcraft=4
+deck     42_corrompido_bytes.pptx                     PASS       
+deck     43_texto_puro.pptx                           PASS-ERRO  mini=1 thumbcraft=4
+deck     44_slide1_xml_quebrado.pptx                  ESPERADO   o mini renderiza outro slide quando o slide 1 está danificado; o thumbcraft recusa (código 4)
+deck     45_pptx_extensao_ppt.ppt                     PASS       
+deck     46_pptx_extensao_docx.docx                   PASS       
+grid     01-texto-acentos.xlsx                        PASS       
+grid     02-valores-simples.xlsx                      PASS       
+grid     03-formulas-com-cache.xlsx                   PASS       
+grid     04-formulas-sem-cache.xlsx                   PASS       
+grid     05-formatos-numericos.xlsx                   PASS       
+grid     06-multiplas-abas.xlsx                       PASS       
+grid     07-celulas-mescladas.xlsx                    PASS       
+grid     08-bordas-cores-fundo-fonte.xlsx             PASS       
+grid     09-fontes-negrito-italico.xlsx               PASS       
+grid     10-larguras-alturas.xlsx                     PASS       
+grid     11-linhas-colunas-ocultas.xlsx               PASS       
+grid     12-paineis-congelados.xlsx                   PASS       
+grid     13-condicional-escala-cor.xlsx               PASS       
+grid     14-condicional-barras-dados.xlsx             PASS       
+grid     15-condicional-icones.xlsx                   PASS       
+grid     16-grafico-barras.xlsx                       PASS       
+grid     17-grafico-linhas.xlsx                       PASS       
+grid     18-grafico-pizza.xlsx                        PASS       
+grid     19-grafico-rosca.xlsx                        PASS       
+grid     20-grafico-area.xlsx                         PASS       
+grid     21-imagens-png-jpeg.xlsx                     PASS       
+grid     22-sparklines.xlsx                           PASS       
+grid     23-planilha-larga-130-colunas.xlsx           PASS       
+grid     24-planilha-comprida-10000-linhas.xlsx       PASS       
+grid     25-texto-longo-quebra-transbordo.xlsx        PASS       
+grid     26-texto-rotacionado.xlsx                    PASS       
+grid     27-alinhamentos.xlsx                         PASS       
+grid     28-numeros-enormes-e-erros.xlsx              PASS       
+grid     29-area-de-impressao.xlsx                    PASS       
+grid     30-tabela-com-estilo.xlsx                    PASS       
+grid     31-texto-nao-latino-emoji.xlsx               PASS       
+grid     32-condicional-celula-vermelho.xlsx          PASS       
+grid     33-grafico-combinado.xlsx                    PASS       
+grid     34-painel-composto.xlsx                      PASS       
+grid     35-comentarios-hiperlinks.xlsx               PASS       
+grid     36-planilha-rtl.xlsx                         PASS       
+grid     37-zoom-200-sem-gridlines.xlsx               PASS       
+grid     38-xlsx-vazio-valido.xlsx                    PASS       
+grid     39-conteudo-distante.xlsx                    PASS       
+grid     40-primeira-aba-oculta.xlsx                  PASS       
+grid     41-openpyxl-formula-sem-cache.xlsx           PASS       
+grid     42-openpyxl-dados-sem-gridlines.xlsx         PASS       
+grid     43-legado-formatado-grafico.xls              PASS       
+grid     44-formato-ods.ods                           PASS       
+grid     45-csv-utf8-acentos.csv                      PASS       
+grid     46-csv-latin1-acentos.csv                    PASS       
+grid     47-tsv-utf8-acentos.tsv                      PASS       
+grid     48-tsv-latin1-acentos.tsv                    PASS       
+grid     49-vazio-0bytes.xlsx                         PASS-ERRO  mini=1 thumbcraft=4
+grid     50-xlsx-truncado.xlsx                        PASS-ERRO  mini=1 thumbcraft=4
+grid     51-xlsx-bytes-corrompidos.xlsx               PASS-ERRO  mini=1 thumbcraft=4
+grid     52-texto-puro-extensao-xlsx.xlsx             PASS       
+grid     53-csv-com-extensao-xlsx.xlsx                PASS       
+grid     54-xlsx-com-extensao-csv.csv                 PASS       
+grid     55-xlsx-com-extensao-xls.xls                 PASS       
+grid     56-xls-com-extensao-xlsx.xlsx                PASS       
+grid     57-xlsx-com-extensao-ods.ods                 PASS       
+
+word: 30 de 30 sem divergência (FAIL: 0)
+deck: 46 de 46 sem divergência (FAIL: 0)
+grid: 57 de 57 sem divergência (FAIL: 0)

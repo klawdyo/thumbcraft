@@ -172,6 +172,6 @@ prefixo em português, vem em inglês como o motor o produziu.
 - `cargo test` (raiz): 80 testes do núcleo, rápidos, usando a `Fake` (matemática do fit, cover,
   contain, gravity, trim, crop, uma dimensão, caixas degeneradas, limites, escala automática,
   reamostragem, roteamento por extensão e por conteúdo).
-- `cargo test --workspace`: inclui a análise de argumentos do binário (compila os motores em perfil
+- `cargo test --workspace`: 84 testes no total, inclui a análise de argumentos do binário (4 testes) (compila os motores em perfil
   de teste, demorado).
 - `scripts/compare-native.sh`: prova de não regressão contra wc-min, dc-min e gc-min.
