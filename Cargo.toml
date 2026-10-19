@@ -21,6 +21,8 @@ publish = false
 # O cargo ignora [patch] de dependências, e o craft-pdf com raster exige o hayro remendado do craft-libs: a raiz o
 # repete aqui. O krilla e o craft-pdf com `write` não entram mais: o wordcraft-pdf é um substituto (stubs/).
 [patch.crates-io]
+# glifo 0.3.0 (texto do vello_cpu) pedia o skrifa 0.44; o patch em patches/glifo/ o alinha ao 0.47 dos motores.
+glifo = { path = "third_party/glifo" }
 hayro = { path = "third_party/craft-libs/vendor/hayro" }
 hayro-interpret = { path = "third_party/craft-libs/vendor/hayro-interpret" }
 hayro-syntax = { path = "third_party/craft-libs/vendor/hayro-syntax" }

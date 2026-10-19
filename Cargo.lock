@@ -369,7 +369,7 @@ dependencies = [
  "harfrust",
  "kurbo",
  "log",
- "skrifa 0.47.0",
+ "skrifa",
  "unicode-bidi",
 ]
 
@@ -440,7 +440,7 @@ dependencies = [
  "image",
  "kurbo",
  "log",
- "skrifa 0.47.0",
+ "skrifa",
  "vello_common",
  "vello_cpu",
 ]
@@ -639,8 +639,6 @@ dependencies = [
 [[package]]
 name = "glifo"
 version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "282a26c1e23de04bdab3e34a21b6f877a479b96737792516b9b8b8f69b6661be"
 dependencies = [
  "bytemuck",
  "foldhash",
@@ -648,7 +646,7 @@ dependencies = [
  "log",
  "peniko",
  "png",
- "skrifa 0.44.0",
+ "skrifa",
  "smallvec",
  "vello_common",
 ]
@@ -750,7 +748,7 @@ name = "gridcraft-raster"
 version = "0.8.0"
 dependencies = [
  "gridcraft-pdf",
- "skrifa 0.47.0",
+ "skrifa",
  "vello_cpu",
 ]
 
@@ -852,7 +850,7 @@ dependencies = [
  "phf",
  "rustc-hash",
  "siphasher",
- "skrifa 0.47.0",
+ "skrifa",
  "smallvec",
  "yoke",
 ]
@@ -1249,17 +1247,6 @@ dependencies = [
 
 [[package]]
 name = "read-fonts"
-version = "0.41.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "046a7d674daf459825b32f5062056d6882db0d2f5a479fbd76ccfc870ac18709"
-dependencies = [
- "bytemuck",
- "font-types",
- "once_cell",
-]
-
-[[package]]
-name = "read-fonts"
 version = "0.43.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "005c8acf251756c478b0bf402885bfd88a1476020c4c7e6060edc1aa68da38ea"
@@ -1415,16 +1402,6 @@ name = "siphasher"
 version = "1.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "33f4fe9184a62d842c9ef383018f3306d8ba224fd9d836f56d7288308847c256"
-
-[[package]]
-name = "skrifa"
-version = "0.44.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "819ab7d62b1d3e72d9d9dea5650bac30424f9111364bb94928dbf5ecad1baa68"
-dependencies = [
- "bytemuck",
- "read-fonts 0.41.0",
-]
 
 [[package]]
 name = "skrifa"
@@ -1881,7 +1858,7 @@ dependencies = [
  "harfrust",
  "kurbo",
  "log",
- "skrifa 0.47.0",
+ "skrifa",
  "unicode-bidi",
  "unicode-script",
  "wuff",

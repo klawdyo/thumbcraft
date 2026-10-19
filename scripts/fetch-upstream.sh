@@ -8,6 +8,8 @@
 # Uso: scripts/fetch-upstream.sh [--force]
 #   --force  apaga third_party/ e recria tudo do zero.
 #
+# Também copia crates do crates.io que precisam de patch (tabela CRATES, com o sha256 do .crate).
+#
 # Para atualizar uma versão: edite a tabela abaixo (SHA e data), rode o script e atualize
 # o UPSTREAM.md. O hash esperado da árvore patchada do GridCraft muda junto com o SHA ou o patch.
 
@@ -113,6 +115,42 @@ for linha in "${PROJETOS[@]}"; do
   baixar "$nome" "$url" "$sha"
   aplicar_patches "$nome"
   info "$nome: ok em $sha ($data)"
+done
+
+# Crates do crates.io copiados para third_party/ só para receber um patch (nome|versão|sha256 do .crate, o mesmo do
+# Cargo.lock). O .crate é baixado, conferido e extraído; um git local guarda o estado limpo para o patch.
+CRATES=(
+  "glifo|0.3.0|282a26c1e23de04bdab3e34a21b6f877a479b96737792516b9b8b8f69b6661be"
+)
+
+baixar_crate() {
+  local nome="$1" versao="$2" soma="$3" dir="$DEST/$1"
+  if [[ -f "$dir/.git/thumbcraft-crate" && "$(cat "$dir/.git/thumbcraft-crate")" == "$versao $soma" ]]; then
+    return 0
+  fi
+  rm -rf "$dir"
+  mkdir -p "$dir"
+  local arq
+  arq="$(mktemp)"
+  info "$nome: baixando $nome-$versao.crate"
+  curl -fsSL "https://static.crates.io/crates/$nome/$nome-$versao.crate" -o "$arq" || { rm -f "$arq"; erro "$nome: falha ao baixar $nome-$versao"; }
+  local obtida
+  obtida="$(sha256sum "$arq" | cut -d' ' -f1)"
+  [[ "$obtida" == "$soma" ]] || { rm -f "$arq"; erro "$nome: sha256 $obtida difere do esperado $soma"; }
+  tar -xzf "$arq" -C "$dir" --strip-components=1
+  rm -f "$arq"
+  git -C "$dir" init -q
+  git -C "$dir" add -A -f .
+  git -C "$dir" -c user.name=thumbcraft -c user.email=thumbcraft@localhost commit -q -m "$nome $versao"
+  echo "$versao $soma" > "$dir/.git/thumbcraft-crate"
+  rm -f "$dir/.git/thumbcraft-patched"
+}
+
+for linha in "${CRATES[@]}"; do
+  IFS='|' read -r nome versao soma <<< "$linha"
+  baixar_crate "$nome" "$versao" "$soma"
+  aplicar_patches "$nome"
+  info "$nome: ok na versão $versao"
 done
 
 # Verificação da árvore patchada do GridCraft.
