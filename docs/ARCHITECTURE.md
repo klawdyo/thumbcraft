@@ -80,6 +80,19 @@ Os índices da CLI começam em 1; a porta usa índices a partir de 0 (a convers�
 
 `thumbcraft --detect ARQUIVO` imprime o motor escolhido (usado por `scripts/run-corpus.sh`).
 
+### Entrada e saída por `-` (stdin e stdout)
+
+- `-` como ENTRADA lê o documento inteiro da stdin, até 256 MiB (`io::MAX_STDIN`); entrada vazia ou acima do
+  limite é erro 4, falha ao ler é erro 5. Os motores abrem por caminho, então os bytes vão para uma cópia
+  temporária (`io::TempInput`, em uma pasta própria do diretório temporário, apagada ao fim do processo).
+- `-` como SAÍDA grava só os bytes da imagem na stdout (também em `--native-scale`); falha ao gravar, como
+  stdout fechada, é erro 5. Mensagens continuam só na stderr.
+- `--input-name <nome>`: dica de nome; só a extensão importa e ela vai para a cópia temporária, para o roteamento
+  de sempre (conteúdo primeiro, extensão depois). Sem a dica decide só o conteúdo e, se ele for silencioso, erro 3.
+- `--detect -` lê a stdin do mesmo modo. Diferença de propósito: arquivo vazio em disco ainda é roteado pela extensão
+  (e falha ao abrir, erro 4), enquanto stdin vazia já é erro 4 na leitura.
+- Com `panic = "abort"` uma falha interna pode deixar a pasta temporária para trás.
+
 ## Pipeline de pós-processamento (`post::process`)
 
 1. Valida opções (erro 2) e a existência da página (erro 4).
@@ -165,7 +178,7 @@ estourem a pilha padrão de 8 MB; um panic nessa thread também aborta o process
 | 5 | erro interno (inclui falha ao gravar a saída) |
 
 Mensagens de erro em português na stderr; nada na stdout (exceto `--version`, `--formats`,
-`--help` e `--detect`, que são pedidos de informação). O texto de erro do motor, depois do
+`--help` e `--detect`, que são pedidos de informação, e a imagem quando a saída é `-`). O texto de erro do motor, depois do
 prefixo em português, vem em inglês como o motor o produziu.
 
 ## Testes

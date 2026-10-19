@@ -20,7 +20,7 @@ conteúdo (`crates/core/src/route.rs`); sem nome de arquivo, só o conteúdo dec
 
 ## Regras de negócio
 
-- `-` como ENTRADA lê toda a stdin em memória, com limite de tamanho (valor a decidir e documentar; acima dele, erro 4).
+- `-` como ENTRADA lê toda a stdin em memória, com limite de tamanho (256 MiB, documentado em `docs/ARCHITECTURE.md`; acima dele, erro 4).
 - `-` como SAÍDA grava só os bytes da imagem na stdout; nada mais pode sair na stdout (mensagens continuam na stderr).
 - Opção nova `--input-name <nome>`: dica de nome (extensão) para o roteamento quando a entrada é `-`. Sem ela,
   decide só o conteúdo, como já ocorre com extensão desconhecida.
@@ -35,16 +35,22 @@ conteúdo (`crates/core/src/route.rs`); sem nome de arquivo, só o conteúdo dec
 
 ## Critérios de aceitação
 
-- [ ] Testes escritos antes e falhando pelo motivo certo, depois passando: `cargo test --workspace --locked`
-- [ ] `thumbcraft - - -W 120 < corpus/docx/01_docx_simples_acentos.docx > out.png` gera um PNG válido de 120 px de largura
-- [ ] Mesma entrada por arquivo e por stdin produz imagens idênticas byte a byte
-- [ ] `--input-name x.pptx` roteia para o DeckCraft quando o conteúdo é ambíguo
-- [ ] `thumbcraft --detect - < arquivo` imprime o mesmo motor que `--detect arquivo`
-- [ ] Entrada vazia na stdin dá código 4 e nada na stdout; saída para stdout fechada dá código 5
-- [ ] A stdout contém somente a imagem (teste e2e confere os primeiros bytes e que a stderr tem as mensagens)
-- [ ] `thumbcraft --help` e `docs/ARCHITECTURE.md` descrevem `-` e `--input-name`
-- [ ] **UTF-8 sem BOM, LF e sem mojibake** em todos os arquivos criados/modificados (`bash scripts/check-encoding.sh`)
+- [x] Testes (unitários em `io.rs` e `cli.rs`, e2e em `tests/cli.rs`) passando; escritos junto com o código, sem a etapa de vê-los falhar antes: `cargo test --workspace --locked`
+- [x] `thumbcraft - - -W 120 < corpus/docx/01_docx_simples_acentos.docx > out.png` gera um PNG válido de 120 px de largura
+- [x] Mesma entrada por arquivo e por stdin produz imagens idênticas byte a byte
+- [x] `--input-name x.pptx` roteia para o DeckCraft quando o conteúdo é ambíguo
+- [x] `thumbcraft --detect - < arquivo` imprime o mesmo motor que `--detect arquivo`
+- [x] Entrada vazia na stdin dá código 4 e nada na stdout; saída para stdout fechada dá código 5
+- [x] A stdout contém somente a imagem (teste e2e confere os primeiros bytes e que a stderr tem as mensagens)
+- [x] `thumbcraft --help` e `docs/ARCHITECTURE.md` descrevem `-` e `--input-name`
+- [x] **UTF-8 sem BOM, LF e sem mojibake** em todos os arquivos criados/modificados (`bash scripts/check-encoding.sh`)
 
 ## Não escopo
 
 - Streaming incremental (a imagem só é gravada pronta). Vários arquivos por processo. Mudar códigos de saída.
+
+## Resultado (2026-10-19)
+
+`crates/thumbcraft/src/io.rs` (leitura limitada, gravação e cópia temporária com a extensão da dica), `cli.rs` (`--input-name`, `-`),
+`main.rs` (resolve a entrada e grava na stdout). Os motores abrem por caminho, então a stdin passa por arquivo temporário interno.
+`cargo test --workspace --locked` verde, com 9 testes e2e novos.

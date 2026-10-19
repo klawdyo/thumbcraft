@@ -8,8 +8,16 @@ use crate::encode::Format;
 pub const USO: &str = "\
 uso: thumbcraft ENTRADA SAÍDA [opções]
      thumbcraft --formats | --version | --help | --detect ARQUIVO
+     thumbcraft - - [opções]      lê o documento da stdin e grava a imagem na stdout
 
 Gera uma miniatura (PNG) da primeira página de um documento Word, planilha ou apresentação.
+
+Entrada e saída:
+  -                       como ENTRADA lê o documento inteiro da stdin (até 256 MiB; acima disso, código 4);
+                          como SAÍDA grava só os bytes da imagem na stdout (mensagens vão para a stderr);
+                          vale também em --detect e pode ser usado só na entrada ou só na saída
+      --input-name <nome> dica de nome (extensão) para a escolha do motor quando a entrada é '-'
+                          (sem ela decide só o conteúdo; formato da saída '-': PNG, ou use --format)
 
 Tamanho final:
   -W, --width <px>        largura; sozinha, preserva a proporção
@@ -43,7 +51,7 @@ pub enum Cmd {
     Version,
     Formats,
     /// Imprime o motor que trataria o arquivo (word, grid, deck, pdf).
-    Detect(String),
+    Detect { input: String, input_name: Option<String> },
     Run(Job),
 }
 
@@ -51,6 +59,8 @@ pub enum Cmd {
 #[derive(Debug)]
 pub struct Job {
     pub input: String,
+    /// Dica de nome para o roteamento quando a entrada é `-` (stdin).
+    pub input_name: Option<String>,
     pub output: String,
     pub opts: Opts,
     pub format: Format,
@@ -70,6 +80,7 @@ pub fn parse(args: &[String]) -> Res<Cmd> {
     let mut pos: Vec<String> = Vec::new();
     let mut native = None;
     let mut detect = false;
+    let mut input_name: Option<String> = None;
     let mut format: Option<Format> = None;
     let mut quality: u8 = 85;
     let mut it = args.iter().peekable();
@@ -93,6 +104,7 @@ pub fn parse(args: &[String]) -> Res<Cmd> {
             "--version" | "-V" => return Ok(Cmd::Version),
             "--formats" => return Ok(Cmd::Formats),
             "--detect" => detect = true,
+            "--input-name" => input_name = Some(value("--input-name")?),
             "-W" | "--width" => o.width = Some(num("--width", &value("--width")?)?),
             "-H" | "--height" => o.height = Some(num("--height", &value("--height")?)?),
             "--fit" => o.fit = Fit::parse(&value("--fit")?)?,
@@ -118,7 +130,7 @@ pub fn parse(args: &[String]) -> Res<Cmd> {
     }
     if detect {
         return match pos.as_slice() {
-            [f] => Ok(Cmd::Detect(f.clone())),
+            [f] => Ok(Cmd::Detect { input: f.clone(), input_name }),
             _ => Err(Error::Usage("--detect recebe um único arquivo".into())),
         };
     }
@@ -136,7 +148,7 @@ pub fn parse(args: &[String]) -> Res<Cmd> {
     if !(1..=100).contains(&quality) {
         return Err(Error::Usage("--quality deve ficar entre 1 e 100".into()));
     }
-    Ok(Cmd::Run(Job { input, output, opts: o, format, quality, native }))
+    Ok(Cmd::Run(Job { input, input_name, output, opts: o, format, quality, native }))
 }
 
 #[cfg(test)]
@@ -167,6 +179,34 @@ mod tests {
         assert!(matches!(p("--version").unwrap(), Cmd::Version));
         assert!(matches!(p("--formats").unwrap(), Cmd::Formats));
         assert!(matches!(p("-h").unwrap(), Cmd::Help));
+    }
+
+    #[test]
+    fn dash_means_stdin_and_stdout() {
+        let Cmd::Run(j) = p("- - -W 120").unwrap() else { panic!() };
+        assert_eq!((j.input.as_str(), j.output.as_str()), ("-", "-"));
+        assert_eq!(j.format, Format::Png);
+        assert_eq!(j.input_name, None);
+        let Cmd::Run(j) = p("- b.jpg").unwrap() else { panic!() };
+        assert_eq!((j.input.as_str(), j.format), ("-", Format::Jpeg));
+        let Cmd::Run(j) = p("a.docx - --format webp").unwrap() else { panic!() };
+        assert_eq!((j.output.as_str(), j.format), ("-", Format::WebP));
+    }
+
+    #[test]
+    fn input_name_is_a_hint_with_a_value() {
+        let Cmd::Run(j) = p("- - --input-name x.pptx").unwrap() else { panic!() };
+        assert_eq!(j.input_name.as_deref(), Some("x.pptx"));
+        let Cmd::Run(j) = p("- - --input-name=rel.docx").unwrap() else { panic!() };
+        assert_eq!(j.input_name.as_deref(), Some("rel.docx"));
+        assert_eq!(p("- - --input-name").unwrap_err().code(), 2);
+    }
+
+    #[test]
+    fn detect_accepts_stdin_and_hint() {
+        let Cmd::Detect { input, input_name } = p("--detect - --input-name a.xlsx").unwrap() else { panic!() };
+        assert_eq!((input.as_str(), input_name.as_deref()), ("-", Some("a.xlsx")));
+        assert_eq!(p("--detect").unwrap_err().code(), 2);
     }
 
     #[test]

@@ -94,7 +94,7 @@ fn version_and_formats_go_to_stdout() {
 fn help_lists_options() {
     let h = run(&["--help"]);
     assert_eq!(h.code, 0);
-    for o in ["--width", "--fit", "--trim", "--crop", "--page", "--format", "--native-scale"] {
+    for o in ["--width", "--fit", "--trim", "--crop", "--page", "--format", "--native-scale", "--input-name"] {
         assert!(h.stdout.contains(o), "falta {o}");
     }
 }
@@ -486,4 +486,129 @@ fn pdf_giant_page_stays_within_limits() {
     let r = run(&[input.to_str().unwrap(), out.to_str().unwrap(), "-W", "600"]);
     assert_eq!(r.code, 0, "{}", r.stderr);
     assert_eq!(png_dims(&out), (600, 600));
+}
+
+// ---------- stdin e stdout (`-`) ----------
+
+struct RawOut {
+    code: i32,
+    stdout: Vec<u8>,
+    stderr: String,
+}
+
+/// Executa o binário com `stdin` real (os bytes dados) e devolve a stdout sem converter para texto.
+fn run_raw(args: &[&str], stdin: &[u8]) -> RawOut {
+    let mut child = Command::new(BIN).args(args).stdin(Stdio::piped()).stdout(Stdio::piped()).stderr(Stdio::piped()).spawn().expect("não foi possível executar o thumbcraft");
+    let mut pipe = child.stdin.take().unwrap();
+    let data = stdin.to_vec();
+    // Em outra thread: o binário pode terminar sem ler tudo (erro de uso) e o write falharia aqui.
+    let writer = std::thread::spawn(move || {
+        use std::io::Write;
+        let _ = pipe.write_all(&data);
+    });
+    let o = child.wait_with_output().unwrap();
+    let _ = writer.join();
+    RawOut { code: o.status.code().unwrap_or(-1), stdout: o.stdout, stderr: String::from_utf8_lossy(&o.stderr).into_owned() }
+}
+
+fn png_size(bytes: &[u8]) -> (u32, u32) {
+    let i = png::Decoder::new(std::io::Cursor::new(bytes)).read_info().expect("PNG inválido").info().clone();
+    (i.width, i.height)
+}
+
+const PNG_MAGIC: &[u8] = &[0x89, b'P', b'N', b'G', 0x0D, 0x0A, 0x1A, 0x0A];
+
+#[test]
+fn stdin_to_stdout_gives_only_the_image() {
+    let doc = std::fs::read(corpus("docx/01_docx_simples_acentos.docx")).unwrap();
+    let r = run_raw(&["-", "-", "-W", "120"], &doc);
+    assert_eq!(r.code, 0, "{}", r.stderr);
+    assert!(r.stdout.starts_with(PNG_MAGIC), "a stdout deve começar pelo PNG");
+    assert_eq!(png_size(&r.stdout).0, 120);
+    assert!(r.stderr.is_empty(), "{}", r.stderr);
+}
+
+#[test]
+fn stdin_and_file_inputs_give_identical_bytes() {
+    let d = tmp("stdin_same");
+    for file in ["docx/01_docx_simples_acentos.docx", "xlsx/02-valores-simples.xlsx", "pptx/01_titulo_acentos.pptx"] {
+        let out = d.join("file.png");
+        assert_eq!(generate(file, &out, &["-W", "120"]).code, 0, "{file}");
+        let via_stdin = run_raw(&["-", "-", "-W", "120"], &std::fs::read(corpus(file)).unwrap());
+        assert_eq!(via_stdin.code, 0, "{file}: {}", via_stdin.stderr);
+        assert_eq!(std::fs::read(&out).unwrap(), via_stdin.stdout, "{file}");
+    }
+}
+
+#[test]
+fn stdin_with_file_output_and_file_with_stdout() {
+    let d = tmp("stdin_mixed");
+    let doc = std::fs::read(corpus("docx/01_docx_simples_acentos.docx")).unwrap();
+    let out = d.join("a.png");
+    let r = run_raw(&["-", out.to_str().unwrap(), "-W", "90"], &doc);
+    assert_eq!((r.code, png_dims(&out).0), (0, 90), "{}", r.stderr);
+    assert!(r.stdout.is_empty());
+    let r = run_raw(&[corpus("docx/01_docx_simples_acentos.docx").to_str().unwrap(), "-", "-W", "90"], b"");
+    assert_eq!(r.code, 0, "{}", r.stderr);
+    assert_eq!(png_size(&r.stdout).0, 90);
+}
+
+#[test]
+fn stdout_takes_other_formats_by_option() {
+    let doc = std::fs::read(corpus("docx/01_docx_simples_acentos.docx")).unwrap();
+    let r = run_raw(&["-", "-", "-W", "100", "--format", "jpeg"], &doc);
+    assert_eq!(r.code, 0, "{}", r.stderr);
+    assert!(r.stdout.starts_with(&[0xFF, 0xD8, 0xFF]));
+}
+
+#[test]
+fn native_scale_accepts_stdout() {
+    let pptx = std::fs::read(corpus("pptx/26_proporcao_16x9.pptx")).unwrap();
+    let r = run_raw(&["-", "-", "--native-scale", "1"], &pptx);
+    assert_eq!(r.code, 0, "{}", r.stderr);
+    assert!(r.stdout.starts_with(PNG_MAGIC));
+}
+
+#[test]
+fn input_name_routes_when_content_is_silent() {
+    let text = b"Ola, mundo\n";
+    let without = run_raw(&["-", "-", "-W", "80"], text);
+    assert_eq!(without.code, 3, "sem dica e sem sinal no conteúdo");
+    assert!(without.stdout.is_empty());
+    let with = run_raw(&["-", "-", "-W", "80", "--input-name", "nota.txt"], text);
+    assert_eq!(with.code, 0, "{}", with.stderr);
+    assert!(with.stdout.starts_with(PNG_MAGIC));
+    let detect = run_raw(&["--detect", "-", "--input-name", "nota.txt"], text);
+    assert_eq!((detect.code, String::from_utf8_lossy(&detect.stdout).trim()), (0, "word"));
+}
+
+#[test]
+fn detect_from_stdin_matches_detect_from_file() {
+    for file in ["docx/01_docx_simples_acentos.docx", "xlsx/02-valores-simples.xlsx", "pptx/01_titulo_acentos.pptx"] {
+        let by_file = run(&["--detect", corpus(file).to_str().unwrap()]);
+        let by_stdin = run_raw(&["--detect", "-"], &std::fs::read(corpus(file)).unwrap());
+        assert_eq!((by_stdin.code, String::from_utf8_lossy(&by_stdin.stdout).into_owned()), (by_file.code, by_file.stdout), "{file}");
+    }
+}
+
+#[test]
+fn empty_stdin_is_code_4_with_nothing_on_stdout() {
+    let r = run_raw(&["-", "-"], b"");
+    assert_eq!(r.code, 4);
+    assert!(r.stdout.is_empty());
+    assert!(r.stderr.starts_with("thumbcraft: "), "{}", r.stderr);
+}
+
+#[test]
+fn closed_stdout_is_code_5() {
+    let doc = std::fs::read(corpus("docx/01_docx_simples_acentos.docx")).unwrap();
+    let mut child = Command::new(BIN).args(["-", "-", "-W", "120"]).stdin(Stdio::piped()).stdout(Stdio::piped()).stderr(Stdio::piped()).spawn().unwrap();
+    drop(child.stdout.take());
+    {
+        use std::io::Write;
+        let mut pipe = child.stdin.take().unwrap();
+        let _ = pipe.write_all(&doc);
+    }
+    let o = child.wait_with_output().unwrap();
+    assert_eq!(o.status.code(), Some(5), "{}", String::from_utf8_lossy(&o.stderr));
 }
