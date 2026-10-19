@@ -1,6 +1,6 @@
 [package]
 name = "thumbcraft"
-description = "Gera miniaturas (PNG) de documentos Word, planilhas e apresentações com os motores WordCraft, GridCraft e DeckCraft"
+description = "Gera imagens (miniaturas ou em tamanho maior) de documentos Word, planilhas, apresentações e PDF com os motores WordCraft, GridCraft e DeckCraft"
 version.workspace = true
 edition.workspace = true
 license.workspace = true

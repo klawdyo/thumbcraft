@@ -10,7 +10,8 @@ uso: thumbcraft ENTRADA SAÍDA [opções]
      thumbcraft --formats | --version | --help | --detect ARQUIVO
      thumbcraft - - [opções]      lê o documento da stdin e grava a imagem na stdout
 
-Gera uma miniatura (PNG) da primeira página de um documento Word, planilha ou apresentação.
+Gera uma imagem da primeira página de um documento Word, planilha, apresentação ou PDF
+(uma miniatura quando se pede um tamanho pequeno, como em --width 120).
 
 Entrada e saída:
   -                       como ENTRADA lê o documento inteiro da stdin (até 256 MiB; acima disso, código 4);
