@@ -108,22 +108,22 @@ import { Thumbcraft, RenderOptions } from 'thumbcraft';
 // 1. Buffer -> Buffer (Ideal para pipelines de upload em memória: Multer -> Thumbcraft -> Sharp)
 const imageBuffer: Buffer = await Thumbcraft
   .fromBuffer(uploadedFileBuffer, 'relatorio.xlsx')
-  .toImageBytes({ scale: 2, trim: true });
+  .toBuffer({ scale: 2, trim: true });
 
 // 2. Buffer -> Arquivo (Grava diretamente em disco)
 await Thumbcraft
   .fromBuffer(uploadedFileBuffer, 'apresentacao.pptx')
-  .toImageFile('./thumbnails/slide1.png', { fit: 'contain', width: 800, height: 600 });
+  .toFile('./thumbnails/slide1.png', { fit: 'contain', width: 800, height: 600 });
 
 // 3. Arquivo -> Buffer
 const pngBuffer: Buffer = await Thumbcraft
   .fromFile('./contrato.docx')
-  .toImageBytes({ page: 1 });
+  .toBuffer({ page: 1 });
 
 // 4. Arquivo -> Arquivo
 await Thumbcraft
   .fromFile('./planilha.ods')
-  .toImageFile('./saida.png');
+  .toFile('./saida.png');
 ```
 
 ### 4.3 Opções de Renderização (`RenderOptions`)
@@ -191,7 +191,7 @@ Todas as propriedades de `RenderOptions` mapeiam diretamente para as flags de li
 // Gera o thumbnail final direto, no tamanho e recorte exatos, 100% autônomo
 const finalThumbnail = await Thumbcraft
   .fromBuffer(fileBuffer, 'contrato.docx')
-  .toImageBytes({
+  .toBuffer({
     width: 300,
     height: 300,
     fit: 'contain',
@@ -236,7 +236,7 @@ export class OfficeDocumentProcessingStrategy implements ProcessingStrategy {
     // 1. Gera o screenshot de alta resolução da primeira página usando o binário unificado
     const rawScreenshotBuffer = await Thumbcraft
       .fromBuffer(file.buffer, file.originalname)
-      .toImageBytes({ scale: 1.5, trim: true });
+      .toBuffer({ scale: 1.5, trim: true });
 
     // 2. Alimenta o buffer gerado diretamente no pipeline do Sharp
     const optimizedThumbnail = await sharp(rawScreenshotBuffer)
