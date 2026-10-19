@@ -235,13 +235,18 @@ mod tests {
     }
 
     #[test]
-    fn pdf_reserved() {
+    fn pdf_routes_to_the_pdf_engine() {
+        // Pelo conteúdo, com qualquer extensão (ou nenhuma).
         assert_eq!(route("pdf", Sniff::Pdf).unwrap(), Engine::Pdf);
-        // Markdown salvo como .pdf: segue como texto. Binário sem assinatura continua erro 3.
+        assert_eq!(route("txt", Sniff::Pdf).unwrap(), Engine::Pdf);
+        assert_eq!(route("", Sniff::Pdf).unwrap(), Engine::Pdf);
+        // Pela extensão, quando o conteúdo não diz (por exemplo, lixo antes do cabeçalho %PDF).
+        assert_eq!(route("pdf", Sniff::Other).unwrap(), Engine::Pdf);
+        assert_eq!(route("PDF", Sniff::Other).unwrap(), Engine::Pdf);
+        assert_eq!(route("pdf", Sniff::Cfb).unwrap(), Engine::Pdf);
+        // Markdown salvo como .pdf: segue como texto, para o WordCraft.
         assert_eq!(route("pdf", Sniff::Text).unwrap(), Engine::Word);
         assert_eq!(route("txt", Sniff::Text).unwrap(), Engine::Word);
-        assert_eq!(route("txt", Sniff::Pdf).unwrap(), Engine::Pdf);
-        assert_eq!(route("pdf", Sniff::Other).unwrap_err().code(), 3);
     }
 
     #[test]
