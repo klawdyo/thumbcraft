@@ -351,7 +351,7 @@ jobs:
 
       - name: Empacotar e publicar subpacotes satélites
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_THUMBCRAFT }}
           VERSION: ${{ steps.get_version.outputs.VERSION }}
         run: |
           npm run build:packages -- --version "$VERSION"
@@ -359,7 +359,7 @@ jobs:
 
       - name: Publicar pacote principal (thumbcraft)
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_THUMBCRAFT }}
           VERSION: ${{ steps.get_version.outputs.VERSION }}
         run: |
           npm run build:core -- --version "$VERSION"
@@ -376,5 +376,5 @@ jobs:
    - `packages/platforms/*`: Modelos de `package.json` para cada satélite.
 2. **Implementar o suporte a Stdin/Stdout no CLI do Rust:**
    - Permitir `thumbcraft - -` para ler bytes de documento via `stdin` e cuspir o PNG resultante diretamente no `stdout`, viabilizando chamadas 100% em memória através de streams do Node.js.
-3. **Configurar o segredo `NPM_TOKEN`:**
-   - Adicionar o token com permissão de publicação granular nas configurações de segredos do repositório GitHub.
+3. **Segredo `NPM_THUMBCRAFT`:**
+   - O token granular de publicação já foi criado pelo dono, e o workflow o lê de `secrets.NPM_THUMBCRAFT`. Confirmar que ele está guardado com esse nome exato em Settings, Secrets and variables, Actions, do repositório GitHub (o valor nunca entra no repositório nem é lido pelo agente).
