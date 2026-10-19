@@ -12,4 +12,4 @@ END {
     c=""; for (k in codes) { split(k, p, SUBSEP); if (p[1]==m) c = c " " p[2] "x" codes[k] }
     printf "%-6s %5d %5d %6.1f%% %9.0f %9d %12.0f %s\n", m, n[m], ok[m]+0, 100*(ok[m]+0)/n[m], t[m]/n[m], mx[m], (ok[m]?sb[m]/ok[m]:0), c
   }
-}' "$1" | sort
+}' "$1" | sort -k1,1 -s | awk 'NR==1 || 1'
