@@ -29,7 +29,7 @@ type Source = { kind: 'file'; path: string } | { kind: 'buffer'; buffer: Buffer;
 
 /**
  * Uma tarefa de miniatura: um documento e a forma de transformá-lo em imagem. Cada chamada de
- * `toImageBytes` ou `toImageFile` executa um processo `thumbcraft` novo, que nunca é reaproveitado
+ * `toBuffer` ou `toFile` executa um processo `thumbcraft` novo, que nunca é reaproveitado
  * (uma falha interna derruba o processo inteiro, por causa do `panic = "abort"`).
  */
 export class ThumbcraftJob {
@@ -56,7 +56,7 @@ export class ThumbcraftJob {
    * @param options Opções de renderização.
    * @throws {ThumbcraftError} Erro tipado conforme o código de saída do binário.
    */
-  async toImageBytes(options: RenderOptions = {}): Promise<Buffer> {
+  async toBuffer(options: RenderOptions = {}): Promise<Buffer> {
     const directory = await this.fileSystem.makeTempDir();
     try {
       const output = this.fileSystem.joinPath(directory, `output.${OUTPUT_EXTENSIONS[options.format ?? 'png']}`);
@@ -74,7 +74,7 @@ export class ThumbcraftJob {
    * @param options Opções de renderização.
    * @throws {ThumbcraftError} Erro tipado conforme o código de saída do binário.
    */
-  async toImageFile(outputPath: string, options: RenderOptions = {}): Promise<void> {
+  async toFile(outputPath: string, options: RenderOptions = {}): Promise<void> {
     if (this.source.kind === 'file') {
       await this.execute(this.source.path, outputPath, options);
       return;
