@@ -146,3 +146,30 @@ jobs:
           npm publish ./outputs/packages/win32-x64-msvc --access public
           npm publish ./outputs/packages/linux-x64-gnu --access public
           npm publish ./outputs/packages/thumbcraft --access public
+
+  github-release:
+    name: GitHub Release
+    needs: [check-version, build-binaries, publish]
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write # cria a tag vX.Y.Z e o Release
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/download-artifact@v5
+        with:
+          path: artifacts/
+      - name: Empacotar os binários
+        env:
+          VERSION: ${{ needs.check-version.outputs.version }}
+        run: |
+          mkdir release
+          chmod +x artifacts/binary-x86_64-unknown-linux-gnu/thumbcraft
+          tar -C artifacts/binary-x86_64-unknown-linux-gnu -czf "release/thumbcraft-${VERSION}-linux-x64.tar.gz" thumbcraft
+          (cd artifacts/binary-x86_64-pc-windows-msvc && zip -q "../../release/thumbcraft-${VERSION}-win32-x64.zip" thumbcraft.exe)
+          (cd release && sha256sum "thumbcraft-${VERSION}-linux-x64.tar.gz" "thumbcraft-${VERSION}-win32-x64.zip" > SHA256SUMS)
+      - name: Criar o Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.check-version.outputs.version }}
+        run: |
+          gh release create "v${VERSION}" release/*             --target "${GITHUB_SHA}"             --title "thumbcraft ${VERSION}"             --generate-notes
