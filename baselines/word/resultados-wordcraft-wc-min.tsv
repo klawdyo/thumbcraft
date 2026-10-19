@@ -1,0 +1,31 @@
+arquivo	exit	segundos	png_bytes	mensagem_de_erro
+01_docx_simples_acentos.docx	0	0.191	387518	
+02_docx_titulos_listas.docx	0	0.123	292784	
+03_docx_tabelas.docx	0	0.087	71748	
+04_docx_imagens_png_jpeg.docx	0	0.152	277944	
+05_docx_multipagina.docx	0	0.227	816565	
+06_docx_fontes.docx	0	0.097	113424	
+07_docx_estilos_cores.docx	0	0.083	55071	
+08_docx_cabecalho_rodape.docx	0	0.199	1000164	
+09_doc_97_imagem_tabela.doc	0	0.148	295314	
+10_doc_97_titulos_listas.doc	0	0.144	292783	
+11_odt_rico.odt	0	0.122	98078	
+12_rtf_rico.rtf	0	0.112	104079	
+13_html_rico.html	0	0.097	92188	
+14_md_rico.md	0	0.077	80138	
+15_tex_rico.tex	0	0.077	87160	
+16_txt_simples.txt	0	0.058	59744	
+17_txt_longo_multipagina.txt	0	0.170	706919	
+18_odt_multipagina.odt	0	0.121	377814	
+19_md_multipagina.md	0	0.134	392739	
+20_doc_97_multipagina.doc	0	0.245	816583	
+21_vazio.docx	1	0.009	0	not a valid zip package: invalid Zip archive: Could not find EOCD 
+22_vazio.txt	0	0.054	40906	
+23_corrompido_docx_truncado.docx	1	0.007	0	not a valid zip package: invalid Zip archive: Could not find EOCD 
+24_corrompido_doc_truncado.doc	1	0.007	0	not a Word document (compound file): Malformed FAT (FAT has 63 entries, but file has only 5 sectors) 
+25_extensao_errada_txt_como.docx	1	0.007	0	not a valid zip package: invalid Zip archive: Could not find EOCD 
+26_extensao_errada_docx_como.txt	0	0.111	164070	
+27_extensao_errada_docx_como.doc	0	0.082	71748	
+28_extensao_errada_md_como.pdf	0	0.095	82886	
+29_html_como.doc	0	0.106	92188	
+30_lixo_binario.docx	1	0.007	0	not a valid zip package: invalid Zip archive: Could not find EOCD 
