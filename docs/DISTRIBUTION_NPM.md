@@ -258,32 +258,86 @@ export class OfficeDocumentProcessingStrategy implements ProcessingStrategy {
 
 ## 6. Automação de CI/CD (GitHub Actions)
 
-Para evitar manutenção manual de versões em múltiplos pacotes, o workflow do GitHub Actions é acionado na criação de uma tag de versão (ex.: `v0.1.0`) e se encarrega de:
+Decisão do dono (2026-10-19): a publicação é **automática a cada push na `main`**, sem tag e **sem token do npm**, usando a publicação confiável (trusted publishing, OIDC) do npm.
 
-1. Baixar os motores upstream (`scripts/fetch-upstream.sh`).
-2. Aplicar os patches necessários (ex.: exportador PNG do GridCraft).
-3. Compilar os binários em matriz para todos os sistemas operacionais com perfil otimizado (`opt-level = "z"`, `lto = "fat"`, `strip = "symbols"`).
-4. Gerar a estrutura de cada subpacote com o respectivo binário.
-5. Publicar automaticamente os subpacotes satélites no npm.
-6. Atualizar a referência de dependências no pacote principal `thumbcraft` e publicá-lo.
+Como o npm recusa publicar duas vezes a mesma versão, o workflow se comporta assim a cada push na `main`:
 
-### Exemplo de Workflow: `.github/workflows/release-npm.yml` (rascunho, só Windows x64 e Linux x64)
+1. **Sempre** roda os testes (Windows e Ubuntu). Em pull requests, só isso.
+2. Lê a versão do `Cargo.toml` (`[workspace.package] version`) e consulta o npm. Se essa versão **ainda não está publicada**, compila os binários, monta os três pacotes e publica. Se já está, termina sem publicar.
+
+Na prática, a publicação acontece quando entra na `main` o commit `release: X.Y.Z` criado pelo `versioner`, e só então. Os demais commits só rodam os testes. Publicar a cada commit exigiria que o CI aumentasse a versão sozinho, o que contraria a regra de que a versão só muda pelo `versioner`, a pedido do dono; fica como possível evolução, só com autorização dele.
+
+Passos do job de publicação:
+
+1. Baixar os motores (`scripts/fetch-upstream.sh`) e compilar o binário em release para Windows x64 e Linux x64 (`opt-level = "z"`, `lto = "fat"`, `strip = "symbols"`).
+2. Montar os três pacotes: `@thumbcraft/win32-x64-msvc`, `@thumbcraft/linux-x64-gnu` e `thumbcraft`, todos com a versão do `Cargo.toml`.
+3. Publicar **primeiro os dois pacotes de plataforma e por último o principal**, porque o principal depende deles.
+
+Requisitos da publicação confiável (documentação do npm): npm 11.5.1 ou mais novo, Node 22.14 ou mais novo, `id-token: write` nas permissões do job, runner hospedado pelo GitHub, e cada pacote configurado no npm com o repositório e o **nome do arquivo do workflow** (`release.yml`). O campo `repository.url` do `package.json` de cada pacote precisa ser exatamente o do repositório no GitHub. Não há segredo nem `NODE_AUTH_TOKEN`; a proveniência é gerada automaticamente.
+
+### Exemplo de Workflow: `.github/workflows/release.yml` (rascunho, só Windows x64 e Linux x64)
 
 ```yaml
-name: Release NPM
+name: Release
 
 on:
   push:
-    tags:
-      - 'v*.*.*'
+    branches: [main]
+  pull_request:
 
 permissions:
-  contents: write
-  id-token: write
+  contents: read
 
 jobs:
+  test:
+    name: Test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-24.04]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Baixar motores upstream e aplicar patches
+        shell: bash
+        run: ./scripts/fetch-upstream.sh
+      - run: cargo test --workspace --locked
+      - name: Testar o wrapper
+        working-directory: packages/thumbcraft
+        run: npm ci && npm test
+
+  check-version:
+    name: Check version
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-24.04
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      publish: ${{ steps.published.outputs.publish }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: version
+        name: Ler a versão do Cargo.toml
+        run: |
+          VERSION=$(grep -m1 '^version = ' Cargo.toml | sed -E 's/version = "(.*)"/\1/')
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+      - id: published
+        name: Consultar o npm
+        run: |
+          if npm view "thumbcraft@${{ steps.version.outputs.version }}" version >/dev/null 2>&1; then
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          fi
+
   build-binaries:
     name: Build (${{ matrix.target }})
+    needs: check-version
+    if: needs.check-version.outputs.publish == 'true'
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -291,90 +345,88 @@ jobs:
         include:
           - os: windows-latest
             target: x86_64-pc-windows-msvc
-            pkg_name: '@thumbcraft/win32-x64-msvc'
             binary_name: thumbcraft.exe
           - os: ubuntu-24.04
             target: x86_64-unknown-linux-gnu
-            pkg_name: '@thumbcraft/linux-x64-gnu'
             binary_name: thumbcraft
-
     steps:
-      - name: Checkout repositório
-        uses: actions/checkout@v4
-
-      - name: Instalar toolchain Rust
-        uses: dtolnay/rust-toolchain@stable
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
         with:
           targets: ${{ matrix.target }}
-
       - name: Baixar motores upstream e aplicar patches
         shell: bash
         run: ./scripts/fetch-upstream.sh
-
-      - name: Compilar binário de release
-        run: cargo build --release --target ${{ matrix.target }} --bin thumbcraft
-
-      - name: Preparar artefato do binário
-        shell: bash
-        run: |
-          mkdir -p dist/bin
-          cp target/${{ matrix.target }}/release/${{ matrix.binary_name }} dist/bin/
-
-      - name: Upload do binário compilado
-        uses: actions/upload-artifact@v4
+      - run: cargo build --release --locked --target ${{ matrix.target }} -p thumbcraft
+      - uses: actions/upload-artifact@v4
         with:
           name: binary-${{ matrix.target }}
-          path: dist/bin/
+          path: target/${{ matrix.target }}/release/${{ matrix.binary_name }}
 
-  publish-npm:
-    name: Publicar Pacotes no NPM
-    needs: build-binaries
-    runs-on: ubuntu-latest
+  publish:
+    name: Publish to npm
+    needs: [check-version, build-binaries]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      id-token: write # exigido pela publicação confiável (OIDC)
     steps:
-      - name: Checkout repositório
-        uses: actions/checkout@v4
-
-      - name: Configurar Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Download de todos os binários compilados
-        uses: actions/download-artifact@v4
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+      - name: Garantir npm 11.5.1 ou mais novo
+        run: npm install -g npm@latest
+      - uses: actions/download-artifact@v4
         with:
           path: artifacts/
-
-      - name: Extrair versão da tag Git
-        id: get_version
-        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
-
-      - name: Empacotar e publicar subpacotes satélites
+      - name: Montar os pacotes
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_THUMBCRAFT }}
-          VERSION: ${{ steps.get_version.outputs.VERSION }}
+          VERSION: ${{ needs.check-version.outputs.version }}
+        run: npm run build:packages -- --version "$VERSION" # script da tarefa 04
+      - name: Publicar os pacotes de plataforma e depois o principal
         run: |
-          npm run build:packages -- --version "$VERSION"
-          npm run publish:satellites
-
-      - name: Publicar pacote principal (thumbcraft)
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_THUMBCRAFT }}
-          VERSION: ${{ steps.get_version.outputs.VERSION }}
-        run: |
-          npm run build:core -- --version "$VERSION"
-          cd packages/thumbcraft
-          npm publish --access public --provenance
+          npm publish ./packages/platforms/win32-x64-msvc --access public
+          npm publish ./packages/platforms/linux-x64-gnu --access public
+          npm publish ./packages/thumbcraft --access public
 ```
 
----
+> O rascunho usa o nome `release.yml`; se o arquivo tiver outro nome, o nome configurado em cada pacote no npm precisa ser o mesmo. O script `build:packages` e a pasta `packages/platforms/` são entregues pela tarefa 04.
 
 ## 7. Próximos Passos de Implementação
 
-1. **Criar a pasta `npm/` ou `packages/` no repositório:**
-   - `packages/thumbcraft/`: Código do wrapper TypeScript e definições de tipo.
-   - `packages/platforms/*`: Modelos de `package.json` para cada satélite.
-2. **Implementar o suporte a Stdin/Stdout no CLI do Rust:**
-   - Permitir `thumbcraft - -` para ler bytes de documento via `stdin` e cuspir o PNG resultante diretamente no `stdout`, viabilizando chamadas 100% em memória através de streams do Node.js.
-3. **Segredo `NPM_THUMBCRAFT`:**
-   - O token granular de publicação já foi criado pelo dono, e o workflow o lê de `secrets.NPM_THUMBCRAFT`. Confirmar que ele está guardado com esse nome exato em Settings, Secrets and variables, Actions, do repositório GitHub (o valor nunca entra no repositório nem é lido pelo agente).
+1. **Criar a pasta `packages/` no repositório:**
+   - `packages/thumbcraft/`: wrapper TypeScript e definições de tipo (já existe).
+   - `packages/platforms/*`: um pacote por plataforma, com o binário (tarefa 04).
+2. **Implementar o suporte a stdin e stdout no CLI do Rust:**
+   - Permitir `thumbcraft - -` para ler bytes de documento via `stdin` e gravar a imagem direto na `stdout`, viabilizando chamadas em memória com streams do Node.js (tarefa 01).
+3. **Preparar o npm (uma vez, pelo dono):** seguir a seção 8.
+4. **Criar o workflow `release.yml`** da seção 6 (tarefa 06).
+
+---
+
+## 8. Passo a passo no npm para a publicação confiável (feito pelo dono, uma vez)
+
+A publicação confiável **não cria pacotes novos**: a primeira versão de cada pacote precisa ser publicada à mão, e só depois o npm é configurado para confiar no workflow do GitHub. Essa limitação vem de guias de terceiros ([exemplo](https://developer.wordpress.org/playground/handbook/contributing/releases/)); a [documentação oficial](https://docs.npmjs.com/trusted-publishers) não a descreve, então confirme na tela de configuração do pacote. Não há segredo para guardar no GitHub.
+
+1. **Conta e organização.** Crie a conta no npmjs.com (com autenticação em dois fatores) e crie a organização `thumbcraft` (o escopo `@thumbcraft`), gratuita para pacotes públicos.
+2. **Primeira publicação manual dos três pacotes**, a partir da sua máquina, depois que a tarefa 04 gerar os pacotes (a ordem importa: plataformas primeiro, principal por último):
+   ```sh
+   npm login
+   npm publish ./packages/platforms/win32-x64-msvc --access public
+   npm publish ./packages/platforms/linux-x64-gnu --access public
+   npm publish ./packages/thumbcraft --access public
+   ```
+   Use a versão atual do `Cargo.toml`. Essa publicação manual é a única que usa a sua conta; as seguintes serão do CI. Depois dela, o CI só publica versões **maiores**.
+3. **Configurar cada um dos três pacotes** no npmjs.com: página do pacote, Settings, "Trusted Publisher", GitHub Actions, com:
+   - Organization or user: `klawdyo`
+   - Repository: `thumbcraft`
+   - Workflow filename: `release.yml` (com a extensão e sem pasta)
+   - Environment: em branco
+   - Allowed actions: marque `npm publish`
+
+   Os campos diferenciam maiúsculas de minúsculas. O npm não valida a configuração ao salvar: um erro só aparece na hora de publicar. Uma configuração nova expira se não houver uma publicação bem-sucedida em 2 dias. O campo `repository.url` do `package.json` de cada pacote deve ser exatamente o do repositório no GitHub (`git+https://github.com/klawdyo/thumbcraft.git`).
+4. **Opcional, por linha de comando:** versões novas do npm (11.15 ou mais nova, segundo um projeto de terceiros, não confirmado na documentação oficial) têm `npm trust github` para fazer o passo 3 sem a interface.
+5. **Depois que o primeiro release automático funcionar:** nas configurações de cada pacote, restrinja a publicação por token e revogue qualquer token temporário usado na primeira publicação. O segredo `NPM_THUMBCRAFT` que você criou no GitHub deixa de ser necessário e pode ser apagado.
+6. **Para fazer um release:** peça ao agente para rodar o `versioner` (ele cria o commit `release: X.Y.Z`); em seguida rode `cargo update --workspace` e commite o `Cargo.lock` à parte, para o build com `--locked` não falhar; faça o push dos dois commits na `main`, e o workflow publica sozinho.
