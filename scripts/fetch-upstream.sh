@@ -21,15 +21,12 @@ PROJETOS=(
   "wordcraft|https://github.com/storytold/wordcraft|117aea31a8e61bd3e306e9210800cdc42897e3c1|2026-10-19T03:08:47-04:00"
   "gridcraft|https://github.com/storytold/gridcraft|66ce6be4743f4227047f76f56815520f824e6d81|2026-10-18T16:14:33-06:00"
   "deckcraft|https://github.com/storytold/deckcraft|010941ec60f81f1eece31ec1ea83825c9a396217|2026-10-18T12:31:16-06:00"
+  "craft-libs|https://github.com/storytold/craft-libs|ae2f796b673f29cf3161f36eb6a8933f0a3fe028|2026-10-18T15:11:21-04:00"
 )
 
 # Hash da árvore do GridCraft depois de aplicar patches/gridcraft/*.patch (git write-tree
 # de um índice temporário com `git add -A -f`). Prova que o patch reconstrói a cópia do PR.
 ARVORE_GRIDCRAFT="0b8e31e398afda27d6c1015cbbb79275edb20d7d"
-
-# craft-libs não é clonado aqui: o cargo o baixa por git na revisão fixada no Cargo.toml raiz.
-# Registrado apenas para conferência com o UPSTREAM.md.
-CRAFT_LIBS_URL="https://github.com/storytold/craft-libs"
 
 erro() { echo "erro: $*" >&2; exit 1; }
 info() { echo "[fetch-upstream] $*"; }
@@ -121,5 +118,4 @@ if [[ "$obtida" != "$ARVORE_GRIDCRAFT" ]]; then
   erro "árvore patchada do gridcraft difere: obtida $obtida, esperada $ARVORE_GRIDCRAFT"
 fi
 info "gridcraft: árvore patchada confere ($obtida)"
-info "craft-libs (via cargo, ver Cargo.toml raiz): $CRAFT_LIBS_URL"
 info "concluído"
