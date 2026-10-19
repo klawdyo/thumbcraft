@@ -26,7 +26,7 @@ e a conferência do Linux com o código atual (stdin/stdout, JPEG e WebP, testes
 ## Critérios de aceitação
 
 - [x] Tabela em `docs/PLATFORMS.md` com plataforma, versão do Rust, resultado dos testes, tamanho do binário de release e data
-- [x] Windows x64 e Linux x64 glibc: testes passam (os e2e usam o `corpus/`); `scripts/run-corpus.sh` com comparação contra `baselines/` não foi rodado nesta etapa
+- [x] Windows x64 e Linux x64 glibc: testes passam (os e2e usam o `corpus/`); `run-corpus.sh` contra os baselines rodado nas duas (`baselines/thumbcraft-run-2026-10-19-pdf-unificado/`)
 - [x] Divergência do hash no Windows explicada e tratada (bit de execução; `docs/PITFALLS.md`)
 - [x] **UTF-8 sem BOM, LF e sem mojibake** em todos os arquivos criados/modificados (`bash scripts/check-encoding.sh`)
 
