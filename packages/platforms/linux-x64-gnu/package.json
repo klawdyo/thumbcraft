@@ -1,0 +1,38 @@
+{
+  "name": "@thumbcraft/linux-x64-gnu",
+  "version": "0.0.0",
+  "description": "Prebuilt thumbcraft binary for Linux x64 (glibc). Installed automatically by the thumbcraft package; do not depend on it directly.",
+  "keywords": [
+    "thumbcraft",
+    "thumbnail",
+    "document-preview",
+    "binary",
+    "linux",
+    "x64"
+  ],
+  "homepage": "https://github.com/klawdyo/thumbcraft/tree/main/packages/thumbcraft#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/klawdyo/thumbcraft.git",
+    "directory": "packages/platforms/linux-x64-gnu"
+  },
+  "bugs": {
+    "url": "https://github.com/klawdyo/thumbcraft/issues"
+  },
+  "license": "Apache-2.0",
+  "os": [
+    "linux"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "libc": [
+    "glibc"
+  ],
+  "bin": {
+    "thumbcraft": "bin/thumbcraft"
+  },
+  "files": [
+    "bin"
+  ]
+}
