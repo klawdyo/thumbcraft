@@ -22,6 +22,7 @@ deckcraft-pptx = { path = "../../third_party/deckcraft/crates/pptx" }
 deckcraft-format = { path = "../../third_party/deckcraft/crates/format" }
 deckcraft-render = { path = "../../third_party/deckcraft/crates/render" }
 deckcraft-fonts = { path = "../../third_party/deckcraft/crates/fonts" }
+deckcraft-model = { path = "../../third_party/deckcraft/crates/model" }
 
 serde_json = "1"
 # Mesmas versões que os motores já usam (uma cópia só no binário).

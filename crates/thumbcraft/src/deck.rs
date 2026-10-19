@@ -13,14 +13,9 @@ use thumbcraft_core::{Error, Raster, Render, Res};
 
 /// Apresentação aberta.
 pub struct Deck {
-    pres: deckcraft_model_alias::Presentation,
+    pres: deckcraft_model::Presentation,
     /// Posições (a partir de 0, na ordem original do arquivo) dos slides danificados.
     lost: Vec<usize>,
-}
-
-// O tipo vem do `deckcraft-pptx` sem exigir o crate de modelo como dependência direta.
-mod deckcraft_model_alias {
-    pub use deckcraft_pptx::Presentation;
 }
 
 impl Deck {
