@@ -32,13 +32,20 @@ novo) no projeto dele para instalar os dois binários; isso é só documentado a
 
 ## Critérios de aceitação
 
-- [ ] `npm test` passa, com testes escritos antes (resolução simulada por plataforma)
-- [ ] O script monta o pacote Windows x64 e o Linux x64 a partir de binários locais; `npm pack --dry-run` lista só `package.json` e o binário
-- [ ] Instalar o pacote principal e o de plataforma em um projeto de teste e rodar `Thumbcraft.fromFile(...)` gera a imagem, no Windows
-- [ ] Plataforma sem pacote produz o erro descrito
-- [ ] A documentação mostra o `supportedArchitectures` para desenvolver no Windows e rodar no Linux
-- [ ] **UTF-8 sem BOM, LF e sem mojibake** em todos os arquivos criados/modificados (`bash scripts/check-encoding.sh`)
+- [x] `npm test` passa, com testes escritos antes (resolução simulada por plataforma)
+- [x] O script monta o pacote Windows x64 e o Linux x64 a partir de binários locais; `npm pack --dry-run` lista só `package.json`, o README e o binário
+- [x] Instalar o pacote principal e o de plataforma em um projeto de teste e rodar `Thumbcraft.fromFile(...)` gera a imagem, no Windows
+- [x] Plataforma sem pacote produz o erro descrito
+- [x] A documentação mostra o `supportedArchitectures` para desenvolver no Windows e rodar no Linux
+- [x] **UTF-8 sem BOM, LF e sem mojibake** em todos os arquivos criados/modificados (`bash scripts/check-encoding.sh`)
 
 ## Não escopo
 
 - Publicação no npm e CI (tarefa 06). macOS, ARM e Alpine (musl).
+
+## Resultado (2026-10-19)
+
+- Resolução: `THUMBCRAFT_BIN` primeiro, depois o pacote de plataforma instalado (`PlatformBinaryResolver`); 37 testes novos, 76 no total.
+- Empacotamento: `npm run build:packages -- --version X.Y.Z --binary <plataforma>=<caminho>` monta `outputs/packages/<plataforma>` e `outputs/packages/thumbcraft`; o pacote principal ganha `optionalDependencies` com a versão exata e perde `scripts` e `devDependencies`.
+- Prova no Windows: pacote da plataforma com 3 arquivos (24 MB de binário, 11,6 MB comprimido) e pacote principal de 14,7 kB; instalados em um projeto novo sem `THUMBCRAFT_BIN`, o binário foi achado no pacote e geraram imagem `fromFile` (120 x 120) e `fromBuffer` (200 x 100).
+- Não verificado: o pacote Linux (sem binário Linux nesta máquina; coberto só pelos testes com sistema de arquivos falso; a validação real é a tarefa 05) e a instalação a partir do registro do npm (o pacote ainda não foi publicado).
