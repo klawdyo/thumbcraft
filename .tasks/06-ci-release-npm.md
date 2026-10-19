@@ -2,18 +2,20 @@
 
 ## Objetivo
 
-Criar o pipeline do GitHub Actions que roda os testes a cada alteração e, ao receber uma tag de versão, compila o
-binário para Windows x64 e Linux x64, monta e publica os pacotes npm.
+Criar o workflow `.github/workflows/release.yml`: a cada push na `main` roda os testes (Windows e Ubuntu) e, se a
+versão do `Cargo.toml` ainda não estiver no npm, compila o binário para Windows x64 e Linux x64, monta os três
+pacotes e os publica automaticamente, sem tag e sem token, pela publicação confiável (OIDC) do npm.
 
 ## Contexto
 
-`docs/DISTRIBUTION_NPM.md` seção 6 traz um rascunho de workflow, e `docs/STATUS.md` e `docs/UPDATING.md` (item 8)
-registram o CI/CD de release como pendência. Depende das tarefas 04 e 05. O dono já criou um token granular
-de publicação no npm, chamado `NPM_THUMBCRAFT`; o workflow o lê de `secrets.NPM_THUMBCRAFT` (a alternativa
-"trusted publishing" do npm, sem token guardado, fica como possível melhoria futura). A confirmar com o dono antes
-de publicar: (1) o segredo está guardado com esse nome exato no GitHub (Settings, Secrets and variables, Actions);
-(2) o token tem permissão de publicar o pacote `thumbcraft` e os pacotes do escopo; (3) o escopo (organização)
-`@thumbcraft` existe no npm, necessário para os dois pacotes de plataforma da tarefa 04.
+`docs/DISTRIBUTION_NPM.md` seções 6 a 8 trazem o desenho, o rascunho do workflow e o passo a passo do npm.
+Decisões do dono (2026-10-19): publicação automática a cada push na `main`; sem token do npm (publicação
+confiável); só Windows x64 e Linux x64. Como o npm recusa a mesma versão duas vezes, o workflow só publica quando a
+versão do `Cargo.toml` não existe no npm, o que acontece com o commit `release: X.Y.Z` do `versioner`; os outros
+commits só rodam os testes. Depende das tarefas 04 (pacotes e script `build:packages`) e 05. Pendências do dono, no
+npmjs.com, antes do primeiro release automático (seção 8 do plano): criar a organização `thumbcraft`, publicar à
+mão a primeira versão dos três pacotes e configurar o Trusted Publisher de cada um com o repositório e o nome
+`release.yml`. O segredo `NPM_THUMBCRAFT` criado no GitHub não é mais necessário.
 
 ## Referências
 
@@ -24,18 +26,23 @@ de publicar: (1) o segredo está guardado com esse nome exato no GitHub (Setting
 
 - Versão única: a versão do `Cargo.toml` define a do binário e a dos pacotes npm; um script (não edição à mão)
   copia essa versão para os `package.json` na hora do empacotamento. A versão em si é calculada pelo `versioner`.
-- Nenhum segredo no repositório; o workflow usa só o nome `NPM_THUMBCRAFT`, e o valor fica nas configurações do GitHub (o agente não o cria, não o lê e não pede o valor).
-- Publicação só em tag; testes em todo push e pull request.
+- Nenhum segredo nem `NODE_AUTH_TOKEN`: a autenticação é o `id-token: write` do job de publicação. O agente não pede
+  nem lê credenciais.
+- Publicar só em push na `main` e só com versão ainda inexistente no npm; pull requests só rodam testes.
+- Ordem de publicação: pacotes de plataforma primeiro, pacote principal por último.
+- Requisitos: runner hospedado pelo GitHub, Node 22.14 ou mais novo, npm 11.5.1 ou mais novo, `repository.url`
+  igual ao do repositório em todos os `package.json`.
 - O workflow não cria tag nem faz commit por conta própria.
 - Cache do cargo com atenção ao tamanho (build limpo leva minutos).
 
 ## Critérios de aceitação
 
-- [ ] Workflow de testes roda `cargo test --workspace --locked` e `npm test` em Windows e Ubuntu, e passa
-- [ ] Workflow de release, em tag de teste ou com `npm publish --dry-run`, gera todos os pacotes sem publicar
-- [ ] Documentação do processo de release em `docs/` (passo a passo para o dono, incluindo a conta, o escopo `@thumbcraft` e o segredo `NPM_THUMBCRAFT`)
+- [ ] Em push e pull request, o job de testes roda `cargo test --workspace --locked` e `npm test` em Windows e Ubuntu, e passa
+- [ ] Com a versão do `Cargo.toml` já publicada no npm, o push na `main` roda só os testes e não tenta publicar
+- [ ] Com uma versão nova, o workflow compila os dois binários, monta os três pacotes e publica na ordem certa (verificado primeiro com `npm publish --dry-run`)
+- [ ] Documentação do release em `docs/` (seção 8 do plano): organização, primeira publicação manual, configuração dos três pacotes e como fazer um release
 - [ ] **UTF-8 sem BOM, LF e sem mojibake** em todos os arquivos criados/modificados (`bash scripts/check-encoding.sh`)
 
 ## Não escopo
 
-- Publicar de verdade (pedido explícito do dono). Criar tags ou fazer push. macOS, ARM e Alpine (musl).
+- Fazer o release de verdade (pedido explícito do dono). Aumentar a versão automaticamente a cada commit. Criar tags. macOS, ARM e Alpine (musl).
