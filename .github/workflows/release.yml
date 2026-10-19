@@ -1,0 +1,148 @@
+name: Release
+
+# Todo push na main roda os testes; se a versão do Cargo.toml ainda não existe no npm, compila os dois binários e
+# publica os três pacotes pela publicação confiável (OIDC), sem token. Pull requests só rodam os testes.
+# O nome deste arquivo (release.yml) é o que cada pacote configura no npm como Trusted Publisher.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_TOOLCHAIN: 1.99.1
+
+jobs:
+  test:
+    name: Test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            exe: .exe
+          - os: ubuntu-22.04
+            exe: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Baixar motores upstream e aplicar patches
+        shell: bash
+        run: ./scripts/fetch-upstream.sh
+      - name: Testes do Rust
+        run: cargo test --workspace --locked
+      - name: Testes do wrapper (inclui o binário real)
+        shell: bash
+        working-directory: packages/thumbcraft
+        env:
+          THUMBCRAFT_BIN: ${{ github.workspace }}/outputs/debug/thumbcraft${{ matrix.exe }}
+        run: |
+          npm ci
+          npm run typecheck
+          npm test
+
+  check-version:
+    name: Check version
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-22.04
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      publish: ${{ steps.published.outputs.publish }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: version
+        name: Ler a versão do Cargo.toml
+        run: |
+          VERSION=$(awk -F'"' '/^\[workspace.package\]/{f=1;next} /^\[/{f=0} f && /^version *=/{print $2; exit}' Cargo.toml)
+          test -n "$VERSION"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+      - id: published
+        name: Consultar o npm
+        run: |
+          if npm view "thumbcraft@${{ steps.version.outputs.version }}" version >/dev/null 2>&1; then
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            echo "A versão ${{ steps.version.outputs.version }} já está no npm: nada a publicar."
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  build-binaries:
+    name: Build (${{ matrix.target }})
+    needs: check-version
+    if: needs.check-version.outputs.publish == 'true'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            binary_name: thumbcraft.exe
+          # ubuntu-22.04 (glibc 2.35): o binário roda em Debian 12, Ubuntu 22.04 e mais novos.
+          - os: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+            binary_name: thumbcraft
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
+      - uses: Swatinem/rust-cache@v2
+      - name: Baixar motores upstream e aplicar patches
+        shell: bash
+        run: ./scripts/fetch-upstream.sh
+      - run: cargo build --release --locked -p thumbcraft
+      - uses: actions/upload-artifact@v4
+        with:
+          name: binary-${{ matrix.target }}
+          path: outputs/release/${{ matrix.binary_name }}
+          if-no-files-found: error
+
+  publish:
+    name: Publish to npm
+    needs: [check-version, build-binaries]
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      id-token: write # exigido pela publicação confiável (OIDC)
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+      - name: Garantir npm 11.5.1 ou mais novo
+        run: npm install -g npm@latest
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+      - name: Montar os pacotes
+        working-directory: packages/thumbcraft
+        env:
+          VERSION: ${{ needs.check-version.outputs.version }}
+        run: |
+          npm ci
+          npm run build
+          npm run build:packages -- --version "$VERSION" \
+            --binary win32-x64-msvc=../../artifacts/binary-x86_64-pc-windows-msvc/thumbcraft.exe \
+            --binary linux-x64-gnu=../../artifacts/binary-x86_64-unknown-linux-gnu/thumbcraft
+      - name: Publicar os pacotes de plataforma e depois o principal
+        run: |
+          npm publish ./outputs/packages/win32-x64-msvc --access public
+          npm publish ./outputs/packages/linux-x64-gnu --access public
+          npm publish ./outputs/packages/thumbcraft --access public
