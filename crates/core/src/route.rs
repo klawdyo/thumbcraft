@@ -146,10 +146,13 @@ fn by_ext(ext: &str) -> Res<Engine> {
     if DECK_EXTS.contains(&ext) {
         return Ok(Engine::Deck);
     }
+    // Sem assinatura reconhecível (por exemplo, lixo antes do %PDF), vale a extensão: o motor de PDF decide.
+    if ext == "pdf" {
+        return Ok(Engine::Pdf);
+    }
     match ext {
         "ppt" => Err(deck_legacy(".ppt")),
         "odp" => Err(deck_legacy(".odp")),
-        "pdf" => Err(pdf_pending()),
         "" => Err(Error::Unsupported("não foi possível identificar o formato: o arquivo não tem extensão e o conteúdo não é reconhecido".into())),
         e => Err(Error::Unsupported(format!("formato não suportado: .{e} (veja thumbcraft --formats)"))),
     }
