@@ -1,29 +1,29 @@
-# Regras do dono aplicadas a este projeto
+# The owner's rules applied to this project
 
-Cópia, em 2026-10-19, das regras de `F:\DEV\.skills` (repositório central de specs do dono) que se aplicam ao
-thumbcraft, um projeto Rust sem API HTTP, sem banco e sem interface gráfica. Os arquivos são cópias fiéis;
-desvios deliberados ficam em `CLAUDE.md` (seção "Exceções"), nunca editados aqui. Ordem de precedência:
-`CLAUDE.md` do projeto, depois estes arquivos.
+A copy, made on 2026-10-19, of the rules from `F:\DEV\.skills` (the owner's central repository of specs) that apply to
+thumbcraft, a Rust project with no HTTP API, no database and no graphical interface. The files are faithful copies
+(in Portuguese); deliberate deviations are recorded in `CLAUDE.md` (section "Exceções às specs compartilhadas") and are
+never edited here. Order of precedence: the project's `CLAUDE.md`, then these files.
 
-| Arquivo | Origem | Resumo |
-|---------|--------|--------|
-| [principles.md](principles.md) | `shared/principles.md` | Módulos por feature, injeção de dependências, regra fora da apresentação, camadas |
-| [naming-and-language.md](naming-and-language.md) | `shared/naming-and-language.md` | Identificadores em inglês, comentários e mensagens em português, comentar tudo |
-| [encoding-and-files.md](encoding-and-files.md) | `shared/encoding-and-files.md` | UTF-8 sem BOM, LF, verificação com `scripts/check-encoding.sh` |
-| [commits-and-versioning.md](commits-and-versioning.md) | `shared/commits-and-versioning.md` | Conventional Commits, commits atômicos, sem breaking change sem autorização, `versioner` |
-| [testing.md](testing.md) | `shared/testing.md` | TDD, sem I/O real em teste unitário |
-| [workflow-and-agents.md](workflow-and-agents.md) | `shared/workflow-and-agents.md` | Papéis, tarefas em `.tasks/`, zonas protegidas |
-| [task-template.md](task-template.md) | `templates/task.md` | Modelo de tarefa |
-| [tasks-manifest-template.md](tasks-manifest-template.md) | `templates/tasks-manifest.md` | Modelo do manifesto de tarefas |
+| File | Origin | Summary |
+|---|---|---|
+| [principles.md](principles.md) | `shared/principles.md` | Modules by feature, dependency injection, rules outside the presentation layer, layers |
+| [naming-and-language.md](naming-and-language.md) | `shared/naming-and-language.md` | Identifiers in English, comments and messages in Portuguese, comment everything |
+| [encoding-and-files.md](encoding-and-files.md) | `shared/encoding-and-files.md` | UTF-8 without BOM, LF, verification with `scripts/check-encoding.sh` |
+| [commits-and-versioning.md](commits-and-versioning.md) | `shared/commits-and-versioning.md` | Conventional Commits, atomic commits, no breaking change without authorization, `versioner` |
+| [testing.md](testing.md) | `shared/testing.md` | TDD, no real I/O in unit tests |
+| [workflow-and-agents.md](workflow-and-agents.md) | `shared/workflow-and-agents.md` | Roles, tasks in `.tasks/`, protected zones |
+| [task-template.md](task-template.md) | `templates/task.md` | Task template |
+| [tasks-manifest-template.md](tasks-manifest-template.md) | `templates/tasks-manifest.md` | Task manifest template |
 
-Também vieram de `templates/`: `.editorconfig` e `.gitattributes` (raiz, com `indent_size = 4` para `.rs` e `-text` nos patches) e `scripts/check-encoding.sh` (com uma única adaptação: a lista de arquivos ignorados inclui `docs/rules/encoding-and-files.md`, que cita exemplos de mojibake).
+Also taken from `templates/`: `.editorconfig` and `.gitattributes` (repository root, with `indent_size = 4` for `.rs` and `-text` on patches) and `scripts/check-encoding.sh` (with a single adaptation: its ignore list includes `docs/rules/encoding-and-files.md`, which quotes examples of mojibake).
 
-## O que não foi copiado, e por quê
+## What was not copied, and why
 
-| Regra de origem | Motivo |
-|-----------------|--------|
-| `shared/api-contract.md`, `auth-and-permissions.md`, `errors-and-exceptions.md` | Tratam de API HTTP, JWT e envelope de erro; o thumbcraft é uma CLI com códigos de saída próprios (ver `docs/ARCHITECTURE.md`) |
-| `shared/project-layout.md` | Multi-repositório; só o que vale foi aplicado (`CLAUDE.md`, `AGENTS.md`, `.tasks/`, `.editorconfig`, `.gitattributes`) |
-| `flutter/`, `nestjs/`, `dart-api/`, `vue/` | Guias de stacks que o projeto não usa. Os de TypeScript (`nestjs/`, `vue/`) podem valer para as libs npm; ver `.tasks/` quando a tarefa existir |
+| Source rule | Reason |
+|---|---|
+| `shared/api-contract.md`, `auth-and-permissions.md`, `errors-and-exceptions.md` | They cover HTTP APIs, JWT and the error envelope; thumbcraft is a CLI with its own exit codes (see `docs/ARCHITECTURE.md`) |
+| `shared/project-layout.md` | Multi-repository; only what applies was adopted (`CLAUDE.md`, `AGENTS.md`, `.tasks/`, `.editorconfig`, `.gitattributes`) |
+| `flutter/`, `nestjs/`, `dart-api/`, `vue/` | Guides for stacks the project does not use. The TypeScript ones (`nestjs/`, `vue/`) may apply to the npm libraries; see `.tasks/` when that work is done |
 
-Atualizar: se a origem mudar, recopie o arquivo e registre a data aqui; não edite as cópias.
+Updating: if the source changes, copy the file again and record the date here; do not edit the copies.
