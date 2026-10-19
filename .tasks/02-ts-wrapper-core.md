@@ -2,8 +2,8 @@
 
 ## Objetivo
 
-Criar o pacote `packages/thumbcraft` (TypeScript) com a API `Thumbcraft.fromFile`, `fromBuffer`, `toImageBytes` e
-`toImageFile`, que executa o binário `thumbcraft` com um processo por arquivo, timeout e tratamento dos códigos de saída.
+Criar o pacote `packages/thumbcraft` (TypeScript) com a API `Thumbcraft.fromFile`, `fromBuffer`, `toBuffer` e
+`toFile`, que executa o binário `thumbcraft` com um processo por arquivo, timeout e tratamento dos códigos de saída.
 
 ## Contexto
 

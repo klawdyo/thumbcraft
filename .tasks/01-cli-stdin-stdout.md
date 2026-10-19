@@ -7,7 +7,7 @@ chamar o binário sem arquivos temporários. Também aceitar `-` só na entrada 
 
 ## Contexto
 
-`docs/DISTRIBUTION_NPM.md` (seção 4 e passo 2 da seção 7) usa `fromBuffer(...).toImageBytes()`, que depende disso.
+`docs/DISTRIBUTION_NPM.md` (seção 4 e passo 2 da seção 7) usa `fromBuffer(...).toBuffer()`, que depende disso.
 Hoje a CLI só lê e grava arquivos (`crates/thumbcraft/src/main.rs`, `open.rs`). O roteamento usa extensão e
 conteúdo (`crates/core/src/route.rs`); sem nome de arquivo, só o conteúdo decide. Os motores abrem por caminho
 (`Word::open(path)` etc.): verificar se aceitam bytes; se não, usar arquivo temporário interno como adaptador.
