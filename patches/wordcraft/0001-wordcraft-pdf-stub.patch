@@ -1,0 +1,13 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index 246f22e..8fc8c6e 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -20,7 +20,7 @@ wordcraft-docx = { path = "crates/docx" }
+ wordcraft-docbin = { path = "crates/docbin" }
+ wordcraft-formats = { path = "crates/formats" }
+ wordcraft-render = { path = "crates/render" }
+-wordcraft-pdf = { path = "crates/pdf" }
++wordcraft-pdf = { path = "../../stubs/wordcraft-pdf" }
+ wordcraft-proof = { path = "crates/proof" }
+ wordcraft-engine = { path = "crates/engine" }
+ wordcraft-mcp = { path = "crates/mcp" }

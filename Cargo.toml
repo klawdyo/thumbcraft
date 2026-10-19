@@ -3,7 +3,7 @@
 # por scripts/fetch-upstream.sh).
 [workspace]
 resolver = "3"
-members = ["crates/core", "crates/thumbcraft"]
+members = ["crates/core", "crates/thumbcraft", "stubs/wordcraft-pdf"]
 # `cargo test` na raiz roda só o núcleo (rápido, sem compilar os motores).
 # Para tudo: `cargo test --workspace`.
 default-members = ["crates/core"]
@@ -18,14 +18,9 @@ rust-version = "1.95"
 publish = false
 
 # Uma cópia só do craft-libs (third_party/craft-libs, revisão e patch em UPSTREAM.md e docs/UPSTREAM-CHANGES.md).
-# O WordCraft e o DeckCraft pedem o craft-pdf e o krilla da revisão c3487320 por git; o remendo troca tudo pela
-# cópia local, então o binário leva uma versão só de cada pacote. O cargo ignora [patch] de dependências, por
-# isso o hayro (usado pelo craft-pdf com raster) também é remendado aqui.
-[patch."https://github.com/storytold/craft-libs"]
-craft-pdf = { path = "third_party/craft-libs/crates/pdf" }
-
+# O cargo ignora [patch] de dependências, e o craft-pdf com raster exige o hayro remendado do craft-libs: a raiz o
+# repete aqui. O krilla e o craft-pdf com `write` não entram mais: o wordcraft-pdf é um substituto (stubs/).
 [patch.crates-io]
-krilla = { path = "third_party/craft-libs/vendor/krilla" }
 hayro = { path = "third_party/craft-libs/vendor/hayro" }
 hayro-interpret = { path = "third_party/craft-libs/vendor/hayro-interpret" }
 hayro-syntax = { path = "third_party/craft-libs/vendor/hayro-syntax" }
