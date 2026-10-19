@@ -275,130 +275,26 @@ Passos do job de publicação:
 
 Requisitos da publicação confiável (documentação do npm): npm 11.5.1 ou mais novo, Node 22.14 ou mais novo, `id-token: write` nas permissões do job, runner hospedado pelo GitHub, e cada pacote configurado no npm com o repositório e o **nome do arquivo do workflow** (`release.yml`). O campo `repository.url` do `package.json` de cada pacote precisa ser exatamente o do repositório no GitHub. Não há segredo nem `NODE_AUTH_TOKEN`; a proveniência é gerada automaticamente.
 
-### Exemplo de Workflow: `.github/workflows/release.yml` (rascunho, só Windows x64 e Linux x64)
+### O workflow: `.github/workflows/release.yml`
 
-```yaml
-name: Release
+O arquivo está no repositório (tarefa 06) e segue o desenho acima, com quatro jobs: `test` (Windows e Ubuntu), `check-version`
+(só em push na `main`), `build-binaries` (só com versão nova) e `publish` (`id-token: write`, plataformas primeiro, principal
+por último). Pontos que valem registrar:
 
-on:
-  push:
-    branches: [main]
-  pull_request:
+- **Testes:** `cargo test --workspace --locked` e, no wrapper, `npm ci`, `npm run typecheck` e `npm test` com
+  `THUMBCRAFT_BIN` apontando para o binário de debug que o `cargo test` acabou de compilar; assim os testes de
+  integração com o binário real rodam nos dois sistemas.
+- **Linux em `ubuntu-22.04`** (glibc 2.35), nos testes e no build: o binário publicado roda em Debian 12, Ubuntu 22.04 e
+  mais novos. O rascunho usava `ubuntu-24.04`, que exigiria glibc 2.39.
+- **Rust fixado em 1.99.1** (a versão testada), com `Swatinem/rust-cache`.
+- **Caminhos:** o `.cargo/config.toml` manda o build para `outputs/`, então o binário sai em `outputs/release/` e os
+  pacotes montados em `outputs/packages/` (o rascunho dizia `target/`).
+- **Versão:** lida da seção `[workspace.package]` do `Cargo.toml`; a consulta ao npm usa `npm view thumbcraft@VERSÃO`.
+- **Concorrência:** um por ref; pull requests cancelam o anterior, a `main` não.
+- O workflow não cria tag nem faz commit. Verificado localmente: `npm run build:packages` e `npm publish --dry-run` dos
+  três pacotes (com binários de mentira); o fluxo no GitHub só se comprova no primeiro push depois da configuração do npm.
 
-permissions:
-  contents: read
-
-jobs:
-  test:
-    name: Test (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [windows-latest, ubuntu-24.04]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Baixar motores upstream e aplicar patches
-        shell: bash
-        run: ./scripts/fetch-upstream.sh
-      - run: cargo test --workspace --locked
-      - name: Testar o wrapper
-        working-directory: packages/thumbcraft
-        run: npm ci && npm test
-
-  check-version:
-    name: Check version
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: test
-    runs-on: ubuntu-24.04
-    outputs:
-      version: ${{ steps.version.outputs.version }}
-      publish: ${{ steps.published.outputs.publish }}
-    steps:
-      - uses: actions/checkout@v4
-      - id: version
-        name: Ler a versão do Cargo.toml
-        run: |
-          VERSION=$(grep -m1 '^version = ' Cargo.toml | sed -E 's/version = "(.*)"/\1/')
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-      - id: published
-        name: Consultar o npm
-        run: |
-          if npm view "thumbcraft@${{ steps.version.outputs.version }}" version >/dev/null 2>&1; then
-            echo "publish=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "publish=true" >> "$GITHUB_OUTPUT"
-          fi
-
-  build-binaries:
-    name: Build (${{ matrix.target }})
-    needs: check-version
-    if: needs.check-version.outputs.publish == 'true'
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - os: windows-latest
-            target: x86_64-pc-windows-msvc
-            binary_name: thumbcraft.exe
-          - os: ubuntu-24.04
-            target: x86_64-unknown-linux-gnu
-            binary_name: thumbcraft
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: ${{ matrix.target }}
-      - name: Baixar motores upstream e aplicar patches
-        shell: bash
-        run: ./scripts/fetch-upstream.sh
-      - run: cargo build --release --locked --target ${{ matrix.target }} -p thumbcraft
-      - uses: actions/upload-artifact@v4
-        with:
-          name: binary-${{ matrix.target }}
-          path: target/${{ matrix.target }}/release/${{ matrix.binary_name }}
-
-  publish:
-    name: Publish to npm
-    needs: [check-version, build-binaries]
-    runs-on: ubuntu-24.04
-    permissions:
-      contents: read
-      id-token: write # exigido pela publicação confiável (OIDC)
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          registry-url: https://registry.npmjs.org
-      - name: Garantir npm 11.5.1 ou mais novo
-        run: npm install -g npm@latest
-      - uses: actions/download-artifact@v4
-        with:
-          path: artifacts/
-      - name: Montar os pacotes
-        working-directory: packages/thumbcraft
-        env:
-          VERSION: ${{ needs.check-version.outputs.version }}
-        run: |
-          npm ci
-          npm run build
-          npm run build:packages -- --version "$VERSION" \
-            --binary win32-x64-msvc=../../artifacts/binary-x86_64-pc-windows-msvc/thumbcraft.exe \
-            --binary linux-x64-gnu=../../artifacts/binary-x86_64-unknown-linux-gnu/thumbcraft
-      - name: Publicar os pacotes de plataforma e depois o principal
-        run: |
-          npm publish ./outputs/packages/win32-x64-msvc --access public
-          npm publish ./outputs/packages/linux-x64-gnu --access public
-          npm publish ./outputs/packages/thumbcraft --access public
-```
-
-> O rascunho usa o nome `release.yml`; se o arquivo tiver outro nome, o nome configurado em cada pacote no npm precisa ser o mesmo. O script `npm run build:packages` (em `packages/thumbcraft/tools/`) e os modelos em `packages/platforms/` já existem (tarefa 04); os pacotes montados ficam em `outputs/packages/`.
+> Se o arquivo mudar de nome, o nome configurado em cada pacote no npm precisa ser o mesmo.
 
 ## 7. Próximos Passos de Implementação
 
@@ -408,7 +304,7 @@ jobs:
 2. **Implementar o suporte a stdin e stdout no CLI do Rust:**
    - Permitir `thumbcraft - -` para ler bytes de documento via `stdin` e gravar a imagem direto na `stdout`, viabilizando chamadas em memória com streams do Node.js (tarefa 01).
 3. **Preparar o npm (uma vez, pelo dono):** seguir a seção 8.
-4. **Criar o workflow `release.yml`** da seção 6 (tarefa 06).
+4. **Workflow `release.yml`** da seção 6: criado (tarefa 06); falta só a parte do dono (seção 8).
 
 ---
 
