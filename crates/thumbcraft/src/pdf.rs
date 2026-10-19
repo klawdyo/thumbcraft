@@ -105,14 +105,20 @@ impl Render for Pdf {
         let selected = pages.get(page).ok_or_else(|| Error::Invalid(format!("a página {} não existe", page + 1)))?;
         // Uma página de PDF não é transparente: fundo branco opaco.
         let options = Options { scale: [scale as f32; 2], background: [255, 255, 255, 255], ..Options::default() };
-        let image = raster::render(selected, &RenderCache::new(), &InterpreterSettings::default(), &options).map_err(raster_error)?;
-        if image.diagnostics.image_decode_failed {
+        // O buffer é nosso (sem a cópia de `Raster::bytes`): numa página grande são até 256 MB, e a cópia dobrava o pico.
+        let [width, height] = raster::dimensions(selected, &options).map_err(raster_error)?;
+        let len = usize::try_from(u64::from(width) * u64::from(height) * 4).map_err(|_| raster_error(raster::Error::OutputLimit))?;
+        let mut px = Vec::new();
+        px.try_reserve_exact(len).map_err(|_| raster_error(raster::Error::Allocation))?;
+        px.resize(len, 0u8);
+        let diagnostics = raster::render_into(selected, &RenderCache::new(), &InterpreterSettings::default(), &options, &mut px).map_err(raster_error)?;
+        if diagnostics.image_decode_failed {
             (self.sink)("uma imagem do PDF não pôde ser decodificada; a miniatura pode estar incompleta");
         }
-        if image.diagnostics.content_truncated {
+        if diagnostics.content_truncated {
             (self.sink)("parte do conteúdo da página foi omitida pelos limites do leitor de PDF; a miniatura pode estar incompleta");
         }
-        Ok(Raster { w: image.width, h: image.height, px: image.bytes().to_vec() })
+        Ok(Raster { w: width, h: height, px })
     }
 }
 
