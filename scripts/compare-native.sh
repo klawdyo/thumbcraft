@@ -25,7 +25,8 @@ cmp_one() { # motor arquivo mini_cmd...
   rel="$(basename "$f")"; base="$W/$motor-$(echo "$rel" | tr '/ ' '__')"
   a="$base.mini.png"; b="$base.tc.png"
   rm -f "$a" "$b"
-  timeout 60 "$@" "$f" "$a" >/dev/null 2>&1; rca=$?
+  local mini="$1"; shift
+  timeout 60 "$mini" "$f" "$a" "$@" >/dev/null 2>&1; rca=$?
   timeout 60 "$TC_BIN" "$f" "$b" --native-scale 2 >/dev/null 2>&1; rcb=$?
   if [[ $rca -eq 0 && $rcb -eq 0 ]]; then
     if cmp -s "$a" "$b"; then res=PASS; else res=FAIL; det="bytes diferentes ($(stat -c %s "$a") x $(stat -c %s "$b"))"; fi
@@ -40,7 +41,7 @@ cmp_one() { # motor arquivo mini_cmd...
 
 list() { find "$1" -maxdepth "$prof" -type f ! -name MANIFEST.tsv ! -name 'README*' | sort; }
 while read -r f; do cmp_one word "$f" "$WC_MIN"; done < <(list "$DW")
-while read -r f; do cmp_one deck "$f" "$DC_MIN"; done < <(list "$DP") 2>/dev/null
+while read -r f; do cmp_one deck "$f" "$DC_MIN" 2; done < <(list "$DP") 2>/dev/null
 while read -r f; do cmp_one grid "$f" "$GC_MIN"; done < <(list "$DX")
 echo
 for m in word deck grid; do

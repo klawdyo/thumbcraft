@@ -55,6 +55,8 @@ pub enum Sniff {
     Cfb,
     Pdf,
     Rtf,
+    /// Sem assinatura conhecida, mas o início parece texto (sem bytes nulos).
+    Text,
     Other,
 }
 
@@ -106,6 +108,9 @@ pub fn sniff_head(head: &[u8]) -> Sniff {
     }
     if head.starts_with(b"{\\rtf") {
         return Sniff::Rtf;
+    }
+    if !head.is_empty() && !head.contains(&0) {
+        return Sniff::Text;
     }
     Sniff::Other
 }
@@ -162,7 +167,9 @@ pub fn route(ext: &str, sniff: Sniff) -> Res<Engine> {
         Sniff::Zip(ZipKind::OdfPres) => Err(deck_legacy(".odp")),
         Sniff::Pdf => Ok(Engine::Pdf),
         Sniff::Rtf => Ok(Engine::Word),
-        Sniff::Zip(ZipKind::Other | ZipKind::Broken) | Sniff::Cfb | Sniff::Other => by_ext(&ext),
+        // Texto com extensão .pdf (extensão errada): vai para o WordCraft, que lê texto puro.
+        Sniff::Text if ext == "pdf" => Ok(Engine::Word),
+        Sniff::Zip(ZipKind::Other | ZipKind::Broken) | Sniff::Cfb | Sniff::Text | Sniff::Other => by_ext(&ext),
     }
 }
 
@@ -230,6 +237,9 @@ mod tests {
     #[test]
     fn pdf_reservado() {
         assert_eq!(route("pdf", Sniff::Pdf).unwrap(), Engine::Pdf);
+        // Markdown salvo como .pdf: segue como texto. Binário sem assinatura continua erro 3.
+        assert_eq!(route("pdf", Sniff::Text).unwrap(), Engine::Word);
+        assert_eq!(route("txt", Sniff::Text).unwrap(), Engine::Word);
         assert_eq!(route("txt", Sniff::Pdf).unwrap(), Engine::Pdf);
         assert_eq!(route("pdf", Sniff::Other).unwrap_err().code(), 3);
     }
@@ -281,7 +291,8 @@ mod tests {
         assert_eq!(sniff_head(b"%PDF-1.7"), Sniff::Pdf);
         assert_eq!(sniff_head(&[0xD0, 0xCF, 0x11, 0xE0, 0xA1, 0xB1, 0x1A, 0xE1, 0, 0]), Sniff::Cfb);
         assert_eq!(sniff_head(b"{\\rtf1\\ansi"), Sniff::Rtf);
-        assert_eq!(sniff_head(b"Ola"), Sniff::Other);
+        assert_eq!(sniff_head(b"Ola"), Sniff::Text);
+        assert_eq!(sniff_head(&[1, 0, 2]), Sniff::Other);
         assert_eq!(sniff_head(b""), Sniff::Other);
     }
 }
