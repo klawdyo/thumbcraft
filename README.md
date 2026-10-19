@@ -16,11 +16,12 @@ The engine is chosen from the file content (and, when the content is ambiguous, 
 
 | Engine | Reads | Does not read |
 |---|---|---|
-| WordCraft | `.docx`, `.doc` (Word 97-2003), `.odt`, `.rtf`, `.html`, `.md`, `.tex`, `.txt` (plus docm, dotx, dotm, dot, WordML) | PDF |
-| GridCraft (with the PNG patch) | `.xlsx`, `.xlsm`, `.xls` (data, formulas and formats only), `.ods` and `.xlsb` (data only), `.csv`, `.tsv` | PDF |
-| DeckCraft | `.pptx`, `.potx`, `.ppsx` | **`.ppt`, `.odp`**, PDF |
+| WordCraft | `.docx`, `.doc` (Word 97-2003), `.odt`, `.rtf`, `.html`, `.md`, `.tex`, `.txt` (plus docm, dotx, dotm, dot, WordML) | |
+| GridCraft (with the PNG patch) | `.xlsx`, `.xlsm`, `.xls` (data, formulas and formats only), `.ods` and `.xlsb` (data only), `.csv`, `.tsv` | |
+| DeckCraft | `.pptx`, `.potx`, `.ppsx` | **`.ppt`, `.odp`** |
+| craft-pdf (Hayro) | `.pdf` (first page, or the page given by `--page`; password-protected, empty and truncated files fail with code 4) | |
 
-PDF input is not supported yet (exit code 3). Alternatives were evaluated in `docs/PDF.md` (Linux) and `docs/PDF-WINDOWS.md` (Windows). Known limitations per engine are in `docs/PITFALLS.md`.
+PDF is rendered by Hayro through `craft-pdf`, inside the same binary; the comparison with other PDF libraries is in `docs/PDF.md` (Linux) and `docs/PDF-WINDOWS.md` (Windows). Known limitations per engine are in `docs/PITFALLS.md`. Every imported project is pinned to one revision, and each modification of their code is a small patch registered in `docs/UPSTREAM-CHANGES.md`; the binary carries one version of each package.
 
 ## Usage
 
@@ -57,7 +58,7 @@ Rendering is done at high resolution first (the engines render natively and thum
 |---|---|
 | 0 | Success |
 | 2 | Invalid usage (bad option or value out of range) |
-| 3 | Unsupported format (`.ppt`, `.odp`, PDF, unknown extension) |
+| 3 | Unsupported format (`.ppt`, `.odp`, unknown extension) |
 | 4 | Invalid file, or failure to open or render it (includes a missing page and a damaged first slide) |
 | 5 | Internal error (includes failing to write the output) |
 
@@ -106,7 +107,7 @@ The workspace needs `third_party/` to resolve, so run `scripts/fetch-upstream.sh
 ## Status and roadmap
 
 - Working: the three engines behind one CLI, with trim, crop, resize, fit and PNG, JPEG and WebP output; unit, pipeline and end-to-end tests pass on Windows.
-- PDF input: not supported; evaluated, with a recommendation in `docs/PDF.md` and `docs/PDF-WINDOWS.md`.
+- PDF input: supported (Hayro through `craft-pdf`); memory and size measurements are in `.tasks/08-pdf-engine.md`.
 - Planned: npm packages (a TypeScript wrapper plus prebuilt binaries per platform) and a release pipeline. The design is in `docs/DISTRIBUTION_NPM.md`; none of it is implemented yet.
 - Supported platforms: Windows x64 and Linux x64 (glibc), both built and tested. macOS, ARM and musl are out of scope.
 

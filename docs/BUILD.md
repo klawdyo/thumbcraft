@@ -72,8 +72,11 @@ opcional, não usado aqui). Os minis usados em 2026-10-19 estavam em:
    `workspace = true` do próprio repositório deles. O `Cargo.toml` raiz tem
    `exclude = ["third_party"]` por isso; sem ele aparece "error inheriting ... from workspace root
    manifest".
-2. **`[patch.crates-io] krilla`**: o `craft-pdf` exige o krilla do craft-libs; o remendo na raiz
-   repete o do WordCraft e do DeckCraft (revisão `c3487320`). Sem ele a resolução falha.
+2. **Remendos do craft-libs**: o `craft-pdf` exige o krilla e o hayro do craft-libs, e o WordCraft e o
+   DeckCraft pedem outra revisão dele por git. A raiz remenda `craft-pdf`, `krilla` e `hayro*` para
+   `third_party/craft-libs` (revisão `ae2f796b`, com o patch do hayro), então o binário leva uma versão
+   só de cada pacote. Sem os remendos a resolução falha ou o binário duplica o rasterizador. Ver
+   `UPSTREAM-CHANGES.md`.
 3. **DeckCraft sem `craft-fonts`**: o `.cargo/config.toml` do DeckCraft só vale dentro da árvore
    dele; aqui `CRAFT_FONTS_DIR` fica vazio e o `build.rs` do DeckCraft só avisa. É o mesmo
    comportamento do `dc-min` de referência.

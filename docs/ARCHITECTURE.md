@@ -41,10 +41,10 @@ pub trait Render {
 }
 ```
 
-Uma implementação real por motor (`Word`, `Grid`, `Deck`) e uma `Fake` para os testes do
-pós-processamento. O ponto de extensão para PDF é um quarto impl: `Engine::Pdf` já existe no
-roteamento e `open::open` devolve o erro 3 até haver implementação (decisão pendente, depende do
-benchmark de PDF).
+Uma implementação real por motor (`Word`, `Grid`, `Deck` e `Pdf`) e uma `Fake` para os testes do
+pós-processamento. `Pdf` (`crates/thumbcraft/src/pdf.rs`) usa o Hayro pelo `craft-pdf` com fundo
+branco opaco, os limites de entrada e de saída do `craft-pdf` e avisos em português na stderr quando
+o leitor omite conteúdo ou não decodifica uma imagem.
 
 Os índices da CLI começam em 1; a porta usa índices a partir de 0 (a conversão é feita em
 `post::process`).
@@ -69,11 +69,12 @@ Os índices da CLI começam em 1; a porta usa índices a partir de 0 (a convers�
 
 1. O conteúdo manda quando é inequívoco: ZIP com `word/`, `xl/` ou `ppt/` (ou, na falta de pastas,
    tipos de conteúdo de `[Content_Types].xml`), `mimetype` ODF (texto, planilha, apresentação),
-   `%PDF`, `{\rtf`. Isso tolera extensão errada (um pptx chamado `.docx` vai para o DeckCraft).
+   `%PDF` (no início ou depois de até 1 KB de lixo), `{\rtf`. Isso tolera extensão errada (um pptx chamado `.docx` vai para o DeckCraft).
 2. Senão vale a extensão. Contêiner CFB (formatos antigos e pacotes criptografados) segue a
    extensão. Texto puro com extensão `.pdf` vai para o WordCraft (um markdown salvo como pdf).
 3. `.ppt` e `.odp` (inclusive ZIP ODF de apresentação): erro 3 sugerindo converter para pptx.
-   PDF: erro 3 (reservado). Desconhecido: erro 3.
+   Desconhecido: erro 3. PDF vai para o motor de PDF; um arquivo `.pdf` que não é PDF (uma imagem, por
+   exemplo) falha ao abrir com erro 4.
 4. Um arquivo que o conteúdo não identifica mas cuja extensão é de um motor segue para ele e falha
    ao abrir (erro 4), como nos minis (texto puro chamado `.pptx`, arquivo vazio, truncado).
 
@@ -159,7 +160,7 @@ estourem a pilha padrão de 8 MB; um panic nessa thread também aborta o process
 |---|---|
 | 0 | ok |
 | 2 | uso incorreto (opção inválida, valor fora do limite) |
-| 3 | formato não suportado (`.ppt`, `.odp`, PDF, extensão desconhecida) |
+| 3 | formato não suportado (`.ppt`, `.odp`, extensão desconhecida) |
 | 4 | arquivo inválido ou falha ao abrir ou renderizar (inclui página inexistente e slide danificado) |
 | 5 | erro interno (inclui falha ao gravar a saída) |
 
