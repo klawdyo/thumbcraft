@@ -98,6 +98,9 @@ pub fn classify_zip(names: &[String], content_types: Option<&str>, mimetype: Opt
     ZipKind::Other
 }
 
+/// Quantos bytes do início podem preceder o cabeçalho `%PDF-` de um PDF.
+pub const PDF_HEADER_WINDOW: usize = 1024;
+
 /// Lê os primeiros bytes de um arquivo que não é ZIP (a leitura do ZIP é feita à parte).
 pub fn sniff_head(head: &[u8]) -> Sniff {
     if head.starts_with(b"%PDF") {
@@ -108,6 +111,10 @@ pub fn sniff_head(head: &[u8]) -> Sniff {
     }
     if head.starts_with(b"{\\rtf") {
         return Sniff::Rtf;
+    }
+    // A especificação do PDF aceita lixo antes do cabeçalho %PDF-, dentro do primeiro 1 KB.
+    if head[..head.len().min(PDF_HEADER_WINDOW)].windows(5).any(|w| w == b"%PDF-") {
+        return Sniff::Pdf;
     }
     if !head.is_empty() && !head.contains(&0) {
         return Sniff::Text;
@@ -120,11 +127,6 @@ pub fn deck_legacy(what: &str) -> Error {
     Error::Unsupported(format!(
         "o formato {what} não é suportado pelo DeckCraft (só pptx, potx e ppsx); converta para .pptx (por exemplo com o LibreOffice: soffice --headless --convert-to pptx) e tente de novo"
     ))
-}
-
-/// Mensagem para PDF (ponto de extensão ainda sem implementação).
-pub fn pdf_pending() -> Error {
-    Error::Unsupported("PDF ainda não é suportado pelo thumbcraft (decisão pendente); use um rasterizador de PDF à parte".into())
 }
 
 /// Extensão minúscula de um nome de arquivo, sem ponto (vazia se não houver).
@@ -302,5 +304,26 @@ mod tests {
         assert_eq!(sniff_head(b"Ola"), Sniff::Text);
         assert_eq!(sniff_head(&[1, 0, 2]), Sniff::Other);
         assert_eq!(sniff_head(b""), Sniff::Other);
+    }
+
+    #[test]
+    fn pdf_header_may_follow_junk_within_the_first_1024_bytes() {
+        // A especificação do PDF aceita lixo antes do cabeçalho %PDF-, dentro do primeiro 1 KB.
+        let mut junk = vec![b'x'; 1000];
+        junk.extend_from_slice(b"
+%PDF-1.7
+");
+        assert_eq!(sniff_head(&junk), Sniff::Pdf);
+        assert_eq!(sniff_head(b"lixo
+%PDF-1.4
+1 0 obj"), Sniff::Pdf);
+        // Depois do primeiro 1 KB não conta: continua sendo texto.
+        let mut late = vec![b'x'; 1100];
+        late.extend_from_slice(b"
+%PDF-1.7
+");
+        assert_eq!(sniff_head(&late), Sniff::Text);
+        // Um arquivo de texto que só cita "PDF" não é PDF.
+        assert_eq!(sniff_head(b"o formato PDF e antigo"), Sniff::Text);
     }
 }
