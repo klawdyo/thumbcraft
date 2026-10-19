@@ -6,7 +6,7 @@ Os números de 2026-10-19 contra os quais comparar estão em `RESULTS.md` e `../
 
 ## 0. Preparação
 
-1. Leia `../UPSTREAM.md` (SHAs em uso, datas e tamanho do binário) e `BUILD.md`. Leia também `PITFALLS.md` e `ENVIRONMENT.md`.
+1. Leia `../UPSTREAM.md` (SHAs em uso, datas e tamanho do binário), `UPSTREAM-CHANGES.md` (todo patch e remendo nos projetos importados, e como saber se ainda é necessário) e `BUILD.md`. Leia também `PITFALLS.md` e `ENVIRONMENT.md`.
 2. Confira o ambiente: Rust, `qpdf`, `pdftoppm`, ImageMagick e LibreOffice (para baseline novo), e a rede para GitHub e registries (ver `ENVIRONMENT.md`).
 3. Crie uma branch. Anote a data e o SHA do thumbcraft antes de mexer.
 
@@ -37,7 +37,7 @@ Perguntas a responder e o que fazer em cada caso:
 1. Edite a tabela `PROJETOS` do `../scripts/fetch-upstream.sh` (SHA e data) e rode o script. Ele falha alto se o SHA não existir ou se a árvore patchada do GridCraft diferir do `ARVORE_GRIDCRAFT`.
 2. Se o patch do GridCraft não aplicar: aplique em um clone limpo, resolva os conflitos à mão (o ponto sensível é o `print.rs`), gere de novo o patch e atualize `ARVORE_GRIDCRAFT` (o script descreve como calcular o hash da árvore).
 3. Atualize `../UPSTREAM.md` e o `Cargo.lock` (`--locked` no build).
-4. Alinhe as revisões do `craft-libs` e do hayro com o `Cargo.toml` raiz, se mudarem.
+4. O `craft-libs` também está na tabela `PROJETOS` (`third_party/craft-libs`); se mudar o SHA, confira o patch `patches/craft-libs/` e os remendos do `Cargo.toml` raiz. Depois confira que o binário segue com uma versão por pacote (`cargo tree -p thumbcraft -d`) e atualize `UPSTREAM-CHANGES.md`.
 
 ## 3. Compilar e medir o tamanho
 

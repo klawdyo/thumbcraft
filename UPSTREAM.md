@@ -1,6 +1,6 @@
 # Upstream: versões fixadas dos motores *craft
 
-Tudo aqui é reproduzido por `scripts/fetch-upstream.sh`, que clona os três projetos em
+Tudo aqui é reproduzido por `scripts/fetch-upstream.sh`, que clona os projetos em
 `third_party/` (ignorado pelo git) nos SHAs abaixo, aplica os patches e confere a árvore.
 Para atualizar uma versão, veja a seção "Como atualizar" no fim.
 
@@ -11,6 +11,7 @@ Para atualizar uma versão, veja a seção "Como atualizar" no fim.
 | WordCraft | https://github.com/storytold/wordcraft | `117aea31a8e61bd3e306e9210800cdc42897e3c1` | 2026-10-19T03:08:47-04:00 | 0.8.0 | nenhum |
 | GridCraft | https://github.com/storytold/gridcraft | `66ce6be4743f4227047f76f56815520f824e6d81` | 2026-10-18T16:14:33-06:00 | 0.8.0 | `patches/gridcraft/0001-exportador-png.patch` |
 | DeckCraft | https://github.com/storytold/deckcraft | `010941ec60f81f1eece31ec1ea83825c9a396217` | 2026-10-18T12:31:16-06:00 | 0.8.0 | nenhum |
+| craft-libs | https://github.com/storytold/craft-libs | `ae2f796b673f29cf3161f36eb6a8933f0a3fe028` | 2026-10-18T15:11:21-04:00 | 0.1.0 (`craft-pdf`) | `patches/craft-libs/0001-hayro-vello-cpu-0.2.patch` |
 
 Os SHAs foram lidos dos clones usados nas análises anteriores (`git rev-parse HEAD`). O
 `fetch-upstream.sh` busca cada commit direto por SHA (`git fetch --depth 1 origin <sha>`), então
@@ -33,22 +34,15 @@ cópia de trabalho do PR (`diff -r`, sem diferenças). A árvore patchada tem ha
 `0b8e31e398afda27d6c1015cbbb79275edb20d7d` (`git write-tree`), conferido pelo script.
 Tamanho do patch: 287.117 bytes. Quando o upstream ganhar PNG nativo, o patch sai.
 
-## Revisões do craft-libs (https://github.com/storytold/craft-libs)
+## craft-libs (https://github.com/storytold/craft-libs)
 
-O craft-libs é uma dependência git compartilhada. Cada projeto pina revisões diferentes:
-
-| Projeto | `craft-pdf` e `krilla` | `craft-ui` e outros |
-|---|---|---|
-| WordCraft | `c3487320b2d1de657b860b3c8abb44e1f2b32bd8` | `d27646a5` (GUI) |
-| DeckCraft | `c3487320b2d1de657b860b3c8abb44e1f2b32bd8` | `d27646a5` (GUI) |
-| GridCraft | não usa | `d27646a5` (`craft-ui` e `craft-print`, só GUI e impressão) |
-
-No thumbcraft só entra a revisão `c3487320` (via `krilla` e `craft-pdf`, que o WordCraft e o
-DeckCraft puxam). A `d27646a5` fica de fora porque o thumbcraft não compila nenhum crate de GUI.
-O `Cargo.toml` raiz repete o remendo `[patch.crates-io] krilla` que o WordCraft e o DeckCraft
-têm nas suas raízes (sem ele o `craft-pdf` não resolve). O clone de referência do craft-libs
-usado nas análises estava em `ae2f796b673f29cf3161f36eb6a8933f0a3fe028` (2026-10-18), mas o
-cargo baixa o craft-libs sozinho, na revisão acima.
+O craft-libs é uma dependência compartilhada: o WordCraft e o DeckCraft pedem o `craft-pdf` e o `krilla` por git na
+revisão `c3487320b2d1de657b860b3c8abb44e1f2b32bd8` (só escrita de PDF), e o GridCraft usa só crates de GUI e impressão
+(`d27646a5`) que o thumbcraft não compila. Para o binário levar **uma versão só** de cada pacote, o thumbcraft clona o
+craft-libs em `third_party/craft-libs` na revisão `ae2f796b673f29cf3161f36eb6a8933f0a3fe028` (2026-10-18), que tem a
+feature `raster` do `craft-pdf` (motor de PDF), aplica `patches/craft-libs/0001-hayro-vello-cpu-0.2.patch` (porta o
+hayro para o `vello_cpu` 0.2.0 dos motores) e o `Cargo.toml` raiz remenda `craft-pdf`, `krilla` e `hayro*` para essa
+cópia. O que cada patch e remendo faz está em `docs/UPSTREAM-CHANGES.md`.
 
 ## Versões iguais nos três (condição para unir o binário)
 
