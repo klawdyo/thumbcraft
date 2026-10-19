@@ -47,7 +47,7 @@ Feita: ver "Resultado da opção A" no fim. Opções consideradas:
 
 - [x] Opção escolhida pelo dono e registrada aqui (A)
 - [x] Testes do substituto e `cargo test --workspace --locked` passam
-- [ ] (parcial) `cargo tree -p thumbcraft -d -e normal --locked` não lista `skrifa`, `read-fonts` nem `font-types`; o que sobrar de
+- [x] `cargo tree -p thumbcraft -d -e normal --locked` não lista `skrifa`, `read-fonts` nem `font-types`; o que sobrar de
       `miniz_oxide` está justificado em `docs/UPSTREAM-CHANGES.md`
 - [x] Binário de release medido e comparado com 26.701.824 bytes (25.655.296)
 - [x] `docs/UPSTREAM-CHANGES.md` atualizado com cada patch novo
@@ -61,12 +61,15 @@ Feita: ver "Resultado da opção A" no fim. Opções consideradas:
 Binário de release: **25.655.296 bytes, 1.046.528 a menos** (−3,9%) que os 26.701.824 de antes; contra os 23.995.392 sem
 PDF, o motor de PDF passa a custar **+1,66 MB**. Testes: 21 + 26 + 81 + 10 + 2 do substituto, todos verdes.
 
-**Falta para fechar** (status segue `doing`):
+**Complemento (2026-10-19, branch `chore/unify-glifo-miniz-oxide`):**
 
-- `skrifa` ainda tem 0.44.0 (do `glifo` do `vello_cpu` 0.2.0) e 0.47.0 (motores e hayro), e `read-fonts` tem 3 versões:
-  opção B, alinhar o `glifo` ao `skrifa` 0.47 por patch no `vello_cpu`/`glifo`, que não é do craft-libs e sim do
-  crates.io (exigiria vendorizar o `glifo` ou o `vello_cpu`: decidir com o dono se vale).
-- `miniz_oxide` 0.8.9 (png, wordcraft-docbin/proof) e 0.9.1 (flate2): opção C, ainda não tentada.
+- **`miniz_oxide` (opção C):** fixado o `flate2` em 1.1.9 no `Cargo.lock`; some o 0.9.1, sem código novo.
+- **`skrifa` (opção B):** `glifo` 0.3.0 baixado do crates.io por `fetch-upstream.sh` (tabela `CRATES`) com
+  `patches/glifo/0001-skrifa-0.47.patch` (uma linha); compila sem mudar código. Some o `skrifa` 0.44.
+- **`read-fonts`:** sobram 0.43.3 (`harfrust` 0.13.3) e 0.44.0 (`skrifa` 0.47). Alinhar o `harfrust` dá 14 erros de API
+  e mexeria na formatação de texto: ficou como exceção justificada em `docs/UPSTREAM-CHANGES.md`.
+- Binário de release: 25.669.632 bytes (+14 KB sobre os 25.655.296 da opção A: o ganho de tamanho destas duas
+  unificações é ruído; o ganho é de padronização). Testes: 21 + 26 + 81 + 10 + 2, verdes.
 
 ## Não escopo
 
