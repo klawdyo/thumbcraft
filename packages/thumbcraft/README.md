@@ -4,7 +4,7 @@
 
 thumbcraft is a thin TypeScript wrapper around a fast native binary written in Rust. It is built for file-upload pipelines: render the first page of a `.docx`, the first sheet of an `.xlsx` or the first slide of a `.pptx` into a thumbnail, from a file on disk or straight from a `Buffer` in memory.
 
-> **Status: pre-release.** The package is not published on npm yet, and the prebuilt binary packages (Windows x64 and Linux x64) are still being built. Until then, build the binary from the [repository](https://github.com/klawdyo/thumbcraft) and point the `THUMBCRAFT_BIN` environment variable at it (see [Finding the binary](#finding-the-binary)).
+> **Status: pre-release.** The package is not published on npm yet. Until it is, build the binary from the [repository](https://github.com/klawdyo/thumbcraft) and point the `THUMBCRAFT_BIN` environment variable at it (see [Finding the binary](#finding-the-binary)).
 
 ## Features
 
@@ -139,13 +139,24 @@ try {
 
 ## Finding the binary
 
-The wrapper runs a native `thumbcraft` executable. For now it is located through the `THUMBCRAFT_BIN` environment variable:
+The wrapper runs a native `thumbcraft` executable and looks for it in this order:
+
+1. The `THUMBCRAFT_BIN` environment variable, if set. Useful in development or to use a custom build.
+2. The prebuilt platform package that npm installed next to `thumbcraft` as an optional dependency, the same way `sharp` does it: `@thumbcraft/win32-x64-msvc` on Windows x64 or `@thumbcraft/linux-x64-gnu` on Linux x64 (glibc).
 
 ```sh
-THUMBCRAFT_BIN=/path/to/thumbcraft node app.js
+THUMBCRAFT_BIN=/path/to/thumbcraft node app.js   # optional override
 ```
 
-When the prebuilt packages for Windows x64 and Linux x64 are published, npm will install the right one automatically, as `sharp` does, and this variable will only be needed to override it.
+If you develop on Windows and run in a Linux container, tell npm to install both binaries by adding `supportedArchitectures` to your own `package.json` (npm 10 or newer):
+
+```json
+{
+  "supportedArchitectures": { "os": ["win32", "linux"], "cpu": ["x64"], "libc": ["glibc"] }
+}
+```
+
+If no binary is found, the error names the platform and the package that is missing. Do not install with `--omit=optional`, or the platform package is skipped.
 
 ## How it works
 
