@@ -1,0 +1,6 @@
+ppt rc=0 secs=348 size=6673136
+xlsx rc=0 secs=203 size=6428568
+word,ppt rc=0 secs=814 size=22472480
+word,ppt,xlsx rc=0 secs=319 size=26600832
+word rc=0 secs=164 size=19770832
+DONE

@@ -1,0 +1,21 @@
+[package]
+name = "all-min"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[features]
+default = ["word", "ppt", "xlsx"]
+word = ["dep:wordcraft-doc", "dep:wordcraft-engine", "dep:serde_json"]
+ppt = ["dep:deckcraft-pptx", "dep:deckcraft-format", "dep:deckcraft-render", "dep:deckcraft-fonts"]
+xlsx = ["dep:gridcraft-engine", "dep:serde_json"]
+
+[dependencies]
+wordcraft-doc = { path = "/tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/repo/crates/doc", optional = true }
+wordcraft-engine = { path = "/tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/repo/crates/engine", optional = true }
+deckcraft-pptx = { path = "/tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/repo/deckcraft/crates/pptx", optional = true }
+deckcraft-format = { path = "/tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/repo/deckcraft/crates/format", optional = true }
+deckcraft-render = { path = "/tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/repo/deckcraft/crates/render", optional = true }
+deckcraft-fonts = { path = "/tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/pptx-test/repo/deckcraft/crates/fonts", optional = true }
+gridcraft-engine = { path = "/tmp/claude-0/-home-claude/37e359fe-23e0-5bd2-965b-70005e330799/scratchpad/xlsx-test/repo/gridcraft/crates/engine", optional = true }
+serde_json = { version = "1", optional = true }
