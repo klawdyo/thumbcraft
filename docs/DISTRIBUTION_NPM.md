@@ -382,17 +382,21 @@ jobs:
         with:
           path: artifacts/
       - name: Montar os pacotes
+        working-directory: packages/thumbcraft
         env:
           VERSION: ${{ needs.check-version.outputs.version }}
-        run: npm run build:packages -- --version "$VERSION" # script da tarefa 04
+        run: |
+          npm ci
+          npm run build
+          npm run build:packages -- --version "$VERSION"             --binary win32-x64-msvc=../../artifacts/binary-x86_64-pc-windows-msvc/thumbcraft.exe             --binary linux-x64-gnu=../../artifacts/binary-x86_64-unknown-linux-gnu/thumbcraft
       - name: Publicar os pacotes de plataforma e depois o principal
         run: |
-          npm publish ./packages/platforms/win32-x64-msvc --access public
-          npm publish ./packages/platforms/linux-x64-gnu --access public
-          npm publish ./packages/thumbcraft --access public
+          npm publish ./outputs/packages/win32-x64-msvc --access public
+          npm publish ./outputs/packages/linux-x64-gnu --access public
+          npm publish ./outputs/packages/thumbcraft --access public
 ```
 
-> O rascunho usa o nome `release.yml`; se o arquivo tiver outro nome, o nome configurado em cada pacote no npm precisa ser o mesmo. O script `build:packages` e a pasta `packages/platforms/` são entregues pela tarefa 04.
+> O rascunho usa o nome `release.yml`; se o arquivo tiver outro nome, o nome configurado em cada pacote no npm precisa ser o mesmo. O script `npm run build:packages` (em `packages/thumbcraft/tools/`) e os modelos em `packages/platforms/` já existem (tarefa 04); os pacotes montados ficam em `outputs/packages/`.
 
 ## 7. Próximos Passos de Implementação
 
