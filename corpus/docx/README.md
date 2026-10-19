@@ -1,23 +1,23 @@
-# Corpus Word (WordCraft e afins)
+# Word corpus (WordCraft and similar)
 
-Conjunto de 30 arquivos de entrada usado para testar a geração de thumbnail (página 1 em PNG) com o motor do WordCraft e comparar com o LibreOffice. Montado em 2026-10-19.
+A set of 30 input files used to test thumbnail generation (page 1 as PNG) with the WordCraft engine and to compare it with LibreOffice. Assembled on 2026-10-19.
 
-- Tamanho total: 836 KB (30 arquivos, mais `fontes-geracao/`).
-- Índice: `MANIFEST.tsv` (arquivo, caso, categoria, como foi gerado, resultado no WordCraft, se o LibreOffice gerou PNG).
-- Resultados por arquivo: `../../baselines/word/`.
-- Como cada arquivo foi gerado: `../../docs/TESTS.md`, seção "Corpus Word".
+- Total size: 836 KB (30 files, plus `fontes-geracao/`).
+- Index: `MANIFEST.tsv` (file, case, category, how it was generated, WordCraft result, whether LibreOffice produced a PNG).
+- Per-file results: `../../baselines/word/`.
+- How each file was generated: `../../docs/TESTS.md`, section "Corpus Word".
 
-## Composição
+## Composition
 
-| Categoria | Arquivos | Faixa |
+| Category | Files | Range |
 |---|---|---|
-| Válidos em .docx | 8 | 01 a 08 |
-| Formatos alternativos (.doc 97, .odt, .rtf, .html, .md, .tex, .txt) | 12 | 09 a 20 |
-| Inválidos (vazio, truncado, lixo, extensão trocada) | 10 | 21 a 30 |
+| Valid .docx | 8 | 01 to 08 |
+| Alternative formats (.doc 97, .odt, .rtf, .html, .md, .tex, .txt) | 12 | 09 to 20 |
+| Invalid (empty, truncated, garbage, swapped extension) | 10 | 21 to 30 |
 
-## Observações
+## Notes
 
-- Os arquivos 25 a 29 são cópias byte a byte de outros arquivos do corpus com a extensão trocada (ver coluna `geracao` do manifesto).
-- Todos os documentos válidos são sintéticos e simples (python-docx, pandoc e LibreOffice). Não há documento real do Word com formas, WordArt, EMF/WMF, campos ou OLE. Isso é uma limitação conhecida do corpus.
-- O corpus não foi gerado com scripts commitados: os scripts eram em Python e, por regra do projeto, não são versionados. A pasta `fontes-geracao/` guarda os insumos não Python (Markdown de origem e imagens) para refazer os arquivos com pandoc e LibreOffice.
-- A imagem do `14_md_rico.md` referencia `img.png` por caminho relativo. No teste original o arquivo não estava ao lado do .md, então a imagem não apareceu (limitação do teste, não do motor). Para repetir com imagem, copie `fontes-geracao/img.png` para a mesma pasta.
+- Files 25 to 29 are byte-for-byte copies of other corpus files with the extension swapped (see the `geracao` column of the manifest).
+- All the valid documents are synthetic and simple (python-docx, pandoc and LibreOffice). There is no real Word document with shapes, WordArt, EMF/WMF, fields or OLE. This is a known limitation of the corpus.
+- The corpus was not generated with committed scripts: the scripts were Python and, by project rule, are not versioned. The `fontes-geracao/` folder keeps the non-Python inputs (source Markdown and images) to rebuild the files with pandoc and LibreOffice.
+- The image in `14_md_rico.md` references `img.png` by a relative path. In the original test the file was not next to the .md, so the image did not show up (a limitation of the test, not of the engine). To repeat it with the image, copy `fontes-geracao/img.png` to the same folder.

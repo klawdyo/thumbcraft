@@ -1,30 +1,30 @@
-# Corpus PowerPoint (DeckCraft e afins)
+# PowerPoint corpus (DeckCraft and similar)
 
-Conjunto de 46 arquivos de entrada usado para testar a geração de thumbnail (slide 1 em PNG) com o motor do DeckCraft e comparar com o LibreOffice. Montado em 2026-10-19.
+A set of 46 input files used to test thumbnail generation (slide 1 as PNG) with the DeckCraft engine and to compare it with LibreOffice. Assembled on 2026-10-19.
 
-- Tamanho total: 5,4 MB decimais (46 arquivos de entrada 3,3 MB, mais `mutacao-48/` 2,2 MB).
-- Índice: `MANIFEST.tsv` (arquivo, formato, caso, categoria, como foi gerado, resultado no DeckCraft e no LibreOffice).
-- Resultados por arquivo: `../../baselines/powerpoint/`.
-- Como cada arquivo foi gerado: `../../docs/TESTS.md`, seção "Corpus PowerPoint".
+- Total size: 5.4 decimal MB (46 input files 3.3 MB, plus `mutacao-48/` 2.2 MB).
+- Index: `MANIFEST.tsv` (file, format, case, category, how it was generated, DeckCraft and LibreOffice results).
+- Per-file results: `../../baselines/powerpoint/`.
+- How each file was generated: `../../docs/TESTS.md`, section "Corpus PowerPoint".
 
-## Composição
+## Composition
 
-| Categoria | Arquivos |
+| Category | Files |
 |---|---|
-| Válidos em .pptx (01 a 32, incluindo 12b) | 33 |
-| Formatos alternativos OOXML (.ppsx e .potx, 33 e 34) | 2 |
-| Formatos que o DeckCraft não lê (.ppt e .odp, 35 a 39) | 5 |
-| Inválidos (0 bytes, truncado, bytes corrompidos, texto puro, XML quebrado, extensão trocada, 40 a 46) | 7 |
+| Valid .pptx (01 to 32, including 12b) | 33 |
+| Alternative OOXML formats (.ppsx and .potx, 33 and 34) | 2 |
+| Formats DeckCraft does not read (.ppt and .odp, 35 to 39) | 5 |
+| Invalid (0 bytes, truncated, corrupted bytes, plain text, broken XML, swapped extension, 40 to 46) | 7 |
 
-O número 24 não existe: o caso de texto vertical e o de texto rotacionado ficaram juntos no 23.
+Number 24 does not exist: the vertical text case and the rotated text case were merged into 23.
 
-## Atenção ao interpretar
+## Read with care
 
-- Os arquivos .ppsx e .potx (33 e 34) são o 03 com o content type trocado, não arquivos feitos pelo PowerPoint.
-- Os .ppt e .odp (35 a 39) foram gerados pelo próprio LibreOffice a partir de pptx. O 35 perdeu formas na reimportação do LibreOffice, então não prova nada sobre .ppt feito pelo PowerPoint 97.
-- O SmartArt 12 e 12b foi montado à mão, não veio de um PowerPoint real.
-- O corpus não tem nenhum .pptx produzido pelo PowerPoint de verdade.
+- The .ppsx and .potx files (33 and 34) are 03 with the content type swapped, not files made by PowerPoint.
+- The .ppt and .odp files (35 to 39) were produced by LibreOffice itself from pptx. File 35 lost shapes when LibreOffice re-imported it, so it proves nothing about a .ppt made by PowerPoint 97.
+- The SmartArt files 12 and 12b were assembled by hand, not taken from a real PowerPoint.
+- The corpus has no .pptx produced by a real PowerPoint.
 
 ## mutacao-48/
 
-48 variantes mutadas de 6 pptx válidos (09, 12, 18, 05, 03 e 23), 8 por semente, usadas no teste de robustez do DeckCraft. Os modos, em ordem cíclica pelo índice da mutação k (k mod 4): 0 sobrescreve 5 bytes aleatórios, 1 trunca o arquivo, 2 remove um trecho de 1 a 49 bytes, 3 troca valores `val="` e `cx="` por números absurdos. Em cada mutante um único arquivo XML do pacote (slide, gráfico, diagrama, mestre ou layout) foi alterado. Semente do gerador aleatório: 7. Resultado por arquivo em `mutacao-48/RESULTADOS.tsv`.
+48 mutated variants of 6 valid pptx files (09, 12, 18, 05, 03 and 23), 8 per seed, used in DeckCraft's robustness test. The modes, in cyclic order by mutation index k (k mod 4): 0 overwrites 5 random bytes, 1 truncates the file, 2 removes a stretch of 1 to 49 bytes, 3 replaces `val="` and `cx="` values with absurd numbers. In each mutant a single XML file of the package (slide, chart, diagram, master or layout) was changed. Random generator seed: 7. Per-file result in `mutacao-48/RESULTADOS.tsv`.
