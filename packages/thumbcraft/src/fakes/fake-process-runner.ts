@@ -8,10 +8,12 @@ export interface IRecordedCall {
   args: string[];
   /** Tempo limite pedido, em milissegundos. */
   timeoutMs: number;
+  /** Bytes enviados à stdin, quando houve. */
+  stdin?: Buffer;
 }
 
 /** Resultado de sucesso usado como padrão pelo executor falso. */
-export const OK_RESULT: IRunResult = { exitCode: 0, signal: null, stderr: '', timedOut: false };
+export const OK_RESULT: IRunResult = { exitCode: 0, signal: null, stdout: '', stderr: '', timedOut: false };
 
 /**
  * Executor de processos falso: registra as chamadas e devolve um resultado programado,
@@ -34,8 +36,8 @@ export class FakeProcessRunner implements IProcessRunner {
   }
 
   /** Registra a chamada, executa o gancho e devolve o resultado programado. */
-  async run(command: string, args: string[], timeoutMs: number): Promise<IRunResult> {
-    const call = { command, args, timeoutMs };
+  async run(command: string, args: string[], timeoutMs: number, stdin?: Buffer): Promise<IRunResult> {
+    const call: IRecordedCall = stdin === undefined ? { command, args, timeoutMs } : { command, args, timeoutMs, stdin };
     this.calls.push(call);
     await this.onRun(call);
     return this.result;

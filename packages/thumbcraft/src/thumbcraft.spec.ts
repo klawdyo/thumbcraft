@@ -87,7 +87,7 @@ describe('Thumbcraft.fromBuffer', () => {
 
 describe('errors and cleanup', () => {
   it('turns exit code 4 into InvalidFileError and still removes the temp dir', async () => {
-    const { fileSystem, config } = scenario({ exitCode: 4, signal: null, stderr: 'thumbcraft: arquivo inválido\n', timedOut: false });
+    const { fileSystem, config } = scenario({ exitCode: 4, signal: null, stdout: '', stderr: 'thumbcraft: arquivo inválido\n', timedOut: false });
     await assert.rejects(Thumbcraft.fromBuffer(Buffer.from('x'), 'a.docx', config).toBuffer(), (error: unknown) => {
       assert.ok(error instanceof InvalidFileError);
       assert.equal(error.message, 'arquivo inválido');
@@ -97,7 +97,7 @@ describe('errors and cleanup', () => {
   });
 
   it('turns a timeout into TimeoutError', async () => {
-    const { config } = scenario({ exitCode: null, signal: 'SIGKILL', stderr: '', timedOut: true });
+    const { config } = scenario({ exitCode: null, signal: 'SIGKILL', stdout: '', stderr: '', timedOut: true });
     await assert.rejects(Thumbcraft.fromFile('/docs/a.docx', config).toFile('/out/a.png'), TimeoutError);
   });
 

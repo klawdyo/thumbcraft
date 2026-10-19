@@ -1,6 +1,7 @@
 import { extname } from 'node:path';
 
 import type { IBinaryResolver } from './binary-resolver.ts';
+import { InternalError, UnsupportedFormatError } from './errors.ts';
 import { errorFromRun } from './exit-codes.ts';
 import { type IFileSystem, NodeFileSystem } from './file-system.ts';
 import { createDefaultBinaryResolver } from './platform-binary-resolver.ts';
@@ -21,6 +22,11 @@ export interface IThumbcraftConfig {
   /** Tempo limite de cada execução, em milissegundos (padrão: 30 000). */
   timeoutMs?: number;
 }
+
+/** Motor que trata um arquivo: Word, planilha, apresentação ou PDF. */
+export type Engine = 'word' | 'grid' | 'deck' | 'pdf';
+
+const ENGINES: readonly string[] = ['word', 'grid', 'deck', 'pdf'];
 
 /** Extensão do arquivo temporário de saída por formato; a do formato decide o que o binário grava. */
 const OUTPUT_EXTENSIONS = { png: 'png', jpeg: 'jpg', webp: 'webp' } as const;
@@ -111,6 +117,29 @@ export class ThumbcraftJob {
   }
 }
 
+/**
+ * Pergunta ao binário (`--detect`) qual motor trataria o documento. Não há análise de formato em TypeScript.
+ * @returns O motor, ou `null` quando o binário recusa o formato (código 3).
+ */
+async function runDetect(args: string[], stdin: Buffer | undefined, config: IThumbcraftConfig): Promise<Engine | null> {
+  const runner = config.runner ?? new NodeProcessRunner();
+  const timeoutMs = config.timeoutMs ?? DEFAULT_TIMEOUT_MS;
+  const binary = (config.binaryResolver ?? createDefaultBinaryResolver()).resolve();
+  const result = await runner.run(binary, args, timeoutMs, stdin);
+  const error = errorFromRun(result, timeoutMs);
+  if (error instanceof UnsupportedFormatError) {
+    return null;
+  }
+  if (error !== null) {
+    throw error;
+  }
+  const engine = result.stdout.trim();
+  if (!ENGINES.includes(engine)) {
+    throw new InternalError(`resposta inesperada de 'thumbcraft --detect': '${engine}'`, result.exitCode, result.stderr);
+  }
+  return engine as Engine;
+}
+
 /** Ponto de entrada da API: cria tarefas a partir de um arquivo ou de bytes em memória. */
 export class Thumbcraft {
   /**
@@ -130,5 +159,39 @@ export class Thumbcraft {
    */
   static fromBuffer(buffer: Buffer, filename: string, config?: IThumbcraftConfig): ThumbcraftJob {
     return new ThumbcraftJob({ kind: 'buffer', buffer, filename }, config);
+  }
+
+  /**
+   * Diz qual motor trataria um arquivo em disco.
+   * @param path Caminho do documento.
+   * @param config Dependências opcionais (útil em testes).
+   * @returns O motor, ou `null` quando o formato não é suportado.
+   * @throws {ThumbcraftError} Arquivo ilegível ou inexistente (`InvalidFileError`) e qualquer outra falha do processo.
+   */
+  static detectFile(path: string, config: IThumbcraftConfig = {}): Promise<Engine | null> {
+    return runDetect(['--detect', path], undefined, config);
+  }
+
+  /**
+   * Diz qual motor trataria bytes em memória (enviados pela stdin, sem arquivo temporário).
+   * @param buffer Conteúdo do documento.
+   * @param filename Nome original; a extensão ajuda quando o conteúdo sozinho não decide.
+   * @param config Dependências opcionais (útil em testes).
+   * @returns O motor, ou `null` quando o formato não é suportado.
+   * @throws {ThumbcraftError} Entrada vazia ou grande demais (`InvalidFileError`) e qualquer outra falha do processo.
+   */
+  static detect(buffer: Buffer, filename?: string, config: IThumbcraftConfig = {}): Promise<Engine | null> {
+    const hint = filename === undefined ? [] : ['--input-name', filename];
+    return runDetect(['--detect', '-', ...hint], buffer, config);
+  }
+
+  /** Verdadeiro quando algum motor trata o arquivo; os erros que não são de formato não suportado são lançados. */
+  static async isValidFile(path: string, config?: IThumbcraftConfig): Promise<boolean> {
+    return (await Thumbcraft.detectFile(path, config)) !== null;
+  }
+
+  /** Verdadeiro quando algum motor trata os bytes; os erros que não são de formato não suportado são lançados. */
+  static async isValid(buffer: Buffer, filename?: string, config?: IThumbcraftConfig): Promise<boolean> {
+    return (await Thumbcraft.detect(buffer, filename, config)) !== null;
   }
 }

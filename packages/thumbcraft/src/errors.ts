@@ -24,7 +24,7 @@ export class ThumbcraftError extends Error {
 /** Uso incorreto da linha de comando: opção inválida ou valor fora do limite (código 2). */
 export class UsageError extends ThumbcraftError {}
 
-/** Formato não suportado, como `.ppt`, `.odp`, PDF ou extensão desconhecida (código 3). */
+/** Formato não suportado, como `.ppt`, `.odp` ou extensão desconhecida (código 3). */
 export class UnsupportedFormatError extends ThumbcraftError {}
 
 /** Arquivo inválido ou falha ao abrir ou renderizar, incluindo página inexistente (código 4). */

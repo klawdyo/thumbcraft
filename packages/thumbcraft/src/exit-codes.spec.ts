@@ -13,7 +13,7 @@ import {
 import { errorFromRun } from './exit-codes.ts';
 import type { IRunResult } from './process-runner.ts';
 
-const run = (partial: Partial<IRunResult>): IRunResult => ({ exitCode: 0, signal: null, stderr: '', timedOut: false, ...partial });
+const run = (partial: Partial<IRunResult>): IRunResult => ({ exitCode: 0, signal: null, stdout: '', stderr: '', timedOut: false, ...partial });
 
 describe('errorFromRun', () => {
   it('returns null on exit code 0', () => {

@@ -10,7 +10,7 @@ const runScript = (script: string, timeoutMs = 10_000) => new NodeProcessRunner(
 describe('NodeProcessRunner', () => {
   it('returns exit code 0 for a process that succeeds', async () => {
     const result = await runScript('process.exit(0)');
-    assert.deepEqual(result, { exitCode: 0, signal: null, stderr: '', timedOut: false });
+    assert.deepEqual(result, { exitCode: 0, signal: null, stdout: '', stderr: '', timedOut: false });
   });
 
   it('returns the exit code and the stderr text of a failing process', async () => {
@@ -41,5 +41,28 @@ describe('NodeProcessRunner', () => {
 
   it('rejects with BinaryNotFoundError when the executable does not exist', async () => {
     await assert.rejects(new NodeProcessRunner().run('/caminho/que/nao/existe/thumbcraft', [], 1_000), BinaryNotFoundError);
+  });
+});
+
+describe('NodeProcessRunner stdout and stdin', () => {
+  it('captures the stdout text', async () => {
+    const result = await runScript('process.stdout.write("word\\n")');
+    assert.equal(result.stdout, 'word\n');
+  });
+
+  it('keeps only a bounded amount of stdout', async () => {
+    const result = await runScript('process.stdout.write("x".repeat(500000))');
+    assert.ok(result.stdout.length <= 64 * 1024);
+  });
+
+  it('sends the given bytes to the stdin and closes it', async () => {
+    const script = 'let n = 0; process.stdin.on("data", (c) => { n += c.length; }).on("end", () => { process.stdout.write(String(n)); });';
+    const result = await new NodeProcessRunner().run(process.execPath, ['-e', script], 10_000, Buffer.alloc(300_000, 1));
+    assert.equal(result.stdout, '300000');
+  });
+
+  it('does not fail when the process exits without reading the stdin', async () => {
+    const result = await new NodeProcessRunner().run(process.execPath, ['-e', 'process.exit(3)'], 10_000, Buffer.alloc(5_000_000));
+    assert.equal(result.exitCode, 3);
   });
 });

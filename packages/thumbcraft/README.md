@@ -68,6 +68,14 @@ Creates a job from a document on disk. Returns a `ThumbcraftJob`.
 
 Creates a job from bytes in memory. `filename` is the original file name: its extension helps thumbcraft pick the right engine (Word, spreadsheet or presentation). Returns a `ThumbcraftJob`.
 
+### `Thumbcraft.detectFile(path, config?)` and `Thumbcraft.detect(buffer, filename?, config?)`
+
+Ask the binary (`thumbcraft --detect`) which engine would handle a document: `'word'`, `'grid'`, `'deck'` or `'pdf'`, or `null` when the format is not supported. A missing, unreadable or empty input throws `InvalidFileError`; other failures throw their typed error. For a buffer, the bytes go through the process's stdin and `filename` is only a routing hint. Each call starts a process (tens of milliseconds); there is no format sniffing in TypeScript.
+
+### `Thumbcraft.isValidFile(path, config?)` and `Thumbcraft.isValid(buffer, filename?, config?)`
+
+`true` when `detectFile` / `detect` finds an engine, `false` when it returns `null`.
+
 ### `job.toBuffer(options?)`
 
 Renders the document and resolves with the image as a `Buffer`.

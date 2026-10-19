@@ -14,4 +14,4 @@ export { ChainBinaryResolver, createDefaultBinaryResolver, PlatformBinaryResolve
 export { detectPlatform, type IPlatformSpec, type ISystemInfo, PLATFORMS } from './platform.ts';
 export { type IProcessRunner, type IRunResult, NodeProcessRunner } from './process-runner.ts';
 export { buildArgs, type ICropRect, type RenderOptions } from './render-options.ts';
-export { DEFAULT_TIMEOUT_MS, type IThumbcraftConfig, Thumbcraft, ThumbcraftJob } from './thumbcraft.ts';
+export { DEFAULT_TIMEOUT_MS, type Engine, type IThumbcraftConfig, Thumbcraft, ThumbcraftJob } from './thumbcraft.ts';

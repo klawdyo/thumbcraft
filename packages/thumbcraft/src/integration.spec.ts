@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
+import { mkdtemp, readdir, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { describe, it } from 'node:test';
@@ -47,5 +48,58 @@ describe('real binary', { skip }, () => {
 
   it('maps a damaged file to InvalidFileError', async () => {
     await assert.rejects(Thumbcraft.fromFile(corpus('docx/21_vazio.docx')).toBuffer(), InvalidFileError);
+  });
+});
+
+describe('real binary: detect', { skip }, () => {
+  const bin = process.env.THUMBCRAFT_BIN as string;
+  const folders = ['docx', 'xlsx', 'pptx', 'pdf'];
+
+  it('detectFile and detect (buffer) match the text printed by thumbcraft --detect, for the whole corpus', async () => {
+    let checked = 0;
+    for (const folder of folders) {
+      for (const name of await readdir(corpus(folder))) {
+        const path = corpus(`${folder}/${name}`);
+        const printed = (() => {
+          try {
+            return execFileSync(bin, ['--detect', path], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+          } catch (error) {
+            const status = (error as { status?: number }).status;
+            return status === 3 ? null : `erro ${status}`;
+          }
+        })();
+        if (printed?.startsWith('erro')) {
+          await assert.rejects(Thumbcraft.detectFile(path), InvalidFileError, name);
+        } else {
+          assert.equal(await Thumbcraft.detectFile(path), printed, name);
+          const bytes = await readFile(path);
+          if (bytes.length === 0) {
+            // Por contrato, stdin vazia é código 4, enquanto um arquivo vazio ainda é roteado pela extensão.
+            await assert.rejects(Thumbcraft.detect(bytes, name), InvalidFileError, `${name} (buffer vazio)`);
+          } else {
+            assert.equal(await Thumbcraft.detect(bytes, name), printed, `${name} (buffer)`);
+          }
+        }
+        checked += 1;
+      }
+    }
+    assert.ok(checked > 0);
+  });
+
+  it('returns null for .ppt and false for isValidFile', async () => {
+    assert.equal(await Thumbcraft.detectFile(corpus('pptx/35_legado_formas.ppt')), null);
+    assert.equal(await Thumbcraft.isValidFile(corpus('pptx/35_legado_formas.ppt')), false);
+  });
+
+  it('detects a PDF as pdf, and a missing file throws InvalidFileError', async () => {
+    const pdf = (await readdir(corpus('pdf'))).find((name) => name.endsWith('.pdf'));
+    assert.ok(pdf);
+    assert.equal(await Thumbcraft.detectFile(corpus(`pdf/${pdf}`)), 'pdf');
+    await assert.rejects(Thumbcraft.detectFile(corpus('docx/nao-existe.docx')), InvalidFileError);
+  });
+
+  it('uses the name hint for the buffer when the content is silent', async () => {
+    assert.equal(await Thumbcraft.detect(Buffer.from('Olá, mundo'), 'nota.txt'), 'word');
+    assert.equal(await Thumbcraft.detect(Buffer.from('Olá, mundo')), null);
   });
 });
