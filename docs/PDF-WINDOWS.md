@@ -1,5 +1,10 @@
 # PDF no thumbcraft: comparação de bibliotecas no Windows
 
+> **Situação atual (2026-10-19):** o Hayro, pelo `craft-pdf`, já está no binário do thumbcraft. A medição das
+> proteções dentro do binário (os mesmos PDFs hostis, pico de memória e tempo) e o custo de tamanho estão em
+> `.tasks/08-pdf-engine.md`. Esta comparação fica como foi escrita; o Hayro "direto" medido aqui (1.061 MB e
+> 2.055 MB nas bombas) não é o que roda no thumbcraft.
+
 Data: 2026-10-19. Complementa `PDF.md` (medido em Linux com 2 vCPUs compartilhadas). Aqui a mesma pergunta, refeita no Windows e com bibliotecas novas: qual biblioteca gera a miniatura da primeira página de um PDF com o melhor equilíbrio entre velocidade, memória, robustez, qualidade e custo de distribuição, e o que isso significa para um futuro suporte a PDF no binário unificado.
 
 Convenções: MB decimais (1 MB = 1.000.000 bytes). **Medido** é o que foi observado nesta rodada; **estimado** vem sempre marcado. Todos os candidatos renderizam a primeira página na mesma largura (600 px e 1200 px) e gravam PNG RGB.

@@ -1,5 +1,13 @@
 # PDF no thumbcraft: avaliação e benchmark
 
+> **Situação atual (2026-10-19):** o motor de PDF já está no binário (Hayro pelo `craft-pdf`, tarefa
+> `.tasks/08-pdf-engine.md`). Este relatório é a avaliação que levou à decisão e fica como foi escrito; duas
+> estimativas dele foram superadas. O custo de tamanho real no Windows foi de 2,71 MB (23.995.392 para 26.701.824
+> bytes), não os 4,2 MB estimados aqui, porque o thumbcraft usa uma cópia única do `craft-libs` (o hayro foi
+> portado para o `vello_cpu` 0.2.0 dos motores, sem rasterizador duplicado). As seções sobre duas revisões do
+> `craft-libs` e sobre `vello_cpu` 0.0.8 descrevem o estado antes disso; o que vale hoje está em
+> `UPSTREAM-CHANGES.md`.
+
 Data: 2026-10-19. Pergunta do usuário: o código atual do serviço Node de upload, que gera a miniatura da primeira página de um PDF com a biblioteca npm `pdf-parse`, é mais ou menos performático do que usar os projetos *craft, e o suporte a PDF deve ficar fora ou dentro do binário unificado?
 
 Convenções: MB decimais (1 MB = 1.000.000 bytes), MiB entre parênteses quando relevante. **Medido** quer dizer observado nesta sessão; **estimado** quer dizer deduzido (a estimativa vem sempre marcada). Os tempos foram medidos em uma máquina de 2 vCPUs compartilhada com outros agentes que compilavam (ver "Limitações").
