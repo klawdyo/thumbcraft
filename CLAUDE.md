@@ -15,7 +15,7 @@ específico do projeto. Precedência: este arquivo, depois `docs/rules/`.
 |------|-------|
 | Linguagem | Rust, edition 2024, `rust-version` 1.95 (testado com 1.99.1 no Windows e 1.97.0 no Linux) |
 | Workspace | `crates/core` (núcleo sem motores, testável com `Fake`) e `crates/thumbcraft` (binário) |
-| Motores | `third_party/{wordcraft,gridcraft,deckcraft}` em SHAs fixos (`UPSTREAM.md`), gerados por `scripts/fetch-upstream.sh` |
+| Motores | `third_party/{wordcraft,gridcraft,deckcraft,craft-libs}` em SHAs fixos (`UPSTREAM.md`), gerados por `scripts/fetch-upstream.sh`; PDF pelo Hayro (`craft-pdf`, do craft-libs) |
 | Saída de build | `outputs/` (`.cargo/config.toml`), ignorada pelo git |
 
 ## Domínio
