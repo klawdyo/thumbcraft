@@ -101,3 +101,80 @@ pub fn encode(img: &Raster, fmt: Format, quality: u8) -> Res<Vec<u8>> {
         Format::WebP => webp(img),
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn decode(bytes: &[u8]) -> (png::OutputInfo, Vec<u8>) {
+        let mut r = png::Decoder::new(std::io::Cursor::new(bytes)).read_info().unwrap();
+        let mut buf = vec![0; r.output_buffer_size().unwrap()];
+        let info = r.next_frame(&mut buf).unwrap();
+        buf.truncate(info.buffer_size());
+        (info, buf)
+    }
+
+    #[test]
+    fn format_by_name_and_extension() {
+        assert_eq!(Format::parse("PNG").unwrap(), Format::Png);
+        assert_eq!(Format::parse("jpg").unwrap(), Format::Jpeg);
+        assert_eq!(Format::parse("jpeg").unwrap(), Format::Jpeg);
+        assert_eq!(Format::parse("WebP").unwrap(), Format::WebP);
+        assert_eq!(Format::parse("bmp").unwrap_err().code(), 2);
+        assert_eq!(Format::from_ext("").unwrap(), Format::Png);
+        assert_eq!(Format::from_ext("gif").unwrap_err().code(), 2);
+    }
+
+    #[test]
+    fn opaque_png_becomes_rgb_and_round_trips() {
+        let mut img = Raster::filled(3, 2, [10, 20, 30, 255]);
+        img.set(2, 1, [200, 100, 50, 255]);
+        let (info, data) = decode(&png(&img).unwrap());
+        assert_eq!((info.width, info.height, info.color_type), (3, 2, png::ColorType::Rgb));
+        assert_eq!(&data[..3], &[10, 20, 30]);
+        assert_eq!(&data[15..18], &[200, 100, 50]);
+    }
+
+    #[test]
+    fn png_with_alpha_uses_straight_alpha() {
+        // Pré-multiplicado (64, 32, 16, 128) corresponde a ~(127, 64, 32) com alfa 128.
+        let img = Raster::filled(2, 2, [64, 32, 16, 128]);
+        let (info, data) = decode(&png(&img).unwrap());
+        assert_eq!(info.color_type, png::ColorType::Rgba);
+        let (r, g, b, a) = (data[0] as i32, data[1] as i32, data[2] as i32, data[3]);
+        assert_eq!(a, 128);
+        assert!((r - 127).abs() <= 1 && (g - 64).abs() <= 1 && (b - 32).abs() <= 1, "{r} {g} {b}");
+    }
+
+    #[cfg(feature = "jpeg")]
+    #[test]
+    fn jpeg_has_signature_and_quality_matters() {
+        let mut img = Raster::filled(64, 64, [255, 255, 255, 255]);
+        for y in 0..64 {
+            for x in 0..64 {
+                img.set(x, y, [(x * 4) as u8, (y * 4) as u8, ((x * y) % 256) as u8, 255]);
+            }
+        }
+        let low = encode(&img, Format::Jpeg, 10).unwrap();
+        let high = encode(&img, Format::Jpeg, 95).unwrap();
+        assert_eq!(&low[..3], &[0xFF, 0xD8, 0xFF]);
+        assert!(high.len() > low.len());
+    }
+
+    #[cfg(feature = "jpeg")]
+    #[test]
+    fn transparent_jpeg_becomes_white_without_failing() {
+        let img = Raster::filled(8, 8, [0, 0, 0, 0]);
+        assert!(encode(&img, Format::Jpeg, 85).unwrap().starts_with(&[0xFF, 0xD8]));
+    }
+
+    #[cfg(feature = "webp")]
+    #[test]
+    fn webp_has_riff_signature() {
+        for img in [Raster::filled(5, 5, [1, 2, 3, 255]), Raster::filled(5, 5, [1, 2, 3, 100])] {
+            let b = encode(&img, Format::WebP, 85).unwrap();
+            assert_eq!(&b[..4], b"RIFF");
+            assert_eq!(&b[8..12], b"WEBP");
+        }
+    }
+}
