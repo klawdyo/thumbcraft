@@ -20,7 +20,8 @@ Licença dos projetos: MIT ou Apache-2.0. Rust edition 2024, exigem rustc 1.90 (
 
 > **No thumbcraft** o craft-libs vem de `third_party/craft-libs` (revisão `ae2f796b`, com um patch no hayro) e os
 > remendos do `Cargo.toml` raiz fazem o WordCraft, o DeckCraft e o motor de PDF usarem essa cópia única. A tabela
-> abaixo descreve o que cada projeto pina por conta própria. Ver `UPSTREAM-CHANGES.md`.
+> abaixo descreve o que cada projeto pina por conta própria. O `krilla` e a revisão `c3487320` ficam fora do binário
+> (o `wordcraft-pdf` é um substituto). Ver `UPSTREAM-CHANGES.md`.
 
 Crates do craft-libs: `ai-core`, `atomic`, `cms`, `docpath`, `i18n`, `pdf`, `print`, `quit`, `settings` e `ui`. O único com função de renderização é o `craft-pdf` (features `read`, `interpret`, `raster` e `write`).
 

@@ -1,7 +1,8 @@
 # Mudanças nos projetos importados
 
 Registro de **toda** modificação feita no código dos projetos importados (WordCraft, GridCraft, DeckCraft e
-craft-libs) e dos remendos de dependência que o `Cargo.toml` raiz aplica sobre eles. Quem atualizar os pacotes
+craft-libs), dos crates próprios que os substituem (`stubs/`) e dos remendos de dependência que o `Cargo.toml` raiz
+aplica sobre eles. Quem atualizar os pacotes
 (roteiro em `UPDATING.md`) deve ler este arquivo antes, reaplicar ou descartar cada item e atualizá-lo no fim.
 
 ## Regras
@@ -53,30 +54,47 @@ craft-libs) e dos remendos de dependência que o `Cargo.toml` raiz aplica sobre 
 - **Cuidado:** o `vendor/hayro/SOURCE.json` guarda os hashes originais dos arquivos; depois do patch eles não batem
   mais. Nada no thumbcraft lê esse arquivo.
 
+### 3. WordCraft: `wordcraft-pdf` trocado por um substituto (`patches/wordcraft/0001-wordcraft-pdf-stub.patch`)
+
+- **O que muda:** uma linha em `Cargo.toml` (raiz do WordCraft): `wordcraft-pdf = { path = "crates/pdf" }` vira
+  `{ path = "../../stubs/wordcraft-pdf" }`. O substituto (`stubs/wordcraft-pdf`, crate do thumbcraft, com testes) mantém
+  a API que o `wordcraft-engine` chama (`PdfOptions`, `export`, `export_layout`, `PdfError`) e sempre devolve erro.
+  Nenhum arquivo do WordCraft é reescrito.
+- **Por quê:** o thumbcraft nunca exporta PDF, e o crate real arrasta o `krilla` (escritor de PDF), o `subsetter` e o
+  `skrifa` 0.42.1 com seus `read-fonts` e `font-types` antigos, duplicados no binário. Com o substituto o binário
+  encolheu 1.046.528 bytes (26.701.824 para 25.655.296).
+- **Como reaplicar:** `scripts/fetch-upstream.sh` aplica sozinho. Se o `PdfOptions` ganhar campo que o engine use, ou o
+  engine chamar outra função de `wordcraft_pdf`, o build quebra: acrescente o campo ou a função ao substituto.
+  Se o `Cargo.toml` do WordCraft mudar a linha, refaça o patch.
+- **Ainda é necessário?** Enquanto o `wordcraft-pdf` real depender do `krilla` e o thumbcraft não exportar PDF.
+  O `deckcraft-pdf` não entra no binário (o thumbcraft não usa o `deckcraft-engine`), então não precisa de substituto.
+- **Efeito:** `file.export` para `.pdf` e `file.printPdf` do engine do WordCraft falham com
+  "PDF export is not available in thumbcraft"; a CLI do thumbcraft não chama nenhum dos dois.
+
 ## Remendos de dependência (`Cargo.toml` raiz)
 
 Não alteram código: dizem ao cargo de onde vem cada pacote, para o binário ter uma cópia só.
 
 | Remendo | Efeito |
 |---|---|
-| `[patch."https://github.com/storytold/craft-libs"] craft-pdf = { path = "third_party/craft-libs/crates/pdf" }` | O WordCraft e o DeckCraft pedem o `craft-pdf` da revisão `c3487320` por git; passam a usar a cópia local (revisão `ae2f796`), a mesma do motor de PDF. A feature `write` que eles pedem existe nas duas revisões. |
-| `[patch.crates-io] krilla` | O `craft-pdf` exige o `krilla` 0.8.2 do craft-libs (os dois motores têm o mesmo remendo nas raízes deles). |
-| `[patch.crates-io] hayro, hayro-interpret, hayro-syntax, hayro-jbig2` | O `craft-pdf` com `raster` exige o hayro remendado do craft-libs. O cargo ignora `[patch]` de dependências, então a raiz repete o remendo. |
+| `[patch.crates-io] hayro, hayro-interpret, hayro-syntax, hayro-jbig2` (para `third_party/craft-libs/vendor/`) | O `craft-pdf` com `raster` exige o hayro remendado do craft-libs. O cargo ignora `[patch]` de dependências, então a raiz repete o remendo. |
+
+Já houve remendos de `krilla` e de `craft-pdf` (para o WordCraft e o DeckCraft usarem a mesma cópia do craft-libs);
+saíram com o substituto do `wordcraft-pdf` (patch 3), porque nada no binário usa mais a feature `write`.
 
 **Como reaplicar:** se o craft-libs mudar de revisão, edite a tabela `PROJETOS` do `fetch-upstream.sh` e confira se as
-versões (`=0.7.1` e outras) de `vendor/` ainda casam com o que o `craft-pdf` pede.
+versões de `vendor/` ainda casam com o que o `craft-pdf` pede.
 
 ## Duplicações que ainda existem no binário (`cargo tree -p thumbcraft -d -e normal`)
 
-Depois desta mudança não há mais duplicata de `craft-pdf`, `vello_cpu`, `vello_common` nem `glifo`. As que sobram já
-existiam antes do motor de PDF e não foram mexidas, porque resolver exige alterar o núcleo dos projetos importados:
+Não há duplicata de `craft-pdf`, `vello_cpu`, `vello_common`, `glifo`, `krilla` nem `font-types`. As que sobram já
+existiam antes do motor de PDF:
 
 | Pacote | Versões | Quem puxa | O que resolveria |
 |---|---|---|---|
-| `skrifa` | 0.42.1, 0.44.0, 0.47.0 | 0.42.1: `krilla` e `subsetter` (escrita de PDF); 0.44.0: `glifo` (texto do `vello_cpu`); 0.47.0: os três motores e o `hayro-interpret` | Alinhar o `krilla` e o `glifo` ao 0.47 (patch nos dois) ou tirar o `krilla` do binário (o thumbcraft nunca exporta PDF; ver o estudo do `krilla` na tarefa 08) |
-| `read-fonts` | 0.39.2, 0.41.0, 0.43.3, 0.44.0 | acompanha `skrifa` e `font-types` | Some junto com o `skrifa` |
-| `font-types` | 0.11.3, 0.12.6 | acompanha `skrifa` | Some junto com o `skrifa` |
+| `skrifa` | 0.44.0, 0.47.0 | 0.44.0: `glifo` (texto do `vello_cpu` 0.2.0); 0.47.0: os três motores e o `hayro-interpret` | Alinhar o `glifo` ao 0.47 (a tarefa 09, opção B) ou usar um `vello_cpu` cujo `glifo` use o 0.47 |
+| `read-fonts` | 0.41.0, 0.43.3, 0.44.0 | acompanha `skrifa` e outros usos diretos | Some em parte junto com o `skrifa` |
 | `miniz_oxide` | 0.8.9, 0.9.1 | 0.8.9: `png` 0.18.1 e `wordcraft-docbin`/`wordcraft-proof`; 0.9.1: `flate2` 1.1.10 | Esperar `png` e `flate2` convergirem, ou fixar uma versão com `cargo update` se a faixa permitir |
 | `syn` | 2.0.119, 3.0.6 | derivações (tempo de compilação); não entra no código do binário | Nada a fazer |
 
-Estas duplicações valem uma tarefa própria se o dono pedir.
+Acompanhadas na tarefa `.tasks/09-single-package-versions.md`.

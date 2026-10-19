@@ -8,7 +8,7 @@ Para atualizar uma versão, veja a seção "Como atualizar" no fim.
 
 | Projeto | URL | SHA | Data do commit | Versão do crate | Patches |
 |---|---|---|---|---|---|
-| WordCraft | https://github.com/storytold/wordcraft | `117aea31a8e61bd3e306e9210800cdc42897e3c1` | 2026-10-19T03:08:47-04:00 | 0.8.0 | nenhum |
+| WordCraft | https://github.com/storytold/wordcraft | `117aea31a8e61bd3e306e9210800cdc42897e3c1` | 2026-10-19T03:08:47-04:00 | 0.8.0 | `patches/wordcraft/0001-wordcraft-pdf-stub.patch` |
 | GridCraft | https://github.com/storytold/gridcraft | `66ce6be4743f4227047f76f56815520f824e6d81` | 2026-10-18T16:14:33-06:00 | 0.8.0 | `patches/gridcraft/0001-exportador-png.patch` |
 | DeckCraft | https://github.com/storytold/deckcraft | `010941ec60f81f1eece31ec1ea83825c9a396217` | 2026-10-18T12:31:16-06:00 | 0.8.0 | nenhum |
 | craft-libs | https://github.com/storytold/craft-libs | `ae2f796b673f29cf3161f36eb6a8933f0a3fe028` | 2026-10-18T15:11:21-04:00 | 0.1.0 (`craft-pdf`) | `patches/craft-libs/0001-hayro-vello-cpu-0.2.patch` |
@@ -38,11 +38,12 @@ Tamanho do patch: 287.117 bytes. Quando o upstream ganhar PNG nativo, o patch sa
 
 O craft-libs é uma dependência compartilhada: o WordCraft e o DeckCraft pedem o `craft-pdf` e o `krilla` por git na
 revisão `c3487320b2d1de657b860b3c8abb44e1f2b32bd8` (só escrita de PDF), e o GridCraft usa só crates de GUI e impressão
-(`d27646a5`) que o thumbcraft não compila. Para o binário levar **uma versão só** de cada pacote, o thumbcraft clona o
-craft-libs em `third_party/craft-libs` na revisão `ae2f796b673f29cf3161f36eb6a8933f0a3fe028` (2026-10-18), que tem a
-feature `raster` do `craft-pdf` (motor de PDF), aplica `patches/craft-libs/0001-hayro-vello-cpu-0.2.patch` (porta o
-hayro para o `vello_cpu` 0.2.0 dos motores) e o `Cargo.toml` raiz remenda `craft-pdf`, `krilla` e `hayro*` para essa
-cópia. O que cada patch e remendo faz está em `docs/UPSTREAM-CHANGES.md`.
+(`d27646a5`) que o thumbcraft não compila. O thumbcraft nunca escreve PDF: `patches/wordcraft/0001-wordcraft-pdf-stub.patch`
+troca o `wordcraft-pdf` por um substituto (`stubs/wordcraft-pdf`), e o `krilla` e a revisão `c3487320` saem do binário.
+O craft-libs entra só para ler PDF: o thumbcraft o clona em `third_party/craft-libs` na revisão
+`ae2f796b673f29cf3161f36eb6a8933f0a3fe028` (2026-10-18), que tem a feature `raster` do `craft-pdf`, e aplica
+`patches/craft-libs/0001-hayro-vello-cpu-0.2.patch` (porta o hayro para o `vello_cpu` 0.2.0 dos motores). O que cada
+patch faz está em `docs/UPSTREAM-CHANGES.md`.
 
 ## Versões iguais nos três (condição para unir o binário)
 
