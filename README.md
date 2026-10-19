@@ -28,7 +28,10 @@ PDF is rendered by Hayro through `craft-pdf`, inside the same binary; the compar
 ```
 thumbcraft INPUT OUTPUT [options]
 thumbcraft --formats | --version | --help | --detect FILE
+thumbcraft - - [options]          # document from stdin, image to stdout
 ```
+
+`INPUT` and `OUTPUT` are file paths. The output format comes from the `OUTPUT` extension (`.png`, `.jpg`/`.jpeg`, `.webp`) unless `--format` is given.
 
 | Option | Meaning |
 |---|---|
@@ -42,6 +45,7 @@ thumbcraft --formats | --version | --help | --detect FILE
 | `--filter <lanczos\|area>` | Downscale filter (default `lanczos`) |
 | `--page <N>` | Page, slide or print page, starting at 1 (default 1) |
 | `--format <png\|jpeg\|webp>`, `--quality <1-100>` | Output format (default: from the output extension; WebP is lossless) and JPEG quality (default 85) |
+| `--input-name <name>` | Name hint (its extension) used to pick the engine when `INPUT` is `-` |
 | `--native-scale <S>` | Test mode: write the engine's native render at S px/pt, with no post-processing |
 
 Example:
@@ -49,6 +53,16 @@ Example:
 ```sh
 thumbcraft report.docx thumb.png -W 120 -H 120 --fit cover --gravity top
 ```
+
+Reading from stdin and writing to stdout, for pipelines that never touch the disk:
+
+```sh
+cat report.docx | thumbcraft - - --input-name report.docx --format webp -W 300 > thumb.webp
+```
+
+- `-` as `INPUT` reads the whole document from stdin (up to 256 MiB; an empty or larger input exits with code 4). Without `--input-name` the engine is chosen from the content alone.
+- `-` as `OUTPUT` writes only the image bytes to stdout; messages still go to stderr. The format defaults to PNG, so pass `--format` for JPEG or WebP.
+- `--detect FILE` prints the engine that would handle the file (`word`, `grid`, `deck` or `pdf`) without rendering it; `--detect -` reads the file from stdin.
 
 Rendering is done at high resolution first (the engines render natively and thumbcraft scales the result down), and only then cropped and resized.
 
@@ -96,6 +110,7 @@ The workspace needs `third_party/` to resolve, so run `scripts/fetch-upstream.sh
 |---|---|
 | `crates/core/` | Engine-independent core: the `Render` port, routing, scale choice, crop/trim/fit math, resampling, the post-processing pipeline |
 | `crates/thumbcraft/` | The binary: CLI, engine adapters, encoders |
+| `packages/` | npm packages: `thumbcraft` (TypeScript wrapper for Node.js, see its README) and the per-platform binary packages under `platforms/` |
 | `scripts/` | Build, upstream fetch, corpus runs, native comparison, encoding check |
 | `patches/gridcraft/` | PNG export patch for GridCraft (see `docs/PR-GRIDCRAFT.md`) |
 | `third_party/` | Upstream projects at pinned SHAs (generated, not versioned) |
@@ -108,7 +123,8 @@ The workspace needs `third_party/` to resolve, so run `scripts/fetch-upstream.sh
 
 - Working: the three engines behind one CLI, with trim, crop, resize, fit and PNG, JPEG and WebP output; unit, pipeline and end-to-end tests pass on Windows.
 - PDF input: supported (Hayro through `craft-pdf`); memory and size measurements are in `.tasks/08-pdf-engine.md`.
-- Planned: npm packages (a TypeScript wrapper plus prebuilt binaries per platform) and a release pipeline. The design is in `docs/DISTRIBUTION_NPM.md`; none of it is implemented yet.
+- npm packages: the TypeScript wrapper (`packages/thumbcraft`) and the per-platform binary packages (`packages/platforms/`) are implemented and assembled locally, but not published to npm yet. The design is in `docs/DISTRIBUTION_NPM.md`.
+- Planned: the release pipeline that builds the binaries and publishes the packages.
 - Supported platforms: Windows x64 and Linux x64 (glibc), both built and tested. macOS, ARM and musl are out of scope.
 
 ## Notes on the stored data
