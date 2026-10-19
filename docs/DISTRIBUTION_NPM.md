@@ -388,7 +388,9 @@ jobs:
         run: |
           npm ci
           npm run build
-          npm run build:packages -- --version "$VERSION"             --binary win32-x64-msvc=../../artifacts/binary-x86_64-pc-windows-msvc/thumbcraft.exe             --binary linux-x64-gnu=../../artifacts/binary-x86_64-unknown-linux-gnu/thumbcraft
+          npm run build:packages -- --version "$VERSION" \
+            --binary win32-x64-msvc=../../artifacts/binary-x86_64-pc-windows-msvc/thumbcraft.exe \
+            --binary linux-x64-gnu=../../artifacts/binary-x86_64-unknown-linux-gnu/thumbcraft
       - name: Publicar os pacotes de plataforma e depois o principal
         run: |
           npm publish ./outputs/packages/win32-x64-msvc --access public
