@@ -1,0 +1,14 @@
+{
+  "name": "thumbcraft-pdf-bench",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Benchmark de miniatura da primeira página de PDF: pdf-parse x pdf-min x pdftoppm x mutool",
+  "engines": { "node": ">=22.18" },
+  "scripts": {
+    "bench": "node bench.ts"
+  },
+  "dependencies": {
+    "pdf-parse": "2.4.5"
+  }
+}

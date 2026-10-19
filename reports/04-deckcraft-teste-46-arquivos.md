@@ -36,7 +36,7 @@ Pelo código de abertura (`crates/engine/src/cmd/file.rs`):
 | **dc-min (mínimo)** | **6.673.360** | **6,4** |
 | LibreOffice instalado (14 pacotes dpkg, para comparação) | cerca de 316 MB | 316 |
 
-[Nota de correção do arquivista: a coluna "MB" desta tabela está em MiB. Em MB decimais: 35.296.984 bytes = 35,30 MB (33,66 MiB); 14.504.104 = 14,50 MB (13,83 MiB); 6.673.360 = 6,67 MB (6,36 MiB). O "316 MB" do LibreOffice instalado tem unidade não confirmada pelo agente (provavelmente MiB, vindo de `du` ou `dpkg`), A razão "cerca de 47 vezes menor" bate com 316 / 6,67.]
+[Nota de correção do arquivista: a coluna "MB" desta tabela está em MiB. Em MB decimais: 35.296.984 bytes = 35,30 MB (33,66 MiB); 14.504.104 = 14,50 MB (13,83 MiB); 6.673.360 = 6,67 MB (6,36 MiB). O "316 MB" do LibreOffice instalado tem unidade não confirmada pelo agente (provavelmente MiB, vindo de `du` ou `dpkg`), A razão "cerca de 47 vezes menor" bate com 316 / 6,67. Medição do arquivista em 2026-10-19 na máquina de testes: `/usr/lib/libreoffice` tem 320.967.844 bytes (320,97 MB decimais, 306 MiB em tamanho aparente; `du -sh` mostra 314M), e os 78 pacotes dpkg do LibreOffice e do UNO somam 342,42 MB decimais de Installed-Size (326,56 MiB).]
 
 O mínimo é cerca de 47 vezes menor que o LibreOffice instalado.
 

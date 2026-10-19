@@ -11,9 +11,8 @@ build = "build.rs"
 [dependencies]
 thumbcraft-core = { path = "../core" }
 
-# WordCraft: abrir o documento, paginar e rasterizar (mesmos crates do wc-min, mais o render).
+# WordCraft: abrir, paginar e rasterizar (o render vem reexportado pelo engine).
 wordcraft-engine = { path = "../../third_party/wordcraft/crates/engine" }
-wordcraft-render = { path = "../../third_party/wordcraft/crates/render" }
 
 # GridCraft (com o patch do exportador de PNG): tudo por comandos do engine.
 gridcraft-engine = { path = "../../third_party/gridcraft/crates/engine" }

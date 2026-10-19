@@ -1,0 +1,28 @@
+[package]
+name = "pdf-min"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+# Autônomo: não faz parte de nenhum workspace do thumbcraft.
+[workspace]
+
+[dependencies]
+craft-pdf = { git = "https://github.com/storytold/craft-libs", rev = "ae2f796b673f29cf3161f36eb6a8933f0a3fe028", default-features = false, features = ["raster"] }
+png = "0.18"
+
+# O recurso raster do craft-pdf precisa dos Hayro modificados que vêm no craft-libs. O [patch]
+# de uma dependência é ignorado por quem a usa, então a raiz precisa repetir o bloco.
+[patch.crates-io]
+hayro = { git = "https://github.com/storytold/craft-libs", rev = "ae2f796b673f29cf3161f36eb6a8933f0a3fe028" }
+hayro-interpret = { git = "https://github.com/storytold/craft-libs", rev = "ae2f796b673f29cf3161f36eb6a8933f0a3fe028" }
+hayro-syntax = { git = "https://github.com/storytold/craft-libs", rev = "ae2f796b673f29cf3161f36eb6a8933f0a3fe028" }
+hayro-jbig2 = { git = "https://github.com/storytold/craft-libs", rev = "ae2f796b673f29cf3161f36eb6a8933f0a3fe028" }
+
+# Mesmas otimizações de tamanho do gp-min.
+[profile.release]
+opt-level = "z"
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = "symbols"

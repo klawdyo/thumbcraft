@@ -26,3 +26,7 @@ rustc-ice-*.txt
 # Gerados por scripts (nao versionar)
 /target/
 /third_party/
+
+node_modules/
+target/
+third_party/
