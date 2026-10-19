@@ -95,14 +95,14 @@ mod tests {
     const C: Gravity = Gravity::CENTER;
 
     #[test]
-    fn sem_dimensoes_mantem_regiao() {
+    fn no_dimensions_keeps_region() {
         let p = plan(300, 400, None, None, Fit::Cover, T).unwrap();
         assert_eq!((p.out_w, p.out_h), (300, 400));
         assert_eq!(p.src, RectF { x: 0.0, y: 0.0, w: 300.0, h: 400.0 });
     }
 
     #[test]
-    fn so_largura_preserva_proporcao() {
+    fn width_only_keeps_aspect_ratio() {
         let p = plan(600, 800, Some(120), None, Fit::Cover, T).unwrap();
         assert_eq!((p.out_w, p.out_h), (120, 160));
         let p = plan(600, 800, Some(100), None, Fit::Contain, C).unwrap();
@@ -110,13 +110,13 @@ mod tests {
     }
 
     #[test]
-    fn so_altura_preserva_proporcao() {
+    fn height_only_keeps_aspect_ratio() {
         let p = plan(600, 800, None, Some(200), Fit::Cover, T).unwrap();
         assert_eq!((p.out_w, p.out_h), (150, 200));
     }
 
     #[test]
-    fn so_uma_dimensao_nunca_da_zero() {
+    fn single_dimension_never_rounds_to_zero() {
         let p = plan(1000, 1, Some(10), None, Fit::Cover, T).unwrap();
         assert_eq!((p.out_w, p.out_h), (10, 1));
         let p = plan(1, 1000, None, Some(10), Fit::Cover, T).unwrap();
@@ -124,12 +124,12 @@ mod tests {
     }
 
     #[test]
-    fn proporcao_extrema_estoura_limite() {
+    fn extreme_ratio_exceeds_limit() {
         assert!(plan(1, 10_000, Some(5000), None, Fit::Cover, T).is_err());
     }
 
     #[test]
-    fn cover_retrato_em_caixa_quadrada_corta_altura_no_topo() {
+    fn cover_portrait_in_square_box_crops_height_from_top() {
         // Página 600x800 em caixa 100x100: sobra altura. Fica o topo.
         let p = plan(600, 800, Some(100), Some(100), Fit::Cover, T).unwrap();
         assert_eq!((p.out_w, p.out_h), (100, 100));
@@ -137,7 +137,7 @@ mod tests {
     }
 
     #[test]
-    fn cover_gravidades_na_vertical() {
+    fn cover_vertical_gravities() {
         let c = plan(600, 800, Some(100), Some(100), Fit::Cover, C).unwrap();
         assert_eq!(c.src.y, 100.0);
         let b = plan(600, 800, Some(100), Some(100), Fit::Cover, Gravity::parse("bottom").unwrap()).unwrap();
@@ -146,25 +146,25 @@ mod tests {
     }
 
     #[test]
-    fn cover_paisagem_em_caixa_quadrada_usa_gravidade_horizontal() {
+    fn cover_landscape_in_square_box_uses_horizontal_gravity() {
         // Slide 1600x900 em 100x100: sobra largura.
-        let esq = plan(1600, 900, Some(100), Some(100), Fit::Cover, Gravity::parse("left").unwrap()).unwrap();
-        assert_eq!(esq.src, RectF { x: 0.0, y: 0.0, w: 900.0, h: 900.0 });
+        let left_plan = plan(1600, 900, Some(100), Some(100), Fit::Cover, Gravity::parse("left").unwrap()).unwrap();
+        assert_eq!(left_plan.src, RectF { x: 0.0, y: 0.0, w: 900.0, h: 900.0 });
         let dir = plan(1600, 900, Some(100), Some(100), Fit::Cover, Gravity::parse("right").unwrap()).unwrap();
         assert_eq!(dir.src.x, 700.0);
         // Padrão top centraliza na horizontal.
-        let topo = plan(1600, 900, Some(100), Some(100), Fit::Cover, T).unwrap();
-        assert_eq!(topo.src.x, 350.0);
+        let top_plan = plan(1600, 900, Some(100), Some(100), Fit::Cover, T).unwrap();
+        assert_eq!(top_plan.src.x, 350.0);
     }
 
     #[test]
-    fn cover_mesma_proporcao_nao_corta() {
+    fn cover_same_ratio_does_not_crop() {
         let p = plan(1600, 900, Some(320), Some(180), Fit::Cover, T).unwrap();
         assert!((p.src.w - 1600.0).abs() < 1e-9 && (p.src.h - 900.0).abs() < 1e-9);
     }
 
     #[test]
-    fn contain_retrato_em_caixa_quadrada() {
+    fn contain_portrait_in_square_box() {
         let p = plan(600, 800, Some(200), Some(200), Fit::Contain, C).unwrap();
         assert_eq!((p.inner_w, p.inner_h), (150, 200));
         assert_eq!((p.off_x, p.off_y), (25, 0));
@@ -172,7 +172,7 @@ mod tests {
     }
 
     #[test]
-    fn contain_gravidades() {
+    fn contain_gravities() {
         let e = plan(600, 800, Some(200), Some(200), Fit::Contain, Gravity::parse("left").unwrap()).unwrap();
         assert_eq!(e.off_x, 0);
         let d = plan(600, 800, Some(200), Some(200), Fit::Contain, Gravity::parse("right").unwrap()).unwrap();
@@ -186,7 +186,7 @@ mod tests {
     }
 
     #[test]
-    fn contain_nunca_passa_da_caixa_nem_zera() {
+    fn contain_never_exceeds_box_nor_zero() {
         // Região fina em caixa pequena: o lado menor arredonda para 1.
         let p = plan(10_000, 3, Some(50), Some(50), Fit::Contain, C).unwrap();
         assert_eq!(p.inner_w, 50);
@@ -195,7 +195,7 @@ mod tests {
     }
 
     #[test]
-    fn caixa_maior_que_a_regiao_amplia() {
+    fn box_larger_than_region_enlarges() {
         let p = plan(100, 100, Some(400), Some(400), Fit::Contain, C).unwrap();
         assert_eq!((p.inner_w, p.inner_h), (400, 400));
         let p = plan(100, 50, Some(400), Some(400), Fit::Cover, T).unwrap();
@@ -203,7 +203,7 @@ mod tests {
     }
 
     #[test]
-    fn caixa_degenerada_um_pixel() {
+    fn degenerate_box_one_pixel() {
         let p = plan(600, 800, Some(1), Some(1), Fit::Cover, T).unwrap();
         assert_eq!((p.out_w, p.out_h), (1, 1));
         let p = plan(600, 800, Some(1), Some(1), Fit::Contain, C).unwrap();
@@ -213,14 +213,14 @@ mod tests {
     }
 
     #[test]
-    fn limites_da_saida() {
+    fn output_limits() {
         assert!(plan(10, 10, Some(MAX_OUT_SIDE + 1), Some(10), Fit::Cover, T).is_err());
         assert!(plan(10, 10, Some(16_000), Some(16_000), Fit::Cover, T).is_err());
         assert!(plan(10, 10, Some(MAX_OUT_SIDE), Some(1), Fit::Cover, T).is_ok());
     }
 
     #[test]
-    fn regiao_vazia_e_erro() {
+    fn empty_region_is_error() {
         assert!(plan(0, 10, Some(10), Some(10), Fit::Cover, T).is_err());
         assert!(plan(10, 0, None, None, Fit::Cover, T).is_err());
     }

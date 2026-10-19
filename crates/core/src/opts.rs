@@ -224,10 +224,10 @@ impl Opts {
 
     /// Valida combinações e limites.
     pub fn check(&self) -> Res<()> {
-        for (nome, v) in [("largura", self.width), ("altura", self.height)] {
+        for (label, v) in [("largura", self.width), ("altura", self.height)] {
             if let Some(v) = v {
                 if v == 0 || v > MAX_OUT_SIDE {
-                    return Err(Error::Usage(format!("{nome} inválida: {v} (use de 1 a {MAX_OUT_SIDE} px)")));
+                    return Err(Error::Usage(format!("{label} inválida: {v} (use de 1 a {MAX_OUT_SIDE} px)")));
                 }
             }
         }
@@ -248,7 +248,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn gravity_nomes() {
+    fn gravity_names() {
         assert_eq!(Gravity::parse("top").unwrap(), Gravity { x: 0.5, y: 0.0 });
         assert_eq!(Gravity::parse("bottom-right").unwrap(), Gravity { x: 1.0, y: 1.0 });
         assert_eq!(Gravity::parse("left").unwrap(), Gravity { x: 0.0, y: 0.5 });
@@ -256,7 +256,7 @@ mod tests {
     }
 
     #[test]
-    fn background_formas() {
+    fn background_forms() {
         assert_eq!(Background::parse("transparent").unwrap(), Background::Transparent);
         assert_eq!(Background::parse("#FF8000").unwrap(), Background::Solid([255, 128, 0]));
         assert_eq!(Background::parse("#ff8000").unwrap(), Background::Solid([255, 128, 0]));
@@ -266,7 +266,7 @@ mod tests {
     }
 
     #[test]
-    fn crop_valida() {
+    fn crop_validation() {
         assert!(Crop::parse("0,0,1,1").is_ok());
         assert!(Crop::parse("0.1, 0.2, 0.5, 0.5").is_ok());
         assert!(Crop::parse("0,0,1").is_err());
@@ -278,7 +278,7 @@ mod tests {
     }
 
     #[test]
-    fn crop_para_pixels() {
+    fn crop_to_pixels() {
         let c = Crop::parse("0.25,0.5,0.5,0.5").unwrap();
         assert_eq!(c.to_region(200, 100), Region { x: 50, y: 50, w: 100, h: 50 });
         // Fração minúscula ainda dá 1 pixel.
@@ -297,7 +297,7 @@ mod tests {
     }
 
     #[test]
-    fn opts_limites() {
+    fn opts_limits() {
         let mut o = Opts::default();
         assert!(o.check().is_ok());
         o.width = Some(0);
@@ -313,7 +313,7 @@ mod tests {
     }
 
     #[test]
-    fn gravidade_padrao_por_fit() {
+    fn default_gravity_per_fit() {
         let mut o = Opts::default();
         assert_eq!(o.gravity(), Gravity::TOP);
         o.fit = Fit::Contain;

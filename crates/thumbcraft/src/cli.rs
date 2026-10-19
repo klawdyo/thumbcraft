@@ -148,7 +148,7 @@ mod tests {
     }
 
     #[test]
-    fn basico() {
+    fn basic() {
         let Cmd::Run(j) = p("a.docx b.png -W 120 -H 120 --fit contain --gravity top-left --background=#ff0000").unwrap() else { panic!() };
         assert_eq!((j.opts.width, j.opts.height), (Some(120), Some(120)));
         assert_eq!(j.opts.fit, Fit::Contain);
@@ -156,14 +156,14 @@ mod tests {
     }
 
     #[test]
-    fn erros_de_uso() {
+    fn usage_errors() {
         for s in ["a.docx", "a.docx b.png c.png", "a.docx b.png --quality 0", "a.docx b.bmp", "a.docx b.png -W", "a.docx b.png -W x", "a.docx b.png --nada", "a.docx b.png --fit zoom", "a.docx b.png --page 0", "a.docx b.png --native-scale 0"] {
             assert_eq!(p(s).unwrap_err().code(), 2, "{s}");
         }
     }
 
     #[test]
-    fn auxiliares() {
+    fn auxiliary_commands() {
         assert!(matches!(p("--version").unwrap(), Cmd::Version));
         assert!(matches!(p("--formats").unwrap(), Cmd::Formats));
         assert!(matches!(p("-h").unwrap(), Cmd::Help));

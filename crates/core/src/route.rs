@@ -177,12 +177,12 @@ pub fn route(ext: &str, sniff: Sniff) -> Res<Engine> {
 mod tests {
     use super::*;
 
-    fn nomes(v: &[&str]) -> Vec<String> {
+    fn names(v: &[&str]) -> Vec<String> {
         v.iter().map(|s| s.to_string()).collect()
     }
 
     #[test]
-    fn extensao_minuscula_e_sem_ponto() {
+    fn lowercase_and_dotless_extension() {
         assert_eq!(ext_of("a/b/Relatorio.DOCX"), "docx");
         assert_eq!(ext_of("sem_ext"), "");
         assert_eq!(ext_of(".gitignore"), "");
@@ -191,7 +191,7 @@ mod tests {
     }
 
     #[test]
-    fn por_extensao_quando_o_conteudo_nao_diz() {
+    fn by_extension_when_content_is_silent() {
         for e in WORD_EXTS {
             assert_eq!(route(e, Sniff::Other).unwrap(), Engine::Word, "{e}");
         }
@@ -205,7 +205,7 @@ mod tests {
     }
 
     #[test]
-    fn zip_por_conteudo_vence_extensao_errada() {
+    fn zip_content_beats_wrong_extension() {
         let word = Sniff::Zip(ZipKind::Word);
         assert_eq!(route("pptx", word).unwrap(), Engine::Word);
         assert_eq!(route("ppt", Sniff::Zip(ZipKind::Deck)).unwrap(), Engine::Deck);
@@ -215,7 +215,7 @@ mod tests {
     }
 
     #[test]
-    fn odf_por_mimetype() {
+    fn odf_by_mimetype() {
         assert_eq!(route("odt", Sniff::Zip(ZipKind::OdfText)).unwrap(), Engine::Word);
         assert_eq!(route("ods", Sniff::Zip(ZipKind::OdfSheet)).unwrap(), Engine::Grid);
         let e = route("odp", Sniff::Zip(ZipKind::OdfPres)).unwrap_err();
@@ -224,7 +224,7 @@ mod tests {
     }
 
     #[test]
-    fn ppt_e_odp_sao_erro_3_com_sugestao() {
+    fn ppt_and_odp_are_error_3_with_suggestion() {
         for e in ["ppt", "odp"] {
             let err = route(e, Sniff::Cfb).unwrap_err();
             assert_eq!(err.code(), 3);
@@ -235,7 +235,7 @@ mod tests {
     }
 
     #[test]
-    fn pdf_reservado() {
+    fn pdf_reserved() {
         assert_eq!(route("pdf", Sniff::Pdf).unwrap(), Engine::Pdf);
         // Markdown salvo como .pdf: segue como texto. Binário sem assinatura continua erro 3.
         assert_eq!(route("pdf", Sniff::Text).unwrap(), Engine::Word);
@@ -245,7 +245,7 @@ mod tests {
     }
 
     #[test]
-    fn legados_cfb_seguem_a_extensao() {
+    fn legacy_cfb_follows_extension() {
         assert_eq!(route("doc", Sniff::Cfb).unwrap(), Engine::Word);
         assert_eq!(route("xls", Sniff::Cfb).unwrap(), Engine::Grid);
         // Pacote OOXML criptografado (CFB) com extensão moderna.
@@ -254,40 +254,40 @@ mod tests {
     }
 
     #[test]
-    fn rtf_por_conteudo() {
+    fn rtf_by_content() {
         assert_eq!(route("txt", Sniff::Rtf).unwrap(), Engine::Word);
         assert_eq!(route("", Sniff::Rtf).unwrap(), Engine::Word);
     }
 
     #[test]
-    fn texto_com_extensao_de_pptx_vai_para_o_deck_e_falha_la() {
+    fn text_with_pptx_extension_goes_to_deck_and_fails_there() {
         assert_eq!(route("pptx", Sniff::Other).unwrap(), Engine::Deck);
         assert_eq!(route("pptx", Sniff::Zip(ZipKind::Broken)).unwrap(), Engine::Deck);
     }
 
     #[test]
-    fn desconhecido_e_erro_3() {
+    fn unknown_is_error_3() {
         assert_eq!(route("xyz", Sniff::Other).unwrap_err().code(), 3);
         assert_eq!(route("", Sniff::Other).unwrap_err().code(), 3);
         assert_eq!(route("exe", Sniff::Zip(ZipKind::Other)).unwrap_err().code(), 3);
     }
 
     #[test]
-    fn classifica_zip() {
-        assert_eq!(classify_zip(&nomes(&["[Content_Types].xml", "word/document.xml"]), None, None), ZipKind::Word);
-        assert_eq!(classify_zip(&nomes(&["[Content_Types].xml", "xl/workbook.xml"]), None, None), ZipKind::Grid);
-        assert_eq!(classify_zip(&nomes(&["[Content_Types].xml", "ppt/presentation.xml"]), None, None), ZipKind::Deck);
-        assert_eq!(classify_zip(&nomes(&["a.txt"]), None, None), ZipKind::Other);
+    fn classifies_zip() {
+        assert_eq!(classify_zip(&names(&["[Content_Types].xml", "word/document.xml"]), None, None), ZipKind::Word);
+        assert_eq!(classify_zip(&names(&["[Content_Types].xml", "xl/workbook.xml"]), None, None), ZipKind::Grid);
+        assert_eq!(classify_zip(&names(&["[Content_Types].xml", "ppt/presentation.xml"]), None, None), ZipKind::Deck);
+        assert_eq!(classify_zip(&names(&["a.txt"]), None, None), ZipKind::Other);
         // Nomes de pastas fora do padrão: vale o [Content_Types].xml.
         let ct = "<Override ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml\"/>";
-        assert_eq!(classify_zip(&nomes(&["[Content_Types].xml", "outro/x.xml"]), Some(ct), None), ZipKind::Grid);
-        assert_eq!(classify_zip(&nomes(&["mimetype"]), None, Some("application/vnd.oasis.opendocument.text")), ZipKind::OdfText);
-        assert_eq!(classify_zip(&nomes(&["mimetype"]), None, Some("application/vnd.oasis.opendocument.spreadsheet\n")), ZipKind::OdfSheet);
-        assert_eq!(classify_zip(&nomes(&["mimetype"]), None, Some("application/vnd.oasis.opendocument.presentation")), ZipKind::OdfPres);
+        assert_eq!(classify_zip(&names(&["[Content_Types].xml", "outro/x.xml"]), Some(ct), None), ZipKind::Grid);
+        assert_eq!(classify_zip(&names(&["mimetype"]), None, Some("application/vnd.oasis.opendocument.text")), ZipKind::OdfText);
+        assert_eq!(classify_zip(&names(&["mimetype"]), None, Some("application/vnd.oasis.opendocument.spreadsheet\n")), ZipKind::OdfSheet);
+        assert_eq!(classify_zip(&names(&["mimetype"]), None, Some("application/vnd.oasis.opendocument.presentation")), ZipKind::OdfPres);
     }
 
     #[test]
-    fn sniff_do_cabecalho() {
+    fn header_sniff() {
         assert_eq!(sniff_head(b"%PDF-1.7"), Sniff::Pdf);
         assert_eq!(sniff_head(&[0xD0, 0xCF, 0x11, 0xE0, 0xA1, 0xB1, 0x1A, 0xE1, 0, 0]), Sniff::Cfb);
         assert_eq!(sniff_head(b"{\\rtf1\\ansi"), Sniff::Rtf);

@@ -153,52 +153,52 @@ pub fn resample(src: &Raster, clip: Region, win: RectF, dw: u32, dh: u32, filter
 mod tests {
     use super::*;
 
-    fn lisa(w: u32, h: u32, c: [u8; 4]) -> Raster {
+    fn solid(w: u32, h: u32, c: [u8; 4]) -> Raster {
         Raster::filled(w, h, c)
     }
 
-    fn janela(r: &Raster) -> RectF {
+    fn window(r: &Raster) -> RectF {
         RectF { x: 0.0, y: 0.0, w: r.w as f64, h: r.h as f64 }
     }
 
     #[test]
-    fn cor_lisa_continua_lisa() {
+    fn solid_color_stays_solid() {
         for f in [Filter::Area, Filter::Lanczos3] {
-            let s = lisa(100, 60, [10, 120, 250, 255]);
-            let d = resample(&s, s.full(), janela(&s), 17, 9, f);
+            let s = solid(100, 60, [10, 120, 250, 255]);
+            let d = resample(&s, s.full(), window(&s), 17, 9, f);
             assert!(d.px.chunks_exact(4).all(|p| p == [10, 120, 250, 255]), "{f:?}");
-            let d = resample(&s, s.full(), janela(&s), 300, 200, f);
+            let d = resample(&s, s.full(), window(&s), 300, 200, f);
             assert!(d.px.chunks_exact(4).all(|p| p == [10, 120, 250, 255]), "{f:?} ampliando");
         }
     }
 
     #[test]
-    fn area_media_exata_na_reducao_2x() {
+    fn exact_area_average_on_2x_reduction() {
         // Linhas alternadas preto/branco: a média é cinza médio.
-        let mut s = lisa(8, 8, [255, 255, 255, 255]);
+        let mut s = solid(8, 8, [255, 255, 255, 255]);
         for y in (0..8).step_by(2) {
             for x in 0..8 {
                 s.set(x, y, [0, 0, 0, 255]);
             }
         }
-        let d = resample(&s, s.full(), janela(&s), 4, 4, Filter::Area);
+        let d = resample(&s, s.full(), window(&s), 4, 4, Filter::Area);
         assert!(d.px.chunks_exact(4).all(|p| (p[0] as i32 - 128).abs() <= 1 && p[3] == 255), "{:?}", &d.px[..8]);
     }
 
     #[test]
-    fn identidade_nao_muda() {
-        let mut s = lisa(6, 6, [255, 255, 255, 255]);
+    fn identity_does_not_change() {
+        let mut s = solid(6, 6, [255, 255, 255, 255]);
         s.set(2, 3, [0, 0, 0, 255]);
-        let d = resample(&s, s.full(), janela(&s), 6, 6, Filter::Area);
+        let d = resample(&s, s.full(), window(&s), 6, 6, Filter::Area);
         assert_eq!(d, s);
-        let d = resample(&s, s.full(), janela(&s), 6, 6, Filter::Lanczos3);
+        let d = resample(&s, s.full(), window(&s), 6, 6, Filter::Lanczos3);
         assert_eq!(d, s);
     }
 
     #[test]
-    fn janela_fracionaria_respeita_a_regiao() {
+    fn fractional_window_respects_region() {
         // Esquerda vermelha, direita azul; a janela só da metade direita não pode ter vermelho.
-        let mut s = lisa(100, 10, [0, 0, 255, 255]);
+        let mut s = solid(100, 10, [0, 0, 255, 255]);
         for y in 0..10 {
             for x in 0..50 {
                 s.set(x, y, [255, 0, 0, 255]);
@@ -212,29 +212,29 @@ mod tests {
     }
 
     #[test]
-    fn alfa_premultiplicado_fica_consistente() {
+    fn premultiplied_alpha_stays_consistent() {
         // Borda dura entre opaco e transparente: a cor nunca passa do alfa.
-        let mut s = lisa(40, 40, [0, 0, 0, 0]);
+        let mut s = solid(40, 40, [0, 0, 0, 0]);
         for y in 0..40 {
             for x in 0..20 {
                 s.set(x, y, [200, 100, 50, 255]);
             }
         }
         for f in [Filter::Area, Filter::Lanczos3] {
-            let d = resample(&s, s.full(), janela(&s), 7, 7, f);
+            let d = resample(&s, s.full(), window(&s), 7, 7, f);
             assert!(d.px.chunks_exact(4).all(|p| p[0] <= p[3] && p[1] <= p[3] && p[2] <= p[3]), "{f:?}");
         }
     }
 
     #[test]
-    fn tamanhos_extremos_nao_quebram() {
-        let s = lisa(3, 2, [1, 2, 3, 255]);
-        let d = resample(&s, s.full(), janela(&s), 1, 1, Filter::Lanczos3);
+    fn extreme_sizes_do_not_break() {
+        let s = solid(3, 2, [1, 2, 3, 255]);
+        let d = resample(&s, s.full(), window(&s), 1, 1, Filter::Lanczos3);
         assert_eq!((d.w, d.h), (1, 1));
-        let d = resample(&s, s.full(), janela(&s), 50, 1, Filter::Area);
+        let d = resample(&s, s.full(), window(&s), 50, 1, Filter::Area);
         assert_eq!((d.w, d.h), (50, 1));
-        let um = lisa(1, 1, [9, 9, 9, 255]);
-        let d = resample(&um, um.full(), janela(&um), 4, 4, Filter::Lanczos3);
+        let single_px = solid(1, 1, [9, 9, 9, 255]);
+        let d = resample(&single_px, single_px.full(), window(&single_px), 4, 4, Filter::Lanczos3);
         assert!(d.px.chunks_exact(4).all(|p| p == [9, 9, 9, 255]));
     }
 }

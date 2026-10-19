@@ -68,39 +68,39 @@ mod tests {
     }
 
     #[test]
-    fn sem_alvo_usa_escala_dos_minis() {
+    fn no_target_uses_minis_scale() {
         assert_eq!(choose(595.0, 842.0, 595.0, 842.0, &o(None, None, Fit::Cover), &LIMITS), 2.0);
     }
 
     #[test]
-    fn alvo_pequeno_cai_no_minimo() {
+    fn small_target_falls_to_minimum() {
         // 120x120 cover de uma A4: 2 * 120/595 = 0,4, sobe para 1 px/pt.
         let s = choose(595.0, 842.0, 595.0, 842.0, &o(Some(120), Some(120), Fit::Cover), &LIMITS);
         assert_eq!(s, 1.0);
     }
 
     #[test]
-    fn alvo_grande_dobra_o_lado_do_alvo() {
+    fn large_target_doubles_target_side() {
         // Só largura 1200: o lado em px da renderização é 2400 (2 * 1200), escala 2400/595.
         let s = choose(595.0, 842.0, 595.0, 842.0, &o(Some(1200), None, Fit::Cover), &LIMITS);
         assert!((s - 2400.0 / 595.0).abs() < 1e-9);
     }
 
     #[test]
-    fn cover_usa_o_eixo_mais_exigente() {
+    fn cover_uses_most_demanding_axis() {
         // Slide 960x540 em 480x480 cover: o eixo da altura manda (480/540 por pt).
         let s = choose(960.0, 540.0, 960.0, 540.0, &o(Some(480), Some(480), Fit::Cover), &LIMITS);
         assert!((s - 2.0 * 480.0 / 540.0).abs() < 1e-9);
     }
 
     #[test]
-    fn contain_usa_o_eixo_menos_exigente() {
+    fn contain_uses_least_demanding_axis() {
         let s = needed_scale(960.0, 540.0, &o(Some(480), Some(480), Fit::Contain));
         assert!((s - 2.0 * 480.0 / 960.0).abs() < 1e-9);
     }
 
     #[test]
-    fn limite_de_lado_e_de_pixels() {
+    fn side_and_pixel_limit() {
         // Alvo gigante: o lado maior da renderização não passa de 8192.
         let s = choose(595.0, 842.0, 595.0, 842.0, &o(Some(16_000), None, Fit::Cover), &LIMITS);
         assert!((842.0 * s - 8192.0).abs() < 1e-6);
@@ -111,14 +111,14 @@ mod tests {
     }
 
     #[test]
-    fn limite_vence_o_minimo_em_pagina_gigante() {
+    fn limit_beats_minimum_on_giant_page() {
         let s = choose(20_000.0, 20_000.0, 20_000.0, 20_000.0, &o(Some(100), Some(100), Fit::Cover), &LIMITS);
         assert!(s < 1.0);
         assert!(20_000.0 * s <= 8192.0 + 1e-6);
     }
 
     #[test]
-    fn escala_fixa_respeita_limites() {
+    fn fixed_scale_respects_limits() {
         let mut op = o(Some(100), Some(100), Fit::Cover);
         op.scale = RenderScale::Fixed(3.0);
         assert_eq!(choose(595.0, 842.0, 595.0, 842.0, &op, &LIMITS), 3.0);
@@ -128,7 +128,7 @@ mod tests {
     }
 
     #[test]
-    fn recorte_pequeno_pede_escala_maior() {
+    fn small_crop_requests_larger_scale() {
         // Região de 100x100 pt para 200 px de largura: 4 px/pt.
         let s = choose(595.0, 842.0, 100.0, 100.0, &o(Some(200), None, Fit::Cover), &LIMITS);
         assert!((s - 4.0).abs() < 1e-9);

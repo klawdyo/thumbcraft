@@ -137,7 +137,7 @@ mod tests {
     }
 
     #[test]
-    fn so_largura_dimensiona_e_preserva_proporcao() {
+    fn width_only_sizes_and_keeps_aspect_ratio() {
         let mut f = Fake::new(1, 600.0, 800.0, Pattern::Blank);
         let d = process(&mut f, &opts(Some(120), None, Fit::Cover)).unwrap();
         assert_eq!((d.img.w, d.img.h), (120, 160));
@@ -145,7 +145,7 @@ mod tests {
     }
 
     #[test]
-    fn renderiza_ao_menos_o_dobro_do_alvo() {
+    fn renders_at_least_double_the_target() {
         let mut f = Fake::new(1, 600.0, 800.0, Pattern::Blank);
         let d = process(&mut f, &opts(Some(1200), Some(1200), Fit::Cover)).unwrap();
         // Alvo 1200x1200 cover de 600x800: escala necessária 2 * 1200/600 = 4.
@@ -155,14 +155,14 @@ mod tests {
     }
 
     #[test]
-    fn alvo_pequeno_usa_escala_minima_1() {
+    fn small_target_uses_minimum_scale_1() {
         let mut f = Fake::new(1, 600.0, 800.0, Pattern::Blank);
         process(&mut f, &opts(Some(120), Some(120), Fit::Cover)).unwrap();
         assert_eq!(f.calls[0].1, 1.0);
     }
 
     #[test]
-    fn sem_alvo_renderiza_em_2_e_nao_reduz() {
+    fn no_target_renders_at_2_and_does_not_shrink() {
         let mut f = Fake::new(1, 300.0, 400.0, Pattern::Blank);
         let d = process(&mut f, &Opts::default()).unwrap();
         assert_eq!(f.calls[0].1, 2.0);
@@ -170,7 +170,7 @@ mod tests {
     }
 
     #[test]
-    fn cover_gravidade_topo_e_base() {
+    fn cover_gravity_top_and_bottom() {
         // Página 100x200 com quadrantes; caixa 40x40 cover: sobra altura.
         let mut f = Fake::new(1, 100.0, 200.0, Pattern::Quadrants);
         let mut o = opts(Some(40), Some(40), Fit::Cover);
@@ -188,7 +188,7 @@ mod tests {
     }
 
     #[test]
-    fn contain_completa_com_fundo_e_posiciona() {
+    fn contain_fills_with_background_and_positions() {
         let mut f = Fake::new(1, 100.0, 200.0, Pattern::Quadrants);
         let mut o = opts(Some(100), Some(100), Fit::Contain);
         o.scale = RenderScale::Fixed(1.0);
@@ -208,7 +208,7 @@ mod tests {
     }
 
     #[test]
-    fn contain_fundo_transparente_mantem_alfa() {
+    fn contain_transparent_background_keeps_alpha() {
         let mut f = Fake::new(1, 100.0, 200.0, Pattern::Quadrants);
         let mut o = opts(Some(100), Some(100), Fit::Contain);
         o.background = Background::Transparent;
@@ -218,7 +218,7 @@ mod tests {
     }
 
     #[test]
-    fn fundo_transparente_da_origem_vira_branco_por_padrao() {
+    fn transparent_source_background_becomes_white_by_default() {
         let mut f = Fake::new(1, 50.0, 50.0, Pattern::Box(10.0, 10.0, 20.0, 20.0));
         f.transparent = true;
         let d = process(&mut f, &opts(Some(25), None, Fit::Cover)).unwrap();
@@ -231,7 +231,7 @@ mod tests {
     }
 
     #[test]
-    fn crop_em_fracoes_antes_do_resize() {
+    fn crop_in_fractions_before_resize() {
         // Metade direita da página: verde em cima, amarelo embaixo.
         let mut f = Fake::new(1, 100.0, 100.0, Pattern::Quadrants);
         let mut o = opts(Some(10), Some(10), Fit::Cover);
@@ -245,7 +245,7 @@ mod tests {
     }
 
     #[test]
-    fn crop_pede_mais_resolucao() {
+    fn crop_requests_more_resolution() {
         // Recorte de 10% (50 pt) para 100 px de largura: 2 px/pt de saída, 4 px/pt renderizados.
         let mut f = Fake::new(1, 500.0, 500.0, Pattern::Blank);
         let mut o = opts(Some(100), None, Fit::Cover);
@@ -255,7 +255,7 @@ mod tests {
     }
 
     #[test]
-    fn trim_corta_margens_e_re_renderiza_com_mais_resolucao() {
+    fn trim_cuts_margins_and_rerenders_at_higher_resolution() {
         // Conteúdo de 50x50 pt no meio de uma A4; alvo de 400 px de largura.
         let mut f = Fake::new(1, 595.0, 842.0, Pattern::Box(100.0, 100.0, 150.0, 150.0));
         let mut o = opts(Some(400), None, Fit::Cover);
@@ -273,7 +273,7 @@ mod tests {
     }
 
     #[test]
-    fn trim_sem_necessidade_de_mais_resolucao_renderiza_uma_vez() {
+    fn trim_without_need_for_more_resolution_renders_once() {
         let mut f = Fake::new(1, 200.0, 200.0, Pattern::Box(10.0, 10.0, 190.0, 190.0));
         let mut o = opts(Some(50), None, Fit::Cover);
         o.trim = true;
@@ -282,7 +282,7 @@ mod tests {
     }
 
     #[test]
-    fn trim_em_pagina_vazia_nao_quebra() {
+    fn trim_on_blank_page_does_not_break() {
         let mut f = Fake::new(1, 200.0, 300.0, Pattern::Blank);
         let mut o = opts(Some(40), Some(40), Fit::Contain);
         o.trim = true;
@@ -292,7 +292,7 @@ mod tests {
     }
 
     #[test]
-    fn trim_respeita_a_margem_pedida() {
+    fn trim_respects_requested_margin() {
         let mut f = Fake::new(1, 100.0, 100.0, Pattern::Box(40.0, 40.0, 60.0, 60.0));
         let mut o = Opts::default();
         o.scale = RenderScale::Fixed(1.0);
@@ -303,7 +303,7 @@ mod tests {
     }
 
     #[test]
-    fn escala_fixa_nao_re_renderiza() {
+    fn fixed_scale_does_not_rerender() {
         let mut f = Fake::new(1, 595.0, 842.0, Pattern::Box(100.0, 100.0, 150.0, 150.0));
         let mut o = opts(Some(400), None, Fit::Cover);
         o.trim = true;
@@ -313,7 +313,7 @@ mod tests {
     }
 
     #[test]
-    fn pagina_inexistente_e_erro_4() {
+    fn missing_page_is_error_4() {
         let mut f = Fake::new(3, 100.0, 100.0, Pattern::Blank);
         let mut o = Opts::default();
         o.page = 4;
@@ -326,14 +326,14 @@ mod tests {
     }
 
     #[test]
-    fn falha_do_motor_propaga() {
+    fn engine_failure_propagates() {
         let mut f = Fake::new(1, 100.0, 100.0, Pattern::Blank);
         f.fail = true;
         assert_eq!(process(&mut f, &Opts::default()).unwrap_err().code(), 4);
     }
 
     #[test]
-    fn tamanho_de_pagina_invalido() {
+    fn invalid_page_size() {
         let mut f = Fake::new(1, 0.0, 100.0, Pattern::Blank);
         assert_eq!(process(&mut f, &Opts::default()).unwrap_err().code(), 4);
         let mut f = Fake::new(1, f64::NAN, 100.0, Pattern::Blank);
@@ -341,14 +341,14 @@ mod tests {
     }
 
     #[test]
-    fn opcoes_invalidas_sao_erro_2() {
+    fn invalid_options_are_error_2() {
         let mut f = Fake::new(1, 100.0, 100.0, Pattern::Blank);
         assert_eq!(process(&mut f, &opts(Some(0), None, Fit::Cover)).unwrap_err().code(), 2);
         assert!(f.calls.is_empty(), "nem renderiza");
     }
 
     #[test]
-    fn limites_da_renderizacao() {
+    fn render_limits() {
         // Alvo enorme numa página A4: a renderização para em 8192 px de lado maior.
         let mut f = Fake::new(1, 59.5, 84.2, Pattern::Blank);
         let d = process(&mut f, &opts(Some(16_000), Some(100), Fit::Cover)).unwrap();
@@ -357,7 +357,7 @@ mod tests {
     }
 
     #[test]
-    fn caixa_degenerada_1x1() {
+    fn degenerate_box_1x1() {
         let mut f = Fake::new(1, 100.0, 100.0, Pattern::Quadrants);
         let d = process(&mut f, &opts(Some(1), Some(1), Fit::Cover)).unwrap();
         assert_eq!((d.img.w, d.img.h), (1, 1));
@@ -365,14 +365,14 @@ mod tests {
     }
 
     #[test]
-    fn proporcao_extrema_com_so_uma_dimensao_e_erro_2() {
+    fn extreme_ratio_with_single_dimension_is_error_2() {
         let mut f = Fake::new(1, 1.0, 5000.0, Pattern::Blank);
         let e = process(&mut f, &opts(Some(2000), None, Fit::Cover)).unwrap_err();
         assert_eq!(e.code(), 2);
     }
 
     #[test]
-    fn flatten_compoe_sobre_a_cor() {
+    fn flatten_composites_over_color() {
         let mut r = Raster::filled(1, 1, [0, 0, 0, 0]);
         flatten(&mut r, [10, 20, 30]);
         assert_eq!(r.at(0, 0), [10, 20, 30, 255]);
