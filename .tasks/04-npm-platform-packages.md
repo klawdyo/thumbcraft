@@ -8,11 +8,11 @@ pacote principal, do caminho do binário instalado, via `optionalDependencies` c
 ## Contexto
 
 `docs/DISTRIBUTION_NPM.md` seções 1 a 3. Escopo de plataformas decidido em 2026-10-19: **só Windows x64 e Linux x64
-(glibc)**. Depende da tarefa 02 (interface de resolução do binário). Os "satélites" são esses dois pacotes
-pequenos de plataforma, cada um com seu `package.json` (e portanto sua versão, sempre igual à do pacote
-principal). Alternativa registrada: um único pacote com os dois binários dentro (sem satélites, sem escopo
-`@thumbcraft` no npm, uma só versão), ao custo de cada usuário baixar os dois binários (cerca de 24 MB e 27 MB
-antes de comprimir). Decisão entre as duas a confirmar com o dono antes de implementar.
+(glibc)**. Depende da tarefa 02 (interface de resolução do binário). Desenho decidido pelo dono, como o `sharp`:
+o pacote principal `thumbcraft` declara `optionalDependencies` para os dois pacotes de plataforma, e o npm instala
+só o que combina com `os`, `cpu` e `libc`. Cada pacote de plataforma tem seu `package.json`, com versão igual à do
+principal. Quem desenvolve no Windows e roda em container Linux declara `supportedArchitectures` (npm 10 ou mais
+novo) no projeto dele para instalar os dois binários; isso é só documentado aqui, não implementado.
 
 ## Referências
 
@@ -35,6 +35,7 @@ antes de comprimir). Decisão entre as duas a confirmar com o dono antes de impl
 - [ ] O script monta o pacote Windows x64 e o Linux x64 a partir de binários locais; `npm pack --dry-run` lista só `package.json` e o binário
 - [ ] Instalar o pacote principal e o de plataforma em um projeto de teste e rodar `Thumbcraft.fromFile(...)` gera a imagem, no Windows
 - [ ] Plataforma sem pacote produz o erro descrito
+- [ ] A documentação mostra o `supportedArchitectures` para desenvolver no Windows e rodar no Linux
 - [ ] **UTF-8 sem BOM, LF e sem mojibake** em todos os arquivos criados/modificados (`bash scripts/check-encoding.sh`)
 
 ## Não escopo
