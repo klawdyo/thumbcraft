@@ -9,7 +9,7 @@ Formato em `docs/rules/task-template.md` (fluxo em `docs/rules/workflow-and-agen
 | 03 | 03-ts-detect-is-valid.md | `detect` e `isValid` por `thumbcraft --detect`, sem ZIP em TypeScript | done | 02, 01 (buffer) |
 | 04 | 04-npm-platform-packages.md | Pacotes `@thumbcraft/*` (Windows x64, Linux x64) e resolução do binário | done | 02 |
 | 05 | 05-platform-builds.md | Build e testes em Windows e Linux, tabela por plataforma | done | — |
-| 06 | 06-ci-release-npm.md | CI de testes e release no npm | todo | 04, 05 |
+| 06 | 06-ci-release-npm.md | CI de testes e release no npm | done | 04, 05 |
 | 07 | 07-english-identifiers.md | Identificadores e nomes de testes em inglês no código existente | done | — |
 | 08 | 08-pdf-engine.md | Motor de PDF (hayro via craft-pdf) no binário unificado, com medição de proteções e tamanho | done | — |
 | 09 | 09-single-package-versions.md | Eliminar as duplicações de skrifa, read-fonts, font-types e miniz_oxide no binário | done | 08 |

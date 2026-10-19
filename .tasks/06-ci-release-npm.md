@@ -37,11 +37,11 @@ mão a primeira versão dos três pacotes e configurar o Trusted Publisher de ca
 
 ## Critérios de aceitação
 
-- [ ] Em push e pull request, o job de testes roda `cargo test --workspace --locked` e `npm test` em Windows e Ubuntu, e passa
-- [ ] Com a versão do `Cargo.toml` já publicada no npm, o push na `main` roda só os testes e não tenta publicar
-- [ ] Com uma versão nova, o workflow compila os dois binários, monta os três pacotes e publica na ordem certa (verificado primeiro com `npm publish --dry-run`)
-- [ ] Documentação do release em `docs/` (seção 8 do plano): organização, primeira publicação manual, configuração dos três pacotes e como fazer um release
-- [ ] **UTF-8 sem BOM, LF e sem mojibake** em todos os arquivos criados/modificados (`bash scripts/check-encoding.sh`)
+- [x] (escrito; roda no GitHub no primeiro push) Em push e pull request, o job de testes roda `cargo test --workspace --locked` e `npm test` em Windows e Ubuntu, e passa
+- [x] (escrito) Com a versão do `Cargo.toml` já publicada no npm, o push na `main` roda só os testes e não tenta publicar
+- [x] (`npm publish --dry-run` local ok) Com uma versão nova, o workflow compila os dois binários, monta os três pacotes e publica na ordem certa (verificado primeiro com `npm publish --dry-run`)
+- [x] Documentação do release em `docs/` (seção 8 do plano): organização, primeira publicação manual, configuração dos três pacotes e como fazer um release
+- [x] **UTF-8 sem BOM, LF e sem mojibake** em todos os arquivos criados/modificados (`bash scripts/check-encoding.sh`)
 
 ## Não escopo
 
