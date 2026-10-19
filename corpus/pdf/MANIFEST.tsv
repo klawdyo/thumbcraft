@@ -1,0 +1,48 @@
+arquivo	caso	categoria	paginas	bytes	observacao
+10_word_simples_acentos.pdf	word_simples_acentos	valido	1	10390	Texto com acentos (Word via LibreOffice)
+11_word_tabelas.pdf	word_tabelas	valido	1	15588	Tabelas com bordas e sombreamento
+12_word_imagens.pdf	word_imagens	valido	1	40953	Imagens PNG e JPEG embutidas
+13_word_multipagina.pdf	word_multipagina	valido	18	63203	Várias páginas de texto
+14_word_fontes.pdf	word_fontes	valido	1	39258	Várias famílias e tamanhos de fonte
+15_word_estilos_cores.pdf	word_estilos_cores	valido	1	19105	Estilos e cores de texto
+20_excel_condicional_cor.pdf	excel_condicional_cor	valido	1	7895	Formatação condicional em escala de cor
+21_excel_grafico_barras.pdf	excel_grafico_barras	valido	4	26518	Gráfico de barras
+22_excel_grafico_pizza.pdf	excel_grafico_pizza	valido	2	19888	Gráfico de pizza
+23_excel_planilha_larga.pdf	excel_planilha_larga	valido	13	26399	Planilha de 130 colunas
+24_excel_nao_latino_emoji.pdf	excel_nao_latino_emoji	valido	1	52834	Texto não latino e emoji em planilha
+25_excel_painel_composto.pdf	excel_painel_composto	valido	4	55567	Painel com vários gráficos e tabelas
+30_ppt_formas_gradiente.pdf	ppt_formas_gradiente	valido	1	102798	Formas com gradiente
+31_ppt_sombra_transparencia.pdf	ppt_sombra_transparencia	valido	1	55197	Sombras e transparência
+32_ppt_grafico_barras.pdf	ppt_grafico_barras	valido	1	15823	Gráfico de barras em slide
+33_ppt_fundo_gradiente.pdf	ppt_fundo_gradiente	valido	1	8914	Fundo de slide em gradiente
+34_ppt_fundo_imagem.pdf	ppt_fundo_imagem	valido	1	22244	Fundo de slide com imagem
+35_ppt_rtl_cjk_emoji.pdf	ppt_rtl_cjk_emoji	valido	1	37254	Árabe, CJK e emoji em slide
+36_ppt_4x3.pdf	ppt_4x3	valido	1	9006	Slide 4:3
+37_ppt_16x9_paisagem.pdf	ppt_16x9_paisagem	valido	1	9100	Slide 16:9, paisagem
+38_ppt_60_slides.pdf	ppt_60_slides	valido	60	137104	60 páginas (apresentação longa)
+40_texto_nao_latino_arabe_cjk_emoji.pdf	texto_nao_latino_arabe_cjk_emoji	valido	1	74766	Árabe, chinês, japonês, coreano, emoji
+41_fontes_nao_embutidas.pdf	fontes_nao_embutidas	valido	1	1411	Helvetica, Times, Courier, Arial e Calibri sem embutir a fonte
+42_pagina_vazia.pdf	pagina_vazia	valido	1	406	Uma página sem conteúdo
+43_zero_paginas.pdf	zero_paginas	sem_paginas	0	307	Árvore de páginas com Count 0
+44_transparencia_gradientes.pdf	transparencia_gradientes	valido	1	1467	Gradiente axial e radial, alfa 50%, modo Multiply
+45_formulario_acroform.pdf	formulario_acroform	valido	1	2469	Campo de texto, caixa de seleção e botão com aparência
+46_pagina_gigante_A0.pdf	pagina_gigante_A0	valido	1	832	Página A0 (2384x3370 pt)
+47_tamanhos_mistos.pdf	tamanhos_mistos	valido	4	17717	Primeira página 216x360 pt, depois A4, 16:9 e A0
+48_vetorial_pesado_mapa.pdf	vetorial_pesado_mapa	valido	1	408296	12.000 curvas de Bézier coloridas (tipo mapa)
+49_pagina_rotacionada_90.pdf	pagina_rotacionada_90	valido	1	10391	Página com /Rotate 90
+50_cripto_senha_aes256.pdf	cripto_senha_aes256	criptografado	?	9987	AES-256, senha de abertura abrir123 (sem a senha não abre)
+51_cripto_sem_senha_abrir_aes128.pdf	cripto_sem_senha_abrir_aes128	cripto_sem_senha	1	9508	AES-128, senha de abertura vazia, restrições de impressão e cópia
+52_cripto_sem_senha_abrir_rc4_40.pdf	cripto_sem_senha_abrir_rc4_40	cripto_sem_senha	1	9504	RC4 40 bits, senha de abertura vazia
+60_escaneado_so_imagem.pdf	escaneado_so_imagem	escaneado	1	237189	Uma página só de imagem JPEG cinza, 150 dpi, sem camada de texto
+61_escaneado_cor_300dpi_4pag.pdf	escaneado_cor_300dpi_4pag	escaneado	4	1123941	4 páginas de imagem colorida, 300 dpi
+70_truncado_50pct.pdf	truncado_50pct	truncado	?	20476	Metade final do arquivo removida
+71_truncado_90pct.pdf	truncado_90pct	truncado	?	56882	Último décimo do arquivo removido
+72_corrompido_meio.pdf	corrompido_meio	corrompido	1	40953	64 bytes sobrescritos no meio do arquivo
+73_corrompido_xref.pdf	corrompido_xref	corrompido	?	15548	startxref destruído e fim cortado
+74_lixo_antes_do_cabecalho.pdf	lixo_antes_do_cabecalho	corrompido	1	11404	1 KB de bytes aleatórios antes do %PDF-
+75_zero_bytes.pdf	zero_bytes	corrompido	?	0	Arquivo vazio
+76_texto_puro_com_extensao_pdf.pdf	texto_puro_com_extensao_pdf	extensao_errada	?	204	Markdown salvo como .pdf
+77_html_com_extensao_pdf.pdf	html_com_extensao_pdf	extensao_errada	?	16696	HTML salvo como .pdf
+78_jpeg_com_extensao_pdf.pdf	jpeg_com_extensao_pdf	extensao_errada	?	6208	JPEG salvo como .pdf
+big/90_grande_texto.pdf	grande_texto	grande	1126	6046964	1126 páginas de texto (receita em gen-big.sh, fora do git)
+big/91_grande_escaneado.pdf	grande_escaneado	grande	32	33175726	32 páginas digitalizadas, cerca de 33 MB (receita fora do git)
