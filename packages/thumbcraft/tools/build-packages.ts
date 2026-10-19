@@ -95,7 +95,10 @@ export async function buildPlatformPackage(platform: IPlatformSpec, build: IPlat
   await fs.removeDir(destination);
   await fs.writeText(join(destination, 'package.json'), serialize({ ...manifest, version: build.version }));
   await fs.copyFile(join(templateDir, 'README.md'), join(destination, 'README.md'));
-  await fs.copyFile(build.binaryPath, join(destination, 'bin', platform.binaryName));
+  const binary = join(destination, 'bin', platform.binaryName);
+  await fs.copyFile(build.binaryPath, binary);
+  // O npm só grava o bit de execução que o arquivo tem; sem ele o binário do Linux não roda depois de instalado.
+  await fs.makeExecutable(binary);
   return destination;
 }
 

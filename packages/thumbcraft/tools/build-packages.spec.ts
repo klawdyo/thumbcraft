@@ -88,6 +88,12 @@ describe('buildPlatformPackage', () => {
     assert.equal(fs.files.get(join(OUT, 'linux-x64-gnu', 'README.md')), '# @thumbcraft/linux-x64-gnu');
   });
 
+  it('marks the binary as executable, so Linux can run it after install', async () => {
+    const fs = scenario();
+    await buildPlatformPackage(LINUX, { version: '1.2.3', binaryPath: join('/bin', 'thumbcraft'), platformsDir: PLATFORMS_DIR, outDir: OUT }, fs);
+    assert.ok(fs.executable.has(join(OUT, 'linux-x64-gnu', 'bin', 'thumbcraft')));
+  });
+
   it('cleans stale files from a previous build', async () => {
     const fs = scenario().seed(join(OUT, 'win32-x64-msvc', 'bin', 'velho.exe'), 'x');
     await buildPlatformPackage(WIN, { version: '1.2.3', binaryPath: join('/bin', 'thumbcraft.exe'), platformsDir: PLATFORMS_DIR, outDir: OUT }, fs);

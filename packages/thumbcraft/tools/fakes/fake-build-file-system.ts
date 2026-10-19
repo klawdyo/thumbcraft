@@ -4,6 +4,8 @@ import type { IBuildFileSystem } from '../build-file-system.ts';
 export class FakeBuildFileSystem implements IBuildFileSystem {
   /** Arquivos por caminho: texto ou bytes. */
   readonly files = new Map<string, string | Buffer>();
+  /** Arquivos marcados como executáveis. */
+  readonly executable = new Set<string>();
 
   /** Registra um arquivo (atalho para montar o cenário). */
   seed(path: string, content: string | Buffer): this {
@@ -32,6 +34,14 @@ export class FakeBuildFileSystem implements IBuildFileSystem {
       throw new Error(`arquivo inexistente: ${from}`);
     }
     this.files.set(to, content);
+  }
+
+  /** Marca um arquivo como executável; lança erro se não existir. */
+  async makeExecutable(path: string): Promise<void> {
+    if (!this.files.has(path)) {
+      throw new Error(`arquivo inexistente: ${path}`);
+    }
+    this.executable.add(path);
   }
 
   /** Copia todos os arquivos que estão sob a pasta de origem para a de destino. */

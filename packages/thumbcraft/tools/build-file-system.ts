@@ -1,4 +1,4 @@
-import { cp, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { chmod, cp, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 
 /** Porta para o disco usada pelo empacotamento. Os testes usam uma versão em memória. */
@@ -9,6 +9,8 @@ export interface IBuildFileSystem {
   writeText(path: string, text: string): Promise<void>;
   /** Copia um arquivo (texto ou binário), criando as pastas de destino. */
   copyFile(from: string, to: string): Promise<void>;
+  /** Marca um arquivo como executável (modo 0755); no Windows o sistema de arquivos não guarda o bit. */
+  makeExecutable(path: string): Promise<void>;
   /** Copia uma pasta inteira, recursivamente. */
   copyDir(from: string, to: string): Promise<void>;
   /** Diz se o caminho existe. */
@@ -34,6 +36,11 @@ export class NodeBuildFileSystem implements IBuildFileSystem {
   async copyFile(from: string, to: string): Promise<void> {
     await mkdir(dirname(to), { recursive: true });
     await cp(from, to);
+  }
+
+  /** Marca um arquivo como executável (modo 0755). */
+  async makeExecutable(path: string): Promise<void> {
+    await chmod(path, 0o755);
   }
 
   /** Copia uma pasta inteira, recursivamente. */
