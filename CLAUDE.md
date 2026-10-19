@@ -29,7 +29,8 @@ motor é um adaptador no binário; o roteamento é por conteúdo e extensão.
 1. **Versão em `Cargo.toml`.** O `versioner` (0.6.0 ou mais novo) atualiza `[workspace.package] version`, mas
    não toca o `Cargo.lock`: depois de um release, rode `cargo update --workspace` e commite à parte (o build usa
    `--locked`). O `versioner` só roda sob pedido explícito do dono; a base do cálculo vem do histórico git
-   (`release: X.Y.Z`), não do manifesto, então o primeiro release precisa ser combinado com o dono.
+   (`release: X.Y.Z`) por decisão do dono, não do manifesto: o primeiro release leva o `Cargo.toml` de 0.1.0 para
+   o que o histórico calcular.
 2. **Regras de API, auth e erros HTTP** não se aplicam (CLI). Códigos de saída: ver `docs/ARCHITECTURE.md`.
 3. **Documentação em `docs/`** é em português; o `README.md` é em inglês por pedido do dono.
 
