@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 # Build e publicação local dos pacotes npm. A versão vem sempre do Cargo.toml ([workspace.package]);
-# quem a altera é o versioner, sob pedido do dono. Este script nunca muda a versão.
+# quem a altera é o versioner. Só o comando `all` o chama (rodar `all` é o pedido do dono); os demais nunca mudam a versão.
 #
 # Uso:
 #   scripts/release.sh build [--fast]          compila o binário desta máquina e monta outputs/packages
 #   scripts/release.sh publish [--otp 123456] [--dry-run]
 #   scripts/release.sh status                  mostra versão local, login no npm e o que já está publicado
+#   scripts/release.sh all [--from ETAPA] [--yes] [--otp 123456]
+#                                              release inteiro, uma etapa por vez, pedindo confirmação entre elas:
+#                                              versao, linux, build, dry-run, publish (--from retoma de uma etapa)
 #
-# Binários de outra plataforma (ex.: o do Linux, compilado no WSL ou no CI) entram por variável:
+# Binários de outra plataforma (ex.: o do Linux, feito por scripts/build-linux.sh no Docker, ou no CI) entram por variável:
 #   LINUX_BIN=/caminho/thumbcraft  WIN_BIN=/caminho/thumbcraft.exe  scripts/release.sh build
 set -euo pipefail
 
@@ -143,9 +146,87 @@ cmd_publish() {
   echo "concluído"
 }
 
+confirm() { # $1 = pergunta; --yes responde sim a tudo
+  [[ $ASSUME_YES -eq 1 ]] && return 0
+  local r
+  read -r -p "$1 [s/N] " r
+  [[ "$r" =~ ^[sSyY]$ ]]
+}
+
+step_versao() {
+  [[ -z "$(git status --porcelain)" ]] || { echo "a árvore tem mudanças não commitadas; commite antes de lançar (o binário sairia com elas)" >&2; return 1; }
+  command -v versioner >/dev/null || { echo "versioner não encontrado no PATH" >&2; return 1; }
+  local calc; calc="$(versioner calc)"
+  echo "$calc"
+  if grep -q "Nenhum incremento" <<<"$calc"; then
+    echo "nada a versionar; a versão segue $(version)"
+    confirm "Continuar o release com a versão atual $(version)?" || return 1
+    return 0
+  fi
+  confirm "Criar o commit de release com o versioner?" || return 1
+  versioner commit
+  cargo update --workspace
+  if ! git diff --quiet -- Cargo.lock; then
+    git add Cargo.lock
+    git commit -m "chore(deps): sincroniza o Cargo.lock com a versão $(version)"
+  fi
+  echo "versão agora: $(version)"
+}
+
+step_linux() { scripts/build-linux.sh; }
+
+step_build() {
+  [[ -x "$RAIZ/outputs/linux/thumbcraft" ]] || { echo "falta outputs/linux/thumbcraft (etapa 'linux')" >&2; return 1; }
+  LINUX_BIN="$RAIZ/outputs/linux/thumbcraft" cmd_build
+}
+
+step_dry_run() { cmd_publish --dry-run; }
+
+step_publish() {
+  local flags=()
+  [[ -n "$OTP" ]] && flags+=(--otp "$OTP")
+  cmd_publish "${flags[@]}"
+}
+
+cmd_all() {
+  local from="versao"
+  OTP=""; ASSUME_YES=0
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --from) from="${2:?--from pede a etapa}"; shift 2 ;;
+      --yes) ASSUME_YES=1; shift ;;
+      --otp) OTP="${2:?--otp pede o código}"; shift 2 ;;
+      *) echo "opção desconhecida: $1" >&2; exit 1 ;;
+    esac
+  done
+  local etapas=(versao linux build dry-run publish) n idx=-1 i
+  for n in "${!etapas[@]}"; do [[ "${etapas[$n]}" == "$from" ]] && idx=$n; done
+  [[ $idx -ge 0 ]] || { echo "etapa desconhecida: $from (${etapas[*]})" >&2; exit 1; }
+  for ((n = idx; n < ${#etapas[@]}; n++)); do
+    i="${etapas[$n]}"
+    echo
+    echo "######## etapa: $i"
+    # Antes de publicar de verdade, mostra o estado e pede confirmação.
+    if [[ "$i" == "publish" ]]; then
+      cmd_status
+      confirm "Publicar $(version) no npm agora?" || { echo "parado antes de publicar; retome com: scripts/release.sh all --from publish"; return 1; }
+    fi
+    if ! "step_${i//-/_}"; then
+      echo "etapa '$i' não concluída; corrija e retome com: scripts/release.sh all --from $i" >&2
+      return 1
+    fi
+    if [[ $n -lt $((${#etapas[@]} - 1)) ]]; then
+      confirm "Etapa '$i' ok. Seguir para '${etapas[$((n + 1))]}'?" || { echo "parado; retome com: scripts/release.sh all --from ${etapas[$((n + 1))]}"; return 0; }
+    fi
+  done
+  echo
+  echo "release $(version) concluído. Tag e push continuam manuais (o versioner não cria tag)."
+}
+
 case "${1:-}" in
   build) shift; cmd_build "$@" ;;
   publish) shift; cmd_publish "$@" ;;
   status) cmd_status ;;
-  *) sed -n '2,13p' "$0"; exit 1 ;;
+  all) shift; cmd_all "$@" ;;
+  *) sed -n '2,17p' "$0"; exit 1 ;;
 esac
