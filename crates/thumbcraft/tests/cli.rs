@@ -77,14 +77,16 @@ fn version_and_formats_go_to_stdout() {
     let v = run(&["--version"]);
     assert_eq!(v.code, 0);
     assert!(v.stdout.starts_with("thumbcraft "), "{}", v.stdout);
-    for engine in ["wordcraft", "gridcraft", "deckcraft"] {
+    for engine in ["wordcraft", "gridcraft", "deckcraft", "craft-pdf", "hayro"] {
         assert!(v.stdout.contains(engine), "falta {engine}");
     }
     let f = run(&["--formats"]);
     assert_eq!(f.code, 0);
-    for ext in ["docx", "xlsx", "pptx"] {
+    for ext in ["docx", "xlsx", "pptx", "pdf"] {
         assert!(f.stdout.contains(ext), "falta {ext}");
     }
+    assert!(f.stdout.contains("pdf (craft-pdf"), "o PDF deve aparecer como motor: {}", f.stdout);
+    assert!(!f.stdout.contains("reservado"), "o PDF não é mais reservado: {}", f.stdout);
     assert!(f.stderr.is_empty());
 }
 
@@ -129,6 +131,9 @@ fn detect_by_extension_and_content() {
         ("xlsx/45-csv-utf8-acentos.csv", "grid"),
         ("pptx/01_titulo_acentos.pptx", "deck"),
         ("pptx/33_slideshow.ppsx", "deck"),
+        ("pdf/10_word_simples_acentos.pdf", "pdf"),
+        // Lixo antes do %PDF: sem assinatura no início, vale a extensão.
+        ("pdf/74_lixo_antes_do_cabecalho.pdf", "pdf"),
         // Texto com extensão .pdf segue para o WordCraft (docs/BUILD.md, 11:40).
         ("docx/28_extensao_errada_md_como.pdf", "word"),
     ];
@@ -141,7 +146,7 @@ fn detect_by_extension_and_content() {
 
 #[test]
 fn unsupported_formats_are_code_3() {
-    for file in ["pptx/35_legado_formas.ppt", "pptx/37_formas_gradiente.odp", "pdf/10_word_simples_acentos.pdf"] {
+    for file in ["pptx/35_legado_formas.ppt", "pptx/37_formas_gradiente.odp"] {
         let d = tmp("nao-suportado");
         let r = generate(file, &d.join("x.png"), &[]);
         assert_eq!(r.code, 3, "{file}: {}", r.stderr);
@@ -329,4 +334,156 @@ fn no_corpus_file_crashes_the_process() {
         }
     }
     assert!(bad.is_empty(), "processos derrubados:\n{}", bad.join("\n"));
+}
+
+// ---------- PDF ----------
+
+/// Monta um PDF mínimo e válido: uma página por tamanho em pontos (largura, altura), todas com o mesmo conteúdo.
+fn minimal_pdf(pages: &[(u32, u32)], content: &str, extra_page_entries: &str) -> Vec<u8> {
+    let mut objects: Vec<String> = vec!["<< /Type /Catalog /Pages 2 0 R >>".into()];
+    let kids: Vec<String> = (0..pages.len()).map(|i| format!("{} 0 R", 3 + 2 * i)).collect();
+    objects.push(format!("<< /Type /Pages /Kids [{}] /Count {} >>", kids.join(" "), pages.len()));
+    for (i, (w, h)) in pages.iter().enumerate() {
+        objects.push(format!("<< /Type /Page /Parent 2 0 R /MediaBox [0 0 {w} {h}] /Contents {} 0 R {extra_page_entries} >>", 4 + 2 * i));
+        objects.push(format!("<< /Length {} >>\nstream\n{content}\nendstream", content.len()));
+    }
+    let mut out = b"%PDF-1.7\n".to_vec();
+    let mut offsets = Vec::new();
+    for (i, body) in objects.iter().enumerate() {
+        offsets.push(out.len());
+        out.extend_from_slice(format!("{} 0 obj\n{body}\nendobj\n", i + 1).as_bytes());
+    }
+    let xref = out.len();
+    out.extend_from_slice(format!("xref\n0 {}\n0000000000 65535 f \n", objects.len() + 1).as_bytes());
+    for offset in offsets {
+        out.extend_from_slice(format!("{offset:010} 00000 n \n").as_bytes());
+    }
+    out.extend_from_slice(format!("trailer\n<< /Size {} /Root 1 0 R >>\nstartxref\n{xref}\n%%EOF\n", objects.len() + 1).as_bytes());
+    out
+}
+
+/// Primeiro pixel (RGB) de um PNG gravado pelo thumbcraft.
+fn first_pixel(path: &Path) -> [u8; 3] {
+    let file = std::fs::File::open(path).unwrap_or_else(|e| panic!("sem saída em {}: {e}", path.display()));
+    let mut reader = png::Decoder::new(std::io::BufReader::new(file)).read_info().expect("PNG inválido");
+    let mut buffer = vec![0; reader.output_buffer_size().unwrap()];
+    reader.next_frame(&mut buffer).unwrap();
+    [buffer[0], buffer[1], buffer[2]]
+}
+
+#[test]
+fn pdf_valid_corpus_files_produce_png_with_the_requested_size() {
+    let dir = tmp("pdf-validos");
+    let mut count = 0;
+    let mut names: Vec<_> = std::fs::read_dir(corpus("pdf")).unwrap().filter_map(|e| e.ok()).map(|e| e.file_name().to_string_lossy().into_owned()).collect();
+    names.sort();
+    for name in names {
+        // Fora: zero páginas (43), com senha de abertura (50), quebrados e com extensão errada (70 a 78).
+        if !name.ends_with(".pdf") || name.starts_with("43_") || name.starts_with("50_") || name.starts_with('7') {
+            continue;
+        }
+        let out = dir.join("p.png");
+        let r = generate(&format!("pdf/{name}"), &out, &["-W", "120", "-H", "90"]);
+        assert_eq!(r.code, 0, "{name}: {}", r.stderr);
+        assert_eq!(png_dims(&out), (120, 90), "{name}");
+        count += 1;
+    }
+    assert!(count >= 30, "esperava ao menos 30 PDFs válidos, rodei {count}");
+}
+
+#[test]
+fn pdf_invalid_files_give_code_4_without_output() {
+    for file in [
+        "pdf/43_zero_paginas.pdf",
+        "pdf/50_cripto_senha_aes256.pdf",
+        "pdf/70_truncado_50pct.pdf",
+        "pdf/71_truncado_90pct.pdf",
+        "pdf/75_zero_bytes.pdf",
+        // Imagem com extensão .pdf: vai para o motor de PDF e falha como arquivo inválido (não como formato não suportado).
+        "pdf/78_jpeg_com_extensao_pdf.pdf",
+    ] {
+        let d = tmp("pdf-invalidos");
+        let out = d.join("x.png");
+        let r = generate(file, &out, &["-W", "100"]);
+        assert_eq!(r.code, 4, "{file}: código {} ({})", r.code, r.stderr);
+        assert!(r.stderr.starts_with("thumbcraft: "), "{file}: {}", r.stderr);
+        assert!(!out.exists(), "{file} não devia gravar saída");
+    }
+}
+
+#[test]
+fn pdf_damaged_but_recoverable_files_still_render() {
+    // Corrompido no meio, xref corrompida e 1 KB de lixo antes do cabeçalho: o leitor se recupera.
+    for file in ["pdf/72_corrompido_meio.pdf", "pdf/73_corrompido_xref.pdf", "pdf/74_lixo_antes_do_cabecalho.pdf"] {
+        let d = tmp("pdf-recuperaveis");
+        let out = d.join("x.png");
+        let r = generate(file, &out, &["-W", "100"]);
+        assert_eq!(r.code, 0, "{file}: {}", r.stderr);
+        assert_eq!(png_dims(&out).0, 100, "{file}");
+    }
+}
+
+#[test]
+fn text_and_html_with_pdf_extension_still_go_to_word() {
+    for file in ["pdf/76_texto_puro_com_extensao_pdf.pdf", "pdf/77_html_com_extensao_pdf.pdf"] {
+        let d = tmp("pdf-extensao-errada");
+        let r = generate(file, &d.join("x.png"), &["-W", "100"]);
+        assert_eq!(r.code, 0, "{file}: {}", r.stderr);
+    }
+}
+
+#[test]
+fn pdf_page_option_picks_the_page() {
+    let d = tmp("pdf-page");
+    let ok = generate("pdf/38_ppt_60_slides.pdf", &d.join("a.png"), &["--page", "60", "-W", "100"]);
+    assert_eq!(ok.code, 0, "{}", ok.stderr);
+    let beyond = generate("pdf/38_ppt_60_slides.pdf", &d.join("b.png"), &["--page", "61"]);
+    assert_eq!(beyond.code, 4);
+    assert!(!d.join("b.png").exists());
+}
+
+#[test]
+fn pdf_rotated_page_comes_out_landscape() {
+    // O arquivo tem /Rotate 90 sobre uma página em retrato; o Poppler erra a largura aqui (docs/PDF-WINDOWS.md).
+    let d = tmp("pdf-rotacionado");
+    let out = d.join("r.png");
+    let r = generate("pdf/49_pagina_rotacionada_90.pdf", &out, &["-W", "200"]);
+    assert_eq!(r.code, 0, "{}", r.stderr);
+    let (w, h) = png_dims(&out);
+    assert_eq!(w, 200);
+    assert!(h < w, "página rotacionada deveria sair em paisagem: {w}x{h}");
+}
+
+#[test]
+fn pdf_blank_page_is_opaque_white() {
+    let d = tmp("pdf-branco");
+    let out = d.join("b.png");
+    let r = generate("pdf/42_pagina_vazia.pdf", &out, &["-W", "100"]);
+    assert_eq!(r.code, 0, "{}", r.stderr);
+    assert_eq!(first_pixel(&out), [255, 255, 255]);
+}
+
+#[test]
+fn pdf_generated_in_code_renders_and_respects_the_page_size() {
+    let d = tmp("pdf-gerado");
+    let input = d.join("in.pdf");
+    // 200 x 100 pt com um retângulo preto na metade esquerda (a origem do PDF é o canto inferior esquerdo).
+    std::fs::write(&input, minimal_pdf(&[(200, 100)], "0 g 0 0 100 100 re f", "")).unwrap();
+    let out = d.join("o.png");
+    let r = run(&[input.to_str().unwrap(), out.to_str().unwrap(), "-W", "200", "--render-scale", "1"]);
+    assert_eq!(r.code, 0, "{}", r.stderr);
+    assert_eq!(png_dims(&out), (200, 100));
+    assert_eq!(first_pixel(&out), [0, 0, 0], "o canto superior esquerdo cai dentro do retângulo preto");
+}
+
+#[test]
+fn pdf_giant_page_stays_within_limits() {
+    // 14400 x 14400 pt (200 polegadas): o pipeline escolhe a escala; o resultado precisa caber nos limites.
+    let d = tmp("pdf-gigante");
+    let input = d.join("g.pdf");
+    std::fs::write(&input, minimal_pdf(&[(14400, 14400)], "0 0 1 rg 1000 1000 8000 8000 re f", "")).unwrap();
+    let out = d.join("g.png");
+    let r = run(&[input.to_str().unwrap(), out.to_str().unwrap(), "-W", "600"]);
+    assert_eq!(r.code, 0, "{}", r.stderr);
+    assert_eq!(png_dims(&out), (600, 600));
 }
