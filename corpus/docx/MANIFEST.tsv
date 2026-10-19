@@ -1,0 +1,31 @@
+arquivo	caso	categoria	geracao	resultado_wordcraft	libreoffice_gerou_png
+01_docx_simples_acentos.docx	texto simples com acentos	valido	python-docx 1.2.0	ok	sim
+02_docx_titulos_listas.docx	títulos e listas (marcadores e numeração)	valido	python-docx 1.2.0	ok	sim
+03_docx_tabelas.docx	tabelas com e sem borda	valido	python-docx 1.2.0	ok	sim
+04_docx_imagens_png_jpeg.docx	imagens PNG e JPEG	valido	python-docx 1.2.0	ok	sim
+05_docx_multipagina.docx	multipágina (40 capítulos)	valido	python-docx 1.2.0	ok	sim
+06_docx_fontes.docx	fontes Calibri, Times New Roman, Arial, Courier New e Cambria	valido	python-docx 1.2.0	degradado	sim
+07_docx_estilos_cores.docx	negrito, itálico, sublinhado e cores	valido	python-docx 1.2.0	ok	sim
+08_docx_cabecalho_rodape.docx	cabeçalho e rodapé	valido	python-docx 1.2.0	ok	sim
+09_doc_97_imagem_tabela.doc	Word 97-2003 com imagem e tabela	formato alternativo	LibreOffice 24.2.7.2 a partir de gen/doc_src.docx (python-docx)	degradado	sim
+10_doc_97_titulos_listas.doc	Word 97-2003 com títulos e listas	formato alternativo	LibreOffice 24.2.7.2 a partir de docx do python-docx	ok	sim
+11_odt_rico.odt	ODT com formatação rica	formato alternativo	pandoc 3.1.3 a partir de fontes-geracao/rich.md	ok	sim
+12_rtf_rico.rtf	RTF com formatação rica	formato alternativo	pandoc 3.1.3 a partir de fontes-geracao/rich.md	ok	sim
+13_html_rico.html	HTML com imagem em data URI	formato alternativo	pandoc 3.1.3 a partir de fontes-geracao/rich.md	ok	não
+14_md_rico.md	Markdown com tabela e imagem relativa	formato alternativo	escrito à mão (fontes-geracao/rich.md)	degradado	sim
+15_tex_rico.tex	LaTeX com imagem	formato alternativo	pandoc 3.1.3 a partir de fontes-geracao/rich.md	degradado	sim
+16_txt_simples.txt	texto simples	formato alternativo	texto escrito em shell (origem exata não registrada)	ok	sim
+17_txt_longo_multipagina.txt	texto longo (mais de 10 páginas)	formato alternativo	texto escrito em shell (origem exata não registrada)	ok	sim
+18_odt_multipagina.odt	ODT multipágina	formato alternativo	pandoc 3.1.3 a partir de fontes-geracao/multi.md	ok	sim
+19_md_multipagina.md	Markdown multipágina	formato alternativo	fontes-geracao/multi.md	ok	sim
+20_doc_97_multipagina.doc	Word 97-2003 multipágina	formato alternativo	LibreOffice 24.2.7.2 a partir de docx do python-docx	ok	sim
+21_vazio.docx	arquivo de 0 bytes com extensão .docx	invalido	arquivo vazio (shell)	falhou	sim
+22_vazio.txt	arquivo de 0 bytes com extensão .txt	invalido	arquivo vazio (shell)	degradado (página em branco, esperado)	sim
+23_corrompido_docx_truncado.docx	docx truncado	invalido	primeiros 5000 bytes do 03 (shell)	falhou	não
+24_corrompido_doc_truncado.doc	doc truncado	invalido	primeiros 3000 bytes do 09 (shell)	falhou	não
+25_extensao_errada_txt_como.docx	texto puro com extensão .docx	invalido	cópia byte a byte do 16 (shell)	falhou	sim
+26_extensao_errada_docx_como.txt	docx real com extensão .txt	invalido	cópia byte a byte do 01 (shell)	degradado (texto binário)	não
+27_extensao_errada_docx_como.doc	docx real com extensão .doc	invalido	cópia byte a byte do 03 (shell)	ok (detecta ZIP pelo conteúdo)	sim
+28_extensao_errada_md_como.pdf	Markdown com extensão .pdf	invalido	cópia byte a byte do 14 (shell)	degradado (texto bruto)	sim
+29_html_como.doc	HTML com extensão .doc	invalido	cópia byte a byte do 13 (shell)	ok (detecta página web)	não
+30_lixo_binario.docx	bytes aleatórios com extensão .docx	invalido	20000 bytes sem estrutura (shell)	falhou	sim
