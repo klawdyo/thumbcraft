@@ -33,3 +33,4 @@ third_party/
 benchmarks/
 corpus/pdf/big/
 /outputs/
+dist/
