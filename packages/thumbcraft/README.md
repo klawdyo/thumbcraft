@@ -16,7 +16,7 @@ thumbcraft is a thin TypeScript wrapper around a fast native binary written in R
 - **Any page or slide**: pick the page, slide or print page to render.
 - **Typed errors**: every failure mode is a distinct TypeScript error class.
 - **Safe by design**: one short-lived process per file with a timeout, so a bad document cannot take your Node.js process down.
-- **Zero runtime dependencies**, ESM, full TypeScript types.
+- **Zero runtime dependencies**, dual ESM and CommonJS (`import` and `require`), full TypeScript types.
 
 ## Install
 
