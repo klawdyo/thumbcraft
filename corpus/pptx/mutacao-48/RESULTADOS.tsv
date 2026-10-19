@@ -1,0 +1,49 @@
+mutante	semente	modo	png_bytes	stderr_vazio	png_identico_ao_original
+03_imagens_png_jpeg_m0.pptx	03_imagens_png_jpeg	5 bytes sobrescritos	198290	sim	sim
+03_imagens_png_jpeg_m1.pptx	03_imagens_png_jpeg	truncado	198290	sim	sim
+03_imagens_png_jpeg_m2.pptx	03_imagens_png_jpeg	trecho removido	198290	sim	sim
+03_imagens_png_jpeg_m3.pptx	03_imagens_png_jpeg	numeros absurdos	198290	sim	sim
+03_imagens_png_jpeg_m4.pptx	03_imagens_png_jpeg	5 bytes sobrescritos	198290	sim	sim
+03_imagens_png_jpeg_m5.pptx	03_imagens_png_jpeg	truncado	198290	sim	sim
+03_imagens_png_jpeg_m6.pptx	03_imagens_png_jpeg	trecho removido	198290	sim	sim
+03_imagens_png_jpeg_m7.pptx	03_imagens_png_jpeg	numeros absurdos	198290	sim	sim
+05_formas_gradiente_m0.pptx	05_formas_gradiente	5 bytes sobrescritos	112482	sim	sim
+05_formas_gradiente_m1.pptx	05_formas_gradiente	truncado	112482	sim	sim
+05_formas_gradiente_m2.pptx	05_formas_gradiente	trecho removido	112482	sim	sim
+05_formas_gradiente_m3.pptx	05_formas_gradiente	numeros absurdos	112482	sim	sim
+05_formas_gradiente_m4.pptx	05_formas_gradiente	5 bytes sobrescritos	112482	sim	sim
+05_formas_gradiente_m5.pptx	05_formas_gradiente	truncado	112482	sim	sim
+05_formas_gradiente_m6.pptx	05_formas_gradiente	trecho removido	112482	sim	sim
+05_formas_gradiente_m7.pptx	05_formas_gradiente	numeros absurdos	112482	sim	sim
+09_grafico_barras_m0.pptx	09_grafico_barras	5 bytes sobrescritos	25742	sim	sim
+09_grafico_barras_m1.pptx	09_grafico_barras	truncado	25742	sim	sim
+09_grafico_barras_m2.pptx	09_grafico_barras	trecho removido	25742	sim	sim
+09_grafico_barras_m3.pptx	09_grafico_barras	numeros absurdos	25742	sim	sim
+09_grafico_barras_m4.pptx	09_grafico_barras	5 bytes sobrescritos	25742	sim	sim
+09_grafico_barras_m5.pptx	09_grafico_barras	truncado	25742	sim	sim
+09_grafico_barras_m6.pptx	09_grafico_barras	trecho removido	25742	sim	sim
+09_grafico_barras_m7.pptx	09_grafico_barras	numeros absurdos	25742	sim	sim
+12_smartart_com_drawing_m0.pptx	12_smartart_com_drawing	5 bytes sobrescritos	30483	sim	sim
+12_smartart_com_drawing_m1.pptx	12_smartart_com_drawing	truncado	34124	sim	nao
+12_smartart_com_drawing_m2.pptx	12_smartart_com_drawing	trecho removido	30483	sim	sim
+12_smartart_com_drawing_m3.pptx	12_smartart_com_drawing	numeros absurdos	30483	sim	sim
+12_smartart_com_drawing_m4.pptx	12_smartart_com_drawing	5 bytes sobrescritos	30483	sim	sim
+12_smartart_com_drawing_m5.pptx	12_smartart_com_drawing	truncado	30483	sim	sim
+12_smartart_com_drawing_m6.pptx	12_smartart_com_drawing	trecho removido	30483	sim	sim
+12_smartart_com_drawing_m7.pptx	12_smartart_com_drawing	numeros absurdos	30483	sim	sim
+18_mestre_layout_logo_m0.pptx	18_mestre_layout_logo	5 bytes sobrescritos	46804	sim	sim
+18_mestre_layout_logo_m1.pptx	18_mestre_layout_logo	truncado	14419	sim	nao
+18_mestre_layout_logo_m2.pptx	18_mestre_layout_logo	trecho removido	46804	sim	sim
+18_mestre_layout_logo_m3.pptx	18_mestre_layout_logo	numeros absurdos	46804	sim	sim
+18_mestre_layout_logo_m4.pptx	18_mestre_layout_logo	5 bytes sobrescritos	46804	sim	sim
+18_mestre_layout_logo_m5.pptx	18_mestre_layout_logo	truncado	46804	sim	sim
+18_mestre_layout_logo_m6.pptx	18_mestre_layout_logo	trecho removido	46804	sim	sim
+18_mestre_layout_logo_m7.pptx	18_mestre_layout_logo	numeros absurdos	46804	sim	sim
+23_texto_vertical_rotacionado_m0.pptx	23_texto_vertical_rotacionado	5 bytes sobrescritos	63250	sim	sim
+23_texto_vertical_rotacionado_m1.pptx	23_texto_vertical_rotacionado	truncado	63250	sim	sim
+23_texto_vertical_rotacionado_m2.pptx	23_texto_vertical_rotacionado	trecho removido	63250	sim	sim
+23_texto_vertical_rotacionado_m3.pptx	23_texto_vertical_rotacionado	numeros absurdos	63250	sim	sim
+23_texto_vertical_rotacionado_m4.pptx	23_texto_vertical_rotacionado	5 bytes sobrescritos	63250	sim	sim
+23_texto_vertical_rotacionado_m5.pptx	23_texto_vertical_rotacionado	truncado	63250	sim	sim
+23_texto_vertical_rotacionado_m6.pptx	23_texto_vertical_rotacionado	trecho removido	63250	sim	sim
+23_texto_vertical_rotacionado_m7.pptx	23_texto_vertical_rotacionado	numeros absurdos	63250	sim	sim

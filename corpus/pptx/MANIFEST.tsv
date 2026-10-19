@@ -1,0 +1,47 @@
+arquivo	formato	caso	categoria	geracao	resultado_deckcraft	resultado_libreoffice
+01_titulo_acentos.pptx	pptx	título com acentos	valido	python-pptx 1.0.2	ok	ok
+02_bullets_niveis.pptx	pptx	bullets e níveis	valido	python-pptx 1.0.2	ok	ok
+03_imagens_png_jpeg.pptx	pptx	imagens PNG e JPEG	valido	python-pptx 1.0.2 e Pillow 12.3.0	ok	ok
+04_formas_basicas.pptx	pptx	formas, setas e linhas	valido	python-pptx 1.0.2	ok	ok
+05_formas_gradiente.pptx	pptx	formas com gradiente	valido	python-pptx 1.0.2 e XML direto	ok	ok
+06_sombra_transparencia.pptx	pptx	sombra e transparência	valido	python-pptx 1.0.2 e XML direto	ok	ok
+07_tabela_com_bordas.pptx	pptx	tabela com bordas	valido	python-pptx 1.0.2	ok	ok
+08_tabela_sem_bordas.pptx	pptx	tabela sem bordas	valido	python-pptx 1.0.2	ok	ok
+09_grafico_barras.pptx	pptx	gráfico de barras	valido	python-pptx 1.0.2	ok	ok
+10_grafico_linhas.pptx	pptx	gráfico de linhas	valido	python-pptx 1.0.2	ok	ok
+11_grafico_pizza.pptx	pptx	gráfico de pizza	valido	python-pptx 1.0.2	ok	ok
+12_smartart_com_drawing.pptx	pptx	SmartArt com drawing de fallback (montado à mão, não veio do PowerPoint)	valido	python-pptx 1.0.2 e XML à mão	ok	ok
+12b_smartart_sem_drawing.pptx	pptx	SmartArt sem drawing (só o modelo de dados)	valido	python-pptx 1.0.2 e XML à mão	degradado	degradado
+13_texto_formatado.pptx	pptx	texto formatado	valido	python-pptx 1.0.2	ok	ok
+14_fontes.pptx	pptx	fontes variadas (inclui Comic Sans ausente)	valido	python-pptx 1.0.2	ok	ok
+15_fundo_solido.pptx	pptx	fundo sólido	valido	python-pptx 1.0.2	ok	ok
+16_fundo_gradiente.pptx	pptx	fundo gradiente	valido	python-pptx 1.0.2	ok	ok
+17_fundo_imagem.pptx	pptx	fundo com imagem	valido	python-pptx 1.0.2	ok	ok
+18_mestre_layout_logo.pptx	pptx	slide mestre e layout com logotipo	valido	python-pptx 1.0.2 e XML direto	ok	ok
+19_notas_orador.pptx	pptx	notas do orador	valido	python-pptx 1.0.2	ok	ok
+20_transicoes_animacoes.pptx	pptx	transições e animações	valido	python-pptx 1.0.2 e XML direto	ok	ok
+21_apresentacao_60_slides.pptx	pptx	apresentação de 60 slides	valido	python-pptx 1.0.2	ok	ok
+22_texto_overflow.pptx	pptx	texto com overflow	valido	python-pptx 1.0.2	ok	ok
+23_texto_vertical_rotacionado.pptx	pptx	texto vertical e rotacionado (o caso 24 foi fundido aqui)	valido	python-pptx 1.0.2 e XML direto	ok	ok
+25_proporcao_4x3.pptx	pptx	proporção 4:3	valido	python-pptx 1.0.2	ok	ok
+26_proporcao_16x9.pptx	pptx	proporção 16:9	valido	python-pptx 1.0.2	ok	ok
+27_video_placeholder.pptx	pptx	vídeo (placeholder com poster)	valido	python-pptx 1.0.2	ok	ok
+28_hiperlinks.pptx	pptx	hiperlinks	valido	python-pptx 1.0.2	ok	ok
+29_primeiro_slide_oculto.pptx	pptx	primeiro slide oculto	valido	python-pptx 1.0.2	ok	ok
+30_rtl_cjk_emoji.pptx	pptx	RTL, CJK e emoji	valido	python-pptx 1.0.2	degradado	ok
+31_imagem_tela_cheia_recorte.pptx	pptx	imagem em tela cheia e recorte	valido	python-pptx 1.0.2	ok	ok
+32_graficos_multiplos.pptx	pptx	vários gráficos (barras empilhadas, área e rosca) no mesmo slide	valido	python-pptx 1.0.2	degradado	ok
+33_slideshow.ppsx	ppsx	slideshow (.ppsx)	formato alternativo	troca do content type do 03 (zipfile)	ok	ok
+34_modelo.potx	potx	modelo (.potx)	formato alternativo	troca do content type do 03 (zipfile)	ok	ok
+35_legado_formas.ppt	ppt	legado .ppt com formas	formato nao suportado pelo DeckCraft	LibreOffice 24.2.7.2 a partir de pptx	falhou	degradado
+36_legado_imagem.ppt	ppt	legado .ppt com imagem	formato nao suportado pelo DeckCraft	LibreOffice 24.2.7.2 a partir de pptx	falhou	ok
+37_formas_gradiente.odp	odp	.odp com formas e gradiente	formato nao suportado pelo DeckCraft	LibreOffice 24.2.7.2 a partir de pptx	falhou	ok
+38_grafico_barras.odp	odp	.odp com gráfico de barras	formato nao suportado pelo DeckCraft	LibreOffice 24.2.7.2 a partir de pptx	falhou	ok
+39_legado_grafico.ppt	ppt	legado .ppt com gráfico	formato nao suportado pelo DeckCraft	LibreOffice 24.2.7.2 a partir de pptx	falhou	ok
+40_vazio_0bytes.pptx	pptx	arquivo de 0 bytes	invalido	vazio, escrito pelo gen.py	falhou	falhou
+41_truncado.pptx	pptx	pptx truncado na metade (do 09)	invalido	corte de bytes do 09	falhou	falhou
+42_corrompido_bytes.pptx	pptx	pptx com 400 bytes sobrescritos no terço do arquivo (do 09)	invalido	bytes aleatórios sobre o 09 (random)	ok	ok
+43_texto_puro.pptx	pptx	texto puro com extensão .pptx	invalido	texto escrito pelo gen.py	falhou	falhou
+44_slide1_xml_quebrado.pptx	pptx	XML do slide 1 cortado ao meio dentro de zip válido (do 21)	invalido	zipfile sobre o 21	degradado	degradado
+45_pptx_extensao_ppt.ppt	ppt	pptx real com extensão .ppt (cópia do 01)	invalido	cópia do 01	ok	ok
+46_pptx_extensao_docx.docx	docx	pptx real com extensão .docx (cópia do 01)	invalido	cópia do 01	ok	ok
