@@ -21,6 +21,12 @@ publish = false
 # A revisão do craft-libs é a mesma c3487320 dos dois (ver UPSTREAM.md).
 [patch.crates-io]
 krilla = { git = "https://github.com/storytold/craft-libs", rev = "c3487320b2d1de657b860b3c8abb44e1f2b32bd8", version = "=0.8.2" }
+# Leitor e rasterizador de PDF do craft-pdf (feature raster, revisão ae2f796b): o craft-pdf exige o hayro
+# remendado do craft-libs, e o cargo ignora [patch] de dependências, então a raiz repete o remendo.
+hayro = { git = "https://github.com/storytold/craft-libs", rev = "ae2f796b673f29cf3161f36eb6a8933f0a3fe028", version = "=0.7.1" }
+hayro-interpret = { git = "https://github.com/storytold/craft-libs", rev = "ae2f796b673f29cf3161f36eb6a8933f0a3fe028", version = "=0.7.0" }
+hayro-syntax = { git = "https://github.com/storytold/craft-libs", rev = "ae2f796b673f29cf3161f36eb6a8933f0a3fe028", version = "=0.7.2" }
+hayro-jbig2 = { git = "https://github.com/storytold/craft-libs", rev = "ae2f796b673f29cf3161f36eb6a8933f0a3fe028", version = "=0.3.0" }
 
 # Perfil voltado a tamanho de binário (valores medidos em docs/SIZES.md).
 [profile.release]
