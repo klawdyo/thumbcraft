@@ -13,6 +13,9 @@
 
 set -euo pipefail
 
+# Sem conversão de fim de linha, em qualquer configuração global do git (os patches e o hash da árvore esperam LF).
+export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=core.autocrlf GIT_CONFIG_VALUE_0=false
+
 RAIZ="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DEST="$RAIZ/third_party"
 
