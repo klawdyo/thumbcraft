@@ -1,0 +1,2229 @@
+s-01_values.d              yes    same    0 (1p)       PASS
+s-01_values.fit            yes    same    0 (1p)       PASS
+s-01_values.rng            yes    same    0 (1p)       PASS
+s-01_values.all            yes    same    0 (1p)       PASS
+s-01_values.prn            yes    same    0 (1p)       PASS
+    B| 81c81
+    B| < 50.4 710.727 87.75 27.273 re f
+    B| ---
+    B| > 51.4 710.727 87.75 27.273 re f
+    B| 83c83
+    B| < 138.15 710.727 87.75 27.273 re f
+    B| ---
+    B| > 139.15 710.727 87.75 27.273 re f
+    B| 85c85
+    B| < 225.9 710.727 87.75 27.273 re f
+    B| ---
+    B| > 226.9 710.727 87.75 27.273 re f
+    B| 87c87
+    B| < 313.65 710.727 87.75 27.273 re f
+    B| ---
+    B| > 314.65 710.727 87.75 27.273 re f
+    B| 89c89
+    B| < 401.4 710.727 87.75 27.273 re f
+    B| ---
+    B| > 402.4 710.727 87.75 27.273 re f
+s-02_styles.d              NO     same     p1.png=339  FAIL
+    B| 81c81
+    B| < 50.4 710.727 87.75 27.273 re f
+    B| ---
+    B| > 51.4 710.727 87.75 27.273 re f
+    B| 83c83
+    B| < 138.15 710.727 87.75 27.273 re f
+    B| ---
+    B| > 139.15 710.727 87.75 27.273 re f
+    B| 85c85
+    B| < 225.9 710.727 87.75 27.273 re f
+    B| ---
+    B| > 226.9 710.727 87.75 27.273 re f
+    B| 87c87
+    B| < 313.65 710.727 87.75 27.273 re f
+    B| ---
+    B| > 314.65 710.727 87.75 27.273 re f
+    B| 89c89
+    B| < 401.4 710.727 87.75 27.273 re f
+    B| ---
+    B| > 402.4 710.727 87.75 27.273 re f
+s-02_styles.fit            NO     same     p1.png=339  FAIL
+    B| 81c81
+    B| < 50.4 710.727 87.75 27.273 re f
+    B| ---
+    B| > 51.4 710.727 87.75 27.273 re f
+    B| 83c83
+    B| < 138.15 710.727 87.75 27.273 re f
+    B| ---
+    B| > 139.15 710.727 87.75 27.273 re f
+    B| 85c85
+    B| < 225.9 710.727 87.75 27.273 re f
+    B| ---
+    B| > 226.9 710.727 87.75 27.273 re f
+    B| 87c87
+    B| < 313.65 710.727 87.75 27.273 re f
+    B| ---
+    B| > 314.65 710.727 87.75 27.273 re f
+    B| 89c89
+    B| < 50.4 683.455 87.75 27.273 re f
+    B| ---
+    B| > 51.4 683.455 87.75 27.273 re f
+s-02_styles.rng            NO     same     p1.png=376  FAIL
+    B| 81c81
+    B| < 50.4 710.727 87.75 27.273 re f
+    B| ---
+    B| > 51.4 710.727 87.75 27.273 re f
+    B| 83c83
+    B| < 138.15 710.727 87.75 27.273 re f
+    B| ---
+    B| > 139.15 710.727 87.75 27.273 re f
+    B| 85c85
+    B| < 225.9 710.727 87.75 27.273 re f
+    B| ---
+    B| > 226.9 710.727 87.75 27.273 re f
+    B| 87c87
+    B| < 313.65 710.727 87.75 27.273 re f
+    B| ---
+    B| > 314.65 710.727 87.75 27.273 re f
+    B| 89c89
+    B| < 401.4 710.727 87.75 27.273 re f
+    B| ---
+    B| > 402.4 710.727 87.75 27.273 re f
+s-02_styles.all            NO     same     p1.png=339  FAIL
+    B| 81c81
+    B| < 50.4 710.727 87.75 27.273 re f
+    B| ---
+    B| > 51.4 710.727 87.75 27.273 re f
+    B| 83c83
+    B| < 138.15 710.727 87.75 27.273 re f
+    B| ---
+    B| > 139.15 710.727 87.75 27.273 re f
+    B| 85c85
+    B| < 225.9 710.727 87.75 27.273 re f
+    B| ---
+    B| > 226.9 710.727 87.75 27.273 re f
+    B| 87c87
+    B| < 313.65 710.727 87.75 27.273 re f
+    B| ---
+    B| > 314.65 710.727 87.75 27.273 re f
+    B| 89c89
+    B| < 401.4 710.727 87.75 27.273 re f
+    B| ---
+    B| > 402.4 710.727 87.75 27.273 re f
+s-02_styles.prn            NO     same     p1.png=339  FAIL
+s-03_borders.d             yes    same    0 (1p)       PASS
+s-03_borders.fit           yes    same    0 (1p)       PASS
+s-03_borders.rng           yes    same    0 (1p)       PASS
+s-03_borders.all           yes    same    0 (1p)       PASS
+s-03_borders.prn           yes    same    0 (1p)       PASS
+    B| 100c100
+    B| < 50.4 714 267 24 re f
+    B| ---
+    B| > 51.4 714 267 24 re f
+    B| 102c102
+    B| < 50.4 618 66.75 96 re f
+    B| ---
+    B| > 51.4 618 66.75 96 re f
+    B| 104c104
+    B| < 117.15 618 200.25 96 re f
+    B| ---
+    B| > 118.15 618 200.25 96 re f
+    B| 106c106
+    B| < 384.15 666 200.25 72 re f
+    B| ---
+    B| > 385.15 666 200.25 72 re f
+    B| 108c108
+    B| < 384.15 618 200.25 24 re f
+    B| ---
+    B| > 385.15 618 200.25 24 re f
+s-04_merge.d               NO     same     p2.png=67   FAIL
+    B| 71c71
+    B| < 50.4 715.025 255.6 22.975 re f
+    B| ---
+    B| > 51.4 715.025 255.6 22.975 re f
+    B| 73c73
+    B| < 50.4 623.124 63.9 91.901 re f
+    B| ---
+    B| > 51.4 623.124 63.9 91.901 re f
+    B| 75c75
+    B| < 114.3 623.124 191.7 91.901 re f
+    B| ---
+    B| > 115.3 623.124 191.7 91.901 re f
+    B| 77c77
+    B| < 369.9 669.074 191.7 68.926 re f
+    B| ---
+    B| > 370.9 669.074 191.7 68.926 re f
+    B| 79c79
+    B| < 369.9 623.124 191.7 22.975 re f
+    B| ---
+    B| > 370.9 623.124 191.7 22.975 re f
+s-04_merge.fit             NO     same     p1.png=64   FAIL
+    B| 100c100
+    B| < 50.4 642 200.25 96 re f
+    B| ---
+    B| > 51.4 642 200.25 96 re f
+    B| 102c102
+    B| < 317.4 690 200.25 72 re f
+    B| ---
+    B| > 318.4 690 200.25 72 re f
+    B| 104c104
+    B| < 317.4 642 200.25 24 re f
+    B| ---
+    B| > 318.4 642 200.25 24 re f
+    B| 106c106
+    B| < -16.35 234 400.5 24 re f
+    B| ---
+    B| > -15.35 234 400.5 24 re f
+    B| 851c851
+    B| <   /ID [<042d4e54adddd741510c429a6da359e4><042d4e54adddd741510c429a6da359e4>]
+    B| ---
+    B| >   /ID [<1a4af07edccaa5ac4613417dd7d157e1><1a4af07edccaa5ac4613417dd7d157e1>]
+s-04_merge.rng             NO     same    0 (2p)       FAIL
+    B| 100c100
+    B| < 50.4 714 267 24 re f
+    B| ---
+    B| > 51.4 714 267 24 re f
+    B| 102c102
+    B| < 50.4 618 66.75 96 re f
+    B| ---
+    B| > 51.4 618 66.75 96 re f
+    B| 104c104
+    B| < 117.15 618 200.25 96 re f
+    B| ---
+    B| > 118.15 618 200.25 96 re f
+    B| 106c106
+    B| < 384.15 666 200.25 72 re f
+    B| ---
+    B| > 385.15 666 200.25 72 re f
+    B| 108c108
+    B| < 384.15 618 200.25 24 re f
+    B| ---
+    B| > 385.15 618 200.25 24 re f
+s-04_merge.all             NO     same     p2.png=67   FAIL
+    B| 100c100
+    B| < 50.4 714 267 24 re f
+    B| ---
+    B| > 51.4 714 267 24 re f
+    B| 102c102
+    B| < 50.4 618 66.75 96 re f
+    B| ---
+    B| > 51.4 618 66.75 96 re f
+    B| 104c104
+    B| < 117.15 618 200.25 96 re f
+    B| ---
+    B| > 118.15 618 200.25 96 re f
+    B| 106c106
+    B| < 384.15 666 200.25 72 re f
+    B| ---
+    B| > 385.15 666 200.25 72 re f
+    B| 108c108
+    B| < 384.15 618 200.25 24 re f
+    B| ---
+    B| > 385.15 618 200.25 24 re f
+s-04_merge.prn             NO     same     p2.png=67   FAIL
+    B| 98c98
+    B| < 106.65 723 56.25 15 re f
+    B| ---
+    B| > 107.65 723 56.25 15 re f
+    B| 100c100
+    B| < 164.025 724.125 31.251 12.75 re f
+    B| ---
+    B| > 165.025 724.125 31.251 12.75 re f
+    B| 102c102
+    B| < 275.4 723 56.25 15 re f
+    B| ---
+    B| > 276.4 723 56.25 15 re f
+    B| 104c104
+    B| < 106.65 708 56.25 15 re f
+    B| ---
+    B| > 107.65 708 56.25 15 re f
+    B| 106c106
+    B| < 164.025 709.125 19.36 12.75 re f
+    B| ---
+    B| > 165.025 709.125 19.36 12.75 re f
+s-05_condfmt.d             NO     same     p1.png=1478 FAIL
+    B| 70c70
+    B| < 101.52 724.368 51.12 13.632 re f
+    B| ---
+    B| > 102.52 724.368 51.12 13.632 re f
+    B| 72c72
+    B| < 153.662 725.39 28.401 11.587 re f
+    B| ---
+    B| > 154.662 725.39 28.401 11.587 re f
+    B| 74c74
+    B| < 254.88 724.368 51.12 13.632 re f
+    B| ---
+    B| > 255.88 724.368 51.12 13.632 re f
+    B| 76c76
+    B| < 101.52 710.736 51.12 13.632 re f
+    B| ---
+    B| > 102.52 710.736 51.12 13.632 re f
+    B| 78c78
+    B| < 153.662 711.758 17.594 11.587 re f
+    B| ---
+    B| > 154.662 711.758 17.594 11.587 re f
+s-05_condfmt.fit           NO     same     p1.png=699  FAIL
+    B| 70c70
+    B| < 50.4 723 56.25 15 re f
+    B| ---
+    B| > 51.4 723 56.25 15 re f
+    B| 72c72
+    B| < 107.775 724.125 19.36 12.75 re f
+    B| ---
+    B| > 108.775 724.125 19.36 12.75 re f
+    B| 74c74
+    B| < 219.15 723 56.25 15 re f
+    B| ---
+    B| > 220.15 723 56.25 15 re f
+    B| 76c76
+    B| < 50.4 708 56.25 15 re f
+    B| ---
+    B| > 51.4 708 56.25 15 re f
+    B| 78c78
+    B| < 107.775 709.125 9.019 12.75 re f
+    B| ---
+    B| > 108.775 709.125 9.019 12.75 re f
+s-05_condfmt.rng           NO     same     p1.png=1149 FAIL
+    B| 98c98
+    B| < 106.65 723 56.25 15 re f
+    B| ---
+    B| > 107.65 723 56.25 15 re f
+    B| 100c100
+    B| < 164.025 724.125 31.251 12.75 re f
+    B| ---
+    B| > 165.025 724.125 31.251 12.75 re f
+    B| 102c102
+    B| < 275.4 723 56.25 15 re f
+    B| ---
+    B| > 276.4 723 56.25 15 re f
+    B| 104c104
+    B| < 106.65 708 56.25 15 re f
+    B| ---
+    B| > 107.65 708 56.25 15 re f
+    B| 106c106
+    B| < 164.025 709.125 19.36 12.75 re f
+    B| ---
+    B| > 165.025 709.125 19.36 12.75 re f
+s-05_condfmt.all           NO     same     p1.png=1478 FAIL
+    B| 98c98
+    B| < 106.65 723 56.25 15 re f
+    B| ---
+    B| > 107.65 723 56.25 15 re f
+    B| 100c100
+    B| < 164.025 724.125 31.251 12.75 re f
+    B| ---
+    B| > 165.025 724.125 31.251 12.75 re f
+    B| 102c102
+    B| < 275.4 723 56.25 15 re f
+    B| ---
+    B| > 276.4 723 56.25 15 re f
+    B| 104c104
+    B| < 106.65 708 56.25 15 re f
+    B| ---
+    B| > 107.65 708 56.25 15 re f
+    B| 106c106
+    B| < 164.025 709.125 19.36 12.75 re f
+    B| ---
+    B| > 165.025 709.125 19.36 12.75 re f
+s-05_condfmt.prn           NO     same     p1.png=1478 FAIL
+    B| 481c481
+    B| < 50.4 408 270 180 re f
+    B| ---
+    B| > 51.4 408 270 180 re f
+    B| 492c492
+    B| < 287.918 492.375 5.4 5.4 re f
+    B| ---
+    B| > 288.918 492.375 5.4 5.4 re f
+    B| 500c500
+    B| < 287.918 481.575 5.4 5.4 re f
+    B| ---
+    B| > 288.918 481.575 5.4 5.4 re f
+    B| 622c622
+    B| < 78.865 427.65 7.341 110.911 re f
+    B| ---
+    B| > 79.865 427.65 7.341 110.911 re f
+    B| 624c624
+    B| < 104.56 427.65 7.341 121.892 re f
+    B| ---
+    B| > 105.56 427.65 7.341 121.892 re f
+s-06_charts.d              NO     same     p1.png=1000 p2.png=13 p3.png=75 FAIL
+    B| 397c397
+    B| < 50.4 542.75 159.75 106.5 re f
+    B| ---
+    B| > 51.4 542.75 159.75 106.5 re f
+    B| 408c408
+    B| < 190.932 592.672 3.195 3.195 re f
+    B| ---
+    B| > 191.932 592.672 3.195 3.195 re f
+    B| 416c416
+    B| < 190.932 586.282 3.195 3.195 re f
+    B| ---
+    B| > 191.932 586.282 3.195 3.195 re f
+    B| 538c538
+    B| < 67.242 554.376 4.344 65.622 re f
+    B| ---
+    B| > 68.242 554.376 4.344 65.622 re f
+    B| 540c540
+    B| < 82.445 554.376 4.344 72.119 re f
+    B| ---
+    B| > 83.445 554.376 4.344 72.119 re f
+s-06_charts.fit            NO     same     p1.png=685  FAIL
+    B| 289c289
+    B| < 2.4 423 270 180 re f
+    B| ---
+    B| > 3.4 423 270 180 re f
+    B| 300c300
+    B| < 239.918 507.375 5.4 5.4 re f
+    B| ---
+    B| > 240.918 507.375 5.4 5.4 re f
+    B| 308c308
+    B| < 239.918 496.575 5.4 5.4 re f
+    B| ---
+    B| > 240.918 496.575 5.4 5.4 re f
+    B| 430c430
+    B| < 30.865 442.65 7.341 110.911 re f
+    B| ---
+    B| > 31.865 442.65 7.341 110.911 re f
+    B| 432c432
+    B| < 56.56 442.65 7.341 121.892 re f
+    B| ---
+    B| > 57.56 442.65 7.341 121.892 re f
+s-06_charts.rng            NO     same     p1.png=905  FAIL
+    B| 481c481
+    B| < 50.4 408 270 180 re f
+    B| ---
+    B| > 51.4 408 270 180 re f
+    B| 492c492
+    B| < 287.918 492.375 5.4 5.4 re f
+    B| ---
+    B| > 288.918 492.375 5.4 5.4 re f
+    B| 500c500
+    B| < 287.918 481.575 5.4 5.4 re f
+    B| ---
+    B| > 288.918 481.575 5.4 5.4 re f
+    B| 622c622
+    B| < 78.865 427.65 7.341 110.911 re f
+    B| ---
+    B| > 79.865 427.65 7.341 110.911 re f
+    B| 624c624
+    B| < 104.56 427.65 7.341 121.892 re f
+    B| ---
+    B| > 105.56 427.65 7.341 121.892 re f
+s-06_charts.all            NO     same     p1.png=1000 p2.png=13 p3.png=75 FAIL
+    B| 481c481
+    B| < 50.4 408 270 180 re f
+    B| ---
+    B| > 51.4 408 270 180 re f
+    B| 492c492
+    B| < 287.918 492.375 5.4 5.4 re f
+    B| ---
+    B| > 288.918 492.375 5.4 5.4 re f
+    B| 500c500
+    B| < 287.918 481.575 5.4 5.4 re f
+    B| ---
+    B| > 288.918 481.575 5.4 5.4 re f
+    B| 622c622
+    B| < 78.865 427.65 7.341 110.911 re f
+    B| ---
+    B| > 79.865 427.65 7.341 110.911 re f
+    B| 624c624
+    B| < 104.56 427.65 7.341 121.892 re f
+    B| ---
+    B| > 105.56 427.65 7.341 121.892 re f
+s-06_charts.prn            NO     same     p1.png=1000 p2.png=13 p3.png=75 FAIL
+s-07_images.d              yes    same    0 (1p)       PASS
+s-07_images.fit            yes    same    0 (1p)       PASS
+s-07_images.rng            yes    same    0 (1p)       PASS
+s-07_images.all            yes    same    0 (1p)       PASS
+s-07_images.prn            yes    same    0 (1p)       PASS
+s-08_wrap.d                yes    same    0 (1p)       PASS
+s-08_wrap.fit              yes    same    0 (1p)       PASS
+s-08_wrap.rng              yes    same    0 (2p)       PASS
+s-08_wrap.all              yes    same    0 (1p)       PASS
+s-08_wrap.prn              yes    same    0 (1p)       PASS
+    B| 2001c2001
+    B| < 288.57 526.28 48 15 re f
+    B| ---
+    B| > 289.57 526.28 48 15 re f
+    B| 2012c2012
+    B| < 336.57 526.28 48 15 re f
+    B| ---
+    B| > 337.57 526.28 48 15 re f
+    B| 2023c2023
+    B| < 384.57 526.28 48 15 re f
+    B| ---
+    B| > 385.57 526.28 48 15 re f
+    B| 2034c2034
+    B| < 432.57 526.28 48 15 re f
+    B| ---
+    B| > 433.57 526.28 48 15 re f
+    B| 2045c2045
+    B| < 480.57 526.28 48 15 re f
+    B| ---
+    B| > 481.57 526.28 48 15 re f
+s-09_pages.d               NO     same    0 (8p)       FAIL
+    B| 19931c19931
+    B| < 308.085 537.253 12.887 4.027 re f
+    B| ---
+    B| > 309.085 537.253 12.887 4.027 re f
+    B| 19942c19942
+    B| < 320.972 537.253 12.887 4.027 re f
+    B| ---
+    B| > 321.972 537.253 12.887 4.027 re f
+    B| 19953c19953
+    B| < 333.859 537.253 12.887 4.027 re f
+    B| ---
+    B| > 334.859 537.253 12.887 4.027 re f
+    B| 19964c19964
+    B| < 346.746 537.253 12.887 4.027 re f
+    B| ---
+    B| > 347.746 537.253 12.887 4.027 re f
+    B| 19975c19975
+    B| < 359.632 537.253 12.887 4.027 re f
+    B| ---
+    B| > 360.632 537.253 12.887 4.027 re f
+s-09_pages.fit             NO     same    0 (1p)       FAIL
+    B| 92c92
+    B| < 285.945 526.28 48 15 re f
+    B| ---
+    B| > 286.945 526.28 48 15 re f
+    B| 103c103
+    B| < 267.945 511.28 18 15 re f
+    B| ---
+    B| > 268.945 511.28 18 15 re f
+    B| 186c186
+    B| < 333.945 526.28 48 15 re f
+    B| ---
+    B| > 334.945 526.28 48 15 re f
+    B| 197c197
+    B| < 381.945 526.28 48 15 re f
+    B| ---
+    B| > 382.945 526.28 48 15 re f
+    B| 208c208
+    B| < 429.945 526.28 48 15 re f
+    B| ---
+    B| > 430.945 526.28 48 15 re f
+s-09_pages.rng             NO     same    0 (1p)       FAIL
+    B| 2029c2029
+    B| < 288.57 526.28 48 15 re f
+    B| ---
+    B| > 289.57 526.28 48 15 re f
+    B| 2040c2040
+    B| < 336.57 526.28 48 15 re f
+    B| ---
+    B| > 337.57 526.28 48 15 re f
+    B| 2051c2051
+    B| < 384.57 526.28 48 15 re f
+    B| ---
+    B| > 385.57 526.28 48 15 re f
+    B| 2062c2062
+    B| < 432.57 526.28 48 15 re f
+    B| ---
+    B| > 433.57 526.28 48 15 re f
+    B| 2073c2073
+    B| < 480.57 526.28 48 15 re f
+    B| ---
+    B| > 481.57 526.28 48 15 re f
+s-09_pages.all             NO     same    0 (9p)       FAIL
+    B| 2001c2001
+    B| < 288.57 526.28 48 15 re f
+    B| ---
+    B| > 289.57 526.28 48 15 re f
+    B| 2012c2012
+    B| < 336.57 526.28 48 15 re f
+    B| ---
+    B| > 337.57 526.28 48 15 re f
+    B| 2023c2023
+    B| < 384.57 526.28 48 15 re f
+    B| ---
+    B| > 385.57 526.28 48 15 re f
+    B| 2034c2034
+    B| < 432.57 526.28 48 15 re f
+    B| ---
+    B| > 433.57 526.28 48 15 re f
+    B| 2045c2045
+    B| < 480.57 526.28 48 15 re f
+    B| ---
+    B| > 481.57 526.28 48 15 re f
+s-09_pages.prn             NO     same    0 (8p)       FAIL
+    B| 74c74
+    B| < 128.775 672.307 34.203 12.75 re f
+    B| ---
+    B| > 129.775 672.307 34.203 12.75 re f
+    B| 76c76
+    B| < 206.025 672.307 72.775 12.75 re f
+    B| ---
+    B| > 207.025 672.307 72.775 12.75 re f
+    B| 78c78
+    B| < 283.275 672.307 50.522 12.75 re f
+    B| ---
+    B| > 284.275 672.307 50.522 12.75 re f
+    B| 80c80
+    B| < 360.525 672.307 29.011 12.75 re f
+    B| ---
+    B| > 361.525 672.307 29.011 12.75 re f
+    B| 82c82
+    B| < 128.775 657.307 75 12.75 re f
+    B| ---
+    B| > 129.775 657.307 75 12.75 re f
+s-10_mixed.d               NO     same     p1.png=886  FAIL
+    B| 74c74
+    B| < 128.775 672.307 34.203 12.75 re f
+    B| ---
+    B| > 129.775 672.307 34.203 12.75 re f
+    B| 76c76
+    B| < 206.025 672.307 72.775 12.75 re f
+    B| ---
+    B| > 207.025 672.307 72.775 12.75 re f
+    B| 78c78
+    B| < 283.275 672.307 50.522 12.75 re f
+    B| ---
+    B| > 284.275 672.307 50.522 12.75 re f
+    B| 80c80
+    B| < 360.525 672.307 29.011 12.75 re f
+    B| ---
+    B| > 361.525 672.307 29.011 12.75 re f
+    B| 82c82
+    B| < 128.775 657.307 75 12.75 re f
+    B| ---
+    B| > 129.775 657.307 75 12.75 re f
+s-10_mixed.fit             NO     same     p1.png=886  FAIL
+    B| 74c74
+    B| < 51.525 694.125 34.203 12.75 re f
+    B| ---
+    B| > 52.525 694.125 34.203 12.75 re f
+    B| 76c76
+    B| < 128.775 694.125 72.775 12.75 re f
+    B| ---
+    B| > 129.775 694.125 72.775 12.75 re f
+    B| 78c78
+    B| < 206.025 694.125 50.522 12.75 re f
+    B| ---
+    B| > 207.025 694.125 50.522 12.75 re f
+    B| 80c80
+    B| < 283.275 694.125 29.011 12.75 re f
+    B| ---
+    B| > 284.275 694.125 29.011 12.75 re f
+    B| 82c82
+    B| < 51.525 679.125 75 12.75 re f
+    B| ---
+    B| > 52.525 679.125 75 12.75 re f
+s-10_mixed.rng             NO     same     p1.png=514  FAIL
+    B| 74c74
+    B| < 128.775 672.307 34.203 12.75 re f
+    B| ---
+    B| > 129.775 672.307 34.203 12.75 re f
+    B| 76c76
+    B| < 206.025 672.307 72.775 12.75 re f
+    B| ---
+    B| > 207.025 672.307 72.775 12.75 re f
+    B| 78c78
+    B| < 283.275 672.307 50.522 12.75 re f
+    B| ---
+    B| > 284.275 672.307 50.522 12.75 re f
+    B| 80c80
+    B| < 360.525 672.307 29.011 12.75 re f
+    B| ---
+    B| > 361.525 672.307 29.011 12.75 re f
+    B| 82c82
+    B| < 128.775 657.307 75 12.75 re f
+    B| ---
+    B| > 129.775 657.307 75 12.75 re f
+s-10_mixed.all             NO     same     p1.png=886  FAIL
+    B| 74c74
+    B| < 128.775 672.307 34.203 12.75 re f
+    B| ---
+    B| > 129.775 672.307 34.203 12.75 re f
+    B| 76c76
+    B| < 206.025 672.307 72.775 12.75 re f
+    B| ---
+    B| > 207.025 672.307 72.775 12.75 re f
+    B| 78c78
+    B| < 283.275 672.307 50.522 12.75 re f
+    B| ---
+    B| > 284.275 672.307 50.522 12.75 re f
+    B| 80c80
+    B| < 360.525 672.307 29.011 12.75 re f
+    B| ---
+    B| > 361.525 672.307 29.011 12.75 re f
+    B| 82c82
+    B| < 128.775 657.307 75 12.75 re f
+    B| ---
+    B| > 129.775 657.307 75 12.75 re f
+s-10_mixed.prn             NO     same     p1.png=886  FAIL
+s-11_empty.d               yes    same    0 (1p)       PASS
+s-11_empty.fit             yes    same    0 (1p)       PASS
+s-11_empty.rng             yes    same    0 (1p)       PASS
+s-11_empty.all             yes    same    0 (1p)       PASS
+s-11_empty.prn             yes    same    0 (1p)       PASS
+s-12_wide.d                yes    same    0 (1p)       PASS
+s-12_wide.fit              yes    same    0 (1p)       PASS
+s-12_wide.rng              yes    same    0 (1p)       PASS
+s-12_wide.all              yes    same    0 (1p)       PASS
+s-12_wide.prn              yes    same    0 (1p)       PASS
+s-13_sparklines.d          yes    same    0 (1p)       PASS
+s-13_sparklines.fit        yes    same    0 (1p)       PASS
+s-13_sparklines.rng        yes    same    0 (1p)       PASS
+s-13_sparklines.all        yes    same    0 (1p)       PASS
+s-13_sparklines.prn        yes    same    0 (1p)       PASS
+s-14_scale_area.d          yes    same    0 (2p)       PASS
+s-14_scale_area.fit        yes    same    0 (1p)       PASS
+s-14_scale_area.rng        yes    same    0 (1p)       PASS
+s-14_scale_area.all        yes    same    0 (2p)       PASS
+s-14_scale_area.prn        yes    same    0 (2p)       PASS
+    B| 1317c1317
+    B| < 73.65 543 48 15 re f
+    B| ---
+    B| > 74.65 543 48 15 re f
+    B| 1328c1328
+    B| < 121.65 543 48 15 re f
+    B| ---
+    B| > 122.65 543 48 15 re f
+    B| 1339c1339
+    B| < 169.65 543 48 15 re f
+    B| ---
+    B| > 170.65 543 48 15 re f
+    B| 1350c1350
+    B| < 217.65 543 48 15 re f
+    B| ---
+    B| > 218.65 543 48 15 re f
+    B| 1361c1361
+    B| < 50.4 528 23.25 15 re f
+    B| ---
+    B| > 51.4 528 23.25 15 re f
+s-15_fit_landscape.d       NO     same    0 (5p)       FAIL
+    B| 5426c5426
+    B| < 55.574 554.662 10.681 3.338 re f
+    B| ---
+    B| > 56.574 554.662 10.681 3.338 re f
+    B| 5437c5437
+    B| < 66.254 554.662 10.681 3.338 re f
+    B| ---
+    B| > 67.254 554.662 10.681 3.338 re f
+    B| 5448c5448
+    B| < 76.935 554.662 10.681 3.338 re f
+    B| ---
+    B| > 77.935 554.662 10.681 3.338 re f
+    B| 5459c5459
+    B| < 87.616 554.662 10.681 3.338 re f
+    B| ---
+    B| > 88.616 554.662 10.681 3.338 re f
+    B| 5470c5470
+    B| < 50.4 551.325 5.174 3.338 re f
+    B| ---
+    B| > 51.4 551.325 5.174 3.338 re f
+s-15_fit_landscape.fit     NO     same    0 (1p)       FAIL
+    B| 854c854
+    B| < 68.4 543 48 15 re f
+    B| ---
+    B| > 69.4 543 48 15 re f
+    B| 865c865
+    B| < 116.4 543 48 15 re f
+    B| ---
+    B| > 117.4 543 48 15 re f
+    B| 876c876
+    B| < 164.4 543 48 15 re f
+    B| ---
+    B| > 165.4 543 48 15 re f
+    B| 887c887
+    B| < 212.4 543 48 15 re f
+    B| ---
+    B| > 213.4 543 48 15 re f
+    B| 898c898
+    B| < 260.4 543 48 15 re f
+    B| ---
+    B| > 261.4 543 48 15 re f
+s-15_fit_landscape.rng     NO     same    0 (1p)       FAIL
+    B| 1317c1317
+    B| < 73.65 543 48 15 re f
+    B| ---
+    B| > 74.65 543 48 15 re f
+    B| 1328c1328
+    B| < 121.65 543 48 15 re f
+    B| ---
+    B| > 122.65 543 48 15 re f
+    B| 1339c1339
+    B| < 169.65 543 48 15 re f
+    B| ---
+    B| > 170.65 543 48 15 re f
+    B| 1350c1350
+    B| < 217.65 543 48 15 re f
+    B| ---
+    B| > 218.65 543 48 15 re f
+    B| 1361c1361
+    B| < 50.4 528 23.25 15 re f
+    B| ---
+    B| > 51.4 528 23.25 15 re f
+s-15_fit_landscape.all     NO     same    0 (5p)       FAIL
+    B| 1317c1317
+    B| < 73.65 543 48 15 re f
+    B| ---
+    B| > 74.65 543 48 15 re f
+    B| 1328c1328
+    B| < 121.65 543 48 15 re f
+    B| ---
+    B| > 122.65 543 48 15 re f
+    B| 1339c1339
+    B| < 169.65 543 48 15 re f
+    B| ---
+    B| > 170.65 543 48 15 re f
+    B| 1350c1350
+    B| < 217.65 543 48 15 re f
+    B| ---
+    B| > 218.65 543 48 15 re f
+    B| 1361c1361
+    B| < 50.4 528 23.25 15 re f
+    B| ---
+    B| > 51.4 528 23.25 15 re f
+s-15_fit_landscape.prn     NO     same    0 (5p)       FAIL
+s-16_text_misc.d           yes    same    0 (2p)       PASS
+s-16_text_misc.fit         yes    same    0 (1p)       PASS
+s-16_text_misc.rng         yes    same    0 (2p)       PASS
+s-16_text_misc.all         yes    same    0 (2p)       PASS
+s-16_text_misc.prn         yes    same    0 (2p)       PASS
+c-01-texto-acentos.d       yes    same    0 (1p)       PASS
+c-01-texto-acentos.fit     yes    same    0 (1p)       PASS
+c-01-texto-acentos.rng     yes    same    0 (1p)       PASS
+c-01-texto-acentos.all     yes    same    0 (1p)       PASS
+c-01-texto-acentos.prn     yes    same    0 (1p)       PASS
+c-02-valores-simples.d     yes    same    0 (1p)       PASS
+c-02-valores-simples.fit   yes    same    0 (1p)       PASS
+c-02-valores-simples.rng   yes    same    0 (1p)       PASS
+c-02-valores-simples.all   yes    same    0 (1p)       PASS
+c-02-valores-simples.prn   yes    same    0 (1p)       PASS
+c-03-formulas-com-cache.d  yes    same    0 (1p)       PASS
+c-03-formulas-com-cache.fit yes    same    0 (1p)       PASS
+c-03-formulas-com-cache.rng yes    same    0 (1p)       PASS
+c-03-formulas-com-cache.all yes    same    0 (1p)       PASS
+c-03-formulas-com-cache.prn yes    same    0 (1p)       PASS
+c-04-formulas-sem-cache.d  yes    same    0 (1p)       PASS
+c-04-formulas-sem-cache.fit yes    same    0 (1p)       PASS
+c-04-formulas-sem-cache.rng yes    same    0 (1p)       PASS
+c-04-formulas-sem-cache.all yes    same    0 (1p)       PASS
+c-04-formulas-sem-cache.prn yes    same    0 (1p)       PASS
+c-05-formatos-numericos.d  yes    same    0 (1p)       PASS
+c-05-formatos-numericos.fit yes    same    0 (1p)       PASS
+c-05-formatos-numericos.rng yes    same    0 (1p)       PASS
+c-05-formatos-numericos.all yes    same    0 (1p)       PASS
+c-05-formatos-numericos.prn yes    same    0 (1p)       PASS
+c-06-multiplas-abas.d      yes    same    0 (1p)       PASS
+c-06-multiplas-abas.fit    yes    same    0 (1p)       PASS
+c-06-multiplas-abas.rng    yes    same    0 (1p)       PASS
+c-06-multiplas-abas.all    yes    same    0 (3p)       PASS
+c-06-multiplas-abas.prn    yes    same    0 (1p)       PASS
+    B| 71c71
+    B| < 50.4 723 192 15 re f
+    B| ---
+    B| > 51.4 723 192 15 re f
+    B| 73c73
+    B| < 50.4 618 48 90 re f
+    B| ---
+    B| > 51.4 618 48 90 re f
+    B| 75c75
+    B| < 146.4 648 144 60 re f
+    B| ---
+    B| > 147.4 648 144 60 re f
+    B| 194c194
+    B| <   /ID [<8a9cdd4b4fb4a2876f37ebca362ddd6e><8a9cdd4b4fb4a2876f37ebca362ddd6e>]
+    B| ---
+    B| >   /ID [<0374f15b0c8eaf1acd8aac735f2443e7><0374f15b0c8eaf1acd8aac735f2443e7>]
+c-07-celulas-mescladas.d   NO     same    0 (1p)       FAIL
+    B| 71c71
+    B| < 50.4 723 192 15 re f
+    B| ---
+    B| > 51.4 723 192 15 re f
+    B| 73c73
+    B| < 50.4 618 48 90 re f
+    B| ---
+    B| > 51.4 618 48 90 re f
+    B| 75c75
+    B| < 146.4 648 144 60 re f
+    B| ---
+    B| > 147.4 648 144 60 re f
+    B| 194c194
+    B| <   /ID [<8a9cdd4b4fb4a2876f37ebca362ddd6e><8a9cdd4b4fb4a2876f37ebca362ddd6e>]
+    B| ---
+    B| >   /ID [<0374f15b0c8eaf1acd8aac735f2443e7><0374f15b0c8eaf1acd8aac735f2443e7>]
+c-07-celulas-mescladas.fit NO     same    0 (1p)       FAIL
+    B| 71c71
+    B| < 98.4 663 144 60 re f
+    B| ---
+    B| > 99.4 663 144 60 re f
+    B| 148c148
+    B| <   /ID [<8a9cdd4b4fb4a2876f37ebca362ddd6e><8a9cdd4b4fb4a2876f37ebca362ddd6e>]
+    B| ---
+    B| >   /ID [<0374f15b0c8eaf1acd8aac735f2443e7><0374f15b0c8eaf1acd8aac735f2443e7>]
+c-07-celulas-mescladas.rng NO     same    0 (1p)       FAIL
+    B| 71c71
+    B| < 50.4 723 192 15 re f
+    B| ---
+    B| > 51.4 723 192 15 re f
+    B| 73c73
+    B| < 50.4 618 48 90 re f
+    B| ---
+    B| > 51.4 618 48 90 re f
+    B| 75c75
+    B| < 146.4 648 144 60 re f
+    B| ---
+    B| > 147.4 648 144 60 re f
+    B| 194c194
+    B| <   /ID [<8a9cdd4b4fb4a2876f37ebca362ddd6e><8a9cdd4b4fb4a2876f37ebca362ddd6e>]
+    B| ---
+    B| >   /ID [<0374f15b0c8eaf1acd8aac735f2443e7><0374f15b0c8eaf1acd8aac735f2443e7>]
+c-07-celulas-mescladas.all NO     same    0 (1p)       FAIL
+    B| 71c71
+    B| < 50.4 723 192 15 re f
+    B| ---
+    B| > 51.4 723 192 15 re f
+    B| 73c73
+    B| < 50.4 618 48 90 re f
+    B| ---
+    B| > 51.4 618 48 90 re f
+    B| 75c75
+    B| < 146.4 648 144 60 re f
+    B| ---
+    B| > 147.4 648 144 60 re f
+    B| 194c194
+    B| <   /ID [<8a9cdd4b4fb4a2876f37ebca362ddd6e><8a9cdd4b4fb4a2876f37ebca362ddd6e>]
+    B| ---
+    B| >   /ID [<0374f15b0c8eaf1acd8aac735f2443e7><0374f15b0c8eaf1acd8aac735f2443e7>]
+c-07-celulas-mescladas.prn NO     same    0 (1p)       FAIL
+    B| 70c70
+    B| < 50.4 723 77.25 15 re f
+    B| ---
+    B| > 51.4 723 77.25 15 re f
+    B| 72c72
+    B| < 127.65 723 77.25 15 re f
+    B| ---
+    B| > 128.65 723 77.25 15 re f
+    B| 74c74
+    B| < 204.9 723 77.25 15 re f
+    B| ---
+    B| > 205.9 723 77.25 15 re f
+    B| 76c76
+    B| < 282.15 723 77.25 15 re f
+    B| ---
+    B| > 283.15 723 77.25 15 re f
+    B| 78c78
+    B| < 359.4 723 77.25 15 re f
+    B| ---
+    B| > 360.4 723 77.25 15 re f
+c-08-bordas-cores-fundo-fonte.d NO     same     p1.png=52   FAIL
+    B| 70c70
+    B| < 50.4 723 77.25 15 re f
+    B| ---
+    B| > 51.4 723 77.25 15 re f
+    B| 72c72
+    B| < 127.65 723 77.25 15 re f
+    B| ---
+    B| > 128.65 723 77.25 15 re f
+    B| 74c74
+    B| < 204.9 723 77.25 15 re f
+    B| ---
+    B| > 205.9 723 77.25 15 re f
+    B| 76c76
+    B| < 282.15 723 77.25 15 re f
+    B| ---
+    B| > 283.15 723 77.25 15 re f
+    B| 78c78
+    B| < 359.4 723 77.25 15 re f
+    B| ---
+    B| > 360.4 723 77.25 15 re f
+c-08-bordas-cores-fundo-fonte.fit NO     same     p1.png=52   FAIL
+    B| 70c70
+    B| < 50.4 708 77.25 15 re f
+    B| ---
+    B| > 51.4 708 77.25 15 re f
+    B| 72c72
+    B| < 127.65 708 77.25 15 re f
+    B| ---
+    B| > 128.65 708 77.25 15 re f
+    B| 74c74
+    B| < 204.9 708 77.25 15 re f
+    B| ---
+    B| > 205.9 708 77.25 15 re f
+    B| 76c76
+    B| < 282.15 708 77.25 15 re f
+    B| ---
+    B| > 283.15 708 77.25 15 re f
+    B| 78c78
+    B| < 50.4 678 77.25 15 re f
+    B| ---
+    B| > 51.4 678 77.25 15 re f
+c-08-bordas-cores-fundo-fonte.rng NO     same    0 (1p)       FAIL
+    B| 70c70
+    B| < 50.4 723 77.25 15 re f
+    B| ---
+    B| > 51.4 723 77.25 15 re f
+    B| 72c72
+    B| < 127.65 723 77.25 15 re f
+    B| ---
+    B| > 128.65 723 77.25 15 re f
+    B| 74c74
+    B| < 204.9 723 77.25 15 re f
+    B| ---
+    B| > 205.9 723 77.25 15 re f
+    B| 76c76
+    B| < 282.15 723 77.25 15 re f
+    B| ---
+    B| > 283.15 723 77.25 15 re f
+    B| 78c78
+    B| < 359.4 723 77.25 15 re f
+    B| ---
+    B| > 360.4 723 77.25 15 re f
+c-08-bordas-cores-fundo-fonte.all NO     same     p1.png=52   FAIL
+    B| 70c70
+    B| < 50.4 723 77.25 15 re f
+    B| ---
+    B| > 51.4 723 77.25 15 re f
+    B| 72c72
+    B| < 127.65 723 77.25 15 re f
+    B| ---
+    B| > 128.65 723 77.25 15 re f
+    B| 74c74
+    B| < 204.9 723 77.25 15 re f
+    B| ---
+    B| > 205.9 723 77.25 15 re f
+    B| 76c76
+    B| < 282.15 723 77.25 15 re f
+    B| ---
+    B| > 283.15 723 77.25 15 re f
+    B| 78c78
+    B| < 359.4 723 77.25 15 re f
+    B| ---
+    B| > 360.4 723 77.25 15 re f
+c-08-bordas-cores-fundo-fonte.prn NO     same     p1.png=52   FAIL
+c-09-fontes-negrito-italico.d yes    same    0 (1p)       PASS
+c-09-fontes-negrito-italico.fit yes    same    0 (1p)       PASS
+c-09-fontes-negrito-italico.rng yes    same    0 (1p)       PASS
+c-09-fontes-negrito-italico.all yes    same    0 (1p)       PASS
+c-09-fontes-negrito-italico.prn yes    same    0 (1p)       PASS
+c-10-larguras-alturas.d    yes    same    0 (1p)       PASS
+c-10-larguras-alturas.fit  yes    same    0 (1p)       PASS
+c-10-larguras-alturas.rng  yes    same    0 (1p)       PASS
+c-10-larguras-alturas.all  yes    same    0 (1p)       PASS
+c-10-larguras-alturas.prn  yes    same    0 (1p)       PASS
+c-11-linhas-colunas-ocultas.d yes    same    0 (1p)       PASS
+c-11-linhas-colunas-ocultas.fit yes    same    0 (1p)       PASS
+c-11-linhas-colunas-ocultas.rng yes    same    0 (1p)       PASS
+c-11-linhas-colunas-ocultas.all yes    same    0 (1p)       PASS
+c-11-linhas-colunas-ocultas.prn yes    same    0 (1p)       PASS
+c-12-paineis-congelados.d  yes    same    0 (4p)       PASS
+c-12-paineis-congelados.fit yes    same    0 (1p)       PASS
+c-12-paineis-congelados.rng yes    same    0 (1p)       PASS
+c-12-paineis-congelados.all yes    same    0 (4p)       PASS
+c-12-paineis-congelados.prn yes    same    0 (4p)       PASS
+    B| 70c70
+    B| < 98.4 723 48 15 re f
+    B| ---
+    B| > 99.4 723 48 15 re f
+    B| 72c72
+    B| < 146.4 723 48 15 re f
+    B| ---
+    B| > 147.4 723 48 15 re f
+    B| 74c74
+    B| < 98.4 708 48 15 re f
+    B| ---
+    B| > 99.4 708 48 15 re f
+    B| 76c76
+    B| < 146.4 708 48 15 re f
+    B| ---
+    B| > 147.4 708 48 15 re f
+    B| 78c78
+    B| < 98.4 693 48 15 re f
+    B| ---
+    B| > 99.4 693 48 15 re f
+c-13-condicional-escala-cor.d NO     same     p1.png=312  FAIL
+    B| 70c70
+    B| < 98.4 723 48 15 re f
+    B| ---
+    B| > 99.4 723 48 15 re f
+    B| 72c72
+    B| < 146.4 723 48 15 re f
+    B| ---
+    B| > 147.4 723 48 15 re f
+    B| 74c74
+    B| < 98.4 708 48 15 re f
+    B| ---
+    B| > 99.4 708 48 15 re f
+    B| 76c76
+    B| < 146.4 708 48 15 re f
+    B| ---
+    B| > 147.4 708 48 15 re f
+    B| 78c78
+    B| < 98.4 693 48 15 re f
+    B| ---
+    B| > 99.4 693 48 15 re f
+c-13-condicional-escala-cor.fit NO     same     p1.png=312  FAIL
+    B| 70c70
+    B| < 50.4 723 48 15 re f
+    B| ---
+    B| > 51.4 723 48 15 re f
+    B| 72c72
+    B| < 98.4 723 48 15 re f
+    B| ---
+    B| > 99.4 723 48 15 re f
+    B| 74c74
+    B| < 50.4 708 48 15 re f
+    B| ---
+    B| > 51.4 708 48 15 re f
+    B| 76c76
+    B| < 98.4 708 48 15 re f
+    B| ---
+    B| > 99.4 708 48 15 re f
+    B| 78c78
+    B| < 50.4 693 48 15 re f
+    B| ---
+    B| > 51.4 693 48 15 re f
+c-13-condicional-escala-cor.rng NO     same     p1.png=280  FAIL
+    B| 70c70
+    B| < 98.4 723 48 15 re f
+    B| ---
+    B| > 99.4 723 48 15 re f
+    B| 72c72
+    B| < 146.4 723 48 15 re f
+    B| ---
+    B| > 147.4 723 48 15 re f
+    B| 74c74
+    B| < 98.4 708 48 15 re f
+    B| ---
+    B| > 99.4 708 48 15 re f
+    B| 76c76
+    B| < 146.4 708 48 15 re f
+    B| ---
+    B| > 147.4 708 48 15 re f
+    B| 78c78
+    B| < 98.4 693 48 15 re f
+    B| ---
+    B| > 99.4 693 48 15 re f
+c-13-condicional-escala-cor.all NO     same     p1.png=312  FAIL
+    B| 70c70
+    B| < 98.4 723 48 15 re f
+    B| ---
+    B| > 99.4 723 48 15 re f
+    B| 72c72
+    B| < 146.4 723 48 15 re f
+    B| ---
+    B| > 147.4 723 48 15 re f
+    B| 74c74
+    B| < 98.4 708 48 15 re f
+    B| ---
+    B| > 99.4 708 48 15 re f
+    B| 76c76
+    B| < 146.4 708 48 15 re f
+    B| ---
+    B| > 147.4 708 48 15 re f
+    B| 78c78
+    B| < 98.4 693 48 15 re f
+    B| ---
+    B| > 99.4 693 48 15 re f
+c-13-condicional-escala-cor.prn NO     same     p1.png=312  FAIL
+    B| 70c70
+    B| < 99.525 724.125 109.374 12.75 re f
+    B| ---
+    B| > 100.525 724.125 109.374 12.75 re f
+    B| 72c72
+    B| < 99.525 709.125 79.506 12.75 re f
+    B| ---
+    B| > 100.525 709.125 79.506 12.75 re f
+    B| 74c74
+    B| < 99.525 694.125 50.936 12.75 re f
+    B| ---
+    B| > 100.525 694.125 50.936 12.75 re f
+    B| 76c76
+    B| < 99.525 679.125 106.777 12.75 re f
+    B| ---
+    B| > 100.525 679.125 106.777 12.75 re f
+    B| 78c78
+    B| < 99.525 664.125 62.623 12.75 re f
+    B| ---
+    B| > 100.525 664.125 62.623 12.75 re f
+c-14-condicional-barras-dados.d NO     same     p1.png=240  FAIL
+    B| 70c70
+    B| < 99.525 724.125 109.374 12.75 re f
+    B| ---
+    B| > 100.525 724.125 109.374 12.75 re f
+    B| 72c72
+    B| < 99.525 709.125 79.506 12.75 re f
+    B| ---
+    B| > 100.525 709.125 79.506 12.75 re f
+    B| 74c74
+    B| < 99.525 694.125 50.936 12.75 re f
+    B| ---
+    B| > 100.525 694.125 50.936 12.75 re f
+    B| 76c76
+    B| < 99.525 679.125 106.777 12.75 re f
+    B| ---
+    B| > 100.525 679.125 106.777 12.75 re f
+    B| 78c78
+    B| < 99.525 664.125 62.623 12.75 re f
+    B| ---
+    B| > 100.525 664.125 62.623 12.75 re f
+c-14-condicional-barras-dados.fit NO     same     p1.png=240  FAIL
+    B| 70c70
+    B| < 51.525 724.125 79.506 12.75 re f
+    B| ---
+    B| > 52.525 724.125 79.506 12.75 re f
+    B| 72c72
+    B| < 51.525 709.125 50.936 12.75 re f
+    B| ---
+    B| > 52.525 709.125 50.936 12.75 re f
+    B| 74c74
+    B| < 51.525 694.125 106.777 12.75 re f
+    B| ---
+    B| > 52.525 694.125 106.777 12.75 re f
+    B| 76c76
+    B| < 51.525 679.125 62.623 12.75 re f
+    B| ---
+    B| > 52.525 679.125 62.623 12.75 re f
+    B| 78c78
+    B| < 51.525 664.125 37.949 12.75 re f
+    B| ---
+    B| > 52.525 664.125 37.949 12.75 re f
+c-14-condicional-barras-dados.rng NO     same     p1.png=89   FAIL
+    B| 70c70
+    B| < 99.525 724.125 109.374 12.75 re f
+    B| ---
+    B| > 100.525 724.125 109.374 12.75 re f
+    B| 72c72
+    B| < 99.525 709.125 79.506 12.75 re f
+    B| ---
+    B| > 100.525 709.125 79.506 12.75 re f
+    B| 74c74
+    B| < 99.525 694.125 50.936 12.75 re f
+    B| ---
+    B| > 100.525 694.125 50.936 12.75 re f
+    B| 76c76
+    B| < 99.525 679.125 106.777 12.75 re f
+    B| ---
+    B| > 100.525 679.125 106.777 12.75 re f
+    B| 78c78
+    B| < 99.525 664.125 62.623 12.75 re f
+    B| ---
+    B| > 100.525 664.125 62.623 12.75 re f
+c-14-condicional-barras-dados.all NO     same     p1.png=240  FAIL
+    B| 70c70
+    B| < 99.525 724.125 109.374 12.75 re f
+    B| ---
+    B| > 100.525 724.125 109.374 12.75 re f
+    B| 72c72
+    B| < 99.525 709.125 79.506 12.75 re f
+    B| ---
+    B| > 100.525 709.125 79.506 12.75 re f
+    B| 74c74
+    B| < 99.525 694.125 50.936 12.75 re f
+    B| ---
+    B| > 100.525 694.125 50.936 12.75 re f
+    B| 76c76
+    B| < 99.525 679.125 106.777 12.75 re f
+    B| ---
+    B| > 100.525 679.125 106.777 12.75 re f
+    B| 78c78
+    B| < 99.525 664.125 62.623 12.75 re f
+    B| ---
+    B| > 100.525 664.125 62.623 12.75 re f
+c-14-condicional-barras-dados.prn NO     same     p1.png=240  FAIL
+c-15-condicional-icones.d  yes    same    0 (1p)       PASS
+c-15-condicional-icones.fit yes    same    0 (1p)       PASS
+c-15-condicional-icones.rng yes    same    0 (1p)       PASS
+c-15-condicional-icones.all yes    same    0 (1p)       PASS
+c-15-condicional-icones.prn yes    same    0 (1p)       PASS
+    B| 317c317
+    B| < 290.4 463.5 432 259.5 re f
+    B| ---
+    B| > 291.4 463.5 432 259.5 re f
+    B| 328c328
+    B| < 694.876 593.025 5.4 5.4 re f
+    B| ---
+    B| > 695.876 593.025 5.4 5.4 re f
+    B| 336c336
+    B| < 694.876 582.225 5.4 5.4 re f
+    B| ---
+    B| > 695.876 582.225 5.4 5.4 re f
+    B| 344c344
+    B| < 694.876 571.425 5.4 5.4 re f
+    B| ---
+    B| > 695.876 571.425 5.4 5.4 re f
+    B| 439c439
+    B| < 329.694 483.45 16.376 50.583 re f
+    B| ---
+    B| > 330.694 483.45 16.376 50.583 re f
+c-16-grafico-barras.d      NO     same     p1.png=485 p2.png=493 FAIL
+    B| 289c289
+    B| < 220.8 543.105 306.72 184.245 re f
+    B| ---
+    B| > 221.8 543.105 306.72 184.245 re f
+    B| 300c300
+    B| < 507.978 635.068 3.834 3.834 re f
+    B| ---
+    B| > 508.978 635.068 3.834 3.834 re f
+    B| 308c308
+    B| < 507.978 627.4 3.834 3.834 re f
+    B| ---
+    B| > 508.978 627.4 3.834 3.834 re f
+    B| 316c316
+    B| < 507.978 619.732 3.834 3.834 re f
+    B| ---
+    B| > 508.978 619.732 3.834 3.834 re f
+    B| 411c411
+    B| < 248.699 557.27 11.627 35.914 re f
+    B| ---
+    B| > 249.699 557.27 11.627 35.914 re f
+c-16-grafico-barras.fit    NO     same     p1.png=620  FAIL
+    B| 208c208
+    B| < 242.4 478.5 432 259.5 re f
+    B| ---
+    B| > 243.4 478.5 432 259.5 re f
+    B| 219c219
+    B| < 646.876 608.025 5.4 5.4 re f
+    B| ---
+    B| > 647.876 608.025 5.4 5.4 re f
+    B| 227c227
+    B| < 646.876 597.225 5.4 5.4 re f
+    B| ---
+    B| > 647.876 597.225 5.4 5.4 re f
+    B| 235c235
+    B| < 646.876 586.425 5.4 5.4 re f
+    B| ---
+    B| > 647.876 586.425 5.4 5.4 re f
+    B| 330c330
+    B| < 281.694 498.45 16.376 50.583 re f
+    B| ---
+    B| > 282.694 498.45 16.376 50.583 re f
+c-16-grafico-barras.rng    NO     same    0 (1p)       FAIL
+    B| 373c373
+    B| < 290.4 463.5 432 259.5 re f
+    B| ---
+    B| > 291.4 463.5 432 259.5 re f
+    B| 384c384
+    B| < 694.876 593.025 5.4 5.4 re f
+    B| ---
+    B| > 695.876 593.025 5.4 5.4 re f
+    B| 392c392
+    B| < 694.876 582.225 5.4 5.4 re f
+    B| ---
+    B| > 695.876 582.225 5.4 5.4 re f
+    B| 400c400
+    B| < 694.876 571.425 5.4 5.4 re f
+    B| ---
+    B| > 695.876 571.425 5.4 5.4 re f
+    B| 495c495
+    B| < 329.694 483.45 16.376 50.583 re f
+    B| ---
+    B| > 330.694 483.45 16.376 50.583 re f
+c-16-grafico-barras.all    NO     same     p1.png=485 p2.png=493 FAIL
+    B| 317c317
+    B| < 290.4 463.5 432 259.5 re f
+    B| ---
+    B| > 291.4 463.5 432 259.5 re f
+    B| 328c328
+    B| < 694.876 593.025 5.4 5.4 re f
+    B| ---
+    B| > 695.876 593.025 5.4 5.4 re f
+    B| 336c336
+    B| < 694.876 582.225 5.4 5.4 re f
+    B| ---
+    B| > 695.876 582.225 5.4 5.4 re f
+    B| 344c344
+    B| < 694.876 571.425 5.4 5.4 re f
+    B| ---
+    B| > 695.876 571.425 5.4 5.4 re f
+    B| 439c439
+    B| < 329.694 483.45 16.376 50.583 re f
+    B| ---
+    B| > 330.694 483.45 16.376 50.583 re f
+c-16-grafico-barras.prn    NO     same     p1.png=485 p2.png=493 FAIL
+    B| 317c317
+    B| < 290.4 463.5 432 259.5 re f
+    B| ---
+    B| > 291.4 463.5 432 259.5 re f
+    B| 481c481
+    B| < -189.6 463.5 432 259.5 re f
+    B| ---
+    B| > -188.6 463.5 432 259.5 re f
+    B| 639c639
+    B| <   /ID [<a8c41f3cb6fc54857b359249fafba37c><a8c41f3cb6fc54857b359249fafba37c>]
+    B| ---
+    B| >   /ID [<8ebe8436658bd5a2457f5cfe0d460ff8><8ebe8436658bd5a2457f5cfe0d460ff8>]
+c-17-grafico-linhas.d      NO     same    0 (2p)       FAIL
+    B| 289c289
+    B| < 220.8 543.105 306.72 184.245 re f
+    B| ---
+    B| > 221.8 543.105 306.72 184.245 re f
+    B| 454c454
+    B| <   /ID [<a8c41f3cb6fc54857b359249fafba37c><a8c41f3cb6fc54857b359249fafba37c>]
+    B| ---
+    B| >   /ID [<8ebe8436658bd5a2457f5cfe0d460ff8><8ebe8436658bd5a2457f5cfe0d460ff8>]
+c-17-grafico-linhas.fit    NO     same    0 (1p)       FAIL
+    B| 208c208
+    B| < 242.4 478.5 432 259.5 re f
+    B| ---
+    B| > 243.4 478.5 432 259.5 re f
+    B| 373c373
+    B| <   /ID [<a8c41f3cb6fc54857b359249fafba37c><a8c41f3cb6fc54857b359249fafba37c>]
+    B| ---
+    B| >   /ID [<8ebe8436658bd5a2457f5cfe0d460ff8><8ebe8436658bd5a2457f5cfe0d460ff8>]
+c-17-grafico-linhas.rng    NO     same    0 (1p)       FAIL
+    B| 317c317
+    B| < 290.4 463.5 432 259.5 re f
+    B| ---
+    B| > 291.4 463.5 432 259.5 re f
+    B| 481c481
+    B| < -189.6 463.5 432 259.5 re f
+    B| ---
+    B| > -188.6 463.5 432 259.5 re f
+    B| 639c639
+    B| <   /ID [<579bd4691d302ed8dae99f62a5bd87e7><579bd4691d302ed8dae99f62a5bd87e7>]
+    B| ---
+    B| >   /ID [<be9f8edfe40f68bcf505b0e384d47402><be9f8edfe40f68bcf505b0e384d47402>]
+c-17-grafico-linhas.all    NO     same    0 (2p)       FAIL
+    B| 317c317
+    B| < 290.4 463.5 432 259.5 re f
+    B| ---
+    B| > 291.4 463.5 432 259.5 re f
+    B| 481c481
+    B| < -189.6 463.5 432 259.5 re f
+    B| ---
+    B| > -188.6 463.5 432 259.5 re f
+    B| 639c639
+    B| <   /ID [<579bd4691d302ed8dae99f62a5bd87e7><579bd4691d302ed8dae99f62a5bd87e7>]
+    B| ---
+    B| >   /ID [<be9f8edfe40f68bcf505b0e384d47402><be9f8edfe40f68bcf505b0e384d47402>]
+c-17-grafico-linhas.prn    NO     same    0 (2p)       FAIL
+    B| 317c317
+    B| < 290.4 463.5 432 259.5 re f
+    B| ---
+    B| > 291.4 463.5 432 259.5 re f
+    B| 328c328
+    B| < 665.986 603.825 5.4 5.4 re f
+    B| ---
+    B| > 666.986 603.825 5.4 5.4 re f
+    B| 336c336
+    B| < 665.986 593.025 5.4 5.4 re f
+    B| ---
+    B| > 666.986 593.025 5.4 5.4 re f
+    B| 344c344
+    B| < 665.986 582.225 5.4 5.4 re f
+    B| ---
+    B| > 666.986 582.225 5.4 5.4 re f
+    B| 352c352
+    B| < 665.986 571.425 5.4 5.4 re f
+    B| ---
+    B| > 666.986 571.425 5.4 5.4 re f
+c-18-grafico-pizza.d       NO     same     p2.png=40   FAIL
+    B| 289c289
+    B| < 220.8 543.105 306.72 184.245 re f
+    B| ---
+    B| > 221.8 543.105 306.72 184.245 re f
+    B| 300c300
+    B| < 487.466 642.736 3.834 3.834 re f
+    B| ---
+    B| > 488.466 642.736 3.834 3.834 re f
+    B| 308c308
+    B| < 487.466 635.068 3.834 3.834 re f
+    B| ---
+    B| > 488.466 635.068 3.834 3.834 re f
+    B| 316c316
+    B| < 487.466 627.4 3.834 3.834 re f
+    B| ---
+    B| > 488.466 627.4 3.834 3.834 re f
+    B| 324c324
+    B| < 487.466 619.732 3.834 3.834 re f
+    B| ---
+    B| > 488.466 619.732 3.834 3.834 re f
+c-18-grafico-pizza.fit     NO     same     p1.png=14   FAIL
+    B| 208c208
+    B| < 242.4 478.5 432 259.5 re f
+    B| ---
+    B| > 243.4 478.5 432 259.5 re f
+    B| 219c219
+    B| < 617.986 618.825 5.4 5.4 re f
+    B| ---
+    B| > 618.986 618.825 5.4 5.4 re f
+    B| 227c227
+    B| < 617.986 608.025 5.4 5.4 re f
+    B| ---
+    B| > 618.986 608.025 5.4 5.4 re f
+    B| 235c235
+    B| < 617.986 597.225 5.4 5.4 re f
+    B| ---
+    B| > 618.986 597.225 5.4 5.4 re f
+    B| 243c243
+    B| < 617.986 586.425 5.4 5.4 re f
+    B| ---
+    B| > 618.986 586.425 5.4 5.4 re f
+c-18-grafico-pizza.rng     NO     same    0 (1p)       FAIL
+    B| 317c317
+    B| < 290.4 463.5 432 259.5 re f
+    B| ---
+    B| > 291.4 463.5 432 259.5 re f
+    B| 328c328
+    B| < 665.986 603.825 5.4 5.4 re f
+    B| ---
+    B| > 666.986 603.825 5.4 5.4 re f
+    B| 336c336
+    B| < 665.986 593.025 5.4 5.4 re f
+    B| ---
+    B| > 666.986 593.025 5.4 5.4 re f
+    B| 344c344
+    B| < 665.986 582.225 5.4 5.4 re f
+    B| ---
+    B| > 666.986 582.225 5.4 5.4 re f
+    B| 352c352
+    B| < 665.986 571.425 5.4 5.4 re f
+    B| ---
+    B| > 666.986 571.425 5.4 5.4 re f
+c-18-grafico-pizza.all     NO     same     p2.png=40   FAIL
+    B| 317c317
+    B| < 290.4 463.5 432 259.5 re f
+    B| ---
+    B| > 291.4 463.5 432 259.5 re f
+    B| 328c328
+    B| < 665.986 603.825 5.4 5.4 re f
+    B| ---
+    B| > 666.986 603.825 5.4 5.4 re f
+    B| 336c336
+    B| < 665.986 593.025 5.4 5.4 re f
+    B| ---
+    B| > 666.986 593.025 5.4 5.4 re f
+    B| 344c344
+    B| < 665.986 582.225 5.4 5.4 re f
+    B| ---
+    B| > 666.986 582.225 5.4 5.4 re f
+    B| 352c352
+    B| < 665.986 571.425 5.4 5.4 re f
+    B| ---
+    B| > 666.986 571.425 5.4 5.4 re f
+c-18-grafico-pizza.prn     NO     same     p2.png=40   FAIL
+    B| 317c317
+    B| < 290.4 463.5 432 259.5 re f
+    B| ---
+    B| > 291.4 463.5 432 259.5 re f
+    B| 328c328
+    B| < 665.986 603.825 5.4 5.4 re f
+    B| ---
+    B| > 666.986 603.825 5.4 5.4 re f
+    B| 336c336
+    B| < 665.986 593.025 5.4 5.4 re f
+    B| ---
+    B| > 666.986 593.025 5.4 5.4 re f
+    B| 344c344
+    B| < 665.986 582.225 5.4 5.4 re f
+    B| ---
+    B| > 666.986 582.225 5.4 5.4 re f
+    B| 352c352
+    B| < 665.986 571.425 5.4 5.4 re f
+    B| ---
+    B| > 666.986 571.425 5.4 5.4 re f
+c-19-grafico-rosca.d       NO     same     p2.png=40   FAIL
+    B| 289c289
+    B| < 220.8 543.105 306.72 184.245 re f
+    B| ---
+    B| > 221.8 543.105 306.72 184.245 re f
+    B| 300c300
+    B| < 487.466 642.736 3.834 3.834 re f
+    B| ---
+    B| > 488.466 642.736 3.834 3.834 re f
+    B| 308c308
+    B| < 487.466 635.068 3.834 3.834 re f
+    B| ---
+    B| > 488.466 635.068 3.834 3.834 re f
+    B| 316c316
+    B| < 487.466 627.4 3.834 3.834 re f
+    B| ---
+    B| > 488.466 627.4 3.834 3.834 re f
+    B| 324c324
+    B| < 487.466 619.732 3.834 3.834 re f
+    B| ---
+    B| > 488.466 619.732 3.834 3.834 re f
+c-19-grafico-rosca.fit     NO     same     p1.png=14   FAIL
+    B| 208c208
+    B| < 242.4 478.5 432 259.5 re f
+    B| ---
+    B| > 243.4 478.5 432 259.5 re f
+    B| 219c219
+    B| < 617.986 618.825 5.4 5.4 re f
+    B| ---
+    B| > 618.986 618.825 5.4 5.4 re f
+    B| 227c227
+    B| < 617.986 608.025 5.4 5.4 re f
+    B| ---
+    B| > 618.986 608.025 5.4 5.4 re f
+    B| 235c235
+    B| < 617.986 597.225 5.4 5.4 re f
+    B| ---
+    B| > 618.986 597.225 5.4 5.4 re f
+    B| 243c243
+    B| < 617.986 586.425 5.4 5.4 re f
+    B| ---
+    B| > 618.986 586.425 5.4 5.4 re f
+c-19-grafico-rosca.rng     NO     same    0 (1p)       FAIL
+    B| 317c317
+    B| < 290.4 463.5 432 259.5 re f
+    B| ---
+    B| > 291.4 463.5 432 259.5 re f
+    B| 328c328
+    B| < 665.986 603.825 5.4 5.4 re f
+    B| ---
+    B| > 666.986 603.825 5.4 5.4 re f
+    B| 336c336
+    B| < 665.986 593.025 5.4 5.4 re f
+    B| ---
+    B| > 666.986 593.025 5.4 5.4 re f
+    B| 344c344
+    B| < 665.986 582.225 5.4 5.4 re f
+    B| ---
+    B| > 666.986 582.225 5.4 5.4 re f
+    B| 352c352
+    B| < 665.986 571.425 5.4 5.4 re f
+    B| ---
+    B| > 666.986 571.425 5.4 5.4 re f
+c-19-grafico-rosca.all     NO     same     p2.png=40   FAIL
+    B| 317c317
+    B| < 290.4 463.5 432 259.5 re f
+    B| ---
+    B| > 291.4 463.5 432 259.5 re f
+    B| 328c328
+    B| < 665.986 603.825 5.4 5.4 re f
+    B| ---
+    B| > 666.986 603.825 5.4 5.4 re f
+    B| 336c336
+    B| < 665.986 593.025 5.4 5.4 re f
+    B| ---
+    B| > 666.986 593.025 5.4 5.4 re f
+    B| 344c344
+    B| < 665.986 582.225 5.4 5.4 re f
+    B| ---
+    B| > 666.986 582.225 5.4 5.4 re f
+    B| 352c352
+    B| < 665.986 571.425 5.4 5.4 re f
+    B| ---
+    B| > 666.986 571.425 5.4 5.4 re f
+c-19-grafico-rosca.prn     NO     same     p2.png=40   FAIL
+    B| 317c317
+    B| < 290.4 463.5 432 259.5 re f
+    B| ---
+    B| > 291.4 463.5 432 259.5 re f
+    B| 328c328
+    B| < 694.876 593.025 5.4 5.4 re f
+    B| ---
+    B| > 695.876 593.025 5.4 5.4 re f
+    B| 336c336
+    B| < 694.876 582.225 5.4 5.4 re f
+    B| ---
+    B| > 695.876 582.225 5.4 5.4 re f
+    B| 344c344
+    B| < 694.876 571.425 5.4 5.4 re f
+    B| ---
+    B| > 695.876 571.425 5.4 5.4 re f
+    B| 475c475
+    B| < -189.6 463.5 432 259.5 re f
+    B| ---
+    B| > -188.6 463.5 432 259.5 re f
+c-20-grafico-area.d        NO     same     p2.png=24   FAIL
+    B| 289c289
+    B| < 220.8 543.105 306.72 184.245 re f
+    B| ---
+    B| > 221.8 543.105 306.72 184.245 re f
+    B| 300c300
+    B| < 507.978 635.068 3.834 3.834 re f
+    B| ---
+    B| > 508.978 635.068 3.834 3.834 re f
+    B| 308c308
+    B| < 507.978 627.4 3.834 3.834 re f
+    B| ---
+    B| > 508.978 627.4 3.834 3.834 re f
+    B| 316c316
+    B| < 507.978 619.732 3.834 3.834 re f
+    B| ---
+    B| > 508.978 619.732 3.834 3.834 re f
+    B| 448c448
+    B| <   /ID [<74fbb3a7440dfb421bbbaa3e2cda9766><74fbb3a7440dfb421bbbaa3e2cda9766>]
+    B| ---
+    B| >   /ID [<4f6bfbd83fc893d511e05e0d3e4853b7><4f6bfbd83fc893d511e05e0d3e4853b7>]
+c-20-grafico-area.fit      NO     same     p1.png=8    FAIL
+    B| 208c208
+    B| < 242.4 478.5 432 259.5 re f
+    B| ---
+    B| > 243.4 478.5 432 259.5 re f
+    B| 219c219
+    B| < 646.876 608.025 5.4 5.4 re f
+    B| ---
+    B| > 647.876 608.025 5.4 5.4 re f
+    B| 227c227
+    B| < 646.876 597.225 5.4 5.4 re f
+    B| ---
+    B| > 647.876 597.225 5.4 5.4 re f
+    B| 235c235
+    B| < 646.876 586.425 5.4 5.4 re f
+    B| ---
+    B| > 647.876 586.425 5.4 5.4 re f
+    B| 367c367
+    B| <   /ID [<74fbb3a7440dfb421bbbaa3e2cda9766><74fbb3a7440dfb421bbbaa3e2cda9766>]
+    B| ---
+    B| >   /ID [<6c1562a02f4f7c3fc3fa814fd12fb6c4><6c1562a02f4f7c3fc3fa814fd12fb6c4>]
+c-20-grafico-area.rng      NO     same    0 (1p)       FAIL
+    B| 317c317
+    B| < 290.4 463.5 432 259.5 re f
+    B| ---
+    B| > 291.4 463.5 432 259.5 re f
+    B| 328c328
+    B| < 694.876 593.025 5.4 5.4 re f
+    B| ---
+    B| > 695.876 593.025 5.4 5.4 re f
+    B| 336c336
+    B| < 694.876 582.225 5.4 5.4 re f
+    B| ---
+    B| > 695.876 582.225 5.4 5.4 re f
+    B| 344c344
+    B| < 694.876 571.425 5.4 5.4 re f
+    B| ---
+    B| > 695.876 571.425 5.4 5.4 re f
+    B| 475c475
+    B| < -189.6 463.5 432 259.5 re f
+    B| ---
+    B| > -188.6 463.5 432 259.5 re f
+c-20-grafico-area.all      NO     same     p2.png=24   FAIL
+    B| 317c317
+    B| < 290.4 463.5 432 259.5 re f
+    B| ---
+    B| > 291.4 463.5 432 259.5 re f
+    B| 328c328
+    B| < 694.876 593.025 5.4 5.4 re f
+    B| ---
+    B| > 695.876 593.025 5.4 5.4 re f
+    B| 336c336
+    B| < 694.876 582.225 5.4 5.4 re f
+    B| ---
+    B| > 695.876 582.225 5.4 5.4 re f
+    B| 344c344
+    B| < 694.876 571.425 5.4 5.4 re f
+    B| ---
+    B| > 695.876 571.425 5.4 5.4 re f
+    B| 475c475
+    B| < -189.6 463.5 432 259.5 re f
+    B| ---
+    B| > -188.6 463.5 432 259.5 re f
+c-20-grafico-area.prn      NO     same     p2.png=24   FAIL
+c-21-imagens-png-jpeg.d    yes    same    0 (1p)       PASS
+c-21-imagens-png-jpeg.fit  yes    same    0 (1p)       PASS
+c-21-imagens-png-jpeg.rng  yes    same    0 (1p)       PASS
+c-21-imagens-png-jpeg.all  yes    same    0 (1p)       PASS
+c-21-imagens-png-jpeg.prn  yes    same    0 (1p)       PASS
+c-22-sparklines.d          yes    same    0 (1p)       PASS
+c-22-sparklines.fit        yes    same    0 (1p)       PASS
+c-22-sparklines.rng        yes    same    0 (1p)       PASS
+c-22-sparklines.all        yes    same    0 (1p)       PASS
+c-22-sparklines.prn        yes    same    0 (1p)       PASS
+c-23-planilha-larga-130-colunas.d yes    same    0 (13p)      PASS
+c-23-planilha-larga-130-colunas.fit yes    same    0 (2p)       PASS
+c-23-planilha-larga-130-colunas.rng yes    same    0 (1p)       PASS
+c-23-planilha-larga-130-colunas.all yes    same    0 (13p)      PASS
+c-23-planilha-larga-130-colunas.prn yes    same    0 (13p)      PASS
+c-24-planilha-comprida-10000-linhas.d yes    same    0 (223p)     PASS
+c-24-planilha-comprida-10000-linhas.fit yes    same    0 (22p)      PASS
+c-24-planilha-comprida-10000-linhas.rng yes    same    0 (1p)       PASS
+c-24-planilha-comprida-10000-linhas.all yes    same    0 (223p)     PASS
+c-24-planilha-comprida-10000-linhas.prn yes    same    0 (223p)     PASS
+c-25-texto-longo-quebra-transbordo.d yes    same    0 (1p)       PASS
+c-25-texto-longo-quebra-transbordo.fit yes    same    0 (1p)       PASS
+c-25-texto-longo-quebra-transbordo.rng yes    same    0 (1p)       PASS
+c-25-texto-longo-quebra-transbordo.all yes    same    0 (1p)       PASS
+c-25-texto-longo-quebra-transbordo.prn yes    same    0 (1p)       PASS
+c-26-texto-rotacionado.d   yes    same    0 (1p)       PASS
+c-26-texto-rotacionado.fit yes    same    0 (1p)       PASS
+c-26-texto-rotacionado.rng yes    same    0 (1p)       PASS
+c-26-texto-rotacionado.all yes    same    0 (1p)       PASS
+c-26-texto-rotacionado.prn yes    same    0 (1p)       PASS
+c-27-alinhamentos.d        yes    same    0 (1p)       PASS
+c-27-alinhamentos.fit      yes    same    0 (1p)       PASS
+c-27-alinhamentos.rng      yes    same    0 (1p)       PASS
+c-27-alinhamentos.all      yes    same    0 (1p)       PASS
+c-27-alinhamentos.prn      yes    same    0 (1p)       PASS
+c-28-numeros-enormes-e-erros.d yes    same    0 (1p)       PASS
+c-28-numeros-enormes-e-erros.fit yes    same    0 (1p)       PASS
+c-28-numeros-enormes-e-erros.rng yes    same    0 (1p)       PASS
+c-28-numeros-enormes-e-erros.all yes    same    0 (1p)       PASS
+c-28-numeros-enormes-e-erros.prn yes    same    0 (1p)       PASS
+c-29-area-de-impressao.d   yes    same    0 (1p)       PASS
+c-29-area-de-impressao.fit yes    same    0 (1p)       PASS
+c-29-area-de-impressao.rng yes    same    0 (1p)       PASS
+c-29-area-de-impressao.all yes    same    0 (1p)       PASS
+c-29-area-de-impressao.prn yes    same    0 (1p)       PASS
+    B| 71c71
+    B| < 50.4 723 48 15 re f
+    B| ---
+    B| > 51.4 723 48 15 re f
+    B| 73c73
+    B| < 98.4 723 48 15 re f
+    B| ---
+    B| > 99.4 723 48 15 re f
+    B| 75c75
+    B| < 146.4 723 48 15 re f
+    B| ---
+    B| > 147.4 723 48 15 re f
+    B| 77c77
+    B| < 194.4 723 48 15 re f
+    B| ---
+    B| > 195.4 723 48 15 re f
+    B| 79c79
+    B| < 50.4 708 48 15 re f
+    B| ---
+    B| > 51.4 708 48 15 re f
+c-30-tabela-com-estilo.d   NO     same     p1.png=79   FAIL
+    B| 71c71
+    B| < 50.4 723 48 15 re f
+    B| ---
+    B| > 51.4 723 48 15 re f
+    B| 73c73
+    B| < 98.4 723 48 15 re f
+    B| ---
+    B| > 99.4 723 48 15 re f
+    B| 75c75
+    B| < 146.4 723 48 15 re f
+    B| ---
+    B| > 147.4 723 48 15 re f
+    B| 77c77
+    B| < 194.4 723 48 15 re f
+    B| ---
+    B| > 195.4 723 48 15 re f
+    B| 79c79
+    B| < 50.4 708 48 15 re f
+    B| ---
+    B| > 51.4 708 48 15 re f
+c-30-tabela-com-estilo.fit NO     same     p1.png=79   FAIL
+    B| 70c70
+    B| < 50.4 723 48 15 re f
+    B| ---
+    B| > 51.4 723 48 15 re f
+    B| 72c72
+    B| < 98.4 723 48 15 re f
+    B| ---
+    B| > 99.4 723 48 15 re f
+    B| 74c74
+    B| < 146.4 723 48 15 re f
+    B| ---
+    B| > 147.4 723 48 15 re f
+    B| 76c76
+    B| < 50.4 693 48 15 re f
+    B| ---
+    B| > 51.4 693 48 15 re f
+    B| 78c78
+    B| < 98.4 693 48 15 re f
+    B| ---
+    B| > 99.4 693 48 15 re f
+c-30-tabela-com-estilo.rng NO     same     p1.png=64   FAIL
+    B| 71c71
+    B| < 50.4 723 48 15 re f
+    B| ---
+    B| > 51.4 723 48 15 re f
+    B| 73c73
+    B| < 98.4 723 48 15 re f
+    B| ---
+    B| > 99.4 723 48 15 re f
+    B| 75c75
+    B| < 146.4 723 48 15 re f
+    B| ---
+    B| > 147.4 723 48 15 re f
+    B| 77c77
+    B| < 194.4 723 48 15 re f
+    B| ---
+    B| > 195.4 723 48 15 re f
+    B| 79c79
+    B| < 50.4 708 48 15 re f
+    B| ---
+    B| > 51.4 708 48 15 re f
+c-30-tabela-com-estilo.all NO     same     p1.png=79   FAIL
+    B| 71c71
+    B| < 50.4 723 48 15 re f
+    B| ---
+    B| > 51.4 723 48 15 re f
+    B| 73c73
+    B| < 98.4 723 48 15 re f
+    B| ---
+    B| > 99.4 723 48 15 re f
+    B| 75c75
+    B| < 146.4 723 48 15 re f
+    B| ---
+    B| > 147.4 723 48 15 re f
+    B| 77c77
+    B| < 194.4 723 48 15 re f
+    B| ---
+    B| > 195.4 723 48 15 re f
+    B| 79c79
+    B| < 50.4 708 48 15 re f
+    B| ---
+    B| > 51.4 708 48 15 re f
+c-30-tabela-com-estilo.prn NO     same     p1.png=79   FAIL
+c-31-texto-nao-latino-emoji.d yes    same    0 (1p)       PASS
+c-31-texto-nao-latino-emoji.fit yes    same    0 (1p)       PASS
+c-31-texto-nao-latino-emoji.rng yes    same    0 (1p)       PASS
+c-31-texto-nao-latino-emoji.all yes    same    0 (1p)       PASS
+c-31-texto-nao-latino-emoji.prn yes    same    0 (1p)       PASS
+    B| 70c70
+    B| < 50.4 723 48 15 re f
+    B| ---
+    B| > 51.4 723 48 15 re f
+    B| 72c72
+    B| < 50.4 708 48 15 re f
+    B| ---
+    B| > 51.4 708 48 15 re f
+    B| 74c74
+    B| < 50.4 693 48 15 re f
+    B| ---
+    B| > 51.4 693 48 15 re f
+    B| 76c76
+    B| < 50.4 678 48 15 re f
+    B| ---
+    B| > 51.4 678 48 15 re f
+    B| 292c292
+    B| <   /ID [<b1cef1598f7b23f55765e4090e02285e><b1cef1598f7b23f55765e4090e02285e>]
+    B| ---
+    B| >   /ID [<04a46af83ff1468df2fb7d4e3b0cb05d><04a46af83ff1468df2fb7d4e3b0cb05d>]
+c-32-condicional-celula-vermelho.d NO     same     p1.png=82   FAIL
+    B| 70c70
+    B| < 50.4 723 48 15 re f
+    B| ---
+    B| > 51.4 723 48 15 re f
+    B| 72c72
+    B| < 50.4 708 48 15 re f
+    B| ---
+    B| > 51.4 708 48 15 re f
+    B| 74c74
+    B| < 50.4 693 48 15 re f
+    B| ---
+    B| > 51.4 693 48 15 re f
+    B| 76c76
+    B| < 50.4 678 48 15 re f
+    B| ---
+    B| > 51.4 678 48 15 re f
+    B| 292c292
+    B| <   /ID [<b1cef1598f7b23f55765e4090e02285e><b1cef1598f7b23f55765e4090e02285e>]
+    B| ---
+    B| >   /ID [<04a46af83ff1468df2fb7d4e3b0cb05d><04a46af83ff1468df2fb7d4e3b0cb05d>]
+c-32-condicional-celula-vermelho.fit NO     same     p1.png=82   FAIL
+c-32-condicional-celula-vermelho.rng yes    same    0 (1p)       PASS
+    B| 70c70
+    B| < 50.4 723 48 15 re f
+    B| ---
+    B| > 51.4 723 48 15 re f
+    B| 72c72
+    B| < 50.4 708 48 15 re f
+    B| ---
+    B| > 51.4 708 48 15 re f
+    B| 74c74
+    B| < 50.4 693 48 15 re f
+    B| ---
+    B| > 51.4 693 48 15 re f
+    B| 76c76
+    B| < 50.4 678 48 15 re f
+    B| ---
+    B| > 51.4 678 48 15 re f
+    B| 292c292
+    B| <   /ID [<b1cef1598f7b23f55765e4090e02285e><b1cef1598f7b23f55765e4090e02285e>]
+    B| ---
+    B| >   /ID [<04a46af83ff1468df2fb7d4e3b0cb05d><04a46af83ff1468df2fb7d4e3b0cb05d>]
+c-32-condicional-celula-vermelho.all NO     same     p1.png=82   FAIL
+    B| 70c70
+    B| < 50.4 723 48 15 re f
+    B| ---
+    B| > 51.4 723 48 15 re f
+    B| 72c72
+    B| < 50.4 708 48 15 re f
+    B| ---
+    B| > 51.4 708 48 15 re f
+    B| 74c74
+    B| < 50.4 693 48 15 re f
+    B| ---
+    B| > 51.4 693 48 15 re f
+    B| 76c76
+    B| < 50.4 678 48 15 re f
+    B| ---
+    B| > 51.4 678 48 15 re f
+    B| 292c292
+    B| <   /ID [<b1cef1598f7b23f55765e4090e02285e><b1cef1598f7b23f55765e4090e02285e>]
+    B| ---
+    B| >   /ID [<04a46af83ff1468df2fb7d4e3b0cb05d><04a46af83ff1468df2fb7d4e3b0cb05d>]
+c-32-condicional-celula-vermelho.prn NO     same     p1.png=82   FAIL
+    B| 289c289
+    B| < 50.4 402 360 216 re f
+    B| ---
+    B| > 51.4 402 360 216 re f
+    B| 294c294
+    B| < 366.218 512.7 5.4 5.4 re f
+    B| ---
+    B| > 367.218 512.7 5.4 5.4 re f
+    B| 434c434
+    B| < 93.21 421.95 21.063 44.136 re f
+    B| ---
+    B| > 94.21 421.95 21.063 44.136 re f
+    B| 436c436
+    B| < 145.868 421.95 21.063 84.56 re f
+    B| ---
+    B| > 146.868 421.95 21.063 84.56 re f
+    B| 438c438
+    B| < 198.527 421.95 21.063 66.177 re f
+    B| ---
+    B| > 199.527 421.95 21.063 66.177 re f
+c-33-grafico-combinado.d   NO     same     p1.png=480  FAIL
+    B| 289c289
+    B| < 50.4 402 360 216 re f
+    B| ---
+    B| > 51.4 402 360 216 re f
+    B| 294c294
+    B| < 366.218 512.7 5.4 5.4 re f
+    B| ---
+    B| > 367.218 512.7 5.4 5.4 re f
+    B| 434c434
+    B| < 93.21 421.95 21.063 44.136 re f
+    B| ---
+    B| > 94.21 421.95 21.063 44.136 re f
+    B| 436c436
+    B| < 145.868 421.95 21.063 84.56 re f
+    B| ---
+    B| > 146.868 421.95 21.063 84.56 re f
+    B| 438c438
+    B| < 198.527 421.95 21.063 66.177 re f
+    B| ---
+    B| > 199.527 421.95 21.063 66.177 re f
+c-33-grafico-combinado.fit NO     same     p1.png=480  FAIL
+    B| 208c208
+    B| < 2.4 417 360 216 re f
+    B| ---
+    B| > 3.4 417 360 216 re f
+    B| 213c213
+    B| < 318.218 527.7 5.4 5.4 re f
+    B| ---
+    B| > 319.218 527.7 5.4 5.4 re f
+    B| 353c353
+    B| < 45.21 436.95 21.063 44.136 re f
+    B| ---
+    B| > 46.21 436.95 21.063 44.136 re f
+    B| 355c355
+    B| < 97.868 436.95 21.063 84.56 re f
+    B| ---
+    B| > 98.868 436.95 21.063 84.56 re f
+    B| 357c357
+    B| < 150.527 436.95 21.063 66.177 re f
+    B| ---
+    B| > 151.527 436.95 21.063 66.177 re f
+c-33-grafico-combinado.rng NO     same     p1.png=262  FAIL
+    B| 289c289
+    B| < 50.4 402 360 216 re f
+    B| ---
+    B| > 51.4 402 360 216 re f
+    B| 294c294
+    B| < 366.218 512.7 5.4 5.4 re f
+    B| ---
+    B| > 367.218 512.7 5.4 5.4 re f
+    B| 434c434
+    B| < 93.21 421.95 21.063 44.136 re f
+    B| ---
+    B| > 94.21 421.95 21.063 44.136 re f
+    B| 436c436
+    B| < 145.868 421.95 21.063 84.56 re f
+    B| ---
+    B| > 146.868 421.95 21.063 84.56 re f
+    B| 438c438
+    B| < 198.527 421.95 21.063 66.177 re f
+    B| ---
+    B| > 199.527 421.95 21.063 66.177 re f
+c-33-grafico-combinado.all NO     same     p1.png=480  FAIL
+    B| 289c289
+    B| < 50.4 402 360 216 re f
+    B| ---
+    B| > 51.4 402 360 216 re f
+    B| 294c294
+    B| < 366.218 512.7 5.4 5.4 re f
+    B| ---
+    B| > 367.218 512.7 5.4 5.4 re f
+    B| 434c434
+    B| < 93.21 421.95 21.063 44.136 re f
+    B| ---
+    B| > 94.21 421.95 21.063 44.136 re f
+    B| 436c436
+    B| < 145.868 421.95 21.063 84.56 re f
+    B| ---
+    B| > 146.868 421.95 21.063 84.56 re f
+    B| 438c438
+    B| < 198.527 421.95 21.063 66.177 re f
+    B| ---
+    B| > 199.527 421.95 21.063 66.177 re f
+c-33-grafico-combinado.prn NO     same     p1.png=480  FAIL
+    B| 100c100
+    B| < 149.775 669.58 15.56 12.75 re f
+    B| ---
+    B| > 150.775 669.58 15.56 12.75 re f
+    B| 102c102
+    B| < 197.775 669.58 13.542 12.75 re f
+    B| ---
+    B| > 198.775 669.58 13.542 12.75 re f
+    B| 104c104
+    B| < 245.775 669.58 18.3 12.75 re f
+    B| ---
+    B| > 246.775 669.58 18.3 12.75 re f
+    B| 106c106
+    B| < 149.775 654.58 25.62 12.75 re f
+    B| ---
+    B| > 150.775 654.58 25.62 12.75 re f
+    B| 108c108
+    B| < 197.775 654.58 23.797 12.75 re f
+    B| ---
+    B| > 198.775 654.58 23.797 12.75 re f
+c-34-painel-composto.d     NO     same     p1.png=276 p2.png=4 FAIL
+    B| 71c71
+    B| < 131.519 682.149 12.701 10.408 re f
+    B| ---
+    B| > 132.519 682.149 12.701 10.408 re f
+    B| 73c73
+    B| < 170.7 682.149 11.054 10.408 re f
+    B| ---
+    B| > 171.7 682.149 11.054 10.408 re f
+    B| 75c75
+    B| < 209.882 682.149 14.938 10.408 re f
+    B| ---
+    B| > 210.882 682.149 14.938 10.408 re f
+    B| 77c77
+    B| < 131.519 669.905 20.913 10.408 re f
+    B| ---
+    B| > 132.519 669.905 20.913 10.408 re f
+    B| 79c79
+    B| < 170.7 669.905 19.425 10.408 re f
+    B| ---
+    B| > 171.7 669.905 19.425 10.408 re f
+c-34-painel-composto.fit   NO     same     p1.png=199  FAIL
+    B| 70c70
+    B| < 51.525 694.125 15.56 12.75 re f
+    B| ---
+    B| > 52.525 694.125 15.56 12.75 re f
+    B| 72c72
+    B| < 99.525 694.125 13.542 12.75 re f
+    B| ---
+    B| > 100.525 694.125 13.542 12.75 re f
+    B| 74c74
+    B| < 147.525 694.125 18.3 12.75 re f
+    B| ---
+    B| > 148.525 694.125 18.3 12.75 re f
+    B| 76c76
+    B| < 51.525 679.125 25.62 12.75 re f
+    B| ---
+    B| > 52.525 679.125 25.62 12.75 re f
+    B| 78c78
+    B| < 99.525 679.125 23.797 12.75 re f
+    B| ---
+    B| > 100.525 679.125 23.797 12.75 re f
+c-34-painel-composto.rng   NO     same     p1.png=160  FAIL
+    B| 158c158
+    B| < 149.775 669.58 15.56 12.75 re f
+    B| ---
+    B| > 150.775 669.58 15.56 12.75 re f
+    B| 160c160
+    B| < 197.775 669.58 13.542 12.75 re f
+    B| ---
+    B| > 198.775 669.58 13.542 12.75 re f
+    B| 162c162
+    B| < 245.775 669.58 18.3 12.75 re f
+    B| ---
+    B| > 246.775 669.58 18.3 12.75 re f
+    B| 164c164
+    B| < 149.775 654.58 25.62 12.75 re f
+    B| ---
+    B| > 150.775 654.58 25.62 12.75 re f
+    B| 166c166
+    B| < 197.775 654.58 23.797 12.75 re f
+    B| ---
+    B| > 198.775 654.58 23.797 12.75 re f
+c-34-painel-composto.all   NO     same     p1.png=276 p2.png=4 FAIL
+    B| 100c100
+    B| < 149.775 669.58 15.56 12.75 re f
+    B| ---
+    B| > 150.775 669.58 15.56 12.75 re f
+    B| 102c102
+    B| < 197.775 669.58 13.542 12.75 re f
+    B| ---
+    B| > 198.775 669.58 13.542 12.75 re f
+    B| 104c104
+    B| < 245.775 669.58 18.3 12.75 re f
+    B| ---
+    B| > 246.775 669.58 18.3 12.75 re f
+    B| 106c106
+    B| < 149.775 654.58 25.62 12.75 re f
+    B| ---
+    B| > 150.775 654.58 25.62 12.75 re f
+    B| 108c108
+    B| < 197.775 654.58 23.797 12.75 re f
+    B| ---
+    B| > 198.775 654.58 23.797 12.75 re f
+c-34-painel-composto.prn   NO     same     p1.png=276 p2.png=4 FAIL
+c-35-comentarios-hiperlinks.d yes    same    0 (1p)       PASS
+c-35-comentarios-hiperlinks.fit yes    same    0 (1p)       PASS
+c-35-comentarios-hiperlinks.rng yes    same    0 (1p)       PASS
+c-35-comentarios-hiperlinks.all yes    same    0 (1p)       PASS
+c-35-comentarios-hiperlinks.prn yes    same    0 (1p)       PASS
+c-36-planilha-rtl.d        yes    same    0 (1p)       PASS
+c-36-planilha-rtl.fit      yes    same    0 (1p)       PASS
+c-36-planilha-rtl.rng      yes    same    0 (1p)       PASS
+c-36-planilha-rtl.all      yes    same    0 (1p)       PASS
+c-36-planilha-rtl.prn      yes    same    0 (1p)       PASS
+c-37-zoom-200-sem-gridlines.d yes    same    0 (1p)       PASS
+c-37-zoom-200-sem-gridlines.fit yes    same    0 (1p)       PASS
+c-37-zoom-200-sem-gridlines.rng yes    same    0 (1p)       PASS
+c-37-zoom-200-sem-gridlines.all yes    same    0 (1p)       PASS
+c-37-zoom-200-sem-gridlines.prn yes    same    0 (1p)       PASS
+c-38-xlsx-vazio-valido.d   yes    same    0 (1p)       PASS
+c-38-xlsx-vazio-valido.fit yes    same    0 (1p)       PASS
+c-38-xlsx-vazio-valido.rng yes    same    0 (1p)       PASS
+c-38-xlsx-vazio-valido.all yes    same    0 (1p)       PASS
+c-38-xlsx-vazio-valido.prn yes    same    0 (1p)       PASS
+c-39-conteudo-distante.d   yes    same    0 (36p)      PASS
+c-39-conteudo-distante.fit yes    same    0 (2p)       PASS
+c-39-conteudo-distante.rng yes    same    0 (1p)       PASS
+c-39-conteudo-distante.all yes    same    0 (36p)      PASS
+c-39-conteudo-distante.prn yes    same    0 (36p)      PASS
+c-40-primeira-aba-oculta.d yes    same    0 (1p)       PASS
+c-40-primeira-aba-oculta.fit yes    same    0 (1p)       PASS
+c-40-primeira-aba-oculta.rng yes    same    0 (1p)       PASS
+c-40-primeira-aba-oculta.all yes    same    0 (1p)       PASS
+c-40-primeira-aba-oculta.prn yes    same    0 (1p)       PASS
+c-41-openpyxl-formula-sem-cache.d yes    same    0 (1p)       PASS
+c-41-openpyxl-formula-sem-cache.fit yes    same    0 (1p)       PASS
+c-41-openpyxl-formula-sem-cache.rng yes    same    0 (1p)       PASS
+c-41-openpyxl-formula-sem-cache.all yes    same    0 (2p)       PASS
+c-41-openpyxl-formula-sem-cache.prn yes    same    0 (1p)       PASS
+c-42-openpyxl-dados-sem-gridlines.d yes    same    0 (1p)       PASS
+c-42-openpyxl-dados-sem-gridlines.fit yes    same    0 (1p)       PASS
+c-42-openpyxl-dados-sem-gridlines.rng yes    same    0 (1p)       PASS
+c-42-openpyxl-dados-sem-gridlines.all yes    same    0 (1p)       PASS
+c-42-openpyxl-dados-sem-gridlines.prn yes    same    0 (1p)       PASS
+c-49-vazio-0bytes.d        n/a    same    n/a          PASS
+c-49-vazio-0bytes.fit      n/a    same    n/a          PASS
+c-49-vazio-0bytes.rng      n/a    same    n/a          PASS
+c-49-vazio-0bytes.all      n/a    same    n/a          PASS
+c-49-vazio-0bytes.prn      n/a    same    n/a          PASS
+c-50-xlsx-truncado.d       n/a    same    n/a          PASS
+c-50-xlsx-truncado.fit     n/a    same    n/a          PASS
+c-50-xlsx-truncado.rng     n/a    same    n/a          PASS
+c-50-xlsx-truncado.all     n/a    same    n/a          PASS
+c-50-xlsx-truncado.prn     n/a    same    n/a          PASS
+c-51-xlsx-bytes-corrompidos.d n/a    same    n/a          PASS
+c-51-xlsx-bytes-corrompidos.fit n/a    same    n/a          PASS
+c-51-xlsx-bytes-corrompidos.rng n/a    same    n/a          PASS
+c-51-xlsx-bytes-corrompidos.all n/a    same    n/a          PASS
+c-51-xlsx-bytes-corrompidos.prn n/a    same    n/a          PASS
+c-52-texto-puro-extensao-xlsx.d yes    same    0 (1p)       PASS
+c-52-texto-puro-extensao-xlsx.fit yes    same    0 (1p)       PASS
+c-52-texto-puro-extensao-xlsx.rng yes    same    0 (1p)       PASS
+c-52-texto-puro-extensao-xlsx.all yes    same    0 (1p)       PASS
+c-52-texto-puro-extensao-xlsx.prn yes    same    0 (1p)       PASS
+c-53-csv-com-extensao-xlsx.d yes    same    0 (1p)       PASS
+c-53-csv-com-extensao-xlsx.fit yes    same    0 (1p)       PASS
+c-53-csv-com-extensao-xlsx.rng yes    same    0 (1p)       PASS
+c-53-csv-com-extensao-xlsx.all yes    same    0 (1p)       PASS
+c-53-csv-com-extensao-xlsx.prn yes    same    0 (1p)       PASS
+c-56-xls-com-extensao-xlsx.d yes    same    0 (1p)       PASS
+c-56-xls-com-extensao-xlsx.fit yes    same    0 (1p)       PASS
+c-56-xls-com-extensao-xlsx.rng yes    same    0 (1p)       PASS
+c-56-xls-com-extensao-xlsx.all yes    same    0 (3p)       PASS
+c-56-xls-com-extensao-xlsx.prn yes    same    0 (1p)       PASS
+err.range                  n/a    same    n/a          PASS
+err.sheets                 n/a    same    n/a          PASS
+err.dir                    n/a    same    n/a          PASS
+err.empty                  n/a    same    n/a          PASS
+err.big                    yes    same    0 (1p)       PASS

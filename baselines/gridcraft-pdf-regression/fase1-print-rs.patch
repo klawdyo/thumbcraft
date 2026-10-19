@@ -1,0 +1,227 @@
+diff -ruN -x target -x .git orig/crates/engine/src/cmd/print.rs gridcraft/crates/engine/src/cmd/print.rs
+--- orig/crates/engine/src/cmd/print.rs	2026-10-19 07:40:55.150470956 -0300
++++ gridcraft/crates/engine/src/cmd/print.rs	2026-10-19 08:04:43.227801500 -0300
+@@ -680,6 +680,103 @@
+     Look { style, fill, cf: cfl }
+ }
+ 
++// ---------------------------------------------------------------- display list
++
++/// One drawing call, recorded: the 13 operations print layout uses on a page. Everything an op
++/// carries is final (points, top-left origin, text already measured and positioned, colours and
++/// fonts resolved), so a list is independent of the backend that replays it.
++#[derive(Clone, Debug, PartialEq)]
++enum Op {
++    Save,
++    Restore,
++    ClipRect(f32, f32, f32, f32),
++    FillRect(f32, f32, f32, f32, Rgb),
++    RectStroke(f32, f32, f32, f32, f32, Rgb),
++    StrokeLine(f32, f32, f32, f32, f32, Rgb),
++    StrokeLineDashed(f32, f32, f32, f32, f32, Rgb, Vec<f32>),
++    Polyline(Vec<[f32; 2]>, f32, Rgb, Vec<f32>),
++    Polygon(Vec<[f32; 2]>, Option<Rgb>, Option<(Rgb, f32)>),
++    Circle(f32, f32, f32, Option<Rgb>, Option<(Rgb, f32)>),
++    Text(f32, f32, f32, Font, Rgb, String),
++    TextRotated(f32, f32, f32, Font, Rgb, String, f32),
++    ImageRgba(f32, f32, f32, f32, Vec<u8>, u32, u32),
++}
++
++/// A page of display list. Its methods mirror `gridcraft_pdf::Page`'s, so the drawing code reads
++/// the same; nothing is drawn until [`replay`] feeds the ops to a real page.
++struct Rec {
++    width: f32,
++    height: f32,
++    ops: Vec<Op>,
++}
++
++#[allow(clippy::too_many_arguments)]
++impl Rec {
++    fn new(width: f32, height: f32) -> Rec {
++        Rec { width, height, ops: Vec::new() }
++    }
++    fn save(&mut self) {
++        self.ops.push(Op::Save);
++    }
++    fn restore(&mut self) {
++        self.ops.push(Op::Restore);
++    }
++    fn clip_rect(&mut self, x: f32, y: f32, w: f32, h: f32) {
++        self.ops.push(Op::ClipRect(x, y, w, h));
++    }
++    fn fill_rect(&mut self, x: f32, y: f32, w: f32, h: f32, color: Rgb) {
++        self.ops.push(Op::FillRect(x, y, w, h, color));
++    }
++    fn rect_stroke(&mut self, x: f32, y: f32, w: f32, h: f32, width: f32, color: Rgb) {
++        self.ops.push(Op::RectStroke(x, y, w, h, width, color));
++    }
++    fn stroke_line(&mut self, x0: f32, y0: f32, x1: f32, y1: f32, width: f32, color: Rgb) {
++        self.ops.push(Op::StrokeLine(x0, y0, x1, y1, width, color));
++    }
++    fn stroke_line_dashed(&mut self, x0: f32, y0: f32, x1: f32, y1: f32, width: f32, color: Rgb, dash: &[f32]) {
++        self.ops.push(Op::StrokeLineDashed(x0, y0, x1, y1, width, color, dash.to_vec()));
++    }
++    fn polyline(&mut self, pts: &[[f32; 2]], width: f32, color: Rgb, dash: &[f32]) {
++        self.ops.push(Op::Polyline(pts.to_vec(), width, color, dash.to_vec()));
++    }
++    fn polygon(&mut self, pts: &[[f32; 2]], fill: Option<Rgb>, stroke: Option<(Rgb, f32)>) {
++        self.ops.push(Op::Polygon(pts.to_vec(), fill, stroke));
++    }
++    fn circle(&mut self, cx: f32, cy: f32, r: f32, fill: Option<Rgb>, stroke: Option<(Rgb, f32)>) {
++        self.ops.push(Op::Circle(cx, cy, r, fill, stroke));
++    }
++    fn text(&mut self, x: f32, y: f32, size: f32, font: Font, color: Rgb, text: &str) {
++        self.ops.push(Op::Text(x, y, size, font, color, text.to_string()));
++    }
++    fn text_rotated(&mut self, x: f32, y: f32, size: f32, font: Font, color: Rgb, text: &str, angle: f32) {
++        self.ops.push(Op::TextRotated(x, y, size, font, color, text.to_string(), angle));
++    }
++    fn image_rgba(&mut self, x: f32, y: f32, w: f32, h: f32, rgba: &[u8], pw: u32, ph: u32) {
++        self.ops.push(Op::ImageRgba(x, y, w, h, rgba.to_vec(), pw, ph));
++    }
++}
++
++/// Writes recorded ops to a PDF page, call for call.
++fn replay(pg: &mut Page, ops: &[Op]) {
++    for op in ops {
++        match op {
++            Op::Save => pg.save(),
++            Op::Restore => pg.restore(),
++            Op::ClipRect(x, y, w, h) => pg.clip_rect(*x, *y, *w, *h),
++            Op::FillRect(x, y, w, h, c) => pg.fill_rect(*x, *y, *w, *h, *c),
++            Op::RectStroke(x, y, w, h, lw, c) => pg.rect_stroke(*x, *y, *w, *h, *lw, *c),
++            Op::StrokeLine(x0, y0, x1, y1, lw, c) => pg.stroke_line(*x0, *y0, *x1, *y1, *lw, *c),
++            Op::StrokeLineDashed(x0, y0, x1, y1, lw, c, d) => pg.stroke_line_dashed(*x0, *y0, *x1, *y1, *lw, *c, d),
++            Op::Polyline(pts, lw, c, d) => pg.polyline(pts, *lw, *c, d),
++            Op::Polygon(pts, f, st) => pg.polygon(pts, *f, *st),
++            Op::Circle(cx, cy, r, f, st) => pg.circle(*cx, *cy, *r, *f, *st),
++            Op::Text(x, y, sz, f, c, t) => pg.text(*x, *y, *sz, *f, *c, t),
++            Op::TextRotated(x, y, sz, f, c, t, a) => pg.text_rotated(*x, *y, *sz, *f, *c, t, *a),
++            Op::ImageRgba(x, y, w, h, px, pw, ph) => pg.image_rgba(*x, *y, *w, *h, px, *pw, *ph),
++        }
++    }
++}
++
+ /// PDF measurement for chart layout.
+ struct PdfMeasure;
+ 
+@@ -707,7 +804,7 @@
+ }
+ 
+ /// Draws chart primitives onto a page.
+-fn draw_prims(pg: &mut Page, prims: &[gridcraft_chart::Prim], xf: Xf) {
++fn draw_prims(pg: &mut Rec, prims: &[gridcraft_chart::Prim], xf: Xf) {
+     use gridcraft_chart::{HAlign as H, Prim, VAlign as V};
+     let k = xf.k;
+     for p in prims {
+@@ -857,7 +954,7 @@
+     }
+ }
+ 
+-fn draw_border(pg: &mut Page, b: &BorderLine, wb: &Workbook, x0: f32, y0: f32, x1: f32, y1: f32, k: f32) {
++fn draw_border(pg: &mut Rec, b: &BorderLine, wb: &Workbook, x0: f32, y0: f32, x1: f32, y1: f32, k: f32) {
+     if b.is_none() {
+         return;
+     }
+@@ -879,7 +976,7 @@
+ }
+ 
+ /// Draws the cells of a block: fills, gridlines, data bars, borders and text.
+-fn draw_block(pg: &mut Page, b: &Block, gridlines: bool, cf: &mut Option<crate::cf::CfCache>) {
++fn draw_block(pg: &mut Rec, b: &Block, gridlines: bool, cf: &mut Option<crate::cf::CfCache>) {
+     let (bx, by) = (b.xs.first().copied().unwrap_or(0.0), b.ys.first().copied().unwrap_or(0.0));
+     let (bw, bh) = (b.xs.last().copied().unwrap_or(bx) - bx, b.ys.last().copied().unwrap_or(by) - by);
+     if bw <= 0.0 || bh <= 0.0 {
+@@ -1001,7 +1098,7 @@
+ }
+ 
+ /// Cell pictures fit the current cell (or merged-cell) rectangle without changing aspect ratio.
+-fn draw_cell_picture(pg: &mut Page, data: &[u8], rect: (f32, f32, f32, f32), k: f32) {
++fn draw_cell_picture(pg: &mut Rec, data: &[u8], rect: (f32, f32, f32, f32), k: f32) {
+     let (x, y, w, h) = rect;
+     let pad = 2.0 * k;
+     let (w, h) = ((w - 2.0 * pad).max(0.0), (h - 2.0 * pad).max(0.0));
+@@ -1046,7 +1143,7 @@
+     ext
+ }
+ 
+-fn draw_text(pg: &mut Page, b: &Block, c: CellRef, l: &Look, rect: (f32, f32, f32, f32), merged: bool, merges: &[RangeRef], limits: (f32, f32)) {
++fn draw_text(pg: &mut Rec, b: &Block, c: CellRef, l: &Look, rect: (f32, f32, f32, f32), merged: bool, merges: &[RangeRef], limits: (f32, f32)) {
+     let (x, y, w, h) = rect;
+     let sh = b.sh;
+     let wb = b.wb;
+@@ -1247,7 +1344,7 @@
+ }
+ 
+ /// Draws charts, pictures, shapes and sparklines overlapping the body block of a page.
+-fn draw_objects(pg: &mut Page, wb: &Workbook, si: usize, sh: &Sheet, b: &Block) {
++fn draw_objects(pg: &mut Rec, wb: &Workbook, si: usize, sh: &Sheet, b: &Block) {
+     let block = b.range();
+     let (sx0, sy0) = (sh.col_left(block.start.col), sh.row_top(block.start.row));
+     let (sx1, sy1) = (sh.col_left(block.end.col.saturating_add(1)), sh.row_top(block.end.row.saturating_add(1)));
+@@ -1357,7 +1454,7 @@
+     pg.restore();
+ }
+ 
+-fn draw_headings(pg: &mut Page, b: &Block, col_heads: bool, row_heads: bool, at: (f32, f32), size: (f32, f32)) {
++fn draw_headings(pg: &mut Rec, b: &Block, col_heads: bool, row_heads: bool, at: (f32, f32), size: (f32, f32)) {
+     let fill = [0xF2, 0xF2, 0xF2];
+     let line = [0xA0, 0xA0, 0xA0];
+     let fsize = 9.0 * b.scale.max(0.1);
+@@ -1392,7 +1489,7 @@
+     }
+ }
+ 
+-fn draw_header_footer(pg: &mut Page, lay: &SheetLayout, which: gridcraft_model::HfPage, cx: &HfContext) {
++fn draw_header_footer(pg: &mut Rec, lay: &SheetLayout, which: gridcraft_model::HfPage, cx: &HfContext) {
+     let [l, r, _, _, hm, fm] = lay.margins;
+     let pw = lay.page_w;
+     let ph = lay.page_h;
+@@ -1459,11 +1556,11 @@
+     if rows { (seg.0..=seg.1).map(|r| sh.row_height(r)).sum() } else { (seg.0..=seg.1).map(|c| sh.col_width(c)).sum() }
+ }
+ 
+-/// Renders laid-out sheets to a PDF.
+-pub fn render_pdf(wb: &Workbook, layouts: &[SheetLayout], file: &str, path: &str) -> (Vec<u8>, usize) {
+-    let mut doc = PdfDoc::new();
+-    doc.info.title = if wb.props.title.is_empty() { file.to_string() } else { wb.props.title.clone() };
+-    doc.info.author = wb.props.author.clone();
++/// The one drawing pass behind every print output: lays the pages of `layouts` out as backend
++/// neutral display lists (`Rec`), one per page, with the text measured and
++/// positioned and every style resolved. The PDF is a replay of these lists.
++fn assemble_pages(wb: &Workbook, layouts: &[SheetLayout], file: &str, path: &str) -> Vec<Rec> {
++    let mut out = Vec::new();
+     let total: usize = layouts.iter().map(|l| l.pages.len()).sum();
+     let (date, time) = hf_date_time(wb);
+     let mut page_no = 0usize;
+@@ -1481,7 +1578,8 @@
+             let content_h = (lay.heading_h + rsegs.iter().map(|s| seg_size(sh, *s, true)).sum::<f32>()) * k;
+             let ox = lay.margins[0] + if lay.settings.center_h { ((aw - content_w) / 2.0).max(0.0) } else { 0.0 };
+             let oy = lay.margins[2] + if lay.settings.center_v { ((ah - content_h) / 2.0).max(0.0) } else { 0.0 };
+-            let pg = doc.add_page(lay.page_w, lay.page_h);
++            let mut rec = Rec::new(lay.page_w, lay.page_h);
++            let pg = &mut rec;
+             let mut y = oy + lay.heading_h * k;
+             let mut body: Option<Block> = None;
+             for (rsi, rs) in rsegs.iter().enumerate() {
+@@ -1517,8 +1615,20 @@
+                 time: time.clone(),
+             };
+             draw_header_footer(pg, lay, lay.settings.hf_page(pi == 0, page_no), &cx);
++            out.push(rec);
+         }
+     }
++    out
++}
++
++/// Renders laid-out sheets to a PDF (a replay of [`assemble_pages`]).
++pub fn render_pdf(wb: &Workbook, layouts: &[SheetLayout], file: &str, path: &str) -> (Vec<u8>, usize) {
++    let mut doc = PdfDoc::new();
++    doc.info.title = if wb.props.title.is_empty() { file.to_string() } else { wb.props.title.clone() };
++    doc.info.author = wb.props.author.clone();
++    for rec in assemble_pages(wb, layouts, file, path) {
++        replay(doc.add_page(rec.width, rec.height), &rec.ops);
++    }
+     let n = doc.page_count();
+     (doc.finish(), n)
+ }
