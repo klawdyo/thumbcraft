@@ -23,6 +23,7 @@ novo) no projeto dele para instalar os dois binários; isso é só documentado a
 - O pacote de plataforma contém só o binário e o `package.json`; nenhum arquivo do corpus ou dos baselines.
 - Plataforma sem pacote correspondente: erro claro, em português, dizendo qual plataforma e como usar `THUMBCRAFT_BIN`.
 - Binários nunca entram no git; são gerados no empacotamento.
+- O `README.md` de cada pacote de plataforma é em inglês, curto, dizendo que é o binário do pacote `thumbcraft` e apontando para ele.
 
 ## Detalhes técnicos
 

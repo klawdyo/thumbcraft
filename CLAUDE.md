@@ -32,7 +32,8 @@ motor é um adaptador no binário; o roteamento é por conteúdo e extensão.
    (`release: X.Y.Z`) por decisão do dono, não do manifesto: o primeiro release leva o `Cargo.toml` de 0.1.0 para
    o que o histórico calcular.
 2. **Regras de API, auth e erros HTTP** não se aplicam (CLI). Códigos de saída: ver `docs/ARCHITECTURE.md`.
-3. **Documentação em `docs/`** é em português; o `README.md` é em inglês por pedido do dono.
+3. **Idioma da documentação.** A documentação em `docs/` e os relatórios são em português, mas **todo `README.md` é em
+   inglês**, em qualquer pasta (decisão do dono, 2026-10-19), inclusive os dos pacotes npm.
 
 ## Zonas protegidas
 
