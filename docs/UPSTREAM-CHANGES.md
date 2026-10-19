@@ -27,8 +27,9 @@ aplica sobre eles. Quem atualizar os pacotes
   resolva à mão (o ponto sensível é `print.rs`), gere o patch de novo com `git diff --binary` e atualize
   `ARVORE_GRIDCRAFT` no script. Detalhes em `../UPSTREAM.md` e `PR-GRIDCRAFT.md`.
 - **Ainda é necessário?** Enquanto o GridCraft não tiver `file.exportPng` nativo. Quando tiver, o patch sai.
-- **Estado conhecido:** no Windows o hash da árvore patchada (`ARVORE_GRIDCRAFT`) diverge do calculado no Linux e o
-  script termina com erro depois de baixar tudo (provável diferença de modo de arquivo; tarefa 05).
+- **Hash no Windows:** o `ARVORE_GRIDCRAFT` divergia no Windows porque o git grava 100644 para todo arquivo
+  (`core.fileMode=false`), e 8 scripts do GridCraft são 100755 no commit. O script agora copia o bit de execução do
+  commit antes de calcular o hash, e o valor confere nas duas plataformas.
 
 ### 2. craft-libs: hayro no `vello_cpu` 0.2.0 (`patches/craft-libs/0001-hayro-vello-cpu-0.2.patch`)
 

@@ -69,5 +69,9 @@ Coisas que enganam quem lê os relatórios ou usa os motores. Dados de 2026-10-1
 
 ### Todos
 
+- Windows: o `git` global com `core.autocrlf=true` converte os clones de `third_party/` para CRLF e os patches não
+  aplicam; o `scripts/fetch-upstream.sh` fixa `autocrlf=false` sozinho. O hash da árvore do GridCraft também depende do
+  bit de execução, que o git do Windows não grava; o script o copia do commit (`docs/UPSTREAM-CHANGES.md`).
+
 - PDF como entrada: nenhum dos três renderiza PDF (ver `PDF.md`).
 - Linux x86_64 apenas nos testes.
