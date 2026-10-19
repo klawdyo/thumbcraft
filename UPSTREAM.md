@@ -45,6 +45,11 @@ O craft-libs entra só para ler PDF: o thumbcraft o clona em `third_party/craft-
 `patches/craft-libs/0001-hayro-vello-cpu-0.2.patch` (porta o hayro para o `vello_cpu` 0.2.0 dos motores). O que cada
 patch faz está em `docs/UPSTREAM-CHANGES.md`.
 
+## Crates do crates.io com patch
+
+O `glifo` 0.3.0 (texto do `vello_cpu`) é baixado do crates.io como `.crate` (sha256 conferido) para `third_party/glifo`, e
+`patches/glifo/0001-skrifa-0.47.patch` o alinha ao `skrifa` dos motores. Tabela `CRATES` do `fetch-upstream.sh`.
+
 ## Versões iguais nos três (condição para unir o binário)
 
 `vello_cpu` e `vello_common` 0.2.0, `kurbo` 0.13.1, `peniko` 0.6.1, `skrifa` 0.47.0 (o patch do
