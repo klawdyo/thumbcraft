@@ -23,9 +23,9 @@ function scenario(result = OK_RESULT) {
 }
 
 describe('Thumbcraft.fromFile', () => {
-  it('toImageFile runs the binary once, straight from input to output, with no temp dir', async () => {
+  it('toFile runs the binary once, straight from input to output, with no temp dir', async () => {
     const { fileSystem, runner, config } = scenario();
-    await Thumbcraft.fromFile('/docs/report.docx', config).toImageFile('/out/report.png', { width: 120, height: 120 });
+    await Thumbcraft.fromFile('/docs/report.docx', config).toFile('/out/report.png', { width: 120, height: 120 });
     assert.equal(runner.calls.length, 1);
     assert.deepEqual(runner.calls[0], {
       command: BIN,
@@ -35,9 +35,9 @@ describe('Thumbcraft.fromFile', () => {
     assert.equal(fileSystem.createdTempDirs.length, 0);
   });
 
-  it('toImageBytes renders to a temp file, returns its bytes and removes the temp dir', async () => {
+  it('toBuffer renders to a temp file, returns its bytes and removes the temp dir', async () => {
     const { fileSystem, runner, config } = scenario();
-    const bytes = await Thumbcraft.fromFile('/docs/report.docx', config).toImageBytes({ page: 2 });
+    const bytes = await Thumbcraft.fromFile('/docs/report.docx', config).toBuffer({ page: 2 });
     assert.deepEqual(bytes, PNG);
     assert.deepEqual(runner.calls[0]?.args, ['/docs/report.docx', '/tmp/thumbcraft-fake-1/output.png', '--page', '2']);
     assert.equal(fileSystem.tempDirs.size, 0);
@@ -45,7 +45,7 @@ describe('Thumbcraft.fromFile', () => {
 
   it('picks the temp file extension from the requested format', async () => {
     const { runner, config } = scenario();
-    await Thumbcraft.fromFile('/docs/a.docx', config).toImageBytes({ format: 'jpeg' });
+    await Thumbcraft.fromFile('/docs/a.docx', config).toBuffer({ format: 'jpeg' });
     assert.deepEqual(runner.calls[0]?.args, ['/docs/a.docx', '/tmp/thumbcraft-fake-1/output.jpg', '--format', 'jpeg']);
   });
 });
@@ -59,7 +59,7 @@ describe('Thumbcraft.fromBuffer', () => {
       seenInput = await fileSystem.readFile(call.args[0] as string);
       await fileSystem.writeFile(call.args[1] as string, PNG);
     });
-    const bytes = await Thumbcraft.fromBuffer(input, 'Planilha Final.XLSX', { ...config, runner: spy }).toImageBytes();
+    const bytes = await Thumbcraft.fromBuffer(input, 'Planilha Final.XLSX', { ...config, runner: spy }).toBuffer();
     assert.deepEqual(bytes, PNG);
     assert.deepEqual(spy.calls[0]?.args, ['/tmp/thumbcraft-fake-1/input.xlsx', '/tmp/thumbcraft-fake-1/output.png']);
     assert.deepEqual(seenInput, input);
@@ -67,12 +67,12 @@ describe('Thumbcraft.fromBuffer', () => {
     assert.equal(runner.calls.length, 0);
   });
 
-  it('toImageFile writes the image to the requested path', async () => {
+  it('toFile writes the image to the requested path', async () => {
     const { fileSystem, runner, config } = scenario();
     const spy = new FakeProcessRunner(OK_RESULT, async (call) => {
       await fileSystem.writeFile(call.args[1] as string, PNG);
     });
-    await Thumbcraft.fromBuffer(Buffer.from('x'), 'a.pptx', { ...config, runner: spy }).toImageFile('/out/slide.png', { width: 800 });
+    await Thumbcraft.fromBuffer(Buffer.from('x'), 'a.pptx', { ...config, runner: spy }).toFile('/out/slide.png', { width: 800 });
     assert.deepEqual(spy.calls[0]?.args, ['/tmp/thumbcraft-fake-1/input.pptx', '/out/slide.png', '-W', '800']);
     assert.equal(fileSystem.tempDirs.size, 0);
     assert.equal(runner.calls.length, 0);
@@ -80,7 +80,7 @@ describe('Thumbcraft.fromBuffer', () => {
 
   it('uses no extension when the file name has none', async () => {
     const { runner, config } = scenario();
-    await Thumbcraft.fromBuffer(Buffer.from('x'), 'documento', config).toImageBytes();
+    await Thumbcraft.fromBuffer(Buffer.from('x'), 'documento', config).toBuffer();
     assert.equal(runner.calls[0]?.args[0], '/tmp/thumbcraft-fake-1/input');
   });
 });
@@ -88,7 +88,7 @@ describe('Thumbcraft.fromBuffer', () => {
 describe('errors and cleanup', () => {
   it('turns exit code 4 into InvalidFileError and still removes the temp dir', async () => {
     const { fileSystem, config } = scenario({ exitCode: 4, signal: null, stderr: 'thumbcraft: arquivo inválido\n', timedOut: false });
-    await assert.rejects(Thumbcraft.fromBuffer(Buffer.from('x'), 'a.docx', config).toImageBytes(), (error: unknown) => {
+    await assert.rejects(Thumbcraft.fromBuffer(Buffer.from('x'), 'a.docx', config).toBuffer(), (error: unknown) => {
       assert.ok(error instanceof InvalidFileError);
       assert.equal(error.message, 'arquivo inválido');
       return true;
@@ -98,27 +98,27 @@ describe('errors and cleanup', () => {
 
   it('turns a timeout into TimeoutError', async () => {
     const { config } = scenario({ exitCode: null, signal: 'SIGKILL', stderr: '', timedOut: true });
-    await assert.rejects(Thumbcraft.fromFile('/docs/a.docx', config).toImageFile('/out/a.png'), TimeoutError);
+    await assert.rejects(Thumbcraft.fromFile('/docs/a.docx', config).toFile('/out/a.png'), TimeoutError);
   });
 
   it('passes the configured timeout to the runner', async () => {
     const { runner, config } = scenario();
-    await Thumbcraft.fromFile('/docs/a.docx', { ...config, timeoutMs: 5_000 }).toImageFile('/out/a.png');
+    await Thumbcraft.fromFile('/docs/a.docx', { ...config, timeoutMs: 5_000 }).toFile('/out/a.png');
     assert.equal(runner.calls[0]?.timeoutMs, 5_000);
   });
 
   it('runs one process per call, never reusing it', async () => {
     const { runner, config } = scenario();
     const job = Thumbcraft.fromFile('/docs/a.docx', config);
-    await job.toImageBytes();
-    await job.toImageBytes();
+    await job.toBuffer();
+    await job.toBuffer();
     assert.equal(runner.calls.length, 2);
   });
 
   it('fails with BinaryNotFoundError when the binary cannot be resolved', async () => {
     const { config } = scenario();
     const binaryResolver = new EnvBinaryResolver({});
-    await assert.rejects(Thumbcraft.fromFile('/docs/a.docx', { ...config, binaryResolver }).toImageFile('/out/a.png'), BinaryNotFoundError);
+    await assert.rejects(Thumbcraft.fromFile('/docs/a.docx', { ...config, binaryResolver }).toFile('/out/a.png'), BinaryNotFoundError);
   });
 });
 

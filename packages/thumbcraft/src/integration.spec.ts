@@ -20,13 +20,13 @@ function pngSize(bytes: Buffer): { width: number; height: number } {
 
 describe('real binary', { skip }, () => {
   it('renders a docx to a 120 x 120 PNG', async () => {
-    const bytes = await Thumbcraft.fromFile(corpus('docx/01_docx_simples_acentos.docx')).toImageBytes({ width: 120, height: 120 });
+    const bytes = await Thumbcraft.fromFile(corpus('docx/01_docx_simples_acentos.docx')).toBuffer({ width: 120, height: 120 });
     assert.deepEqual(pngSize(bytes), { width: 120, height: 120 });
   });
 
   it('renders from a buffer, keeping the extension for routing', async () => {
     const buffer = await readFile(corpus('pptx/01_titulo_acentos.pptx'));
-    const bytes = await Thumbcraft.fromBuffer(buffer, 'slide.pptx').toImageBytes({ width: 200, height: 100, fit: 'contain' });
+    const bytes = await Thumbcraft.fromBuffer(buffer, 'slide.pptx').toBuffer({ width: 200, height: 100, fit: 'contain' });
     assert.deepEqual(pngSize(bytes), { width: 200, height: 100 });
   });
 
@@ -34,7 +34,7 @@ describe('real binary', { skip }, () => {
     const dir = await mkdtemp(join(tmpdir(), 'thumbcraft-int-'));
     try {
       const out = join(dir, 'sheet.png');
-      await Thumbcraft.fromFile(corpus('xlsx/02-valores-simples.xlsx')).toImageFile(out, { width: 160 });
+      await Thumbcraft.fromFile(corpus('xlsx/02-valores-simples.xlsx')).toFile(out, { width: 160 });
       assert.equal(pngSize(await readFile(out)).width, 160);
     } finally {
       await rm(dir, { recursive: true, force: true });
@@ -42,10 +42,10 @@ describe('real binary', { skip }, () => {
   });
 
   it('maps an unsupported format (.ppt) to UnsupportedFormatError', async () => {
-    await assert.rejects(Thumbcraft.fromFile(corpus('pptx/35_legado_formas.ppt')).toImageBytes(), UnsupportedFormatError);
+    await assert.rejects(Thumbcraft.fromFile(corpus('pptx/35_legado_formas.ppt')).toBuffer(), UnsupportedFormatError);
   });
 
   it('maps a damaged file to InvalidFileError', async () => {
-    await assert.rejects(Thumbcraft.fromFile(corpus('docx/21_vazio.docx')).toImageBytes(), InvalidFileError);
+    await assert.rejects(Thumbcraft.fromFile(corpus('docx/21_vazio.docx')).toBuffer(), InvalidFileError);
   });
 });
