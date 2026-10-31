@@ -1,0 +1,17 @@
+arquivo	largura	altura	x0	y0	x1	y1	tinta
+docx/01_docx_simples_acentos.docx	1224	1584	181	149	1041	584	71802
+docx/02_docx_titulos_listas.docx	1224	1584	180	158	1043	794	57609
+docx/03_docx_tabelas.docx	1224	1584	168	149	1033	444	14393
+docx/11_odt_rico.odt	1224	1584	144	188	1080	1486	398648
+docx/12_rtf_rico.rtf	1224	1584	144	189	1007	1278	392612
+docx/19_md_multipagina.md	1224	1584	144	166	1049	1437	109020
+pdf/11_word_tabelas.pdf	600	776	82	72	506	215	5655
+pptx/01_titulo_acentos.pptx	1920	1080	219	367	1222	843	67880
+pptx/07_tabela_com_bordas.pptx	1920	1080	142	142	1729	721	915432
+pptx/09_grafico_barras.pptx	1920	1080	219	219	1664	960	233198
+xlsx/01-texto-acentos.xlsx	1191	1684	104	114	196	220	2472
+xlsx/07-celulas-mescladas.xlsx	1191	1684	100	108	580	347	65030
+xlsx/08-bordas-cores-fundo-fonte.xlsx	1191	1684	100	108	873	377	124974
+xlsx/31-texto-nao-latino-emoji.xlsx	1191	1684	104	114	528	342	7345
+xlsx/34-painel-composto.xlsx	1191	1684	101	108	1065	600	70994
+xlsx/regressao-amostras/10_mixed.xlsx	1191	1684	101	108	1027	1004	174022
