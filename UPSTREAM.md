@@ -31,7 +31,7 @@ completo do PR de exportação de PNG contra o commit acima:
 Verificação feita em 2026-10-31: o patch foi refeito contra o commit `67e39fa` (o upstream dividiu o
 `print.rs` em `print/*.rs` e mudou a API do `Page`; ver `docs/UPSTREAM-CHANGES.md`). Em formato
 `git diff --binary` (seguro para as fontes binárias), aplica limpo num checkout do commit. A árvore
-patchada tem hash `60797408a97cb71f2a18b9cbda137949301b9f53` (`git write-tree`), conferido pelo script.
+patchada tem hash `d07fc084349f6864c578564786dcf05c7a2cd4d3` (`git write-tree`), conferido pelo script.
 Tamanho do patch: 295.366 bytes. Quando o upstream ganhar PNG nativo, o patch sai.
 
 ## craft-libs (https://github.com/storytold/craft-libs)
