@@ -1,0 +1,96 @@
+arquivo	motor	classe	saida_antes	saida_depois	dim_antes	dim_depois	pct_pixels	dif_media	ms_antes	ms_depois
+01_titulo_acentos.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	166	125
+02_bullets_niveis.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	182	130
+03_imagens_png_jpeg.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	189	153
+04_formas_basicas.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	177	170
+05_formas_gradiente.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	169	171
+06_sombra_transparencia.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	158	176
+07_tabela_com_bordas.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	135	158
+08_tabela_sem_bordas.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	142	139
+09_grafico_barras.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	144	155
+10_grafico_linhas.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	146	155
+11_grafico_pizza.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	135	229
+12_smartart_com_drawing.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	141	174
+12b_smartart_sem_drawing.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	135	164
+13_texto_formatado.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	137	175
+14_fontes.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	151	251
+15_fundo_solido.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	140	155
+16_fundo_gradiente.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	126	171
+17_fundo_imagem.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	141	192
+18_mestre_layout_logo.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	149	172
+19_notas_orador.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	133	162
+20_transicoes_animacoes.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	120	194
+21_apresentacao_60_slides.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	137	263
+22_texto_overflow.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	124	242
+23_texto_vertical_rotacionado.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	134	155
+25_proporcao_4x3.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	150	154
+26_proporcao_16x9.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	150	172
+27_video_placeholder.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	171	197
+28_hiperlinks.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	153	195
+29_primeiro_slide_oculto.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	134	181
+30_rtl_cjk_emoji.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	675	1196
+31_imagem_tela_cheia_recorte.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	247	243
+32_graficos_multiplos.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	157	192
+33_slideshow.ppsx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	197	221
+34_modelo.potx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	206	203
+35_legado_formas.ppt	-	ERRO_IGUAL	3	3	-	-			121	94
+36_legado_imagem.ppt	-	ERRO_IGUAL	3	3	-	-			101	95
+37_formas_gradiente.odp	-	ERRO_IGUAL	3	3	-	-			90	91
+38_grafico_barras.odp	-	ERRO_IGUAL	3	3	-	-			110	105
+39_legado_grafico.ppt	-	ERRO_IGUAL	3	3	-	-			93	86
+40_vazio_0bytes.pptx	deck	ERRO_IGUAL	4	4	-	-			276	107
+41_truncado.pptx	deck	ERRO_IGUAL	4	4	-	-			114	98
+42_corrompido_bytes.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	207	177
+43_texto_puro.pptx	deck	ERRO_IGUAL	4	4	-	-			163	101
+44_slide1_xml_quebrado.pptx	deck	ERRO_IGUAL	4	4	-	-			116	120
+45_pptx_extensao_ppt.ppt	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	229	175
+46_pptx_extensao_docx.docx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	145	199
+mutacao-48/03_imagens_png_jpeg_m0.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	179	223
+mutacao-48/03_imagens_png_jpeg_m1.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	197	232
+mutacao-48/03_imagens_png_jpeg_m2.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	185	265
+mutacao-48/03_imagens_png_jpeg_m3.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	188	214
+mutacao-48/03_imagens_png_jpeg_m4.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	214	220
+mutacao-48/03_imagens_png_jpeg_m5.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	229	184
+mutacao-48/03_imagens_png_jpeg_m6.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	528	181
+mutacao-48/03_imagens_png_jpeg_m7.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	188	183
+mutacao-48/05_formas_gradiente_m0.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	616	191
+mutacao-48/05_formas_gradiente_m1.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	296	215
+mutacao-48/05_formas_gradiente_m2.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	189	190
+mutacao-48/05_formas_gradiente_m3.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	181	192
+mutacao-48/05_formas_gradiente_m4.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	184	192
+mutacao-48/05_formas_gradiente_m5.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	182	205
+mutacao-48/05_formas_gradiente_m6.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	183	197
+mutacao-48/05_formas_gradiente_m7.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	192	192
+mutacao-48/09_grafico_barras_m0.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	189	190
+mutacao-48/09_grafico_barras_m1.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	184	171
+mutacao-48/09_grafico_barras_m2.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	173	176
+mutacao-48/09_grafico_barras_m3.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	183	188
+mutacao-48/09_grafico_barras_m4.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	208	171
+mutacao-48/09_grafico_barras_m5.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	204	181
+mutacao-48/09_grafico_barras_m6.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	170	186
+mutacao-48/09_grafico_barras_m7.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	176	176
+mutacao-48/12_smartart_com_drawing_m0.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	210	190
+mutacao-48/12_smartart_com_drawing_m1.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	328	174
+mutacao-48/12_smartart_com_drawing_m2.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	168	182
+mutacao-48/12_smartart_com_drawing_m3.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	153	187
+mutacao-48/12_smartart_com_drawing_m4.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	156	215
+mutacao-48/12_smartart_com_drawing_m5.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	188	230
+mutacao-48/12_smartart_com_drawing_m6.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	197	195
+mutacao-48/12_smartart_com_drawing_m7.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	195	167
+mutacao-48/18_mestre_layout_logo_m0.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	197	204
+mutacao-48/18_mestre_layout_logo_m1.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	197	141
+mutacao-48/18_mestre_layout_logo_m2.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	199	146
+mutacao-48/18_mestre_layout_logo_m3.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	194	154
+mutacao-48/18_mestre_layout_logo_m4.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	212	144
+mutacao-48/18_mestre_layout_logo_m5.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	168	163
+mutacao-48/18_mestre_layout_logo_m6.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	190	134
+mutacao-48/18_mestre_layout_logo_m7.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	180	143
+mutacao-48/23_texto_vertical_rotacionado_m0.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	175	138
+mutacao-48/23_texto_vertical_rotacionado_m1.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	183	142
+mutacao-48/23_texto_vertical_rotacionado_m2.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	174	141
+mutacao-48/23_texto_vertical_rotacionado_m3.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	173	148
+mutacao-48/23_texto_vertical_rotacionado_m4.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	164	147
+mutacao-48/23_texto_vertical_rotacionado_m5.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	182	163
+mutacao-48/23_texto_vertical_rotacionado_m6.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	172	144
+mutacao-48/23_texto_vertical_rotacionado_m7.pptx	deck	IGUAL	0	0	120x120	120x120	0.000	0.000	177	151
+mutacao-48/RESULTADOS.tsv	grid	IGUAL	0	0	120x120	120x120	0.000	0.000	195	143

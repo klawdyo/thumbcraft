@@ -1,0 +1,37 @@
+arquivo	motor	classe	saida_antes	saida_depois	dim_antes	dim_depois	pct_pixels	dif_media	ms_antes	ms_depois
+01_docx_simples_acentos.docx	word	IGUAL	0	0	480x480	480x480	0.000	0.000	183	180
+02_docx_titulos_listas.docx	word	GRANDE	0	0	480x480	480x480	6.995	5.363	185	195
+03_docx_tabelas.docx	word	IGUAL	0	0	480x480	480x480	0.000	0.000	195	173
+04_docx_imagens_png_jpeg.docx	word	IGUAL	0	0	480x480	480x480	0.000	0.000	180	192
+05_docx_multipagina.docx	word	IGUAL	0	0	480x480	480x480	0.000	0.000	236	223
+06_docx_fontes.docx	word	IGUAL	0	0	480x480	480x480	0.000	0.000	191	188
+07_docx_estilos_cores.docx	word	IGUAL	0	0	480x480	480x480	0.000	0.000	165	162
+08_docx_cabecalho_rodape.docx	word	IGUAL	0	0	480x480	480x480	0.000	0.000	185	181
+09_doc_97_imagem_tabela.doc	word	IGUAL	0	0	480x480	480x480	0.000	0.000	172	184
+10_doc_97_titulos_listas.doc	word	GRANDE	0	0	480x480	480x480	6.994	5.438	158	161
+11_odt_rico.odt	word	PEQUENA	0	0	480x480	480x480	0.004	0.004	170	168
+12_rtf_rico.rtf	word	MEDIA	0	0	480x480	480x480	2.031	2.676	156	174
+13_html_rico.html	word	IGUAL	0	0	480x480	480x480	0.000	0.000	163	161
+14_md_rico.md	word	IGUAL	0	0	480x480	480x480	0.000	0.000	156	160
+15_tex_rico.tex	word	IGUAL	0	0	480x480	480x480	0.000	0.000	165	168
+16_txt_simples.txt	word	IGUAL	0	0	480x480	480x480	0.000	0.000	163	153
+17_txt_longo_multipagina.txt	word	IGUAL	0	0	480x480	480x480	0.000	0.000	210	199
+18_odt_multipagina.odt	word	MEDIA	0	0	480x480	480x480	0.638	0.520	174	173
+19_md_multipagina.md	word	MEDIA	0	0	480x480	480x480	0.769	0.746	181	163
+20_doc_97_multipagina.doc	word	IGUAL	0	0	480x480	480x480	0.000	0.000	240	204
+21_vazio.docx	word	ERRO_IGUAL	4	4	-	-			69	73
+22_vazio.txt	word	IGUAL	0	0	480x480	480x480	0.000	0.000	166	155
+23_corrompido_docx_truncado.docx	word	ERRO_IGUAL	4	4	-	-			74	75
+24_corrompido_doc_truncado.doc	word	ERRO_IGUAL	4	4	-	-			73	76
+25_extensao_errada_txt_como.docx	word	ERRO_IGUAL	4	4	-	-			66	87
+26_extensao_errada_docx_como.txt	word	IGUAL	0	0	480x480	480x480	0.000	0.000	176	182
+27_extensao_errada_docx_como.doc	word	IGUAL	0	0	480x480	480x480	0.000	0.000	180	175
+28_extensao_errada_md_como.pdf	word	IGUAL	0	0	480x480	480x480	0.000	0.000	161	180
+29_html_como.doc	word	IGUAL	0	0	480x480	480x480	0.000	0.000	170	170
+30_lixo_binario.docx	word	ERRO_IGUAL	4	4	-	-			79	81
+fontes-geracao/img.jpg	-	ERRO_IGUAL	3	3	-	-			74	80
+fontes-geracao/img.png	-	ERRO_IGUAL	3	3	-	-			79	70
+fontes-geracao/img2.jpg	-	ERRO_IGUAL	3	3	-	-			78	82
+fontes-geracao/img2.png	-	ERRO_IGUAL	3	3	-	-			68	84
+fontes-geracao/multi.md	word	MEDIA	0	0	480x480	480x480	0.769	0.746	162	170
+fontes-geracao/rich.md	word	IGUAL	0	0	480x480	480x480	0.000	0.000	155	146

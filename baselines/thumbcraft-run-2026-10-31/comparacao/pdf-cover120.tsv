@@ -1,0 +1,46 @@
+arquivo	motor	classe	saida_antes	saida_depois	dim_antes	dim_depois	pct_pixels	dif_media	ms_antes	ms_depois
+10_word_simples_acentos.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	135	149
+11_word_tabelas.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	129	129
+12_word_imagens.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	127	146
+13_word_multipagina.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	130	153
+14_word_fontes.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	131	122
+15_word_estilos_cores.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	131	108
+20_excel_condicional_cor.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	134	105
+21_excel_grafico_barras.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	132	96
+22_excel_grafico_pizza.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	136	110
+23_excel_planilha_larga.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	136	111
+24_excel_nao_latino_emoji.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	119	116
+25_excel_painel_composto.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	151	105
+30_ppt_formas_gradiente.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	206	123
+31_ppt_sombra_transparencia.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	153	119
+32_ppt_grafico_barras.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	144	102
+33_ppt_fundo_gradiente.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	136	101
+34_ppt_fundo_imagem.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	146	111
+35_ppt_rtl_cjk_emoji.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	131	101
+36_ppt_4x3.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	128	101
+37_ppt_16x9_paisagem.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	138	100
+38_ppt_60_slides.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	126	99
+40_texto_nao_latino_arabe_cjk_emoji.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	135	107
+41_fontes_nao_embutidas.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	136	86
+42_pagina_vazia.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	121	82
+43_zero_paginas.pdf	pdf	ERRO_IGUAL	4	4	-	-			91	63
+44_transparencia_gradientes.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	126	91
+45_formulario_acroform.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	90	94
+46_pagina_gigante_A0.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	339	319
+47_tamanhos_mistos.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	99	93
+48_vetorial_pesado_mapa.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	280	299
+49_pagina_rotacionada_90.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	107	126
+50_cripto_senha_aes256.pdf	pdf	ERRO_IGUAL	4	4	-	-			110	104
+51_cripto_sem_senha_abrir_aes128.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	114	121
+52_cripto_sem_senha_abrir_rc4_40.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	103	107
+60_escaneado_so_imagem.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	119	117
+61_escaneado_cor_300dpi_4pag.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	186	225
+70_truncado_50pct.pdf	pdf	ERRO_IGUAL	4	4	-	-			85	98
+71_truncado_90pct.pdf	pdf	ERRO_IGUAL	4	4	-	-			91	130
+72_corrompido_meio.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	108	119
+73_corrompido_xref.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	104	128
+74_lixo_antes_do_cabecalho.pdf	pdf	IGUAL	0	0	120x120	120x120	0.000	0.000	99	121
+75_zero_bytes.pdf	pdf	ERRO_IGUAL	4	4	-	-			69	99
+76_texto_puro_com_extensao_pdf.pdf	word	IGUAL	0	0	120x120	120x120	0.000	0.000	118	317
+77_html_com_extensao_pdf.pdf	word	IGUAL	0	0	120x120	120x120	0.000	0.000	129	140
+78_jpeg_com_extensao_pdf.pdf	pdf	ERRO_IGUAL	4	4	-	-			76	115

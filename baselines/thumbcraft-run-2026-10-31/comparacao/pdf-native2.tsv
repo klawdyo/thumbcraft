@@ -1,0 +1,46 @@
+arquivo	motor	classe	saida_antes	saida_depois	dim_antes	dim_depois	pct_pixels	dif_media	ms_antes	ms_depois
+10_word_simples_acentos.pdf	pdf	ERRO_IGUAL	5	5	-	-			115	68
+11_word_tabelas.pdf	pdf	ERRO_IGUAL	5	5	-	-			86	66
+12_word_imagens.pdf	pdf	ERRO_IGUAL	5	5	-	-			93	59
+13_word_multipagina.pdf	pdf	ERRO_IGUAL	5	5	-	-			81	63
+14_word_fontes.pdf	pdf	ERRO_IGUAL	5	5	-	-			83	79
+15_word_estilos_cores.pdf	pdf	ERRO_IGUAL	5	5	-	-			88	76
+20_excel_condicional_cor.pdf	pdf	ERRO_IGUAL	5	5	-	-			98	78
+21_excel_grafico_barras.pdf	pdf	ERRO_IGUAL	5	5	-	-			100	78
+22_excel_grafico_pizza.pdf	pdf	ERRO_IGUAL	5	5	-	-			87	79
+23_excel_planilha_larga.pdf	pdf	ERRO_IGUAL	5	5	-	-			100	61
+24_excel_nao_latino_emoji.pdf	pdf	ERRO_IGUAL	5	5	-	-			108	80
+25_excel_painel_composto.pdf	pdf	ERRO_IGUAL	5	5	-	-			89	79
+30_ppt_formas_gradiente.pdf	pdf	ERRO_IGUAL	5	5	-	-			93	62
+31_ppt_sombra_transparencia.pdf	pdf	ERRO_IGUAL	5	5	-	-			93	62
+32_ppt_grafico_barras.pdf	pdf	ERRO_IGUAL	5	5	-	-			75	61
+33_ppt_fundo_gradiente.pdf	pdf	ERRO_IGUAL	5	5	-	-			102	58
+34_ppt_fundo_imagem.pdf	pdf	ERRO_IGUAL	5	5	-	-			85	64
+35_ppt_rtl_cjk_emoji.pdf	pdf	ERRO_IGUAL	5	5	-	-			96	74
+36_ppt_4x3.pdf	pdf	ERRO_IGUAL	5	5	-	-			81	61
+37_ppt_16x9_paisagem.pdf	pdf	ERRO_IGUAL	5	5	-	-			95	64
+38_ppt_60_slides.pdf	pdf	ERRO_IGUAL	5	5	-	-			97	67
+40_texto_nao_latino_arabe_cjk_emoji.pdf	pdf	ERRO_IGUAL	5	5	-	-			67	77
+41_fontes_nao_embutidas.pdf	pdf	ERRO_IGUAL	5	5	-	-			67	59
+42_pagina_vazia.pdf	pdf	ERRO_IGUAL	5	5	-	-			92	74
+43_zero_paginas.pdf	pdf	ERRO_IGUAL	4	4	-	-			71	90
+44_transparencia_gradientes.pdf	pdf	ERRO_IGUAL	5	5	-	-			69	98
+45_formulario_acroform.pdf	pdf	ERRO_IGUAL	5	5	-	-			65	81
+46_pagina_gigante_A0.pdf	pdf	ERRO_IGUAL	5	5	-	-			68	78
+47_tamanhos_mistos.pdf	pdf	ERRO_IGUAL	5	5	-	-			70	94
+48_vetorial_pesado_mapa.pdf	pdf	ERRO_IGUAL	5	5	-	-			79	103
+49_pagina_rotacionada_90.pdf	pdf	ERRO_IGUAL	5	5	-	-			63	90
+50_cripto_senha_aes256.pdf	pdf	ERRO_IGUAL	4	4	-	-			92	113
+51_cripto_sem_senha_abrir_aes128.pdf	pdf	ERRO_IGUAL	5	5	-	-			71	87
+52_cripto_sem_senha_abrir_rc4_40.pdf	pdf	ERRO_IGUAL	5	5	-	-			66	88
+60_escaneado_so_imagem.pdf	pdf	ERRO_IGUAL	5	5	-	-			80	93
+61_escaneado_cor_300dpi_4pag.pdf	pdf	ERRO_IGUAL	5	5	-	-			89	83
+70_truncado_50pct.pdf	pdf	ERRO_IGUAL	4	4	-	-			78	80
+71_truncado_90pct.pdf	pdf	ERRO_IGUAL	4	4	-	-			99	75
+72_corrompido_meio.pdf	pdf	ERRO_IGUAL	5	5	-	-			76	83
+73_corrompido_xref.pdf	pdf	ERRO_IGUAL	5	5	-	-			79	81
+74_lixo_antes_do_cabecalho.pdf	pdf	ERRO_IGUAL	5	5	-	-			71	96
+75_zero_bytes.pdf	pdf	ERRO_IGUAL	4	4	-	-			75	79
+76_texto_puro_com_extensao_pdf.pdf	word	IGUAL	0	0	1224x1584	1224x1584	0.000	0.000	317	211
+77_html_com_extensao_pdf.pdf	word	IGUAL	0	0	1224x1584	1224x1584	0.000	0.000	160	181
+78_jpeg_com_extensao_pdf.pdf	pdf	ERRO_IGUAL	4	4	-	-			64	91

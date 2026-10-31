@@ -14,7 +14,7 @@ Os números de 2026-10-19 contra os quais comparar estão em `RESULTS.md` e `../
 
 Para cada projeto, busque o SHA mais recente do `main` e compare com o fixado em `../scripts/fetch-upstream.sh`:
 
-- WordCraft (`117aea31a8e61bd3e306e9210800cdc42897e3c1`), GridCraft (`66ce6be4743f4227047f76f56815520f824e6d81`), DeckCraft (`010941ec60f81f1eece31ec1ea83825c9a396217`).
+- WordCraft (`e6a5cd05f045e4caf25a28660bfeb622f25b5129`), GridCraft (`67e39faeea1fa4b603cbab421a30737db2cef8d9`), DeckCraft (`a3fbf02952839c223df600dc33106a2dbc65be1b`), craft-libs (`c39e435cc34417843793df240a0b38bac970179b`), todos de 2026-10-31.
 - `git ls-remote https://github.com/storytold/<projeto> HEAD` (a API `gh api` da organização foi bloqueada com 403 na sessão original; `git clone` e `git fetch` funcionam).
 - Leia o changelog, o `ROADMAP.md`, o `docs/cli.md` e o `docs/gaps.md` de cada um, e os commits desde o SHA fixado (`git log --oneline SHA_ANTIGO..SHA_NOVO`). Procure por "png", "thumbnail", ".ppt", ".odp", "pdf", "render" e "raster".
 
@@ -55,6 +55,33 @@ Se o GridCraft mudou, gere novos goldens com o novo commit original (sem patch) 
 4. Se quiser refazer a linha de base do LibreOffice (nova versão do LibreOffice, por exemplo): `../baselines/excel/ferramentas/run-lo.sh` e o script do PowerPoint em `../baselines/powerpoint/ferramentas/run.sh`.
 5. Inspeção visual: compare contact sheets antigas (`../baselines/*/imagens/`) com as novas, e olhe os casos que mudaram (use `compare.sh` em `../baselines/excel/ferramentas/`).
 6. Repita o teste de mutação do DeckCraft (`../corpus/pptx/mutacao-48/`) e confirme ausência de panic.
+7. **Antes contra depois, pixel a pixel** (feito em 2026-10-31, resultado em `../baselines/thumbcraft-run-2026-10-31/`):
+   compile o `main` com os SHAs antigos (`CARGO_TARGET_DIR=<outro> cargo build --release --locked --manifest-path <main>/Cargo.toml -p thumbcraft`)
+   e o ramo novo; rode `scripts/run-corpus.sh` com os dois binários (`RECURSIVO=1`; modos `--native-scale 2`, `-W 480 -H 480 --fit contain`
+   e `-W 120 -H 120`; o PDF não tem modo nativo) e compare cada par de pastas com `scripts/compare-runs.py ANTES DEPOIS --out DIR`.
+   Qualquer `NOVO_ERRO`, `CODIGO` ou `DIMENSAO` bloqueia a atualização até ser explicado; `GRANDE` e `MEDIA` pedem olhar as imagens
+   de `DIR/pares/`. Para saber se uma diferença do GridCraft é do upstream ou do nosso patch, exporte o PDF de cada planilha do corpus
+   com a CLI do commit sem patch e com patch (`gridcraft-cli convert x.xlsx x.pdf`) e compare os bytes: o patch não pode mudar o PDF.
+8. **Guardas que rodam em `cargo test`:** `crates/core/tests/dependencies.rs` (uma versão por pacote no `Cargo.lock`; falha na hora se
+   um motor novo trouxer `miniz_oxide`, `skrifa`, `read-fonts` etc. duplicados) e `crates/thumbcraft/tests/layout.rs` (caixa de tinta,
+   dimensões e quantidade de tinta de 16 arquivos de referência contra `layout-<plataforma>.tsv`). Se a mudança de layout for esperada,
+   confira as imagens e regrave com `THUMBCRAFT_RECORD=1 cargo test -p thumbcraft --test layout`; há um arquivo por plataforma
+   (`layout-windows.tsv` gravado em 2026-10-31; o `layout-linux.tsv` falta e o teste só avisa até alguém gravá-lo no Linux).
+
+## 5.1. Onde uma atualização quebra
+
+Pontos que já quebraram ou mudaram de comportamento (versões 0.8 para 0.13/0.14), na ordem em que aparecem:
+
+| Onde | Sintoma | O que fazer |
+|---|---|---|
+| `patches/gridcraft` (`print.rs`, `Page`, `crates/pdf`) | O patch não aplica. O upstream dividiu `print.rs` em `print/*.rs` e mudou a API do `Page` (`Point`, `Rect`, `link_uri`, `link_page`) | Aplicar no commit antigo, `git cherry-pick` no novo, resolver à mão; o `Rec` em `crates/pdf/src/display.rs` tem de espelhar a API do `Page`. Prova: o PDF com patch igual ao PDF sem patch |
+| `stubs/wordcraft-pdf` | Erro de compilação em `PdfOptions` ("no field named") | Acrescentar o campo ao stub (em 2026-10-31: `links`, `numeral`) |
+| Pares `skrifa` e `read-fonts` | Dois `read-fonts` no binário: o `harfrust` 0.13.3 pede o 0.43 e o `skrifa` 0.47 pede o 0.44 | Alinhar o `skrifa` por patch ao `read-fonts` do `harfrust` (patches 1 a 5 de `UPSTREAM-CHANGES.md`); a API muda pouco (`.ok()` em `glyph_id`) |
+| `miniz_oxide` | O WordCraft passou a pedir 0.9; `flate2` e `png` ficam no 0.8 | Patch do WordCraft baixa para 0.8 |
+| `craft-libs` `vendor/hayro` | O patch do `vello_cpu` não aplica | Refazer as trocas de `render_to_pixmap` e `render_to_buffer` (patch 2) |
+| Layout do Word | Texto mais compacto na vertical, quebras de página diferentes | Esperado entre versões; regravar `layout-<plataforma>.tsv` depois de olhar `pares/` |
+| Layout do Excel | Banner cortado, gráfico menor, texto não latino com espaços | Comportamento do GridCraft 0.14.2 (o PDF sem patch já faz o mesmo); acompanhar no upstream |
+| Tamanho do binário | +6% na atualização de 2026-10-31 (25,67 para 27,22 MB) | Investigar com `cargo-bloat` quando passar do esperado |
 
 ## 6. Critérios de aceitação
 
