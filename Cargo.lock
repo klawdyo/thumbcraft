@@ -76,9 +76,9 @@ checksum = "f2032f911046de80f0a198e0901378627c33f59ea0ac00e363d481118bd70a53"
 
 [[package]]
 name = "base64"
-version = "0.22.1"
+version = "0.23.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "72b3254f16251a8381aa12e40e3c4d2f0199f8c6508fbecb9d91f575e0fbb8c6"
+checksum = "ac07cdecf99051d9a5238b80f35af32cdeba5b336e55d957b318b50137e18da5"
 
 [[package]]
 name = "bitflags"
@@ -347,7 +347,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-anim"
-version = "0.8.0"
+version = "0.13.1"
 dependencies = [
  "deckcraft-geom",
  "deckcraft-model",
@@ -356,14 +356,14 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-color"
-version = "0.8.0"
+version = "0.13.1"
 dependencies = [
  "serde",
 ]
 
 [[package]]
 name = "deckcraft-fonts"
-version = "0.8.0"
+version = "0.13.1"
 dependencies = [
  "epaint_default_fonts",
  "harfrust",
@@ -375,7 +375,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-format"
-version = "0.8.0"
+version = "0.13.1"
 dependencies = [
  "deckcraft-model",
  "serde",
@@ -386,7 +386,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-geom"
-version = "0.8.0"
+version = "0.13.1"
 dependencies = [
  "kurbo",
  "serde",
@@ -394,7 +394,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-metafile"
-version = "0.8.0"
+version = "0.13.1"
 dependencies = [
  "image",
  "kurbo",
@@ -403,7 +403,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-model"
-version = "0.8.0"
+version = "0.13.1"
 dependencies = [
  "deckcraft-color",
  "deckcraft-geom",
@@ -415,7 +415,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-pptx"
-version = "0.8.0"
+version = "0.13.1"
 dependencies = [
  "deckcraft-color",
  "deckcraft-geom",
@@ -428,7 +428,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-render"
-version = "0.8.0"
+version = "0.13.1"
 dependencies = [
  "deckcraft-anim",
  "deckcraft-color",
@@ -447,7 +447,7 @@ dependencies = [
 
 [[package]]
 name = "deckcraft-text"
-version = "0.8.0"
+version = "0.13.1"
 dependencies = [
  "chrono",
  "deckcraft-color",
@@ -504,9 +504,9 @@ dependencies = [
 
 [[package]]
 name = "epaint_default_fonts"
-version = "0.36.2"
+version = "0.37.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "773fa9c96dd0dbef887e39d0ed6177f141cce4d68e6041df77570aa3702dfa13"
+checksum = "cfc1cc505827f4c23eedc297975a0fd038268d41293f389dd8ff3b574aefab19"
 
 [[package]]
 name = "equivalent"
@@ -653,7 +653,7 @@ dependencies = [
 
 [[package]]
 name = "gridcraft-calc"
-version = "0.8.0"
+version = "0.14.2"
 dependencies = [
  "gridcraft-core",
  "gridcraft-formula",
@@ -665,7 +665,7 @@ dependencies = [
 
 [[package]]
 name = "gridcraft-chart"
-version = "0.8.0"
+version = "0.14.2"
 dependencies = [
  "gridcraft-calc",
  "gridcraft-core",
@@ -676,8 +676,9 @@ dependencies = [
 
 [[package]]
 name = "gridcraft-core"
-version = "0.8.0"
+version = "0.14.2"
 dependencies = [
+ "chrono",
  "js-sys",
  "serde",
  "thiserror",
@@ -685,7 +686,7 @@ dependencies = [
 
 [[package]]
 name = "gridcraft-engine"
-version = "0.8.0"
+version = "0.14.2"
 dependencies = [
  "gridcraft-calc",
  "gridcraft-chart",
@@ -702,11 +703,12 @@ dependencies = [
  "serde",
  "serde_json",
  "thiserror",
+ "web-time",
 ]
 
 [[package]]
 name = "gridcraft-formula"
-version = "0.8.0"
+version = "0.14.2"
 dependencies = [
  "gridcraft-core",
  "serde",
@@ -715,7 +717,7 @@ dependencies = [
 
 [[package]]
 name = "gridcraft-functions"
-version = "0.8.0"
+version = "0.14.2"
 dependencies = [
  "gridcraft-core",
  "regex",
@@ -723,29 +725,30 @@ dependencies = [
 
 [[package]]
 name = "gridcraft-model"
-version = "0.8.0"
+version = "0.14.2"
 dependencies = [
  "gridcraft-core",
  "gridcraft-formula",
  "serde",
+ "serde_json",
  "sha2",
  "thiserror",
 ]
 
 [[package]]
 name = "gridcraft-numfmt"
-version = "0.8.0"
+version = "0.14.2"
 dependencies = [
  "gridcraft-core",
 ]
 
 [[package]]
 name = "gridcraft-pdf"
-version = "0.8.0"
+version = "0.14.2"
 
 [[package]]
 name = "gridcraft-raster"
-version = "0.8.0"
+version = "0.14.2"
 dependencies = [
  "gridcraft-pdf",
  "skrifa",
@@ -754,7 +757,7 @@ dependencies = [
 
 [[package]]
 name = "gridcraft-xlsx"
-version = "0.8.0"
+version = "0.14.2"
 dependencies = [
  "aes",
  "gridcraft-core",
@@ -796,7 +799,7 @@ dependencies = [
  "bitflags",
  "bytemuck",
  "once_cell",
- "read-fonts 0.43.3",
+ "read-fonts",
  "smallvec",
 ]
 
@@ -1257,17 +1260,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "read-fonts"
-version = "0.44.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d5a0cf4bb6cbce4c29756270d189a5e400ac05e91192161d83a0bcb6e68492e8"
-dependencies = [
- "bytemuck",
- "font-types",
- "once_cell",
-]
-
-[[package]]
 name = "regex"
 version = "1.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1405,12 +1397,12 @@ checksum = "33f4fe9184a62d842c9ef383018f3306d8ba224fd9d836f56d7288308847c256"
 
 [[package]]
 name = "skrifa"
-version = "0.47.0"
+version = "0.46.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "526e654b303ff4ad73a5a40b25de2b3ce3d039c5e3b6da5f89ae6e57004cb40f"
+checksum = "d4febebda507fb889c545a37a135517769d1391941013561292897961d1887d6"
 dependencies = [
  "bytemuck",
- "read-fonts 0.44.0",
+ "read-fonts",
 ]
 
 [[package]]
@@ -1781,8 +1773,10 @@ checksum = "1ebf944e87a7c253233ad6766e082e3cd714b5d03812acc24c318f549614536e"
 
 [[package]]
 name = "wordcraft-doc"
-version = "0.8.0"
+version = "0.13.2"
 dependencies = [
+ "base64",
+ "log",
  "serde",
  "serde_json",
  "thiserror",
@@ -1792,9 +1786,10 @@ dependencies = [
 
 [[package]]
 name = "wordcraft-docbin"
-version = "0.8.0"
+version = "0.13.2"
 dependencies = [
  "cfb",
+ "chrono",
  "image",
  "log",
  "miniz_oxide",
@@ -1806,11 +1801,12 @@ dependencies = [
 
 [[package]]
 name = "wordcraft-docx"
-version = "0.8.0"
+version = "0.13.2"
 dependencies = [
  "aes",
  "base64",
  "cfb",
+ "chrono",
  "getrandom",
  "hmac",
  "log",
@@ -1827,11 +1823,13 @@ dependencies = [
 
 [[package]]
 name = "wordcraft-engine"
-version = "0.8.0"
+version = "0.13.2"
 dependencies = [
+ "chrono",
  "getrandom",
  "image",
  "js-sys",
+ "libc",
  "log",
  "regex",
  "regex-automata",
@@ -1853,8 +1851,9 @@ dependencies = [
 
 [[package]]
 name = "wordcraft-fonts"
-version = "0.8.0"
+version = "0.13.2"
 dependencies = [
+ "brotli-decompressor",
  "harfrust",
  "kurbo",
  "log",
@@ -1866,10 +1865,11 @@ dependencies = [
 
 [[package]]
 name = "wordcraft-formats"
-version = "0.8.0"
+version = "0.13.2"
 dependencies = [
  "cfb",
  "chardetng",
+ "chrono",
  "encoding_rs",
  "image",
  "js-sys",
@@ -1877,19 +1877,21 @@ dependencies = [
  "quick-xml",
  "wordcraft-doc",
  "wordcraft-geom",
+ "wordcraft-metafile",
  "zip",
 ]
 
 [[package]]
 name = "wordcraft-geom"
-version = "0.8.0"
+version = "0.13.2"
 dependencies = [
+ "image",
  "serde",
 ]
 
 [[package]]
 name = "wordcraft-layout"
-version = "0.8.0"
+version = "0.13.2"
 dependencies = [
  "image",
  "js-sys",
@@ -1903,12 +1905,13 @@ dependencies = [
  "wordcraft-doc",
  "wordcraft-fonts",
  "wordcraft-geom",
+ "wordcraft-metafile",
  "wordcraft-proof",
 ]
 
 [[package]]
 name = "wordcraft-metafile"
-version = "0.8.0"
+version = "0.13.2"
 dependencies = [
  "kurbo",
  "thiserror",
@@ -1916,7 +1919,7 @@ dependencies = [
 
 [[package]]
 name = "wordcraft-pdf"
-version = "0.8.0"
+version = "0.13.2"
 dependencies = [
  "wordcraft-doc",
  "wordcraft-layout",
@@ -1924,15 +1927,16 @@ dependencies = [
 
 [[package]]
 name = "wordcraft-proof"
-version = "0.8.0"
+version = "0.13.2"
 dependencies = [
  "log",
  "miniz_oxide",
+ "unicode-normalization",
 ]
 
 [[package]]
 name = "wordcraft-render"
-version = "0.8.0"
+version = "0.13.2"
 dependencies = [
  "image",
  "log",

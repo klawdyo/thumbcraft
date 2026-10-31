@@ -8,10 +8,10 @@ Para atualizar uma versão, veja a seção "Como atualizar" no fim.
 
 | Projeto | URL | SHA | Data do commit | Versão do crate | Patches |
 |---|---|---|---|---|---|
-| WordCraft | https://github.com/storytold/wordcraft | `117aea31a8e61bd3e306e9210800cdc42897e3c1` | 2026-10-19T03:08:47-04:00 | 0.8.0 | `patches/wordcraft/0001-wordcraft-pdf-stub.patch` |
-| GridCraft | https://github.com/storytold/gridcraft | `66ce6be4743f4227047f76f56815520f824e6d81` | 2026-10-18T16:14:33-06:00 | 0.8.0 | `patches/gridcraft/0001-exportador-png.patch` |
-| DeckCraft | https://github.com/storytold/deckcraft | `010941ec60f81f1eece31ec1ea83825c9a396217` | 2026-10-18T12:31:16-06:00 | 0.8.0 | nenhum |
-| craft-libs | https://github.com/storytold/craft-libs | `ae2f796b673f29cf3161f36eb6a8933f0a3fe028` | 2026-10-18T15:11:21-04:00 | 0.1.0 (`craft-pdf`) | `patches/craft-libs/0001-hayro-vello-cpu-0.2.patch` |
+| WordCraft | https://github.com/storytold/wordcraft | `e6a5cd05f045e4caf25a28660bfeb622f25b5129` | 2026-10-31T16:03:07Z | 0.13.2 | `patches/wordcraft/0001-wordcraft-pdf-stub.patch` |
+| GridCraft | https://github.com/storytold/gridcraft | `67e39faeea1fa4b603cbab421a30737db2cef8d9` | 2026-10-31T14:17:29Z | 0.14.2 | `patches/gridcraft/0001-exportador-png.patch` |
+| DeckCraft | https://github.com/storytold/deckcraft | `a3fbf02952839c223df600dc33106a2dbc65be1b` | 2026-10-31T05:06:52Z | 0.13.1 | `patches/deckcraft/0001-skrifa-0.46.patch` |
+| craft-libs | https://github.com/storytold/craft-libs | `c39e435cc34417843793df240a0b38bac970179b` | 2026-10-31T05:04:55Z | 0.1.0 (`craft-pdf`) | `patches/craft-libs/0001-hayro-vello-cpu-0.2.patch` |
 
 Os SHAs foram lidos dos clones usados nas análises anteriores (`git rev-parse HEAD`). O
 `fetch-upstream.sh` busca cada commit direto por SHA (`git fetch --depth 1 origin <sha>`), então
@@ -24,15 +24,15 @@ completo do PR de exportação de PNG contra o commit acima:
 
 - extrai o desenho de impressão para uma lista de operações (`Op`, `Rec`, `replay` em
   `crates/pdf/src/display.rs`), que serve tanto ao PDF quanto ao PNG;
-- cria o crate `crates/raster` (vello_cpu 0.2.0 + skrifa 0.47, mesmas versões do WordCraft e do
+- cria o crate `crates/raster` (vello_cpu 0.2.0 + skrifa 0.46, mesmas versões do WordCraft e do
   DeckCraft) com 12 fontes TTF embutidas (Arimo, Tinos e Cousine, licença OFL, no próprio patch);
 - adiciona o comando `file.exportPng` e a saída `.png` no CLI.
 
-Verificação feita em 2026-10-19: o patch (formato `git diff --binary`, seguro para as fontes
-binárias) aplicado num checkout limpo do commit `66ce6be` reconstrói exatamente a árvore da
-cópia de trabalho do PR (`diff -r`, sem diferenças). A árvore patchada tem hash
-`0b8e31e398afda27d6c1015cbbb79275edb20d7d` (`git write-tree`), conferido pelo script.
-Tamanho do patch: 287.117 bytes. Quando o upstream ganhar PNG nativo, o patch sai.
+Verificação feita em 2026-10-31: o patch foi refeito contra o commit `67e39fa` (o upstream dividiu o
+`print.rs` em `print/*.rs` e mudou a API do `Page`; ver `docs/UPSTREAM-CHANGES.md`). Em formato
+`git diff --binary` (seguro para as fontes binárias), aplica limpo num checkout do commit. A árvore
+patchada tem hash `60797408a97cb71f2a18b9cbda137949301b9f53` (`git write-tree`), conferido pelo script.
+Tamanho do patch: 295.366 bytes. Quando o upstream ganhar PNG nativo, o patch sai.
 
 ## craft-libs (https://github.com/storytold/craft-libs)
 
@@ -41,19 +41,19 @@ revisão `c3487320b2d1de657b860b3c8abb44e1f2b32bd8` (só escrita de PDF), e o Gr
 (`d27646a5`) que o thumbcraft não compila. O thumbcraft nunca escreve PDF: `patches/wordcraft/0001-wordcraft-pdf-stub.patch`
 troca o `wordcraft-pdf` por um substituto (`stubs/wordcraft-pdf`), e o `krilla` e a revisão `c3487320` saem do binário.
 O craft-libs entra só para ler PDF: o thumbcraft o clona em `third_party/craft-libs` na revisão
-`ae2f796b673f29cf3161f36eb6a8933f0a3fe028` (2026-10-18), que tem a feature `raster` do `craft-pdf`, e aplica
+`c39e435cc34417843793df240a0b38bac970179b` (2026-10-31), que tem a feature `raster` do `craft-pdf`, e aplica
 `patches/craft-libs/0001-hayro-vello-cpu-0.2.patch` (porta o hayro para o `vello_cpu` 0.2.0 dos motores). O que cada
 patch faz está em `docs/UPSTREAM-CHANGES.md`.
 
 ## Crates do crates.io com patch
 
 O `glifo` 0.3.0 (texto do `vello_cpu`) é baixado do crates.io como `.crate` (sha256 conferido) para `third_party/glifo`, e
-`patches/glifo/0001-skrifa-0.47.patch` o alinha ao `skrifa` dos motores. Tabela `CRATES` do `fetch-upstream.sh`.
+`patches/glifo/0001-skrifa-0.46.patch` o alinha ao `skrifa` dos motores. Tabela `CRATES` do `fetch-upstream.sh`.
 
 ## Versões iguais nos três (condição para unir o binário)
 
-`vello_cpu` e `vello_common` 0.2.0, `kurbo` 0.13.1, `peniko` 0.6.1, `skrifa` 0.47.0 (o patch do
-GridCraft alinhou esta), `quick-xml` 0.41, `zip` 3.0.0, `png` 0.18.1, `image` 0.25.10. O
+`vello_cpu` e `vello_common` 0.2.0, `kurbo` 0.13.1, `peniko` 0.6.1, `skrifa` 0.46.2 (patches 1 a 5 de docs/UPSTREAM-CHANGES.md,
+que alinham com o read-fonts 0.43.3 do harfrust), `quick-xml` 0.41, `zip` 3.0.0, `png` 0.18.1, `image` 0.25.10. O
 `Cargo.lock` do thumbcraft parte do lock do binário combinado da análise anterior (a união dos
 três locks), e cargo ajusta o que faltar.
 

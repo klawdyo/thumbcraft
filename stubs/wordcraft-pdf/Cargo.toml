@@ -1,6 +1,6 @@
 [package]
 name = "wordcraft-pdf"
-version = "0.8.0"
+version = "0.13.2"
 description = "Stand-in for WordCraft's PDF exporter: same API, always fails. thumbcraft never exports PDF, and the real crate drags in krilla (see docs/UPSTREAM-CHANGES.md)"
 edition = "2024"
 license = "Apache-2.0"

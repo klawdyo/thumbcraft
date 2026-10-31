@@ -1,8 +1,8 @@
 diff --git a/ATTRIBUTION.md b/ATTRIBUTION.md
-index 36678d8..b4ae0e2 100644
+index c93a948..9e6d6e1 100644
 --- a/ATTRIBUTION.md
 +++ b/ATTRIBUTION.md
-@@ -42,3 +42,18 @@ Generated-in-code art is original and has no file to list: the UI icon set (`cra
+@@ -46,3 +46,18 @@ Generated-in-code art is original and has no file to list: the UI icon set (`cra
  | `docs/images/pivot.png` | GridCraft contributors | screenshot of GridCraft rendered offscreen (`crates/ui-egui/examples/snapshot.rs`) showing an original sample workbook | MIT OR Apache-2.0 | README screenshot; no third-party content |
  | `docs/images/format-chart.png` | GridCraft contributors | screenshot of GridCraft rendered offscreen (`crates/ui-egui/examples/snapshot.rs`) showing an original sample workbook | MIT OR Apache-2.0 | README screenshot; no third-party content |
  | `docs/images/page-break.png` | GridCraft contributors | screenshot of GridCraft rendered offscreen (`crates/ui-egui/examples/snapshot.rs`) showing an original sample workbook | MIT OR Apache-2.0 | README screenshot; no third-party content |
@@ -22,53 +22,56 @@ index 36678d8..b4ae0e2 100644
 +| `crates/raster/fonts/OFL-tinos.txt` | (licence text) | tinos | SIL OFL 1.1 | |
 +| `crates/raster/fonts/OFL-cousine.txt` | (licence text) | cousine | SIL OFL 1.1 | |
 diff --git a/Cargo.lock b/Cargo.lock
-index 17ebf84..dbad89a 100644
+index 5da7c78..6d676d5 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -1105,11 +1105,11 @@ dependencies = [
+@@ -220,7 +220,7 @@ dependencies = [
+  "objc2-foundation 0.3.2",
+  "parking_lot",
+  "percent-encoding",
+- "windows-sys 0.59.0",
++ "windows-sys 0.61.2",
+  "wl-clipboard-rs",
+  "x11rb",
+ ]
+@@ -942,7 +942,7 @@ dependencies = [
+  "objc2 0.6.5",
+  "objc2-app-kit 0.3.2",
+  "objc2-foundation 0.3.2",
+- "skrifa",
++ "skrifa 0.44.0",
+  "wasm-bindgen",
+  "wasm-bindgen-futures",
+  "web-sys",
+@@ -1430,7 +1430,7 @@ dependencies = [
   "parking_lot",
   "profiling",
   "self_cell",
 - "skrifa",
 + "skrifa 0.44.0",
   "smallvec",
+  "unicode-bidi",
   "unicode-general-category",
-  "unicode-segmentation",
-- "vello_cpu",
-+ "vello_cpu 0.1.0",
+@@ -1457,7 +1457,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb"
+ dependencies = [
+  "libc",
+- "windows-sys 0.59.0",
++ "windows-sys 0.61.2",
  ]
  
  [[package]]
-@@ -1397,9 +1397,26 @@ dependencies = [
+@@ -1838,7 +1838,8 @@ dependencies = [
   "hashbrown 0.17.1",
   "log",
   "peniko",
 - "skrifa",
-+ "skrifa 0.44.0",
-  "smallvec",
-- "vello_common",
-+ "vello_common 0.1.0",
-+]
-+
-+[[package]]
-+name = "glifo"
-+version = "0.3.0"
-+source = "registry+https://github.com/rust-lang/crates.io-index"
-+checksum = "282a26c1e23de04bdab3e34a21b6f877a479b96737792516b9b8b8f69b6661be"
-+dependencies = [
-+ "bytemuck",
-+ "foldhash 0.2.0",
-+ "hashbrown 0.17.1",
-+ "log",
-+ "peniko",
 + "png",
 + "skrifa 0.44.0",
-+ "smallvec",
-+ "vello_common 0.2.0",
+  "smallvec",
+  "vello_common",
  ]
- 
- [[package]]
-@@ -1573,6 +1590,7 @@ dependencies = [
+@@ -2020,6 +2021,7 @@ dependencies = [
   "gridcraft-model",
   "gridcraft-numfmt",
   "gridcraft-pdf",
@@ -76,23 +79,23 @@ index 17ebf84..dbad89a 100644
   "gridcraft-xlsx",
   "image",
   "log",
-@@ -1631,6 +1649,15 @@ dependencies = [
+@@ -2079,6 +2081,15 @@ dependencies = [
  name = "gridcraft-pdf"
- version = "0.8.0"
+ version = "0.14.2"
  
 +[[package]]
 +name = "gridcraft-raster"
-+version = "0.8.0"
++version = "0.14.2"
 +dependencies = [
 + "gridcraft-pdf",
 + "skrifa 0.47.0",
-+ "vello_cpu 0.2.0",
++ "vello_cpu",
 +]
 +
  [[package]]
  name = "gridcraft-ui-egui"
- version = "0.8.0"
-@@ -1646,7 +1673,7 @@ dependencies = [
+ version = "0.14.2"
+@@ -2096,7 +2107,7 @@ dependencies = [
   "log",
   "serde",
   "serde_json",
@@ -101,7 +104,7 @@ index 17ebf84..dbad89a 100644
   "sys-locale",
   "toml",
   "web-sys",
-@@ -1714,7 +1741,7 @@ checksum = "c03d949a14aa089bbb282f7dd76a498a7f684428e4257202efc119ec010376f9"
+@@ -2185,7 +2196,7 @@ checksum = "c03d949a14aa089bbb282f7dd76a498a7f684428e4257202efc119ec010376f9"
  dependencies = [
   "bitflags 2.13.2",
   "bytemuck",
@@ -110,7 +113,25 @@ index 17ebf84..dbad89a 100644
   "smallvec",
  ]
  
-@@ -2938,6 +2965,17 @@ dependencies = [
+@@ -3462,7 +3473,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "7d8fae84b431384b68627d0f9b3b1245fcf9f46f6c0e3dc902e9dce64edd1967"
+ dependencies = [
+  "libc",
+- "windows-sys 0.59.0",
++ "windows-sys 0.61.2",
+ ]
+ 
+ [[package]]
+@@ -3876,7 +3887,7 @@ dependencies = [
+  "once_cell",
+  "socket2",
+  "tracing",
+- "windows-sys 0.59.0",
++ "windows-sys 0.61.2",
+ ]
+ 
+ [[package]]
+@@ -3987,6 +3998,17 @@ dependencies = [
   "once_cell",
  ]
  
@@ -128,7 +149,25 @@ index 17ebf84..dbad89a 100644
  [[package]]
  name = "redox_syscall"
  version = "0.4.1"
-@@ -3249,7 +3287,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+@@ -4186,7 +4208,7 @@ dependencies = [
+  "errno",
+  "libc",
+  "linux-raw-sys 0.12.1",
+- "windows-sys 0.59.0",
++ "windows-sys 0.61.2",
+ ]
+ 
+ [[package]]
+@@ -4245,7 +4267,7 @@ dependencies = [
+  "security-framework",
+  "security-framework-sys",
+  "webpki-root-certs",
+- "windows-sys 0.59.0",
++ "windows-sys 0.61.2",
+ ]
+ 
+ [[package]]
+@@ -4709,7 +4731,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "819ab7d62b1d3e72d9d9dea5650bac30424f9111364bb94928dbf5ecad1baa68"
  dependencies = [
   "bytemuck",
@@ -147,92 +186,79 @@ index 17ebf84..dbad89a 100644
  ]
  
  [[package]]
-@@ -3646,6 +3694,22 @@ dependencies = [
-  "thiserror 2.0.21",
+@@ -4979,7 +5011,7 @@ dependencies = [
+  "getrandom 0.4.3",
+  "once_cell",
+  "rustix 1.1.5",
+- "windows-sys 0.59.0",
++ "windows-sys 0.61.2",
  ]
  
-+[[package]]
-+name = "vello_common"
-+version = "0.2.0"
-+source = "registry+https://github.com/rust-lang/crates.io-index"
-+checksum = "bbb2141a2bca6e6d598e471fd4d1d7eed8e020aad6a28187edda07f091a325dd"
-+dependencies = [
-+ "bytemuck",
-+ "fearless_simd",
-+ "guillotiere",
-+ "log",
-+ "peniko",
-+ "png",
-+ "smallvec",
-+ "thiserror 2.0.21",
-+]
-+
  [[package]]
- name = "vello_cpu"
- version = "0.1.0"
-@@ -3653,9 +3717,22 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
- checksum = "ac7349e1f55f6b801c7c277958df4ea53e7f20f21e8014910ad888b2ecda93ea"
- dependencies = [
-  "bytemuck",
-- "glifo",
-+ "glifo 0.2.0",
-  "hashbrown 0.17.1",
-- "vello_common",
-+ "vello_common 0.1.0",
-+]
-+
-+[[package]]
-+name = "vello_cpu"
-+version = "0.2.0"
-+source = "registry+https://github.com/rust-lang/crates.io-index"
-+checksum = "ace506ca414548966fcf3c283be94eb1cad8254de488791ee698bf438b0890a9"
-+dependencies = [
-+ "bytemuck",
-+ "glifo 0.3.0",
-+ "hashbrown 0.17.1",
+@@ -5457,6 +5489,7 @@ dependencies = [
+  "guillotiere",
+  "log",
+  "peniko",
 + "png",
-+ "vello_common 0.2.0",
+  "smallvec",
+  "thiserror 2.0.21",
+ ]
+@@ -5470,6 +5503,7 @@ dependencies = [
+  "bytemuck",
+  "glifo",
+  "hashbrown 0.17.1",
++ "png",
+  "vello_common",
+ ]
+ 
+@@ -5938,7 +5972,7 @@ version = "0.1.11"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "c2a7b1c03c876122aa43f3020e6c3c3ee5c05081c9a00739faf7503aeba10d22"
+ dependencies = [
+- "windows-sys 0.59.0",
++ "windows-sys 0.61.2",
  ]
  
  [[package]]
 diff --git a/Cargo.toml b/Cargo.toml
-index a967b99..8ca89b0 100644
+index a433129..c469bef 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -24,6 +24,7 @@ gridcraft-engine = { path = "crates/engine" }
- gridcraft-ui-egui = { path = "crates/ui-egui" }
- gridcraft-mcp = { path = "crates/mcp" }
- gridcraft-pdf = { path = "crates/pdf" }
+@@ -28,6 +28,7 @@ gridcraft-pdf = { path = "crates/pdf" }
+ # the app) comes from one storytold/craft-libs revision.
+ # craft-update: app-specific pretend versions apply to startup and manual checks.
+ craft-update = { git = "https://github.com/storytold/craft-libs", rev = "c5a1cbfb5f9049f9270955caffb5bee5997aebf7", version = "=0.1.0", features = ["egui"] }
 +gridcraft-raster = { path = "crates/raster" }
  
  # foundation
  thiserror = "2"
 diff --git a/NOTICE b/NOTICE
-index 1e3668b..1428325 100644
+index 78c72b9..b304b91 100644
 --- a/NOTICE
 +++ b/NOTICE
-@@ -12,5 +12,5 @@ Third-party material
+@@ -12,6 +12,7 @@ Third-party material
  This product bundles third-party material under its own licenses, listed below. The per-file
  list (author, source, license) is in ATTRIBUTION.md.
  
--None: every bundled asset is original to GridCraft. Builds made with craft-fonts
-+The PNG export (crates/raster/fonts) embeds subsets of Arimo, Tinos and Cousine (Copyright The Arimo/Tinos/Cousine Project Authors), under the SIL Open Font License 1.1 (OFL-*.txt beside the fonts). Every other bundled asset is original to GridCraft. Builds made with craft-fonts
- (CRAFT_FONTS_DIR) embed the fonts listed in ATTRIBUTION.md under the SIL Open Font License 1.1.
++The PNG export (crates/raster/fonts) embeds subsets of Arimo, Tinos and Cousine (Copyright The Arimo/Tinos/Cousine Project Authors), under the SIL Open Font License 1.1 (OFL-*.txt beside the fonts).
+ GridCraft's original assets and the UI's bundled egui font inputs are listed in ATTRIBUTION.md.
+ Builds made with craft-fonts (CRAFT_FONTS_DIR) also embed the fonts listed there under the SIL Open
+ Font License 1.1.
 diff --git a/apps/gridcraft-cli/src/main.rs b/apps/gridcraft-cli/src/main.rs
-index 152ddbc..cd68f71 100644
+index 5170ba0..a06c791 100644
 --- a/apps/gridcraft-cli/src/main.rs
 +++ b/apps/gridcraft-cli/src/main.rs
 @@ -36,7 +36,8 @@ use serde_json::{Value, json};
  
  const USAGE: &str = "usage:
    gridcraft-cli info <file> [--json]                      sheets, used ranges, tables, charts, names
--  gridcraft-cli convert <in> <out> [--sheet NAME]         xlsx/csv/tsv/json/html by extension
-+  gridcraft-cli convert <in> <out> [--sheet NAME]         xlsx/csv/tsv/json/html/png by extension
+-  gridcraft-cli convert <in> <out> [--sheet NAME]         xlsx/csv/tsv/json/html/pdf by extension
++  gridcraft-cli convert <in> <out> [--sheet NAME]         xlsx/csv/tsv/json/html/pdf/png by extension
 +                     [--range A1:F40] [--page N] [--scale S] [--fit]   (png only: one printed page)
    gridcraft-cli eval <formula> [--in FILE] [--sheet S] [--cell A1] [--json]
    gridcraft-cli cat <file> [--range A1:D20] [--sheet S] [--formulas] [--csv]
    gridcraft-cli check <file-or-dir>... [--json] [--tolerance 1e-9] [--max-report N]
-@@ -267,12 +268,15 @@ fn info(args: &[String]) -> Result<(), String> {
+@@ -280,13 +281,16 @@ fn info(args: &[String]) -> Result<(), String> {
  }
  
  fn convert(args: &[String]) -> Result<(), String> {
@@ -244,13 +270,14 @@ index 152ddbc..cd68f71 100644
 +    if out.to_ascii_lowercase().ends_with(".png") {
 +        return convert_png(&a, input, out);
 +    }
-     if gridcraft_engine::io::FileKind::from_path(out).is_none() {
--        return Err(format!("{out}: unknown output format (use .xlsx, .csv, .tsv, .json or .html)"));
-+        return Err(format!("{out}: unknown output format (use .xlsx, .csv, .tsv, .json, .html or .png)"));
+     let pdf = out.to_ascii_lowercase().ends_with(".pdf");
+     if !pdf && gridcraft_engine::io::FileKind::from_path(out).is_none() {
+-        return Err(format!("{out}: unknown output format (use .xlsx, .csv, .tsv, .json, .html or .pdf)"));
++        return Err(format!("{out}: unknown output format (use .xlsx, .csv, .tsv, .json, .html, .pdf or .png)"));
      }
      let mut s = open(input)?;
      activate_sheet(&mut s, a.opt("sheet"))?;
-@@ -283,6 +287,27 @@ fn convert(args: &[String]) -> Result<(), String> {
+@@ -302,6 +306,27 @@ fn convert(args: &[String]) -> Result<(), String> {
      Ok(())
  }
  
@@ -279,10 +306,10 @@ index 152ddbc..cd68f71 100644
      let a = Args::parse(args, &["in", "sheet", "cell"], &["json"])?;
      let formula = a.pos(0, "<formula>")?;
 diff --git a/crates/engine/Cargo.toml b/crates/engine/Cargo.toml
-index e8ea91c..2600d4d 100644
+index 1de94c6..d449ef2 100644
 --- a/crates/engine/Cargo.toml
 +++ b/crates/engine/Cargo.toml
-@@ -22,6 +22,7 @@ log = { workspace = true }
+@@ -23,6 +23,7 @@ log = { workspace = true }
  gridcraft-xlsx = { workspace = true }
  gridcraft-chart = { workspace = true }
  gridcraft-pdf = { workspace = true }
@@ -291,7 +318,7 @@ index e8ea91c..2600d4d 100644
  
  [dev-dependencies]
 diff --git a/crates/engine/src/catalog.rs b/crates/engine/src/catalog.rs
-index d6b67e1..394b92c 100644
+index 45455e0..79b2826 100644
 --- a/crates/engine/src/catalog.rs
 +++ b/crates/engine/src/catalog.rs
 @@ -12,6 +12,7 @@ pub const CATALOG: &[(&str, &str, &str, &str)] = &[
@@ -303,20 +330,29 @@ index d6b67e1..394b92c 100644
      ("file.exportHtml", "File", "Export", "Web Page"),
      ("file.properties", "File", "Info", "Properties"),
 diff --git a/crates/engine/src/cmd/print.rs b/crates/engine/src/cmd/print.rs
-index 8350e56..7c474b3 100644
+index cda52f3..e11dc30 100644
 --- a/crates/engine/src/cmd/print.rs
 +++ b/crates/engine/src/cmd/print.rs
-@@ -11,7 +11,8 @@
- 
- use gridcraft_core::{CellRef, MAX_COLS, MAX_ROWS, RangeRef, Value};
- use gridcraft_model::*;
--use gridcraft_pdf::{Font, Page, PdfDoc, Rgb};
-+use gridcraft_pdf::{Font, PdfDoc, Rec, Rgb, replay};
+@@ -16,7 +16,8 @@ use gridcraft_model::{
+     Anchor, BorderLine, BorderStyle, Borders, Color, HAlign, Orientation, PatternType, PrintSettings, ShapeKind, Sheet, Style, StyleId, StyleTable,
+     Underline, VAlign, Visibility, Workbook,
+ };
+-use gridcraft_pdf::{Font, Page, PdfDoc, Point, Rect, Rgb};
++use gridcraft_pdf::{Font, PdfDoc, Point, Rec, Rect, Rgb, replay};
 +use gridcraft_raster::render_png;
  use serde_json::{Value as Json, json};
  
- use super::*;
-@@ -27,6 +28,15 @@ pub fn specs() -> Vec<CommandSpec> {
+ use super::{CommandSpec, Result, Session, bad, bool_param, cmd, edit, f64_param, has_doc, split_sheet, str_param, target_sheet, u32_param};
+@@ -27,7 +28,7 @@ mod layout;
+ mod objects;
+ mod text;
+ 
+-use draw::{Block, PrintedBlock, draw_block, draw_block_links, draw_headings, make_block, printed_target};
++use draw::{Block, PendingPdfLink, PrintedBlock, draw_block, draw_block_links, draw_headings, make_block, printed_target};
+ use header_footer::draw_header_footer;
+ pub use header_footer::{
+     HF_FIELDS, HfContext, HfSection, codes_to_fields, expand_header_footer, fields_to_codes, hf_date_time, join_header_footer, split_header_footer,
+@@ -55,6 +56,15 @@ pub fn specs() -> Vec<CommandSpec> {
              has_doc,
              export_pdf
          ),
@@ -332,113 +368,54 @@ index 8350e56..7c474b3 100644
          cmd!(
              noundo "file.print",
              "Print…",
-@@ -707,7 +717,7 @@ impl Xf {
- }
- 
- /// Draws chart primitives onto a page.
--fn draw_prims(pg: &mut Page, prims: &[gridcraft_chart::Prim], xf: Xf) {
-+fn draw_prims(pg: &mut Rec, prims: &[gridcraft_chart::Prim], xf: Xf) {
-     use gridcraft_chart::{HAlign as H, Prim, VAlign as V};
-     let k = xf.k;
-     for p in prims {
-@@ -857,7 +867,7 @@ fn border_dash(style: BorderStyle, k: f32) -> Vec<f32> {
-     }
- }
- 
--fn draw_border(pg: &mut Page, b: &BorderLine, wb: &Workbook, x0: f32, y0: f32, x1: f32, y1: f32, k: f32) {
-+fn draw_border(pg: &mut Rec, b: &BorderLine, wb: &Workbook, x0: f32, y0: f32, x1: f32, y1: f32, k: f32) {
-     if b.is_none() {
-         return;
-     }
-@@ -879,7 +889,7 @@ fn font_for(style: &Style) -> Font {
- }
- 
- /// Draws the cells of a block: fills, gridlines, data bars, borders and text.
--fn draw_block(pg: &mut Page, b: &Block, gridlines: bool, cf: &mut Option<crate::cf::CfCache>) {
-+fn draw_block(pg: &mut Rec, b: &Block, gridlines: bool, cf: &mut Option<crate::cf::CfCache>) {
-     let (bx, by) = (b.xs.first().copied().unwrap_or(0.0), b.ys.first().copied().unwrap_or(0.0));
-     let (bw, bh) = (b.xs.last().copied().unwrap_or(bx) - bx, b.ys.last().copied().unwrap_or(by) - by);
-     if bw <= 0.0 || bh <= 0.0 {
-@@ -1001,7 +1011,7 @@ fn draw_block(pg: &mut Page, b: &Block, gridlines: bool, cf: &mut Option<crate::
- }
- 
- /// Cell pictures fit the current cell (or merged-cell) rectangle without changing aspect ratio.
--fn draw_cell_picture(pg: &mut Page, data: &[u8], rect: (f32, f32, f32, f32), k: f32) {
-+fn draw_cell_picture(pg: &mut Rec, data: &[u8], rect: (f32, f32, f32, f32), k: f32) {
-     let (x, y, w, h) = rect;
-     let pad = 2.0 * k;
-     let (w, h) = ((w - 2.0 * pad).max(0.0), (h - 2.0 * pad).max(0.0));
-@@ -1046,7 +1056,7 @@ fn center_across_width(styles: &StyleTable, sh: &Sheet, c: CellRef, merges: &[Ra
-     ext
- }
- 
--fn draw_text(pg: &mut Page, b: &Block, c: CellRef, l: &Look, rect: (f32, f32, f32, f32), merged: bool, merges: &[RangeRef], limits: (f32, f32)) {
-+fn draw_text(pg: &mut Rec, b: &Block, c: CellRef, l: &Look, rect: (f32, f32, f32, f32), merged: bool, merges: &[RangeRef], limits: (f32, f32)) {
-     let (x, y, w, h) = rect;
-     let sh = b.sh;
-     let wb = b.wb;
-@@ -1247,7 +1257,7 @@ fn decode_image(data: &[u8], max_w: u32, max_h: u32) -> Option<(Vec<u8>, u32, u3
- }
- 
- /// Draws charts, pictures, shapes and sparklines overlapping the body block of a page.
--fn draw_objects(pg: &mut Page, wb: &Workbook, si: usize, sh: &Sheet, b: &Block) {
-+fn draw_objects(pg: &mut Rec, wb: &Workbook, si: usize, sh: &Sheet, b: &Block) {
-     let block = b.range();
-     let (sx0, sy0) = (sh.col_left(block.start.col), sh.row_top(block.start.row));
-     let (sx1, sy1) = (sh.col_left(block.end.col.saturating_add(1)), sh.row_top(block.end.row.saturating_add(1)));
-@@ -1357,7 +1367,7 @@ fn draw_objects(pg: &mut Page, wb: &Workbook, si: usize, sh: &Sheet, b: &Block)
-     pg.restore();
- }
- 
--fn draw_headings(pg: &mut Page, b: &Block, col_heads: bool, row_heads: bool, at: (f32, f32), size: (f32, f32)) {
-+fn draw_headings(pg: &mut Rec, b: &Block, col_heads: bool, row_heads: bool, at: (f32, f32), size: (f32, f32)) {
-     let fill = [0xF2, 0xF2, 0xF2];
-     let line = [0xA0, 0xA0, 0xA0];
-     let fsize = 9.0 * b.scale.max(0.1);
-@@ -1392,7 +1402,7 @@ fn draw_headings(pg: &mut Page, b: &Block, col_heads: bool, row_heads: bool, at:
-     }
- }
- 
--fn draw_header_footer(pg: &mut Page, lay: &SheetLayout, which: gridcraft_model::HfPage, cx: &HfContext) {
-+fn draw_header_footer(pg: &mut Rec, lay: &SheetLayout, which: gridcraft_model::HfPage, cx: &HfContext) {
-     let [l, r, _, _, hm, fm] = lay.margins;
-     let pw = lay.page_w;
-     let ph = lay.page_h;
-@@ -1459,11 +1469,11 @@ fn seg_size(sh: &Sheet, seg: (u32, u32), rows: bool) -> f32 {
-     if rows { (seg.0..=seg.1).map(|r| sh.row_height(r)).sum() } else { (seg.0..=seg.1).map(|c| sh.col_width(c)).sum() }
- }
+@@ -90,11 +100,20 @@ pub(crate) const PX_TO_PT: f32 = 0.75;
+ /// Most pages one export produces.
+ pub const MAX_PAGES: usize = 2000;
  
 -/// Renders laid-out sheets to a PDF.
 -pub fn render_pdf(wb: &Workbook, layouts: &[SheetLayout], file: &str, path: &str) -> (Vec<u8>, usize) {
 -    let mut doc = PdfDoc::new();
 -    doc.info.title = if wb.props.title.is_empty() { file.to_string() } else { wb.props.title.clone() };
 -    doc.info.author = wb.props.author.clone();
-+/// The one drawing pass behind every print output: lays the pages of `layouts` out as backend
-+/// neutral display lists (`Rec`), one per page, with the text measured and
-+/// positioned and every style resolved. The PDF is a replay of these lists.
-+fn assemble_pages(wb: &Workbook, layouts: &[SheetLayout], file: &str, path: &str) -> Vec<Rec> {
++/// What the one drawing pass behind every print output produces.
++struct Assembled {
++    /// One backend-neutral display list per page, the text measured and positioned and every
++    /// style resolved.
++    pages: Vec<Rec>,
++    /// Links between printed pages, resolved once all pages exist (the PDF keeps them).
++    links: Vec<PendingPdfLink>,
++    blocks: Vec<PrintedBlock>,
++}
++
++/// Lays the pages of `layouts` out as display lists. The PDF is a replay of these lists and the PNG
++/// a rasterisation of one.
++fn assemble_pages(wb: &Workbook, layouts: &[SheetLayout], file: &str, path: &str) -> Assembled {
 +    let mut out = Vec::new();
      let total: usize = layouts.iter().map(|l| l.pages.len()).sum();
      let (date, time) = hf_date_time(wb);
      let mut page_no = 0usize;
-@@ -1481,7 +1491,8 @@ pub fn render_pdf(wb: &Workbook, layouts: &[SheetLayout], file: &str, path: &str
+@@ -117,8 +136,9 @@ pub fn render_pdf(wb: &Workbook, layouts: &[SheetLayout], file: &str, path: &str
              let content_h = (lay.heading_h + rsegs.iter().map(|s| seg_size(sh, *s, true)).sum::<f32>()) * k;
              let ox = lay.margins[0] + if lay.settings.center_h { ((aw - content_w) / 2.0).max(0.0) } else { 0.0 };
              let oy = lay.margins[2] + if lay.settings.center_v { ((ah - content_h) / 2.0).max(0.0) } else { 0.0 };
+-            let page_index = doc.page_count();
 -            let pg = doc.add_page(lay.page_w, lay.page_h);
++            let page_index = out.len();
 +            let mut rec = Rec::new(lay.page_w, lay.page_h);
 +            let pg = &mut rec;
              let mut y = oy + lay.heading_h * k;
              let mut body: Option<Block> = None;
              for (rsi, rs) in rsegs.iter().enumerate() {
-@@ -1517,8 +1528,20 @@ pub fn render_pdf(wb: &Workbook, layouts: &[SheetLayout], file: &str, path: &str
+@@ -156,10 +176,23 @@ pub fn render_pdf(wb: &Workbook, layouts: &[SheetLayout], file: &str, path: &str
                  time: time.clone(),
              };
              draw_header_footer(pg, lay, lay.settings.hf_page(pi == 0, page_no), &cx);
 +            out.push(rec);
          }
      }
-+    out
+-    for link in pending_links {
+-        if let Some((target_page, x, y)) = printed_target(wb, &printed_blocks, link.sheet, &link.target)
++    Assembled { pages: out, links: pending_links, blocks: printed_blocks }
 +}
 +
 +/// Renders laid-out sheets to a PDF (a replay of [`assemble_pages`]).
@@ -446,13 +423,16 @@ index 8350e56..7c474b3 100644
 +    let mut doc = PdfDoc::new();
 +    doc.info.title = if wb.props.title.is_empty() { file.to_string() } else { wb.props.title.clone() };
 +    doc.info.author = wb.props.author.clone();
-+    for rec in assemble_pages(wb, layouts, file, path) {
++    let Assembled { pages, links, blocks } = assemble_pages(wb, layouts, file, path);
++    for rec in &pages {
 +        replay(doc.add_page(rec.width, rec.height), &rec.ops);
 +    }
-     let n = doc.page_count();
-     (doc.finish(), n)
- }
-@@ -1544,6 +1567,38 @@ pub(crate) fn export_pdf(s: &mut Session, p: &Json) -> Result<Json> {
++    for link in links {
++        if let Some((target_page, x, y)) = printed_target(wb, &blocks, link.sheet, &link.target)
+             && let Some(page) = doc.page_mut(link.page)
+         {
+             let (lx, ly, w, h) = link.rect;
+@@ -191,6 +224,38 @@ pub(crate) fn export_pdf(s: &mut Session, p: &Json) -> Result<Json> {
      }
  }
  
@@ -473,7 +453,7 @@ index 8350e56..7c474b3 100644
 +    let lays = layouts(&d.wb, &opts);
 +    let pages: usize = lays.iter().map(|l| l.pages.len()).sum();
 +    let path = d.path.clone().unwrap_or_default();
-+    let Some(rec) = assemble_pages(&d.wb, &lays, &d.display_title(), &path).into_iter().nth(page - 1) else {
++    let Some(rec) = assemble_pages(&d.wb, &lays, &d.display_title(), &path).pages.into_iter().nth(page - 1) else {
 +        return Err(bad(CMD, format!("page {page} does not exist (the print has {pages})")));
 +    };
 +    let png = render_png(&rec, scale).map_err(|e| bad(CMD, e.to_string()))?;
@@ -491,41 +471,195 @@ index 8350e56..7c474b3 100644
  fn print(s: &mut Session, p: &Json) -> Result<Json> {
      let (bytes, pages) = build_pdf(s, p, "file.print")?;
      let mut out = json!({"pages": pages, "bytes": bytes.len(), "base64": crate::io::base64_encode(&bytes)});
-@@ -1764,6 +1819,30 @@ mod tests {
-         hay.windows(needle.len()).any(|w| w == needle.as_bytes())
-     }
+diff --git a/crates/engine/src/cmd/print/draw.rs b/crates/engine/src/cmd/print/draw.rs
+index 7a49b8e..fca8a16 100644
+--- a/crates/engine/src/cmd/print/draw.rs
++++ b/crates/engine/src/cmd/print/draw.rs
+@@ -2,7 +2,7 @@ use super::layout::{DENSE_BLOCK, SheetLayout};
+ use super::objects::draw_cell_picture;
+ use super::text::{TextPlacement, draw_text};
+ use super::{
+-    BorderLine, BorderStyle, Borders, CellRef, Color, Font, Page, PatternType, Point, RangeRef, Rgb, Sheet, Style, StyleId, Underline, Value,
++    BorderLine, BorderStyle, Borders, CellRef, Color, Font, PatternType, Point, RangeRef, Rec, Rgb, Sheet, Style, StyleId, Underline, Value,
+     Workbook, split_sheet,
+ };
  
-+    #[test]
-+    fn export_png_is_a_valid_page_and_leaves_the_pdf_alone() {
-+        let mut s = s();
-+        s.execute("cell.set", json!({"cell": "A1", "input": "Hello"})).unwrap();
-+        s.execute("cell.set", json!({"cell": "B2", "input": "=1+2"})).unwrap();
-+        s.execute("pageLayout.pageSetup", json!({"paper": "A4"})).unwrap();
-+        let pdf_before = pdf_of(&mut s, json!({})).0;
-+        let r = s.execute("file.exportPng", json!({"scale": 2})).unwrap();
-+        let png = crate::io::base64_decode(r["base64"].as_str().unwrap()).unwrap();
-+        assert_eq!(&png[..8], &[0x89, b'P', b'N', b'G', 0x0D, 0x0A, 0x1A, 0x0A]);
-+        // IHDR width and height: A4 (595.28 x 841.89 pt) at 2 px per point.
-+        let (w, h) = (u32::from_be_bytes([png[16], png[17], png[18], png[19]]), u32::from_be_bytes([png[20], png[21], png[22], png[23]]));
-+        assert_eq!((w, h), (1191, 1684));
-+        assert_eq!((r["width"].as_u64(), r["height"].as_u64(), r["pages"].as_u64(), r["page"].as_u64()), (Some(1191), Some(1684), Some(1), Some(1)));
-+        assert_eq!(s.execute("file.exportPng", json!({})).unwrap()["width"].as_u64(), Some(596));
-+        assert!(s.execute("file.exportPng", json!({"page": 2})).is_err());
-+        assert!(s.execute("file.exportPng", json!({"scale": 0})).is_err());
-+        assert!(s.execute("file.exportPng", json!({"range": "nope"})).is_err());
-+        assert!(s.execute("file.exportPng", json!({"sheets": "bogus"})).is_err());
-+        let fitted = s.execute("file.exportPng", json!({"range": "A1:B2", "fitToPage": true})).unwrap();
-+        assert_eq!(fitted["pages"].as_u64(), Some(1));
-+        assert_eq!(pdf_of(&mut s, json!({})).0, pdf_before);
-+    }
+@@ -101,7 +101,7 @@ impl Xf {
+ }
+ 
+ /// Draws chart primitives onto a page.
+-pub(super) fn draw_prims(pg: &mut Page, prims: &[gridcraft_chart::Prim], xf: Xf) {
++pub(super) fn draw_prims(pg: &mut Rec, prims: &[gridcraft_chart::Prim], xf: Xf) {
+     use gridcraft_chart::{HAlign as H, Prim, VAlign as V};
+     let k = xf.k;
+     for p in prims {
+@@ -210,7 +210,7 @@ fn border_dash(style: BorderStyle, k: f32) -> Vec<f32> {
+     }
+ }
+ 
+-fn draw_border(pg: &mut Page, b: &BorderLine, wb: &Workbook, start: Point, end: Point, k: f32) {
++fn draw_border(pg: &mut Rec, b: &BorderLine, wb: &Workbook, start: Point, end: Point, k: f32) {
+     if b.is_none() {
+         return;
+     }
+@@ -229,7 +229,7 @@ fn draw_border(pg: &mut Page, b: &BorderLine, wb: &Workbook, start: Point, end:
+ }
+ 
+ /// Draws the cells of a block: fills, gridlines, data bars, borders and text.
+-pub(super) fn draw_block(pg: &mut Page, b: &Block, gridlines: bool, cf: &mut Option<crate::cf::CfCache>) {
++pub(super) fn draw_block(pg: &mut Rec, b: &Block, gridlines: bool, cf: &mut Option<crate::cf::CfCache>) {
+     let (bx, by) = (b.xs.first().copied().unwrap_or(0.0), b.ys.first().copied().unwrap_or(0.0));
+     let (bw, bh) = (b.xs.last().copied().unwrap_or(bx) - bx, b.ys.last().copied().unwrap_or(by) - by);
+     if bw <= 0.0 || bh <= 0.0 {
+@@ -367,7 +367,7 @@ fn checkbox_state(l: &Look, v: &Value) -> Option<bool> {
+ }
+ 
+ /// A checkbox centred in the cell: white with a grey outline, or green with a white tick.
+-fn draw_checkbox(pg: &mut Page, (x, y, w, h): (f32, f32, f32, f32), k: f32, on: bool) {
++fn draw_checkbox(pg: &mut Rec, (x, y, w, h): (f32, f32, f32, f32), k: f32, on: bool) {
+     let s = (13.2 * k).min(w - 2.0 * k).min(h - 2.0 * k);
+     if s <= 0.0 {
+         return;
+@@ -404,7 +404,7 @@ pub(super) struct PrintedBlock {
+ /// PDF annotations are not affected by graphics clipping, so intersect each cell with its page
+ /// block before adding a clickable rectangle. A repeated print-title cell may appear on several
+ /// pages and receives one annotation on each of them.
+-pub(super) fn draw_block_links(pg: &mut Page, b: &Block, page: usize, pending: &mut Vec<PendingPdfLink>) {
++pub(super) fn draw_block_links(pg: &mut Rec, b: &Block, page: usize, pending: &mut Vec<PendingPdfLink>) {
+     let range = b.range();
+     let (Some(&bx), Some(&by), Some(&right), Some(&bottom)) = (b.xs.first(), b.ys.first(), b.xs.last(), b.ys.last()) else { return };
+     for (cell, link) in b.sh.hyperlinks.range(range.start..=range.end) {
+@@ -440,7 +440,7 @@ pub(super) fn printed_target(wb: &Workbook, blocks: &[PrintedBlock], source_shee
+     Some((block.page, x, y))
+ }
+ 
+-pub(super) fn draw_headings(pg: &mut Page, b: &Block, col_heads: bool, row_heads: bool, at: (f32, f32), size: (f32, f32)) {
++pub(super) fn draw_headings(pg: &mut Rec, b: &Block, col_heads: bool, row_heads: bool, at: (f32, f32), size: (f32, f32)) {
+     let fill = [0xF2, 0xF2, 0xF2];
+     let line = [0xA0, 0xA0, 0xA0];
+     let fsize = 9.0 * b.scale.max(0.1);
+diff --git a/crates/engine/src/cmd/print/header_footer.rs b/crates/engine/src/cmd/print/header_footer.rs
+index 0f973d7..ec7d278 100644
+--- a/crates/engine/src/cmd/print/header_footer.rs
++++ b/crates/engine/src/cmd/print/header_footer.rs
+@@ -1,5 +1,5 @@
+ use super::layout::SheetLayout;
+-use super::{Font, Page, Value, Workbook};
++use super::{Font, Rec, Value, Workbook};
+ 
+ /// Side margin of headers and footers, in points, when Align with Page Margins is off.
+ pub(super) const HF_FIXED_SIDE_MARGIN: f32 = 0.7 * 72.0;
+@@ -227,7 +227,7 @@ pub fn expand_header_footer(spec: &str, cx: &HfContext) -> [HfSection; 3] {
+     out
+ }
+ 
+-pub(super) fn draw_header_footer(pg: &mut Page, lay: &SheetLayout, which: gridcraft_model::HfPage, cx: &HfContext) {
++pub(super) fn draw_header_footer(pg: &mut Rec, lay: &SheetLayout, which: gridcraft_model::HfPage, cx: &HfContext) {
+     let [_, _, _, _, hm, fm] = lay.margins;
+     let (l, r) = lay.hf_sides();
+     let text_scale = lay.hf_text_scale();
+diff --git a/crates/engine/src/cmd/print/objects.rs b/crates/engine/src/cmd/print/objects.rs
+index d2128f9..520d861 100644
+--- a/crates/engine/src/cmd/print/objects.rs
++++ b/crates/engine/src/cmd/print/objects.rs
+@@ -1,9 +1,9 @@
+ use super::draw::{Block, PdfMeasure, Xf, draw_prims, rgb_of};
+ use super::text::wrap_lines;
+-use super::{Anchor, Font, Page, RangeRef, Rect, ShapeKind, Sheet, Value, Workbook};
++use super::{Anchor, Font, Rec, RangeRef, Rect, ShapeKind, Sheet, Value, Workbook};
+ 
+ /// Cell pictures fit the current cell (or merged-cell) rectangle without changing aspect ratio.
+-pub(super) fn draw_cell_picture(pg: &mut Page, data: &[u8], rect: (f32, f32, f32, f32), k: f32) {
++pub(super) fn draw_cell_picture(pg: &mut Rec, data: &[u8], rect: (f32, f32, f32, f32), k: f32) {
+     let (x, y, w, h) = rect;
+     let pad = 2.0 * k;
+     let (w, h) = ((w - 2.0 * pad).max(0.0), (h - 2.0 * pad).max(0.0));
+@@ -49,7 +49,7 @@ fn decode_image(data: &[u8], max_w: u32, max_h: u32) -> Option<(Vec<u8>, u32, u3
+ /// Draws charts, pictures, shapes and sparklines overlapping the body block of a page.
+ /// `pics` memoizes decoded pictures for the whole render (one page at a time draws each
+ /// picture again, but the decode happens once).
+-pub(super) fn draw_objects(pg: &mut Page, wb: &Workbook, si: usize, sh: &Sheet, b: &Block, pics: &mut super::PicCache) {
++pub(super) fn draw_objects(pg: &mut Rec, wb: &Workbook, si: usize, sh: &Sheet, b: &Block, pics: &mut super::PicCache) {
+     let block = b.range();
+     let (sx0, sy0) = (sh.col_left(block.start.col), sh.row_top(block.start.row));
+     let (sx1, sy1) = (sh.col_left(block.end.col.saturating_add(1)), sh.row_top(block.end.row.saturating_add(1)));
+@@ -94,7 +94,7 @@ pub(super) fn draw_objects(pg: &mut Page, wb: &Workbook, si: usize, sh: &Sheet,
+     pg.restore();
+ }
+ 
+-fn draw_sparklines(pg: &mut Page, wb: &Workbook, si: usize, sh: &Sheet, b: &Block, block: RangeRef) {
++fn draw_sparklines(pg: &mut Rec, wb: &Workbook, si: usize, sh: &Sheet, b: &Block, block: RangeRef) {
+     for sp in &sh.sparklines {
+         if !block.contains(sp.cell) {
+             continue;
+@@ -111,7 +111,7 @@ fn draw_sparklines(pg: &mut Page, wb: &Workbook, si: usize, sh: &Sheet, b: &Bloc
+     }
+ }
+ 
+-fn draw_shape(pg: &mut Page, wb: &Workbook, shp: &gridcraft_model::Shape, b: &Block, (x, y, w, h): (f32, f32, f32, f32)) {
++fn draw_shape(pg: &mut Rec, wb: &Workbook, shp: &gridcraft_model::Shape, b: &Block, (x, y, w, h): (f32, f32, f32, f32)) {
+     let fill = rgb_of(shp.fill, wb);
+     let line = rgb_of(shp.line, wb).filter(|_| !shp.format.no_line).map(|c| (c, (0.75 * b.k).max(0.25)));
+     match shp.kind {
+diff --git a/crates/engine/src/cmd/print/tests.rs b/crates/engine/src/cmd/print/tests.rs
+index 51760c4..e00cc32 100644
+--- a/crates/engine/src/cmd/print/tests.rs
++++ b/crates/engine/src/cmd/print/tests.rs
+@@ -16,6 +16,30 @@ fn contains(hay: &[u8], needle: &str) -> bool {
+     hay.windows(needle.len()).any(|w| w == needle.as_bytes())
+ }
+ 
++#[test]
++fn export_png_is_a_valid_page_and_leaves_the_pdf_alone() {
++    let mut s = s();
++    s.execute("cell.set", json!({"cell": "A1", "input": "Hello"})).unwrap();
++    s.execute("cell.set", json!({"cell": "B2", "input": "=1+2"})).unwrap();
++    s.execute("pageLayout.pageSetup", json!({"paper": "A4"})).unwrap();
++    let pdf_before = pdf_of(&mut s, json!({})).0;
++    let r = s.execute("file.exportPng", json!({"scale": 2})).unwrap();
++    let png = crate::io::base64_decode(r["base64"].as_str().unwrap()).unwrap();
++    assert_eq!(&png[..8], &[0x89, b'P', b'N', b'G', 0x0D, 0x0A, 0x1A, 0x0A]);
++    // IHDR width and height: A4 (595.28 x 841.89 pt) at 2 px per point.
++    let (w, h) = (u32::from_be_bytes([png[16], png[17], png[18], png[19]]), u32::from_be_bytes([png[20], png[21], png[22], png[23]]));
++    assert_eq!((w, h), (1191, 1684));
++    assert_eq!((r["width"].as_u64(), r["height"].as_u64(), r["pages"].as_u64(), r["page"].as_u64()), (Some(1191), Some(1684), Some(1), Some(1)));
++    assert_eq!(s.execute("file.exportPng", json!({})).unwrap()["width"].as_u64(), Some(596));
++    assert!(s.execute("file.exportPng", json!({"page": 2})).is_err());
++    assert!(s.execute("file.exportPng", json!({"scale": 0})).is_err());
++    assert!(s.execute("file.exportPng", json!({"range": "nope"})).is_err());
++    assert!(s.execute("file.exportPng", json!({"sheets": "bogus"})).is_err());
++    let fitted = s.execute("file.exportPng", json!({"range": "A1:B2", "fitToPage": true})).unwrap();
++    assert_eq!(fitted["pages"].as_u64(), Some(1));
++    assert_eq!(pdf_of(&mut s, json!({})).0, pdf_before);
++}
 +
-     #[test]
-     fn header_sections_split_join_and_field_names() {
-         let spec = "&L&\"Arial,Bold\"Sales &&Co&CPage &P of &N&R&D";
-diff --git a/crates/engine/tests/command_sequence_fuzz.rs b/crates/engine/tests/command_sequence_fuzz.rs
-index f8cb603..4d9f407 100644
---- a/crates/engine/tests/command_sequence_fuzz.rs
-+++ b/crates/engine/tests/command_sequence_fuzz.rs
+ #[test]
+ fn pdf_export_keeps_safe_links_on_their_printed_pages() {
+     let mut s = s();
+diff --git a/crates/engine/src/cmd/print/text.rs b/crates/engine/src/cmd/print/text.rs
+index 6f71699..6cc5875 100644
+--- a/crates/engine/src/cmd/print/text.rs
++++ b/crates/engine/src/cmd/print/text.rs
+@@ -1,5 +1,5 @@
+ use super::draw::{Block, Look, rgb_of};
+-use super::{CellRef, Color, Font, HAlign, MAX_COLS, Page, Point, RangeRef, Sheet, Style, StyleTable, Underline, VAlign, Value};
++use super::{CellRef, Color, Font, HAlign, MAX_COLS, Point, Rec, RangeRef, Sheet, Style, StyleTable, Underline, VAlign, Value};
+ 
+ const PAD_PX: f32 = 2.0;
+ 
+@@ -124,7 +124,7 @@ pub(super) struct TextPlacement<'a> {
+     pub limits: (f32, f32),
+ }
+ 
+-pub(super) fn draw_text(pg: &mut Page, b: &Block, placement: TextPlacement<'_>) {
++pub(super) fn draw_text(pg: &mut Rec, b: &Block, placement: TextPlacement<'_>) {
+     let TextPlacement { cell: c, look: l, rect, merged, merges, limits } = placement;
+     let (x, y, w, h) = rect;
+     let sh = b.sh;
+diff --git a/crates/engine/tests/it/command_sequence_fuzz.rs b/crates/engine/tests/it/command_sequence_fuzz.rs
+index 21a856c..5e22265 100644
+--- a/crates/engine/tests/it/command_sequence_fuzz.rs
++++ b/crates/engine/tests/it/command_sequence_fuzz.rs
 @@ -57,6 +57,7 @@ const EXCLUDED: &[(&str, &str)] = &[
      ("file.exportCsv", "writes files"),
      ("file.exportHtml", "writes files"),
@@ -533,13 +667,13 @@ index f8cb603..4d9f407 100644
 +    ("file.exportPng", "renders a PNG: slow, and may write files"),
      ("file.print", "renders a PDF: slow"),
      ("window.activate", "switches documents"),
-     ("view.newWindow", "opens another document"),
+     ("window.close", "closes the document under test"),
 diff --git a/crates/pdf/src/display.rs b/crates/pdf/src/display.rs
 new file mode 100644
-index 0000000..65b30e2
+index 0000000..2bc9e1c
 --- /dev/null
 +++ b/crates/pdf/src/display.rs
-@@ -0,0 +1,106 @@
+@@ -0,0 +1,120 @@
 +//! A backend-neutral display list of one page: the [`Op`] enum (the 13 drawing calls print layout
 +//! uses), the [`Rec`] recorder that collects them with the same method names as [`Page`], and
 +//! [`replay`], which writes them to a PDF page. Other backends (the PNG rasteriser) walk
@@ -550,9 +684,9 @@ index 0000000..65b30e2
 +//! coordinates drop the op; a non-positive extent or radius draws nothing; negative or NaN stroke
 +//! widths become 0; an invalid or all-zero dash means solid.
 +
-+use crate::{Font, Page, Rgb};
++use crate::{Font, Page, Point, Rect, Rgb};
 +
-+/// One drawing call, recorded: the 13 operations print layout uses on a page. Everything an op
++/// One drawing call, recorded: the 15 operations print layout uses on a page. Everything an op
 +/// carries is final (points, top-left origin, text already measured and positioned, colours and
 +/// fonts resolved), so a list is independent of the backend that replays it.
 +#[derive(Clone, Debug, PartialEq)]
@@ -570,6 +704,11 @@ index 0000000..65b30e2
 +    Text(f32, f32, f32, Font, Rgb, String),
 +    TextRotated(f32, f32, f32, Font, Rgb, String, f32),
 +    ImageRgba(f32, f32, f32, f32, Vec<u8>, u32, u32),
++    /// A clickable area for an external URI (x, y, w, h). Only the PDF keeps it.
++    LinkUri(f32, f32, f32, f32, String),
++    /// A clickable area (x, y, w, h) that jumps to a point on another page (index, x, y). Only
++    /// the PDF keeps it.
++    LinkPage(f32, f32, f32, f32, usize, f32, f32),
 +}
 +
 +/// A page of display list. Its methods mirror `gridcraft_pdf::Page`'s, so the drawing code reads
@@ -603,8 +742,8 @@ index 0000000..65b30e2
 +    pub fn stroke_line(&mut self, x0: f32, y0: f32, x1: f32, y1: f32, width: f32, color: Rgb) {
 +        self.ops.push(Op::StrokeLine(x0, y0, x1, y1, width, color));
 +    }
-+    pub fn stroke_line_dashed(&mut self, x0: f32, y0: f32, x1: f32, y1: f32, width: f32, color: Rgb, dash: &[f32]) {
-+        self.ops.push(Op::StrokeLineDashed(x0, y0, x1, y1, width, color, dash.to_vec()));
++    pub fn stroke_line_dashed(&mut self, start: Point, end: Point, width: f32, color: Rgb, dash: &[f32]) {
++        self.ops.push(Op::StrokeLineDashed(start.x, start.y, end.x, end.y, width, color, dash.to_vec()));
 +    }
 +    pub fn polyline(&mut self, pts: &[[f32; 2]], width: f32, color: Rgb, dash: &[f32]) {
 +        self.ops.push(Op::Polyline(pts.to_vec(), width, color, dash.to_vec()));
@@ -618,11 +757,18 @@ index 0000000..65b30e2
 +    pub fn text(&mut self, x: f32, y: f32, size: f32, font: Font, color: Rgb, text: &str) {
 +        self.ops.push(Op::Text(x, y, size, font, color, text.to_string()));
 +    }
-+    pub fn text_rotated(&mut self, x: f32, y: f32, size: f32, font: Font, color: Rgb, text: &str, angle: f32) {
-+        self.ops.push(Op::TextRotated(x, y, size, font, color, text.to_string(), angle));
++    pub fn text_rotated(&mut self, origin: Point, size: f32, font: Font, color: Rgb, text: &str, angle: f32) {
++        self.ops.push(Op::TextRotated(origin.x, origin.y, size, font, color, text.to_string(), angle));
 +    }
-+    pub fn image_rgba(&mut self, x: f32, y: f32, w: f32, h: f32, rgba: &[u8], pw: u32, ph: u32) {
-+        self.ops.push(Op::ImageRgba(x, y, w, h, rgba.to_vec(), pw, ph));
++    pub fn image_rgba(&mut self, destination: Rect, rgba: &[u8], pixel_size: [u32; 2]) {
++        let Rect { x, y, width, height } = destination;
++        self.ops.push(Op::ImageRgba(x, y, width, height, rgba.to_vec(), pixel_size[0], pixel_size[1]));
++    }
++    pub fn link_uri(&mut self, x: f32, y: f32, w: f32, h: f32, uri: &str) {
++        self.ops.push(Op::LinkUri(x, y, w, h, uri.to_string()));
++    }
++    pub fn link_page(&mut self, rect: Rect, page: usize, target: Point) {
++        self.ops.push(Op::LinkPage(rect.x, rect.y, rect.width, rect.height, page, target.x, target.y));
 +    }
 +}
 +
@@ -636,21 +782,23 @@ index 0000000..65b30e2
 +            Op::FillRect(x, y, w, h, c) => pg.fill_rect(*x, *y, *w, *h, *c),
 +            Op::RectStroke(x, y, w, h, lw, c) => pg.rect_stroke(*x, *y, *w, *h, *lw, *c),
 +            Op::StrokeLine(x0, y0, x1, y1, lw, c) => pg.stroke_line(*x0, *y0, *x1, *y1, *lw, *c),
-+            Op::StrokeLineDashed(x0, y0, x1, y1, lw, c, d) => pg.stroke_line_dashed(*x0, *y0, *x1, *y1, *lw, *c, d),
++            Op::StrokeLineDashed(x0, y0, x1, y1, lw, c, d) => pg.stroke_line_dashed(Point::new(*x0, *y0), Point::new(*x1, *y1), *lw, *c, d),
 +            Op::Polyline(pts, lw, c, d) => pg.polyline(pts, *lw, *c, d),
 +            Op::Polygon(pts, f, st) => pg.polygon(pts, *f, *st),
 +            Op::Circle(cx, cy, r, f, st) => pg.circle(*cx, *cy, *r, *f, *st),
 +            Op::Text(x, y, sz, f, c, t) => pg.text(*x, *y, *sz, *f, *c, t),
-+            Op::TextRotated(x, y, sz, f, c, t, a) => pg.text_rotated(*x, *y, *sz, *f, *c, t, *a),
-+            Op::ImageRgba(x, y, w, h, px, pw, ph) => pg.image_rgba(*x, *y, *w, *h, px, *pw, *ph),
++            Op::TextRotated(x, y, sz, f, c, t, a) => pg.text_rotated(Point::new(*x, *y), *sz, *f, *c, t, *a),
++            Op::ImageRgba(x, y, w, h, px, pw, ph) => pg.image_rgba(Rect::new(*x, *y, *w, *h), px, [*pw, *ph]),
++            Op::LinkUri(x, y, w, h, uri) => pg.link_uri(*x, *y, *w, *h, uri),
++            Op::LinkPage(x, y, w, h, page, tx, ty) => pg.link_page(Rect::new(*x, *y, *w, *h), *page, Point::new(*tx, *ty)),
 +        }
 +    }
 +}
 diff --git a/crates/pdf/src/lib.rs b/crates/pdf/src/lib.rs
-index b55f247..5172079 100644
+index 5270d43..be31612 100644
 --- a/crates/pdf/src/lib.rs
 +++ b/crates/pdf/src/lib.rs
-@@ -11,8 +11,11 @@
+@@ -13,8 +13,11 @@
  #![deny(clippy::unwrap_used, clippy::expect_used, clippy::panic, clippy::unimplemented, clippy::todo, clippy::unreachable)]
  #![forbid(unsafe_code)]
  
@@ -664,7 +812,7 @@ index b55f247..5172079 100644
  /// RGB colour, 0–255 per channel.
 diff --git a/crates/raster/Cargo.toml b/crates/raster/Cargo.toml
 new file mode 100644
-index 0000000..1658d05
+index 0000000..3ab47e2
 --- /dev/null
 +++ b/crates/raster/Cargo.toml
 @@ -0,0 +1,17 @@
@@ -684,7 +832,7 @@ index 0000000..1658d05
 +# feature (glyph runs) is off: glyphs are drawn as outlines.
 +vello_cpu = { version = "0.2", default-features = false, features = ["std", "png", "u8_pipeline"] }
 +# Not the workspace `skrifa` (0.44, pinned to egui's for the UI): the version the siblings use.
-+skrifa = { version = "0.47", default-features = false, features = ["std"] }
++skrifa = { version = "0.46", default-features = false, features = ["std"] }
 diff --git a/crates/raster/fonts/Arimo_400Regular.ttf b/crates/raster/fonts/Arimo_400Regular.ttf
 new file mode 100644
 index 0000000000000000000000000000000000000000..e291e444abeebb814c2e76ecf2816ff9518e8249
@@ -4333,10 +4481,10 @@ HcmV?d00001
 
 diff --git a/crates/raster/src/lib.rs b/crates/raster/src/lib.rs
 new file mode 100644
-index 0000000..d3ae088
+index 0000000..d75fa25
 --- /dev/null
 +++ b/crates/raster/src/lib.rs
-@@ -0,0 +1,314 @@
+@@ -0,0 +1,315 @@
 +//! GridCraft's PNG backend: rasterises a print display list ([`gridcraft_pdf::Rec`]) on the CPU.
 +//!
 +//! Pure Rust, no GPU and no system fonts: `vello_cpu` fills and strokes the paths, `skrifa` turns
@@ -4588,6 +4736,7 @@ index 0000000..d3ae088
 +            Op::Text(x, y, sz, f, c, t) => self.text(*x, *y, *sz, *f, *c, t, 0.0),
 +            Op::TextRotated(x, y, sz, f, c, t, a) => self.text(*x, *y, *sz, *f, *c, t, *a),
 +            Op::ImageRgba(x, y, w, h, px, pw, ph) => self.image(*x, *y, *w, *h, px, *pw, *ph),
++            Op::LinkUri(..) | Op::LinkPage(..) => {}
 +        }
 +    }
 +
@@ -4746,7 +4895,7 @@ index 0000000..14b7390
 +    if pen.pb.elements().is_empty() { None } else { Some(pen.pb) }
 +}
 diff --git a/docs/cli.md b/docs/cli.md
-index ec9578d..da440e7 100644
+index 7098fb3..9b36323 100644
 --- a/docs/cli.md
 +++ b/docs/cli.md
 @@ -23,7 +23,7 @@ cargo install --path apps/gridcraft-cli     # or: cargo run -p gridcraft-cli --
@@ -4755,19 +4904,19 @@ index ec9578d..da440e7 100644
  | `info <file> [--json]` | `gridcraft-cli info book.xlsx` — sheets, used ranges, cell counts, tables, charts, names. |
 -| `convert <in> <out> [--sheet NAME]` | `gridcraft-cli convert book.xlsx data.csv --sheet Sales` — output format from the extension: `.xlsx`, `.csv`, `.tsv`, `.json`, `.html`. |
 +| `convert <in> <out> [--sheet NAME]` | `gridcraft-cli convert book.xlsx data.csv --sheet Sales` — output format from the extension: `.xlsx`, `.csv`, `.tsv`, `.json`, `.html`, or `.png` (one printed page of the active sheet, laid out like the PDF export with the sheet's Page Setup: `--range R`, `--page N` (default 1), `--scale S` pixels per point (default 1), `--fit` to fit one page). |
- | `eval <formula> [--in FILE] [--sheet S] [--cell A1] [--json]` | `gridcraft-cli eval '=PMT(5%/12,360,-300000)'`; `gridcraft-cli eval '=SUM(B2:B9)' --in book.xlsx` |
+ | `eval <formula> [--in FILE] [--sheet S] [--cell A1] [--json]` | `gridcraft-cli eval '=PMT(5%/12,360,-300000)'`; `gridcraft-cli eval '=SUM(B2:B9)' --in book.xlsx` — formulas in English with `,` between arguments. A formula that couldn't be entered in a cell (it doesn't parse, or a function gets the wrong number of arguments) is an error saying why; an unknown function is `#NAME?`, as in Excel. |
  | `cat <file> [--range R] [--sheet S] [--formulas] [--csv]` | `gridcraft-cli cat book.xlsx --range A1:F20` — aligned table of displayed values. |
  | `check <file-or-dir>... [--json] [--tolerance 1e-9] [--max-report N]` | `gridcraft-cli check corpus/` — calc oracle and XLSX round-trip fidelity, see below. |
 diff --git a/docs/parity-checklist.md b/docs/parity-checklist.md
-index d218c81..ae2e2bc 100644
+index 71d75f6..18ffcab 100644
 --- a/docs/parity-checklist.md
 +++ b/docs/parity-checklist.md
 @@ -4,11 +4,11 @@
  
  Each entry is an Excel ribbon or menu command (feature names only). It counts as implemented when GridCraft registers a command with the same id. This measures breadth only; the overall assessment (depth, fidelity, effort) is in [target-app-parity.md](target-app-parity.md).
  
--**Overall: 274 / 290 commands implemented (94.5%).**
-+**Overall: 275 / 291 commands implemented (94.5%).**
+-**Overall: 276 / 292 commands implemented (94.5%).**
++**Overall: 277 / 293 commands implemented (94.5%).**
  
  | Tab | Implemented | Total | Parity |
  |---|---|---|---|
@@ -4794,7 +4943,7 @@ index d218c81..ae2e2bc 100644
  - `file.exportHtml` Web Page (Export)
  - `file.properties` Properties (Info)
 diff --git a/xtask/src/layers.rs b/xtask/src/layers.rs
-index 0d19907..cfde603 100644
+index cd3229e..a032f96 100644
 --- a/xtask/src/layers.rs
 +++ b/xtask/src/layers.rs
 @@ -29,6 +29,7 @@ pub const TABLE: &[(&str, Class)] = &[

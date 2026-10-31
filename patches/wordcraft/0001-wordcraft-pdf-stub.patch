@@ -1,5 +1,5 @@
 diff --git a/Cargo.toml b/Cargo.toml
-index 246f22e..8fc8c6e 100644
+index ecf431a..365c14d 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
 @@ -20,7 +20,7 @@ wordcraft-docx = { path = "crates/docx" }
@@ -11,3 +11,34 @@ index 246f22e..8fc8c6e 100644
  wordcraft-proof = { path = "crates/proof" }
  wordcraft-engine = { path = "crates/engine" }
  wordcraft-mcp = { path = "crates/mcp" }
+@@ -47,7 +47,7 @@ regex = { version = "1", default-features = false, features = ["std", "unicode",
+ regex-automata = { version = "0.4", default-features = false, features = ["std", "syntax", "meta", "nfa-pikevm", "unicode"] }
+ 
+ # text / rendering / formats
+-skrifa = "0.47"
++skrifa = "0.46"
+ harfrust = "0.13"
+ # WOFF / WOFF2 web fonts added by the user (#582): pure Rust (MIT); its brotli and zlib decoders
+ # (brotli-decompressor, flate2) are already in the tree.
+@@ -64,7 +64,7 @@ craft-update = { git = "https://github.com/storytold/craft-libs", version = "=0.
+ quick-xml = "0.41"
+ zip = { version = "3", default-features = false, features = ["deflate"] }
+ # zlib streams (compressed metafile pictures in `.doc` drawings); already in the lock as a dependency of other crates.
+-miniz_oxide = "0.9"
++miniz_oxide = "0.8"
+ cfb = "0.15"
+ # Legacy text encodings (GBK/GB18030, Big5, Shift_JIS, EUC-KR, single-byte code pages) for plain
+ # text and CSV recipient lists (#778): encoding_rs ((Apache-2.0 OR MIT) AND BSD-3-Clause) and its
+diff --git a/crates/proof/Cargo.toml b/crates/proof/Cargo.toml
+index 4c1a5b1..234684a 100644
+--- a/crates/proof/Cargo.toml
++++ b/crates/proof/Cargo.toml
+@@ -10,7 +10,7 @@ workspace = true
+ 
+ [dependencies]
+ log = { workspace = true }
+-miniz_oxide = "0.9"
++miniz_oxide = "0.8"
+ unicode-normalization = "0.1"
+ 
+ [dev-dependencies]

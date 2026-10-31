@@ -1,5 +1,5 @@
 diff --git a/Cargo.toml b/Cargo.toml
-index d97d842..449ac90 100644
+index d97d842..f1eb612 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
 @@ -91,7 +91,7 @@ version = "0.18.1"
@@ -7,7 +7,7 @@ index d97d842..449ac90 100644
  
  [dependencies.skrifa]
 -version = "0.44.0"
-+version = "0.47.0"
++version = "0.46.0"
  features = ["autohint_shaping"]
  default-features = false
  

@@ -23,15 +23,15 @@ DEST="$RAIZ/third_party"
 
 # nome|url|sha|data do commit (ISO 8601)
 PROJETOS=(
-  "wordcraft|https://github.com/storytold/wordcraft|117aea31a8e61bd3e306e9210800cdc42897e3c1|2026-10-19T03:08:47-04:00"
-  "gridcraft|https://github.com/storytold/gridcraft|66ce6be4743f4227047f76f56815520f824e6d81|2026-10-18T16:14:33-06:00"
-  "deckcraft|https://github.com/storytold/deckcraft|010941ec60f81f1eece31ec1ea83825c9a396217|2026-10-18T12:31:16-06:00"
-  "craft-libs|https://github.com/storytold/craft-libs|ae2f796b673f29cf3161f36eb6a8933f0a3fe028|2026-10-18T15:11:21-04:00"
+  "wordcraft|https://github.com/storytold/wordcraft|e6a5cd05f045e4caf25a28660bfeb622f25b5129|2026-10-31T16:03:07Z"
+  "gridcraft|https://github.com/storytold/gridcraft|67e39faeea1fa4b603cbab421a30737db2cef8d9|2026-10-31T14:17:29Z"
+  "deckcraft|https://github.com/storytold/deckcraft|a3fbf02952839c223df600dc33106a2dbc65be1b|2026-10-31T05:06:52Z"
+  "craft-libs|https://github.com/storytold/craft-libs|c39e435cc34417843793df240a0b38bac970179b|2026-10-31T05:04:55Z"
 )
 
 # Hash da árvore do GridCraft depois de aplicar patches/gridcraft/*.patch (git write-tree
 # de um índice temporário com `git add -A -f`). Prova que o patch reconstrói a cópia do PR.
-ARVORE_GRIDCRAFT="0b8e31e398afda27d6c1015cbbb79275edb20d7d"
+ARVORE_GRIDCRAFT="d07fc084349f6864c578564786dcf05c7a2cd4d3"
 
 erro() { echo "erro: $*" >&2; exit 1; }
 info() { echo "[fetch-upstream] $*"; }

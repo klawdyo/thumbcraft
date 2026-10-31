@@ -6,7 +6,7 @@
 //! `Cargo.toml` (`patches/wordcraft/`), registered in `docs/UPSTREAM-CHANGES.md`.
 
 use wordcraft_doc::Document;
-use wordcraft_layout::DocLayout;
+use wordcraft_layout::{DocLayout, NumeralMode};
 
 /// Same fields and defaults as the real `PdfOptions`; none of them has any effect here.
 #[derive(Clone, Debug)]
@@ -18,12 +18,14 @@ pub struct PdfOptions {
     pub include_markup: bool,
     pub comments: bool,
     pub compress: bool,
+    pub links: bool,
     pub paper: Option<(f32, f32)>,
+    pub numeral: NumeralMode,
 }
 
 impl Default for PdfOptions {
     fn default() -> Self {
-        PdfOptions { pages: None, title: None, author: None, tagged: true, include_markup: false, comments: false, compress: true, paper: None }
+        PdfOptions { pages: None, title: None, author: None, tagged: true, include_markup: false, comments: false, compress: true, links: true, paper: None, numeral: NumeralMode::Arabic }
     }
 }
 
@@ -66,8 +68,9 @@ mod tests {
     #[test]
     fn default_options_match_the_real_crate() {
         let o = PdfOptions::default();
-        assert!(o.tagged && o.compress);
+        assert!(o.tagged && o.compress && o.links);
         assert!(!o.include_markup && !o.comments);
         assert!(o.pages.is_none() && o.paper.is_none());
+        assert_eq!(o.numeral, NumeralMode::Arabic);
     }
 }
